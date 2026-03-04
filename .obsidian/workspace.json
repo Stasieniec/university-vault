@@ -23,12 +23,12 @@
             "state": {
               "type": "markdown",
               "state": {
-                "file": "Courses/IR/Book Notes/IR-PTR Ch1 - Introduction.md",
+                "file": "Courses/RL/Coding Assignments/RL-CA03 - Temporal Difference.md",
                 "mode": "source",
                 "source": false
               },
               "icon": "lucide-file",
-              "title": "IR-PTR Ch1 - Introduction"
+              "title": "RL-CA03 - Temporal Difference"
             }
           }
         ],
@@ -193,6 +193,16 @@
   },
   "active": "dae0ddafe63e9631",
   "lastOpenFiles": [
+    "Untitled.md",
+    "Courses/RL/Coding Assignments/RL-CA03 - Temporal Difference.md",
+    "Courses/RL/Exercises/RL-ES03 - Exercise Set Week 3.md",
+    "Courses/RL/Lectures/RL-L04 - Temporal Difference Learning.md",
+    "Courses/RL/Lectures/RL-L03 - Monte Carlo Methods.md",
+    "Courses/IR/Lectures/IR-L05 - Neural IR Intro & Reranking.md",
+    "Courses/IR/Lectures/IR-L04 - Evaluation.md",
+    "Courses/IR/Lectures/IR-L06 - Dense Retrieval.md",
+    "Courses/IR/Lectures/IR-L07 - Learned Sparse Retrieval.md",
+    "Courses/IR/Book Notes/IR-PTR Ch1 - Introduction.md",
     "Courses/IR/Lectures/IR-L03 - Retrieval Models.md",
     "Concepts/Regularization.md",
     "Concepts/RMSProp.md",
@@ -209,16 +219,6 @@
     "Concepts/Document Identifiers.md",
     "Concepts/Autoregressive Retrieval.md",
     "Concepts/COIL.md",
-    "Concepts/monoT5.md",
-    "Concepts/DocT5Query.md",
-    "Concepts/Stop Words.md",
-    "Concepts/Ordinary Least Squares.md",
-    "Concepts/Click Models.md",
-    "Concepts/Mean Squared Value Error.md",
-    "Concepts/Model of the Environment.md",
-    "Concepts/Reward Signal.md",
-    "Concepts/State Space.md",
-    "Concepts/Optimal Policy.md",
     "Assets",
     "Templates",
     "Concepts",
