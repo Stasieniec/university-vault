@@ -1,7 +1,7 @@
 ---
 type: concept
 aliases: [Transformers, Attention architecture, Transformer Model]
-course: [IR, RL]
+course: [IR, RL, RecSys]
 tags: [foundations, deep-learning, nlp, key-formula, exam-topic]
 status: complete
 ---
@@ -38,3 +38,8 @@ status: complete
 ## Appears In
 - [[IR-L05 - Neural IR Intro & Reranking]], [[IR-L06 - Dense Retrieval]]
 - [[RL-L08 - Deep RL Value-Based]]
+- [[RS-L01 - Course Overview & Introduction]]
+- [[RS-L02 - Evaluation Beyond Accuracy]]
+- [[RS-L03a - Sequential Recommendation Models]]
+- [[RS-L03b - From LLMs to LRMs]]
+- [[RS-L04 - Generative Recommendation]]

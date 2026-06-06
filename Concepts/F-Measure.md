@@ -1,7 +1,7 @@
 ---
 type: concept
 aliases: [F-Measure, F1-Score, F-score]
-course: [IR]
+course: [IR, RecSys]
 tags: [evaluation, key-formula, exam-topic]
 status: complete
 ---
@@ -39,3 +39,5 @@ $$F_1 = \frac{2PR}{P+R} = \frac{2}{\frac{1}{P} + \frac{1}{R}}$$
 ## Appears In
 
 - [[IR-L04 - Evaluation]]
+- [[RS-L02 - Evaluation Beyond Accuracy]]
+- [[RS-L03a - Sequential Recommendation Models]]

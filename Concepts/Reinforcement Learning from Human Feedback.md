@@ -1,7 +1,7 @@
 ---
 type: concept
 aliases: [RLHF]
-course: [IR, RL]
+course: [IR, RL, RecSys]
 tags: [policy-gradient, deep-rl, exam-topic]
 status: complete
 ---
@@ -99,3 +99,4 @@ Stage 3 — RL fine-tuning (PPO):
 
 - [[IR-L10 - Learning to Rank]]
 - [[IR-L13 - RL for Reasoning and Search]]
+- [[RS-L04 - Generative Recommendation]]

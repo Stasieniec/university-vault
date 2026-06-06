@@ -1,7 +1,7 @@
 ---
 type: concept
 aliases: [DSI, Differentiable Search Index]
-course: [IR]
+course: [IR, RecSys]
 tags: [neural-ir, generative-retrieval]
 status: complete
 ---
@@ -38,3 +38,4 @@ The choice of DocID is critical for performance:
 ## Appears In
 
 - [[IR-L08 - Generative Retrieval]]
+- [[RS-L04 - Generative Recommendation]]
