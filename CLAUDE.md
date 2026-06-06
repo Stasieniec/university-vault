@@ -1,7 +1,26 @@
-# Vault Instructions — For Bob (AI Assistant)
+# CLAUDE.md — Authoring Rulebook for this Vault
 
 > [!warning] Read this before touching any note in this vault.
 > These instructions govern how notes are created, updated, and maintained. Follow them strictly.
+
+---
+
+## 0. Working in this Vault with Claude Code
+
+- **Source materials** (lecture PDFs, textbooks) live **outside** the repo, under
+  `/home/stas/Desktop/University/<COURSE>/` — e.g. `RECSYS/`, `RL/`, `IR/`. The git repo
+  (`university-vault/`) holds only the notes plus `docs/` (specs, plans, tools).
+- **Reading sources:** use the **Read** tool. For PDFs, pass a page range
+  (`Read(path, pages="1-20")`, max 20 pages/request) — it renders the pages as images so you
+  can read text *and* figures. Read images directly the same way.
+- **Audit before you finish:** run `python3 docs/superpowers/tools/vault_audit.py`. It must end
+  `RESULT: PASS` (0 dangling links). It also reports orphans and frontmatter gaps. The audit
+  understands Obsidian table-cell alias syntax (`[[Target\|display]]`) and skips embeds.
+- **A sibling `../university-vault-site/` publishes this vault.** Filenames anchor wikilinks
+  *and* published URLs — **never rename a note that is kept.** When merging duplicates, keep the
+  survivor's filename and add the loser's name as an `alias` so existing links still resolve.
+- **`CLAUDE.md` and `docs/` are hidden** from Obsidian's file explorer via
+  `.obsidian/app.json` (`userIgnoreFilters`), so they don't clutter the graph.
 
 ---
 
@@ -34,6 +53,8 @@ This Obsidian vault is Stanisław's **single source of truth** for university co
 ---
 
 ## 3. Note Types & Templates
+
+Blank templates for every note type live in `Templates/`.
 
 ### 3.1 Course Overview (MOC — Map of Content)
 
@@ -262,9 +283,12 @@ Loop forever (for each episode):
 
 - **Always wikilink** concepts: `[[Monte Carlo Methods]]` not "Monte Carlo methods"
 - **Use aliases** where grammatically needed: `[[Monte Carlo Methods|MC methods]]`
+- **Inside table cells**, the alias pipe must be escaped: `[[Monte Carlo Methods\|MC]]`
 - **Link exercises to concepts** they test
 - **Link lectures to book chapters** they correspond to
 - **Back-link from concepts** to where they appear
+- **Never leave a dangling link.** If the target does not (yet) exist, either create it, point to
+  an existing note (add an alias there if needed), or write plain text instead of a `[[link]]`.
 
 ### 4.6 Tags
 
@@ -286,10 +310,13 @@ When creating notes for a topic, synthesize from **all available sources** in th
 3. **Exercise sets with answers** — test understanding, reveal what's important
 4. **Coding assignments** — practical implementation details
 
+When a course has **no textbook** (e.g. RecSys), the lecture notes carry the full load — there is
+no fallback, so process every slide and figure especially thoroughly.
+
 ### 5.2 Handling Images from Source PDFs
 
 **Do not skip images.** When a lecture slide or book page contains a figure:
-1. Use the `image` tool to analyze the image and extract its full content
+1. Use the **Read** tool to view the page/image (`Read(path, pages="N-M")` for PDFs) and extract its full content.
 2. Reproduce the content in the note:
    - **Diagrams/flowcharts** → Mermaid or ASCII art
    - **Plots/graphs** → Describe axes, trends, key values; redraw as ASCII if simple
@@ -301,48 +328,53 @@ When creating notes for a topic, synthesize from **all available sources** in th
 ### 5.3 Workflow Per Topic
 
 For each week/topic:
-1. Extract and read the lecture PDF
-2. Read corresponding book chapters
-3. Create/update **Concept notes** for each key concept introduced
-4. Create the **Lecture note** — referencing concepts via wikilinks
-5. Create the **Book chapter note** — adding depth beyond the lecture
-6. Create the **Exercise note** — full solutions with concept links
-7. Create the **Coding assignment note** — if one exists for that week
-8. Update the **Course Overview MOC** with links and status
+1. Read the lecture PDF (and the corresponding book chapters)
+2. Create/update **Concept notes** for each key concept introduced
+3. Create the **Lecture note** — referencing concepts via wikilinks
+4. Create the **Book chapter note** — adding depth beyond the lecture
+5. Create the **Exercise note** — full solutions with concept links
+6. Create the **Coding assignment note** — if one exists for that week
+7. Update the **Course Overview MOC** with links and status
 
 ---
 
-## 6. Sub-Agent Usage
+## 6. Sub-Agent Usage (Claude Code)
+
+Claude Code can parallelise note creation with the **`Agent`** tool (one subagent per task) or the
+**`Workflow`** tool (deterministic fan-out across many tasks). Use this for scale; keep
+synthesis and cross-referencing on the main agent.
 
 ### 6.1 When to Use Sub-Agents
 
-Sub-agents (via `sessions_spawn`) are useful for parallelizing note creation:
-- **Good:** Spawning a sub-agent to process a specific lecture PDF into a lecture note while the main agent works on a different lecture or book chapter
-- **Good:** Having a sub-agent extract and process all exercises from an exercise set PDF
-- **Good:** Delegating a standalone concept note that doesn't depend on other unfinished notes
+- **Good:** one subagent per lecture PDF → its lecture note, run in parallel across lectures.
+- **Good:** one subagent per standalone concept note (different files → no write conflicts).
+- **Good:** a read-only extraction pass over a long PDF or exercise set.
 
 ### 6.2 When NOT to Use Sub-Agents
 
-- **Concept notes that require cross-referencing** other concept notes being written simultaneously — do these sequentially to ensure consistency
-- **The Course Overview MOC** — this is the main agent's job since it links everything together
-- **Quality review passes** — main agent should review sub-agent output for consistency
-- **Small, quick notes** — overhead of spawning isn't worth it for a 5-minute note
+- **Concept notes that cross-reference each other** while both are being written — **freeze the
+  canonical concept names first** (decide every filename/alias up front), then fan out, so
+  wikilinks are consistent across notes. Without frozen names, parallel writers invent
+  inconsistent links.
+- **The Course Overview MOC** — the main agent owns it, since it links everything together.
+- **Quality review passes** — the main agent reviews subagent output for consistency.
+- **Small, quick notes** — the spawn overhead isn't worth it.
 
 ### 6.3 Sub-Agent Instructions
 
-When spawning a sub-agent for note creation, always include in the task:
-1. The exact note type and template to follow (copy relevant template section from this file)
-2. The source file path(s) to read
-3. The output file path
-4. Explicit instruction to **process all images** and not skip them
-5. The list of concept names to wikilink to (so links are consistent across notes)
-6. Reminder: **completeness over brevity** — the note must substitute the source material
+When dispatching a subagent for note creation, always include:
+1. The exact note type and template to follow (point to the file in `Templates/` or paste the section).
+2. The source file path(s) to read (PDFs via `Read(path, pages=...)`).
+3. The output file path.
+4. Explicit instruction to **process all images** and not skip them.
+5. The **frozen list of concept names** to wikilink to (so links are consistent and resolve).
+6. Reminder: **completeness over brevity** — the note must substitute the source material.
 
 ### 6.4 Post-Sub-Agent Checklist
 
-After a sub-agent delivers a note, the main agent must:
+After a subagent delivers a note, the main agent must:
 - [ ] Verify frontmatter is correct
-- [ ] Check all wikilinks point to existing or planned concept notes
+- [ ] Check all wikilinks resolve (run the audit script)
 - [ ] Ensure no images/figures were skipped
 - [ ] Confirm formulas render correctly
 - [ ] Add the note to the Course Overview MOC
@@ -351,12 +383,13 @@ After a sub-agent delivers a note, the main agent must:
 
 ## 7. Vault Maintenance Rules
 
-1. **Never delete content without asking** — mark with `#needs-review` instead
-2. **Keep note filenames stable** — changing filenames breaks wikilinks everywhere
-3. **Update the MOC** every time a new note is added
-4. **Concept notes are shared** — if editing a concept note, check it doesn't break context for another course
-5. **Status tracking** — every note must have a `status` field: `complete`, `draft`, or `stub`
-6. **No orphan notes** — every note must be linked from at least the Course Overview MOC
+1. **Never delete content without asking** — mark with `#needs-review` instead.
+2. **Keep note filenames stable** — changing filenames breaks wikilinks (and published URLs) everywhere.
+3. **Update the MOC** every time a new note is added.
+4. **Concept notes are shared** — if editing a concept note, check it doesn't break context for another course.
+5. **Status tracking** — every note must have a `status` field: `complete`, `draft`, or `stub`.
+6. **No orphan notes** — every note must be linked from at least the Course Overview MOC.
+7. **No dangling links** — run `docs/superpowers/tools/vault_audit.py`; it must end `RESULT: PASS`.
 
 ---
 
@@ -392,7 +425,8 @@ university-vault/
 ├── Concepts/                     ← flat, course-agnostic
 ├── Templates/                    ← note templates
 ├── Assets/                       ← images, diagrams
-└── VAULT-INSTRUCTIONS.md         ← this file
+├── docs/                         ← specs, plans, tooling (hidden from Obsidian)
+└── CLAUDE.md                     ← this file
 ```
 
 Naming conventions:
@@ -402,3 +436,6 @@ Naming conventions:
 - Homeworks: `RL-HW01 - Homework 1.md`
 - Coding assignments: `RL-CA01 - Dynamic Programming.md`
 - Concepts: `Monte Carlo Methods.md` (plain name, no course prefix)
+
+Course codes in use: **RL** (Reinforcement Learning), **IR** (Information Retrieval 1),
+**RS** (Recommender Systems).
