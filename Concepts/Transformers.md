@@ -36,5 +36,5 @@ status: complete
 - Replaced: LSTMs and GRUs in most NLP and [[Neural Reranking]] tasks.
 
 ## Appears In
-- [[IR-L05 - Neural IR 2]], [[IR-L06 - Neural IR 3]]
-- [[RL-L08 - Advanced RL]]
+- [[IR-L05 - Neural IR Intro & Reranking]], [[IR-L06 - Dense Retrieval]]
+- [[RL-L08 - Deep RL Value-Based]]

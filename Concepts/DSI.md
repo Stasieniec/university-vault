@@ -37,4 +37,4 @@ The choice of DocID is critical for performance:
 
 ## Appears In
 
-- [[IR-L08 - Advanced Neural IR]]
+- [[IR-L08 - Generative Retrieval]]

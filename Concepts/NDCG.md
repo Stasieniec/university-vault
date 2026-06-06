@@ -1,6 +1,6 @@
 ---
 type: concept
-aliases: [NDCG, nDCG, normalized discounted cumulative gain]
+aliases: [NDCG, nDCG, normalized discounted cumulative gain, Discounted Cumulative Gain (DCG), DCG]
 course: [IR]
 tags: [evaluation, key-formula, exam-topic]
 status: complete

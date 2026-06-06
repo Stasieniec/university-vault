@@ -15,8 +15,8 @@ status: complete
 > $$F_\beta = \frac{(1 + \beta^2) \cdot P \cdot R}{(\beta^2 \cdot P) + R}$$
 > 
 > where:
-> - $P$ — [[Precision and Recall|Precision]]
-> - $R$ — [[Precision and Recall|Recall]]
+> - $P$ — [[Precision]] and [[Recall]]
+> - $R$ — [[Precision]] and [[Recall]]
 > - $\beta$ — Parameter indicating the relative importance of recall vs precision.
 
 ## The F1 Score
@@ -33,8 +33,8 @@ $$F_1 = \frac{2PR}{P+R} = \frac{2}{\frac{1}{P} + \frac{1}{R}}$$
 
 ## Connections
 
-- Components: [[Precision and Recall]]
-- Context: Used throughout Machine Learning and [[Evaluation]] in IR.
+- Components: [[Precision]] and [[Recall]]
+- Context: Used throughout Machine Learning and Evaluation in IR.
 
 ## Appears In
 

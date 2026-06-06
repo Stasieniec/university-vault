@@ -106,7 +106,7 @@ tags: [moc]
 
 ## Concept Index
 
-Key concepts covered in this course (see [[Concepts/]] folder):
+Key concepts covered in this course (see **Concepts/** folder):
 
 **Foundations:** [[Markov Decision Process]] · [[Bellman Equation]] · [[Value Function]] · [[Policy]] · [[Return]] · [[Discount Factor]] · [[Multi-Armed Bandit]]
 
