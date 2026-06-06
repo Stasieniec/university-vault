@@ -657,6 +657,31 @@ Reference IDs: HSTU arXiv:2402.17152 · Wukong 2403.02545 · RankMixer 2507.1555
 
 ---
 
+## Key References
+
+> [!note] Surveys
+> - Hou et al. "A Survey on Generative Recommendation: Data, Model, and Tasks." arXiv:2510.27157, 2025. *(primary source for this lecture)*
+> - Lin et al. "How Can Recommender Systems Benefit from Large Language Models: A Survey." arXiv:2306.05817, 2024.
+
+**Part 1 — LLM-based Generative Recommendation:**
+- Gao et al. *Chat-REC.* 2023.
+- Bao et al. *TALLRec.* RecSys 2023.
+- Yue et al. *LlamaRec.* 2023.
+- Liao et al. *LLaRA.* SIGIR 2024.
+- Geng et al. *P5.* RecSys 2022.
+- Rajput et al. "Recommender Systems with Generative Retrieval" (*TIGER*). NeurIPS 2023.
+- Zheng et al. *LC-Rec.* ICDE 2024.
+
+**Part 2 — Large Recommendation Models:**
+- Zhai et al. "Actions Speak Louder than Words" (*HSTU*). ICML 2024 · arXiv:2402.17152.
+- Zhang et al. *Wukong.* ICML 2024 · arXiv:2403.02545.
+- *RankMixer* (ByteDance). 2025 · arXiv:2507.15551.
+- Chai et al. *LONGER.* RecSys 2025 · arXiv:2505.04421.
+- Zhang et al. *OneTrans.* WWW 2026 · arXiv:2510.26104.
+- Deng et al. *OneRec.* 2025 · arXiv:2502.18965.
+
+---
+
 ## Links
 
 **Concepts:**
