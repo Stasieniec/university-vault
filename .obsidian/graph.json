@@ -20,6 +20,13 @@
         "a": 1,
         "rgb": 14725458
       }
+    },
+    {
+      "query": "path:Courses/RecSys  ",
+      "color": {
+        "a": 1,
+        "rgb": 3447003
+      }
     }
   ],
   "collapse-display": true,
