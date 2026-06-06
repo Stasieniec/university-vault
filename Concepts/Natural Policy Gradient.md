@@ -1,6 +1,6 @@
 ---
 type: concept
-aliases: [NPG, Fisher Information Matrix, Natural Gradient]
+aliases: [NPG, Natural Gradient]
 course: [RL]
 tags: [policy-gradient, optimization, fisher-information, geometry]
 status: complete

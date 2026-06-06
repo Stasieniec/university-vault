@@ -1,6 +1,6 @@
 ---
 type: concept
-aliases: [reward, reward function, return]
+aliases: [reward, reward function]
 course: [RL]
 tags: [foundations]
 status: complete
