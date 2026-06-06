@@ -1,6 +1,6 @@
 ---
 type: concept
-aliases: [Autoregressive Retrieval, Generative Retrieval]
+aliases: [Autoregressive Retrieval]
 course: [IR]
 tags: [neural-ir, generative-retrieval]
 status: complete

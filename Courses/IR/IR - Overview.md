@@ -2,6 +2,7 @@
 type: moc
 course: IR
 tags: [moc]
+status: complete
 ---
 
 # Information Retrieval 1 — Overview

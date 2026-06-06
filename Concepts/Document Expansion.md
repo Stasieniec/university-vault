@@ -1,6 +1,6 @@
 ---
 type: concept
-aliases: [Stop Words, Stopword Removal]
+aliases: [doc2query]
 course: [IR]
 tags: [foundations]
 status: complete

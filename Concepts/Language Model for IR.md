@@ -1,6 +1,6 @@
 ---
 type: concept
-aliases: [Language Modeling for IR, LM-IR, Query Likelihood Model, Language Models for IR]
+aliases: [Language Modeling for IR, LM-IR, Language Models for IR]
 course: [IR]
 tags: [retrieval-models]
 status: complete
