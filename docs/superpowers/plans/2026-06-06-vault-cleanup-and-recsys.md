@@ -181,32 +181,66 @@ No commit (analysis only).
 
 ### Task A3: Fix dangling links and orphans
 
-**Files:**
-- Modify: `Courses/IR/IR - Overview.md`, `Courses/RL/RL - Overview.md`, and any other note surfaced in A2.
+> **Reality vs estimate:** the audit found **103 unique dangling targets / 187 occurrences**
+> (not ~3). User decisions: **create in-scope concepts, de-link prerequisites**; full cleanup
+> now. Resolution taxonomy below; mechanical fixes via a one-shot script (`/tmp/resolve.py`,
+> reviewed in the diff, not committed), concept creation via workflow (Task A3.5).
 
-- [ ] **Step 1: Remove the dead `[[IR-L01 - Introduction]]` link.**
-In `Courses/IR/IR - Overview.md`, the Week-1 table row `L1.1 | Administration & Course Intro`
-currently links `[[IR-L01 - Introduction]]`. Replace that cell's link with plain text
-`— (admin; see metadata above)` so the row stays but the dead link is gone.
+**Files:** ~60 notes across `Concepts/`, `Courses/**`, plus the two MOCs.
 
-- [ ] **Step 2: Fix the `[[Concepts/]]` folder references.**
-In both MOCs, replace `see [[Concepts/]] folder` with `see the **Concepts/** folder`
-(plain bold text, not a wikilink).
+- [ ] **Step 1: REMAP stale lecture/book links** (34 targets) to their current filenames, e.g.
+`RL-L01 - Intro & MDPs` → `RL-L01 - Intro, MDPs & Bandits`; `IR-L02 - Indexing and Boolean
+Retrieval` → `IR-L02 - IR Fundamentals`; `IR-L08 - Advanced Neural IR` → `IR-L08 - Generative
+Retrieval`; `RL-L08 - Deep Reinforcement Learning` → `RL-L08 - Deep RL Value-Based`; etc.
+Preserve any `\|display` alias. `Information Retrieval Overview` → `IR - Overview`.
 
-- [ ] **Step 3: Wire each orphan** from A2 into its MOC's Concept Index and/or add the
-missing `[[link]]` from the lecture/exercise that should reference it. (Specific edits depend
-on the A2 list; each is a one-line link addition.)
+- [ ] **Step 2: ALIAS-consolidate** name variants onto existing notes (one frontmatter edit
+fixes all occurrences): `Soft Actor-Critic` → `Soft Actor-Critic (SAC)`; `Gradient Ascent` →
+`Gradient Descent`; `Discounted Cumulative Gain (DCG)`/`DCG` → `NDCG`.
 
-- [ ] **Step 4: Re-run the audit.**
-Run: `python3 docs/superpowers/tools/vault_audit.py`
-Expected: dangling count dropped to only the **stub** category from A2 (exam-prep links);
-orphans reduced.
+- [ ] **Step 3: DE-LINK out-of-scope prerequisites** to plain text (keep display word):
+Bayes' Theorem, Linear Algebra, Vector Calculus, Probability Theory, Chain Rule, Normal
+distribution, Machine Learning, Supervised/Unsupervised Learning, Logistic/Linear Regression,
+Optimization, Overfitting, Underfitting, Weighted/Recursive Least Squares, Continuous control,
+Atari Games, Sutton & Barto, Differentiable policy, Log derivative trick, Short Corridor with
+Switched Actions, Boltzmann distribution, Overlap, Evaluation; typo `Course of Dimensionality`
+→ plain "curse of dimensionality".
 
-- [ ] **Step 5: Commit**
+- [ ] **Step 4: Special-case the two MOCs.** IR MOC: `[[IR-L01 - Introduction]]` cell → `—`
+(admin lives in metadata). Both MOCs: `[[Concepts/]]` → "the **Concepts/** folder".
+
+- [ ] **Step 5: KEEP in-scope concept links untouched** (resolved by Task A3.5 creation).
+
+- [ ] **Step 6: Re-run the audit.** Remaining dangling should be only the in-scope concepts
+(created in A3.5) + the two exam-prep stubs (A4). Commit:
 
 ```bash
 git add -A
-git commit -m "Fix dangling links and wire orphan notes"
+git commit -m "Resolve dangling links: remap stale, alias variants, de-link prereqs"
+```
+
+### Task A3.5: Create in-scope concept notes (workflow)
+
+**Files:** Create ~32 `Concepts/*.md` for genuinely-taught concepts surfaced as dangling.
+
+- [ ] **Step 1: Workflow** — one writer agent per concept, given the concept name + aliases,
+the courses/lectures that reference it (from the audit source list), and the Concept template.
+Each writes one note (`status: complete`, correct `course:`, aliases covering link variants,
+the 6 standard sections, wikilinks only to existing/known notes, Appears In backlinks).
+RL set: Advantage Actor-Critic (A2C)[A2C], A3C, Deep Deterministic Policy Gradient[DDPG],
+TD3, Trust Region Policy Optimization (TRPO)[TRPO,...], LSTM, Compatible Function Approximation,
+Classifier-Free Guidance, Inverse Dynamics Model, Reward-Weighted Regression, Upside-Down RL,
+Background Planning, Decision-Time Planning, State Aggregation, Hierarchical Reinforcement
+Learning, Action-Value Methods, Fourier Basis, Fisher Information, Entropy, Momentum, Adagrad.
+IR set: Unbiased Learning to Rank[ULTR], Position-Based Click Model[PBM], Surrounding Item Bias,
+FiD, Atlas, Self-RAG, Reinforcement Learning from Human Feedback[RLHF], LambdaMART,
+Plackett-Luce Model, Multiple Additive Regression Trees[MART], Transformer Kernel (TK)[TK].
+
+- [ ] **Step 2: Re-run audit; commit.**
+
+```bash
+git add Concepts/
+git commit -m "Add in-scope concept notes for previously-dangling references"
 ```
 
 ---
