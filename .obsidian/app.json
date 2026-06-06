@@ -1,1 +1,6 @@
-{}
+{
+  "userIgnoreFilters": [
+    "CLAUDE.md",
+    "docs/"
+  ]
+}
