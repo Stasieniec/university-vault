@@ -23,12 +23,12 @@
             "state": {
               "type": "markdown",
               "state": {
-                "file": "Courses/RL/Coding Assignments/RL-CA03 - Temporal Difference.md",
+                "file": "Courses/PhilSci/Lectures/PhilSci-L03 - Under-determination.md",
                 "mode": "source",
                 "source": false
               },
               "icon": "lucide-file",
-              "title": "RL-CA03 - Temporal Difference"
+              "title": "PhilSci-L03 - Under-determination"
             }
           }
         ],
@@ -52,7 +52,9 @@
               "type": "file-explorer",
               "state": {
                 "sortOrder": "alphabetical",
-                "autoReveal": false
+                "autoReveal": false,
+                "showSearch": false,
+                "searchQuery": ""
               },
               "icon": "lucide-folder-closed",
               "title": "Files"
@@ -193,8 +195,8 @@
   },
   "active": "dae0ddafe63e9631",
   "lastOpenFiles": [
-    "Untitled.md",
     "Courses/RL/Coding Assignments/RL-CA03 - Temporal Difference.md",
+    "Untitled.md",
     "Courses/RL/Exercises/RL-ES03 - Exercise Set Week 3.md",
     "Courses/RL/Lectures/RL-L04 - Temporal Difference Learning.md",
     "Courses/RL/Lectures/RL-L03 - Monte Carlo Methods.md",

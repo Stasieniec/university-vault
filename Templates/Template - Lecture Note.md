@@ -11,7 +11,7 @@ topics:
 status: complete   # complete | draft | stub
 ---
 
-# <COURSE>-L<##> — <Title>
+# <COURSE>-L<##>: <Title>
 
 > [!abstract] Overview
 > <1–2 paragraph motivation: what this lecture covers and why it matters>
