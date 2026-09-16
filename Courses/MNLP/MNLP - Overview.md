@@ -87,8 +87,8 @@ Lectures continue alongside the project work.
 
 | | Slot | Lecturer | Notes |
 |---|------|----------|-------|
-| L5 | **Mon 14 Sep, 13:00–14:45, SP L1.02** | Monz | Given. **No note yet**, topic not recorded, see [[#Source material not yet processed]] |
-| L6 | **Wed 16 Sep, 09:00–10:45, SP C0.110** | Monz | Given. **No note yet**, topic not recorded, see [[#Source material not yet processed]] |
+| L5 | **Mon 14 Sep, 13:00–14:45, SP L1.02** | Monz | Given. **No note yet**, topic not recorded, see **Source material not yet processed** below |
+| L6 | **Wed 16 Sep, 09:00–10:45, SP C0.110** | Monz | Given. **No note yet**, topic not recorded, see **Source material not yet processed** below |
 | Lab | Wed 16 Sep, 11:00–12:45, SP B0.208 (Group 4) | | |
 | **Project** | Implement first model, evaluate, debug | | |
 

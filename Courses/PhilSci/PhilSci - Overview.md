@@ -92,7 +92,7 @@ exam_date: 2026-10-19
 *Seminar: Thu 17 Sep 11:00–12:45, SP L0.06. No Tuesday lecture, the lecture was flipped.*
 **Flipped classroom:** the 15 Sep session was the flipped classroom. The pre-recorded lecture video, *Flipped classroom - Under-determination.mp4*, plus the slide deck stood in for the live lecture.
 
-**Canvas now carries two week-3 decks, both uploaded 2026-09-15:** a *revised* under-determination deck and a new deck on GenAI use in the assignments. Neither has been pulled into the vault, see [[#Source material not yet processed]].
+**Canvas now carries two week-3 decks, both uploaded 2026-09-15:** a *revised* under-determination deck and a new deck on GenAI use in the assignments. Neither has been pulled into the vault, see **Source material not yet processed** below.
 
 | Session | Material | Notes |
 |---------|----------|-------|
