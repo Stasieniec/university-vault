@@ -212,6 +212,24 @@ status: complete
 
 ---
 
+### 3.8 Flashcards and course pages
+
+Lecture notes for exam courses end with a `## Flashcards` section, placed immediately before `## Links` (or at the end if there is no Links heading). Cards are collapsible callouts, one per examinable idea:
+
+```markdown
+> [!exam]- Exam-style question, on one line
+> The points a good answer must hit. Real mock exam questions are quoted verbatim and follow the official key.
+
+> [!card]- Recall question, on one line
+> The answer.
+```
+
+- **Standalone wording.** Cards are drilled mixed across the whole course, so a card never says "the lecture", "the slides", "this note", "above" or "below". Name the thinker, paper or method instead.
+- **Only what the note says.** No facts from outside the note. Anything the note flags as uncertain is left out or marked as not settled in the answer.
+- Every answer line starts with `> `; one blank line between cards; no tables, code blocks or wikilinks inside cards.
+
+`Courses/<COURSE>/index.md` (the course home, which is the course's folder page on the site) and `Courses/<COURSE>/<COURSE> - Flashcards.md` are **generated** by `python3 docs/superpowers/tools/course_pages.py`. Never edit them by hand: change the notes or the script, then re-run it. The site's `sync.sh` runs it on every publish.
+
 ## 4. Formatting Standards
 
 ### 4.1 Math
