@@ -10,6 +10,9 @@ For every folder under Courses/ that has a "<COURSE> - Overview.md", this writes
 - Courses/<COURSE>/<COURSE> - Flashcards.md   (only when the course has flashcards)
     One section per note that has a "## Flashcards" section, transcluding it. The site's
     study mode turns this into "study everything / one lecture / any mix".
+- Courses/<COURSE>/<COURSE> - Exam Questions.md   (only when the course has exam questions)
+    The same, for each note's "## Exam questions" section: the long-form exam-style questions
+    with key points and model answers, for written practice.
 
 Both files are generated: edit this script, not the output. Re-run it after adding or
 changing flashcards or lecture notes. It only rewrites a file when its content changed.
@@ -74,12 +77,16 @@ def flashcards_section(text: str) -> str | None:
     return m.group(1) if m else None
 
 
+def exam_section(text: str) -> str | None:
+    m = re.search(r"^## Exam questions\s*$(.*?)(?=^## |\Z)", text, re.MULTILINE | re.DOTALL)
+    return m.group(1) if m else None
+
+
 def card_counts(text: str) -> tuple[int, int]:
-    section = flashcards_section(text)
-    if section is None:
-        return 0, 0
-    kinds = CARD_RE.findall(section)
-    return kinds.count("exam"), kinds.count("card")
+    """(exam questions, flashcards). Exam questions live in their own section."""
+    cards = CARD_RE.findall(flashcards_section(text) or "")
+    exams = CARD_RE.findall(exam_section(text) or "")
+    return exams.count("exam") + cards.count("exam"), cards.count("card")
 
 
 def split_name(stem: str, code: str) -> tuple[str, str]:
@@ -115,7 +122,7 @@ def build(course_dir: Path) -> list[Path]:
     exam = fm_scalar(ov_fm, "exam_date")
 
     lectures = sorted((course_dir / "Lectures").glob("*.md"), key=natural) if (course_dir / "Lectures").is_dir() else []
-    generated = {"index", f"{code} - Overview", f"{code} - Flashcards"}
+    generated = {"index", f"{code} - Overview", f"{code} - Flashcards", f"{code} - Exam Questions"}
     others = sorted((p for p in course_dir.glob("*.md") if p.stem not in generated), key=natural)
 
     decks: list[tuple[str, str, int, int]] = []  # (stem, heading, exam, recall)
@@ -128,7 +135,7 @@ def build(course_dir: Path) -> list[Path]:
         n_exam, n_card = card_counts(text)
         if n_exam + n_card:
             decks.append((p.stem, f"{label} {name}", n_exam, n_card))
-        rows.append((label, p.stem, name, covers, n_exam + n_card))
+        rows.append((label, p.stem, name, covers, n_card))
 
     other_rows = []
     for p in others:
@@ -137,10 +144,12 @@ def build(course_dir: Path) -> list[Path]:
         name = p.stem[len(code) + 3 :] if p.stem.startswith(code + " - ") else p.stem
         if n_exam + n_card:
             decks.append((p.stem, name, n_exam, n_card))
-        other_rows.append((p.stem, name, n_exam + n_card))
+        other_rows.append((p.stem, name, n_card))
 
-    total = sum(e + c for _, _, e, c in decks)
+    total = sum(c for _, _, _, c in decks)
+    total_exam = sum(e for _, _, e, _ in decks)
     flash_stem = f"{code} - Flashcards"
+    exam_stem = f"{code} - Exam Questions"
     out: list[Path] = []
 
     # Course home ---------------------------------------------------------------------
@@ -163,6 +172,8 @@ def build(course_dir: Path) -> list[Path]:
     facts.append(f"**Lecture notes:** {len(lectures)}")
     if total:
         facts.append(f"**Flashcards:** {total}")
+    if total_exam:
+        facts.append(f"**Exam questions:** {total_exam}")
     lines += [" · ".join(facts), ""]
     lines += [f"Schedule, assessment and deadlines live in the [[{code} - Overview|course overview]].", ""]
 
@@ -170,7 +181,12 @@ def build(course_dir: Path) -> list[Path]:
         lines += [
             "## Flashcards",
             "",
-            f"{total} cards across {len(decks)} sets. [[{flash_stem}|Open the flashcards]] to study the whole course, one lecture, or any mix of lectures. Each lecture note also ends with its own set.",
+            f"{total} short single-fact cards across {sum(1 for d in decks if d[3])} sets. [[{flash_stem}|Open the flashcards]] to study the whole course, one lecture, or any mix of lectures. Each lecture note also ends with its own set.",
+            "",
+        ]
+    if total_exam:
+        lines += [
+            f"[[{exam_stem}|Exam questions]]: {total_exam} long-form exam-style questions with key points and model answers, for written practice.",
             "",
         ]
 
@@ -224,7 +240,6 @@ def build(course_dir: Path) -> list[Path]:
 
     # Flashcards page -----------------------------------------------------------------
     if total:
-        n_exam = sum(e for _, _, e, _ in decks)
         fl = [
             "---",
             "type: flashcards",
@@ -237,16 +252,43 @@ def build(course_dir: Path) -> list[Path]:
             "",
             f"# {code} - Flashcards",
             "",
-            f"All {total} flashcards for {title}: {n_exam} exam-style questions and {total - n_exam} recall cards, one set per note. Study everything at once, a single lecture, or tick any mix. Progress lives only in this browser tab and disappears when you close it.",
+            f"All {total} flashcards for {title}, one set per note. Each card asks one thing and has a short answer. Say the answer before you reveal it, and only press Got it if you had all of it. Study everything at once, a single lecture, or tick any mix. Progress lives only in this browser tab and disappears when you close it. The long-form questions are on the [[{exam_stem}|exam questions]] page.",
             "",
             # Full path: every course has an "index", so a bare [[index]] is ambiguous.
             f"Back to the [[Courses/{code}/index|{title} home]].",
             "",
         ]
-        for stem, heading, _, _ in decks:
-            fl += [f"## {heading}", "", f"![[{stem}#Flashcards]]", ""]
+        for stem, heading, _, n_card in decks:
+            if n_card:
+                fl += [f"## {heading}", "", f"![[{stem}#Flashcards]]", ""]
         page = course_dir / f"{flash_stem}.md"
         if write_if_changed(page, "\n".join(fl).rstrip() + "\n"):
+            out.append(page)
+
+    # Exam questions page -------------------------------------------------------------
+    if total_exam:
+        ex = [
+            "---",
+            "type: flashcards",
+            f"course: {course_code}",
+            "tags: [flashcards, exam-prep]",
+            "status: complete",
+            "---",
+            "",
+            "<!-- Generated by docs/superpowers/tools/course_pages.py. Edit the script, not this file. -->",
+            "",
+            f"# {code} - Exam Questions",
+            "",
+            f"All {total_exam} exam-style questions for {title}, one set per note. Each answer opens with the key points a grader looks for, then a full model answer. Write or say your answer before revealing. The short drilling cards are on the [[{flash_stem}|flashcards]] page.",
+            "",
+            f"Back to the [[Courses/{code}/index|{title} home]].",
+            "",
+        ]
+        for stem, heading, n_exam, _ in decks:
+            if n_exam:
+                ex += [f"## {heading}", "", f"![[{stem}#Exam questions]]", ""]
+        page = course_dir / f"{exam_stem}.md"
+        if write_if_changed(page, "\n".join(ex).rstrip() + "\n"):
             out.append(page)
 
     return out

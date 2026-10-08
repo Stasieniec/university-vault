@@ -214,21 +214,35 @@ status: complete
 
 ### 3.8 Flashcards and course pages
 
-Lecture notes for exam courses end with a `## Flashcards` section, placed immediately before `## Links` (or at the end if there is no Links heading). Cards are collapsible callouts, one per examinable idea:
+Lecture notes for exam courses end with two sections, in this order, placed immediately before `## Links` (or at the end if there is no Links heading):
+
+- `## Exam questions`: long-form exam-style questions for written practice. Real mock exam questions are quoted verbatim and follow the official key. The first answer line is `> **Key points:** a; b; c.` (3 to 5 points a grader would tick), then a blank `>` line, then the full model answer.
+- `## Flashcards`: short single-fact cards for drilling on a phone in spare moments, about ten seconds each.
 
 ```markdown
 > [!exam]- Exam-style question, on one line
-> The points a good answer must hit. Real mock exam questions are quoted verbatim and follow the official key.
+> **Key points:** first; second; third.
+>
+> The full model answer.
 
 > [!card]- Recall question, on one line
 > The answer.
 ```
 
+Flashcard rules (rewritten 2026-10-08, after the long-form cards turned out to be undrillable: median answer 69 words, most questions asking several things at once):
+
+- **One thing per card.** The question asks exactly one thing. An idea with three parts is up to three cards.
+- **Short answers.** Aim for 15 words or fewer, never more than 30. A list only when the list is the fact, at most 5 items of a word or phrase each.
+- **Exam relevance.** Every card must be something an exam question could test or need. No biography, years, page numbers or anecdotes unless the note treats them as the point. For multiple-choice courses, no benchmark numbers on cards: turn a number into a direction or comparison ("which gains more?"), and leave exact figures to the cheat sheet. Keep defining parameters of a method (e.g. the masking rate).
+- **Understanding, as well as recall.** At least a third of the cards ask why, how, or what distinguishes two similar things. Some key terms get reverse cards (description in, name out).
+- **Exam format.** For multiple-choice courses, each set ends with true/false statement cards (`True or false: ...`, answer starting `**True.**` or `**False.**` plus one reason, false ones built with one word wrong) and a few `Multiple selection: ...` cards in the exam's own format.
 - **Standalone wording.** Cards are drilled mixed across the whole course, so a card never says "the lecture", "the slides", "this note", "above" or "below". Name the thinker, paper or method instead.
 - **Only what the note says.** No facts from outside the note. Anything the note flags as uncertain is left out or marked as not settled in the answer.
 - Every answer line starts with `> `; one blank line between cards; no tables, code blocks or wikilinks inside cards.
 
-`Courses/<COURSE>/index.md` (the course home, which is the course's folder page on the site) and `Courses/<COURSE>/<COURSE> - Flashcards.md` are **generated** by `python3 docs/superpowers/tools/course_pages.py`. Never edit them by hand: change the notes or the script, then re-run it. The site's `sync.sh` runs it on every publish.
+The long-form recall cards that existed before 2026-10-08 are archived, unpublished, in `docs/flashcards-archive/`.
+
+`Courses/<COURSE>/index.md` (the course home, which is the course's folder page on the site), `Courses/<COURSE>/<COURSE> - Flashcards.md` and `Courses/<COURSE>/<COURSE> - Exam Questions.md` are **generated** by `python3 docs/superpowers/tools/course_pages.py`. Never edit them by hand: change the notes or the script, then re-run it. The site's `sync.sh` runs it on every publish.
 
 ## 4. Formatting Standards
 
