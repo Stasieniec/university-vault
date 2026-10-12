@@ -126,7 +126,7 @@ Target: **2,500 to 3,500 words of body per lecture, 4,000 at most.** A lecture w
 gets a shorter note; nothing gets padded to hit the range. At this size the PhilSci body comes to
 roughly 25,000 words in total, half of what's there now.
 
-The pilot (L01b) went from 10,546 to 4,326 words after review. It is over the 4,000 ceiling: it covers
+The pilot (L01b) went from 10,546 to about 4,350 words after review. It is over the 4,000 ceiling: it covers
 two readings, two mock questions and two tutorial weeks, the additions came from gaps the reviewers
 found, and none of the reviewers found a section that dragged. Treat 4,000 as the normal ceiling and
 this as about the most a double lecture should need.

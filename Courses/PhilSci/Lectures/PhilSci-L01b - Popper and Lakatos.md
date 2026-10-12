@@ -152,9 +152,9 @@ That leaves Popper's falsificationism.
 
 Lakatos puts Popper's criterion like this: a theory is scientific if you are willing to say **in advance** which observation would make you give it up (a **potential falsifier**), and pseudoscientific if you refuse.
 
-Notice what that does: the same theory would be science for someone willing to name a falsifier and pseudoscience for someone who refuses. So Popper's test really sorts scientific *method* from non-scientific method, rather than theories. That sets up Lakatos's own move: look at how a line of research is handled over time.
+Notice what that does: the same theory would be science for someone willing to name a falsifier and pseudoscience for someone who refuses. So Popper's test really sorts scientific *method* from non-scientific method, rather than theories. That sets up Lakatos's own move: judge the record of a line of research over time, whatever its supporters' attitude.
 
-Then the real objection, the one that makes this falsificationism **naive** (Lakatos's word for the version that drops a theory at the first clash with observation). It "ignores the **remarkable tenacity** of scientific theories. Scientists have thick skins." When an observation contradicts their theory, they do not abandon it. They do one of two things:
+Then the real objection, the one that makes this falsificationism **naive** (Lakatos's label for Popper's view as he reads it: a theory must be given up once it clashes with an observation scientists have accepted). It "ignores the **remarkable tenacity** of scientific theories. Scientists have thick skins." When an observation contradicts their theory, they do not abandon it. They do one of two things:
 
 1. call it an **anomaly** and invent an auxiliary hypothesis to explain it, or
 2. if they cannot explain it, ignore it and work on something else.
@@ -168,7 +168,7 @@ Every major theory has faced contradicting results from day one. Lakatos uses "r
 - When Newton published, everyone knew his theory could not properly explain the motion of the moon.
 - The physicist Kaufmann "refuted" Einstein's special relativity (the 1905 theory, before the general relativity of the eclipse) in the very year it was published.
 
-Both "refutations" later turned out to be spurious: the moon's motion is consistent with Newton after all, and Kaufmann's results came from experimental error. A scientist who dropped a theory at the first clash, as naive falsificationism demands, would have thrown away two correct theories because of results that were wrong. That is Lakatos's point: holding on is sometimes the right call. (Popper's verdict on Einstein's "dear Lord" line stays as above: without independent reasons to doubt the measurement, holding on is dogmatic. Keep the two verdicts apart in Q3.)
+Both "refutations" later turned out to be spurious: the moon's motion is consistent with Newton after all, and Kaufmann's results came from experimental error. A scientist who dropped a theory at the first clash, as naive falsificationism demands, would have thrown away two theories that went on to succeed, because of results that were wrong. That is Lakatos's point: holding on is sometimes the right call. (Popper's verdict on Einstein's "dear Lord" line stays as above: without independent reasons to doubt the measurement, holding on is dogmatic. Keep the two verdicts apart in Q3.)
 
 So "still unrefuted" cannot be the mark of science. Every programme, at every stage, lives with unsolved anomalies.
 
@@ -221,11 +221,11 @@ This makes scientific status a **historical** question about a track record, and
 ### Patching a theory: Popper and Lakatos compared
 
 - **Popper** judges a patch at the moment it is made. Is there an independent reason for it, or a new test it could fail? If its only job is to absorb the refuting evidence, it is ad hoc, and the theory loses scientific status.
-- **Lakatos** says patching the protective belt is normal, constant and necessary; it is what the positive heuristic is for. Belt changes are not suspect by default. He asks two things. Does the patch predict anything new? If not, the programme is degenerating straight away. If it does, he waits to see whether those predictions come true, and judges the programme by its record.
+- **Lakatos** says patching the protective belt is normal, constant and necessary; it is what the positive heuristic is for. Belt changes are not suspect by default. He asks two things. Does the patch predict anything new? If not, that step is degenerating. If it does, he waits to see whether those predictions come true. The programme is judged by its record of such steps.
 
 On the textbook cases they agree. Le Verrier's invented planet made a new testable prediction (point the telescope here), so it is not ad hoc for Popper either, and it paid off when Neptune was found. The Marxist theory of imperialism predicted nothing new, so both reject it.
 
-They split on what happens next. Take Vulcan: a legitimate, testable patch whose prediction failed. For Popper the patched theory is simply refuted. For Lakatos one failed prediction does not sink a programme if others come true; he looks at the whole record. They also split on a programme that sits on its anomalies for decades: Popper calls that dogmatic, Lakatos waits for the track record.
+They split on what happens next. Take Vulcan: a legitimate, testable patch whose prediction failed. For Popper, Vulcan's absence refutes the Vulcan hypothesis, so Mercury's orbit counts against Newton's theory again; unless a new, independently testable explanation turns up, the theory stands refuted. For Lakatos one failed prediction does not sink a programme if others come true; he looks at the whole record. They also split on a programme that sits on its anomalies for decades: Popper calls that dogmatic, Lakatos waits for the track record.
 
 ### How revolutions happen
 
@@ -262,7 +262,7 @@ Lakatos charges Kuhn with having no real demarcation criterion; Kuhn's own answe
 - Lakatos's four components by name: hard core, protective belt, positive heuristic, negative heuristic (any order is fine).
 - Progressive **predicts novel facts**; degenerating **only accommodates known facts**. Halley's comet; Marxism's theory of imperialism.
 - Lakatos against Popper: thick skins, all theories born refuted. Against Kuhn: change is rational.
-- Is Lakatos's criterion objective? For: whether a predicted fact was found is a public matter, independent of anyone's belief. Against: it only gives verdicts in hindsight.
+- Is Lakatos's criterion objective? For: whether a predicted fact was found is a public matter, independent of anyone's belief. Against: there is no rule for how long to wait before calling a programme degenerating, so it cannot tell anyone what to do today, and a verdict can be reversed later.
 
 Full model answers for mock Q2 and Q3 are in the first two exam questions below.
 
@@ -315,11 +315,11 @@ Full model answers for mock Q2 and Q3 are in the first two exam questions below.
 > - Revolutions are rational: scientists join the progressive programme, with no instant rationality.
 
 > [!exam]- Popper and Lakatos both discuss modifying auxiliary hypotheses to save a theory from contrary evidence. Compare how each judges such a modification, using an example.
-> **Key points:** Popper judges a patch when it is made: independent support or new testable content, else ad hoc and status lowered; independent reasons required to blame the measurement; Lakatos: belt modification normal and necessary, degenerating if it predicts nothing new, otherwise judged by whether its predictions come true; they agree on the textbook cases (invented planet fine, theory of imperialism not) and split on failed testable patches and long-ignored anomalies.
+> **Key points:** Popper judges a patch when it is made: independent support or new testable content, else ad hoc and status lowered; independent reasons required to blame the measurement; Lakatos: belt modification normal and necessary, the step is degenerating if it predicts nothing new, otherwise judged by whether its predictions come true; they agree on the textbook cases (invented planet fine, theory of imperialism not) and split on failed testable patches and long-ignored anomalies.
 >
 > - **Popper:** the modification is judged **when it is made**, by its independent support and testable content. If introduced only to absorb the refutation (ad hoc: for this purpose only, adding no new testable consequences) it is a conventionalist stratagem that lowers scientific status. Blaming the measurement is allowed only with **independent reasons**.
-> - **Lakatos:** belt modification is **normal, constant and necessary**, since that is what the positive heuristic does. A patch that predicts nothing new is degenerating at once; one that does is judged by whether its predictions are then found, as part of the programme's record.
-> - Example: an invented planet to explain an orbital anomaly makes a new testable prediction, so it is acceptable to both; the Marxists' theory of imperialism predicted nothing new, so both reject it. They differ on what happens next. A testable patch whose prediction fails (Vulcan) simply refutes the theory for Popper; for Lakatos one failure does not sink a programme with other successes. On a programme that sits on anomalies for decades, Popper calls it dogmatic and Lakatos waits for the track record. (Background example, which Lakatos does not name: the planet postulated to explain Uranus's orbit was found as Neptune, while the same move for Mercury gave Vulcan, never found.)
+> - **Lakatos:** belt modification is **normal, constant and necessary**, since that is what the positive heuristic does. A patch that predicts nothing new is a degenerating step for the programme; one that does is judged by whether its predictions are then found, as part of the programme's record.
+> - Example: an invented planet to explain an orbital anomaly makes a new testable prediction, so it is acceptable to both; the Marxists' theory of imperialism predicted nothing new, so both reject it. They differ on what happens next. A testable patch whose prediction fails (Vulcan) is itself refuted for Popper, and the theory faces the anomaly again unless a new testable explanation turns up; for Lakatos one failure does not sink a programme with other successes. On a programme that sits on anomalies for decades, Popper calls it dogmatic and Lakatos waits for the track record. (Background example, which Lakatos does not name: the planet postulated to explain Uranus's orbit was found as Neptune, while the same move for Mercury gave Vulcan, never found.)
 >
 > Losing marks: treating every protective-belt modification as automatically ad hoc.
 
@@ -508,7 +508,7 @@ Full model answers for mock Q2 and Q3 are in the first two exam questions below.
 > Popper judges it **when it is made**: independent support or a new test? Lakatos judges the **record**: did novel predictions follow?
 
 > [!card]- Is a protective-belt modification automatically ad hoc, for Lakatos?
-> No: it is **normal, constant and necessary**; it counts against the programme only if it predicts nothing new.
+> No: it is **normal, constant and necessary**; it counts against the programme when it predicts nothing new, or when its new predictions keep failing.
 
 > [!card]- Why does Lakatos judge an invented planet and the Marxist theory of imperialism differently?
 > The planet **predicted something new** that was then found; the theory of imperialism only explained a **known fact** after the event.
