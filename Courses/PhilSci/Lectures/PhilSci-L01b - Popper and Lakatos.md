@@ -29,13 +29,13 @@ topics:
 
 ## The question both of them are answering
 
-Astrology has a stupendous mass of observations. Psychoanalysis has a clinic full of case studies. Physics has experiments. All three can point at evidence, so "it has evidence" cannot be what makes something science. Popper calls astrology's method **pseudo-empirical**: it appeals to observation, but in a way that observation can never go against.
+Astrology has a stupendous mass of observations. Psychoanalysis has a clinic full of case studies. Physics has experiments. All three can point at evidence, so "it has evidence" cannot be what makes something science. Popper calls astrology's method **pseudo-empirical**: it appeals to observation and experiment, but does not meet scientific standards.
 
-Finding what does make the difference is called the **problem of demarcation**. A **demarcation criterion** is a necessary condition a field has to meet to count as science.
+Finding what does make the difference is called the **problem of demarcation**. A **demarcation criterion** is a necessary condition a field has to meet to count as science: fail it and you are out.
 
 The criterion is not about truth. Science is often wrong, and a pseudoscience can get lucky. Popper wanted a mark of scientific status that holds whether or not the theory turns out true.
 
-And it is not an armchair question. In Lakatos's examples, the Catholic Church banned Copernicus's theory as pseudoscience in 1616, and the Soviet Communist Party declared Mendelian genetics pseudoscientific (he dates it 1949), with geneticists such as Vavilov dying in prison. Each decision rested on some demarcation criterion, so getting the criterion right has ethical and political stakes.
+And it is not an armchair question. In Lakatos's examples, the Catholic Church banned Copernicus's theory as pseudoscience in 1616, and the Soviet Communist Party declared Mendelian genetics pseudoscientific and persecuted its defenders, such as the geneticist Vavilov. Each decision rested on some demarcation criterion, so getting the criterion right has ethical and political stakes.
 
 ## Part 1. Popper: a scientific theory must be able to fail
 
@@ -43,7 +43,7 @@ And it is not an armchair question. In Lakatos's examples, the Catholic Church b
 
 Vienna, 1919. Popper is surrounded by four fashionable theories: Einstein's relativity, Marx's theory of history (history is driven by class struggle and heads for a workers' revolution), Freud's psychoanalysis, and Alfred Adler's individual psychology (a breakaway from Freud that explains behaviour through feelings of inferiority).
 
-Their fans loved how much they explained. Once you "got" Marxism, every newspaper confirmed it; once you "got" Freud, every patient did. Popper's favourite illustration:
+Their fans loved how much they explained: once you "got" Marxism, every newspaper confirmed it; once you "got" Freud, every patient did. Popper's favourite illustration:
 
 > [!example] The two men and the child
 > One man pushes a child into a river to drown it. Another man drowns trying to save a child.
@@ -62,7 +62,7 @@ General relativity says gravity bends light. So a star whose light passes close 
 
 Eddington's expeditions did exactly this in 1919 and found the shift Einstein predicted.
 
-What impressed Popper was that the prediction **could have failed**. If the shift had not been there, the theory would simply have been refuted. The theory is incompatible with results that everybody before Einstein would have expected. That is a **risky prediction**, and it is the opposite of Adler explaining every possible child.
+What impressed Popper was that the prediction **could have failed**. If the shift had not been there, the theory would simply have been refuted. The theory forbids results that would have looked perfectly normal before Einstein, such as no shift at all. That is a **risky prediction**, and it is the opposite of Adler explaining every possible child.
 
 ### The criterion: falsifiability
 
@@ -109,13 +109,13 @@ The Marxists' move works for any theory. You can save a refuted theory by adding
 
 The key word is **ad hoc**, Latin for "for this purpose only". A change is ad hoc when its only job is to absorb the evidence that would have refuted the theory. It has no independent support and makes no new testable predictions of its own.
 
-But Popper does **not** say every failed prediction kills the theory on the spot, and here the swans need one correction. A prediction never comes from the theory alone. In the eclipse test it also relied on **auxiliary assumptions**: that the telescopes worked, that the photographic plates were not warped, that the data were reduced properly, that the stars were identified correctly. So the real logic is:
+But Popper does **not** say every failed prediction kills the theory on the spot, and the modus tollens schema above needs one correction. A prediction never comes from the theory alone. In the eclipse test it also relied on **auxiliary assumptions**: that the telescopes worked, that the photographic plates were not warped, that the data were reduced properly, that the stars were identified correctly. So the real logic is:
 
 $$\frac{(T \wedge A) \rightarrow O \qquad \neg O}{\therefore\ \neg (T \wedge A)}$$
 
-Modus tollens only tells you that *something* among the premises is false: the theory or one of the auxiliaries $A$. Logic does not say which. This is the **Duhem-Quine thesis**, covered properly in [[PhilSci-L03 - Under-determination|L03]]. Popper accepts it: rejecting the theory is a decision, and even accepting the observation report is, in the end, a matter of agreement among scientists.
+Modus tollens only tells you that *something* among the premises is false: the theory or one of the auxiliaries $A$. Logic does not say which. This is the **Duhem-Quine thesis**, covered properly in [[PhilSci-L03 - Under-determination|L03]]. Popper grants this logical point (he did not accept Quine's stronger version, the web of belief in L03). He also admits that accepting an observation report is, in the end, a decision reached by agreement among scientists.
 
-So Popper allows you to blame the measurement instead of the theory, **on one condition: you need independent reasons** to reject the measurement. "Otherwise my theory would be refuted" is not an independent reason. With independent reasons, it is ordinary scientific correction. Without them, it is an ad hoc rescue.
+So Popper allows you to blame the measurement instead of the theory, **on one condition: you need independent reasons** to reject the measurement: say, a later check finds a telescope mirror warped by the heat, something you can establish without assuming the theory. "Otherwise my theory would be refuted" is not an independent reason. With independent reasons, it is ordinary scientific correction. Without them, it is an ad hoc rescue.
 
 > [!example] "Then I am very sorry for the dear Lord" (mock Q3)
 > In 1953 Einstein was asked what he would have done if Eddington had not found the shift. He said he would have been sorry for the dear Lord, because the theory is correct.
@@ -126,15 +126,15 @@ So Popper allows you to blame the measurement instead of the theory, **on one co
 
 ### Not science does not mean nonsense
 
-Popper often gets lumped in with the logical positivists of [[PhilSci-L01 - Introduction and Logical Empiricism|L01]] (also called logical empiricists: Carnap and the Vienna Circle). He was arguing against them, and mock Q1 asks about exactly this difference.
+Popper often gets lumped in with the logical positivists of [[PhilSci-L01 - Introduction and Logical Empiricism|L01]] (also called logical empiricists: Carnap and the Vienna Circle). He was arguing against them. Mock Q1 asks about the verifiability criterion, and one sentence of this contrast is worth adding to that answer.
 
-**Carnap and the Vienna Circle: verifiability.** A statement is meaningful only if observation could in principle settle whether it is true: "the meaning of a statement is its method of verification". The line runs between meaningful and meaningless. Metaphysics lands on the meaningless side: pseudo-statements that only look as if they say something.
+**Carnap and the Vienna Circle: verifiability.** Apart from the truths of logic and mathematics, a statement is meaningful only if observation could in principle settle whether it is true: "the meaning of a statement is its method of verification". The line runs between meaningful and meaningless. Metaphysics lands on the meaningless side: pseudo-statements that only look as if they say something.
 
-**Popper: falsifiability.** A statement is scientific if it could conflict with possible observations. The line runs between science and non-science, and says nothing about meaning. Non-scientific ideas can be meaningful, important, and the seed of later science: most scientific theories started life as myths (the Greek philosopher Empedocles had evolution by trial and error). Popper even thinks Freud and Adler may contain real psychological insight, just not in a testable form.
+**Popper: falsifiability.** A statement is scientific if it could conflict with possible observations. The line runs between science and non-science, and says nothing about meaning. Non-scientific ideas can be meaningful, important, and the seed of later science: most scientific theories started life as myths (the Greek philosopher Empedocles proposed evolution by trial and error). Popper even thinks Freud and Adler may contain real psychological insight, just not in a testable form.
 
 The logic also runs in opposite directions. Verification needs observations to establish universal laws, which the swans showed is impossible, so strictly applied it makes laws of nature meaningless. Falsification only needs observations to be able to knock them down.
 
-Which is better? Falsifiability survives the problem that sinks verifiability. Its own weak spots: Duhem-Quine, and Lakatos's point (next) that scientists rightly keep refuted theories.
+Which is better? Falsifiability survives the problem that sinks verifiability, but has weak spots of its own: Duhem-Quine, and Lakatos's point (next) that scientists rightly keep refuted theories.
 
 ## Part 2. Lakatos: judge the research programme over time
 
@@ -142,9 +142,9 @@ Which is better? Falsifiability survives the problem that sinks verifiability. I
 
 Lakatos keeps Popper's goal, an objective line between science and pseudoscience, and attacks the way Popper draws it. First he disposes of three older answers.
 
-- **Knowledge is not strong belief.** People have believed absurd things with total commitment. The hallmark of science is scepticism even towards your favourite theory: "blind commitment to a theory is not an intellectual virtue: it is an intellectual crime". A theory's scientific value is **objective**, independent of anyone's mind. A claim can be pseudoscientific though everybody believes it, and valuable though nobody does.
-- **Facts cannot prove a theory.** No law follows validly from finitely many facts. Newton claimed to deduce his laws from Kepler's ellipses, yet his own theory says planets disturb each other, so no planet moves in an exact ellipse.
-- **Probability does not help.** If Popper is right that every theory has probability zero, theories are equally improbable as well as equally unprovable.
+- **Not: science is what people strongly believe.** Knowledge is not strong belief. People have believed absurd things with total commitment. The hallmark of science is scepticism even towards your favourite theory: "blind commitment to a theory is not an intellectual virtue: it is an intellectual crime". A theory's scientific value is **objective**, independent of anyone's mind. A claim can be pseudoscientific though everybody believes it, and valuable though nobody does.
+- **Not: science is what the facts prove.** No law follows validly from finitely many facts (the swans again).
+- **Not: science is what the evidence makes highly probable.** If Popper is right that every theory has probability zero, theories are equally improbable as well as equally unprovable.
 
 That leaves Popper's falsificationism.
 
@@ -152,9 +152,9 @@ That leaves Popper's falsificationism.
 
 Lakatos puts Popper's criterion like this: a theory is scientific if you are willing to say **in advance** which observation would make you give it up (a **potential falsifier**), and pseudoscientific if you refuse.
 
-Notice what that does: the same theory would be science for someone willing to name a falsifier and pseudoscience for someone who refuses. So Popper's test really sorts scientific *method* from non-scientific method, rather than theories.
+Notice what that does: the same theory would be science for someone willing to name a falsifier and pseudoscience for someone who refuses. So Popper's test really sorts scientific *method* from non-scientific method, rather than theories. That sets up Lakatos's own move: look at how a line of research is handled over time.
 
-Then the real objection, the one that makes this falsificationism **naive**. It "ignores the **remarkable tenacity** of scientific theories. Scientists have thick skins." When an observation contradicts their theory, they do not abandon it. They do one of two things:
+Then the real objection, the one that makes this falsificationism **naive** (Lakatos's word for the version that drops a theory at the first clash with observation). It "ignores the **remarkable tenacity** of scientific theories. Scientists have thick skins." When an observation contradicts their theory, they do not abandon it. They do one of two things:
 
 1. call it an **anomaly** and invent an auxiliary hypothesis to explain it, or
 2. if they cannot explain it, ignore it and work on something else.
@@ -168,13 +168,13 @@ Every major theory has faced contradicting results from day one. Lakatos uses "r
 - When Newton published, everyone knew his theory could not properly explain the motion of the moon.
 - The physicist Kaufmann "refuted" Einstein's special relativity (the 1905 theory, before the general relativity of the eclipse) in the very year it was published.
 
-Both "refutations" later turned out to be spurious: the moon's motion is consistent with Newton after all, and Kaufmann's results came from experimental error. At the time, though, nobody had independent reasons to doubt them, so Popper's escape clause did not apply. A naive falsificationist would have told Einstein to throw away a correct theory because of a bad measurement. Holding on was the "sorry for the dear Lord" attitude, and here it saved the right theory.
+Both "refutations" later turned out to be spurious: the moon's motion is consistent with Newton after all, and Kaufmann's results came from experimental error. A scientist who dropped a theory at the first clash, as naive falsificationism demands, would have thrown away two correct theories because of results that were wrong. That is Lakatos's point: holding on is sometimes the right call. (Popper's verdict on Einstein's "dear Lord" line stays as above: without independent reasons to doubt the measurement, holding on is dogmatic. Keep the two verdicts apart in Q3.)
 
 So "still unrefuted" cannot be the mark of science. Every programme, at every stage, lives with unsolved anomalies.
 
 ### The fix: the research programme
 
-Lakatos reads Thomas Kuhn (next lecture, [[PhilSci-L02 - Kuhn on Scientific Practice|L02]]) as drawing a radical conclusion from the same facts: if refutation does not drive theory change, theory change is irrational, more like a religious conversion. (Kuhn himself denied this.) Lakatos refuses to go there. Then there would be no line between science and pseudoscience, and no objective way to tell progress from decay. He wants a third option: keep Popper's objective standards while accepting the thick-skinned behaviour just described.
+Lakatos reads Thomas Kuhn (next lecture, [[PhilSci-L02 - Kuhn on Scientific Practice|L02]]) as drawing a radical conclusion from the same facts: if refutation does not drive theory change, theory change is irrational, more like a religious conversion. (Kuhn himself denied this.) Lakatos refuses to go there. If that were right, there would be no line between science and pseudoscience, no objective way to tell progress from decay, and no objective standard of intellectual honesty. He wants a middle way: keep Popper's objective standards while accepting the thick-skinned behaviour just described.
 
 His answer is to change what gets judged. Not a single hypothesis, but a **research programme**: a series of theories that develop over time around a shared core. Newton's physics, for instance, is a long series of models of planets, moons and comets, all built on the same laws. A "heuristic" in what follows just means a rule for where to look and what to do.
 
@@ -190,6 +190,8 @@ The belt is Lakatos's answer to Duhem-Quine. Since a failed prediction never say
 > A planet does not move quite as Newton's theory says it should. The negative heuristic says: gravitation is not on trial. The positive heuristic says what to check instead: assumptions about how the atmosphere bends light, about light in magnetic storms, and hundreds of others. The astronomer may even invent an unseen planet and calculate its position, mass and velocity.
 >
 > This really happened, twice, though Lakatos does not name the cases. Uranus strayed from its predicted orbit, Le Verrier and Adams predicted a new planet, and Neptune was found in 1846. Mercury's orbit did not fit either, the same move predicted a planet called Vulcan, and it never turned up; general relativity explained Mercury instead.
+>
+> Neptune is an anomaly turned into positive evidence, which is exactly what the positive heuristic is for.
 
 ### Progressive or degenerating
 
@@ -201,7 +203,7 @@ Having a hard core, a belt and a heuristic does not make something science. Laka
 
 Progressive examples:
 
-- **Halley's comet.** Using Newton's theory, Halley watched a short stretch of a comet's path and predicted it would return in seventy-two years (Lakatos's figure; the real period is about 76), at a specific spot in the sky. It came back as predicted, with Newton and Halley long dead.
+- **Halley's comet.** Using Newton's theory, Halley watched a short stretch of a comet's path and predicted it would return in seventy-two years (Lakatos's figure, fine to use in the exam; the real period is about 76), at a specific spot in the sky. It came back as predicted, with Newton and Halley long dead.
 - **Newton's unseen planets.** Newtonians predicted the existence and exact motion of small planets nobody had seen yet.
 - **Einstein's eclipse.** The distance between two stars would be different when measured during an eclipse than when measured at night. Nobody had thought to check that before. It is the same test Popper admired, now counted as a novel fact.
 
@@ -219,9 +221,11 @@ This makes scientific status a **historical** question about a track record, and
 ### Patching a theory: Popper and Lakatos compared
 
 - **Popper** judges a patch at the moment it is made. Is there an independent reason for it, or a new test it could fail? If its only job is to absorb the refuting evidence, it is ad hoc, and the theory loses scientific status.
-- **Lakatos** says patching the protective belt is normal, constant and necessary; it is what the positive heuristic is for. Belt changes are not suspect by default. He judges a patch by **what comes after it**: did the patched programme go on to predict a new fact that was then found?
+- **Lakatos** says patching the protective belt is normal, constant and necessary; it is what the positive heuristic is for. Belt changes are not suspect by default. He asks two things. Does the patch predict anything new? If not, the programme is degenerating straight away. If it does, he waits to see whether those predictions come true, and judges the programme by its record.
 
-On the textbook cases they agree. Le Verrier's invented planet made a new testable prediction (point the telescope here), so it is not ad hoc for Popper either, and it paid off when Neptune was found. The Marxist theory of imperialism predicted nothing new, so both reject it. They split on the cases in between: a patch that makes new predictions which never come true, or a programme that sits on its anomalies for decades. Popper is suspicious at once. Lakatos waits for the track record.
+On the textbook cases they agree. Le Verrier's invented planet made a new testable prediction (point the telescope here), so it is not ad hoc for Popper either, and it paid off when Neptune was found. The Marxist theory of imperialism predicted nothing new, so both reject it.
+
+They split on what happens next. Take Vulcan: a legitimate, testable patch whose prediction failed. For Popper the patched theory is simply refuted. For Lakatos one failed prediction does not sink a programme if others come true; he looks at the whole record. They also split on a programme that sits on its anomalies for decades: Popper calls that dogmatic, Lakatos waits for the track record.
 
 ### How revolutions happen
 
@@ -232,7 +236,7 @@ When there are two rival programmes and one is progressing while the other is de
 - **No refutation without a better theory.** There is no Popperian quick kill by counterexample. You abandon a programme when there is somewhere better to go.
 - **Against Kuhn:** revolutions are not sudden, irrational changes of vision. "On close inspection both Popperian crucial experiments and Kuhnian revolutions turn out to be myths."
 
-The price of all this: verdicts only come in hindsight. You can say a programme has been degenerating for thirty years. You cannot tell a scientist today that she must abandon it.
+The price of all this: verdicts only come in hindsight. You can say a programme has degenerated for thirty years; you cannot tell a scientist today that she must abandon it.
 
 ## Popper, Kuhn and Lakatos side by side
 
@@ -255,9 +259,10 @@ Lakatos charges Kuhn with having no real demarcation criterion; Kuhn's own answe
 - Marxism (falsified, then rescued) versus psychoanalysis (never testable).
 - Blaming the measurement is fine **only with independent reasons**, because by Duhem-Quine the fault could lie anywhere.
 - Verifiability sorts meaning; falsifiability sorts science.
-- Lakatos's four components by name (the key lists the positive heuristic first; order does not matter).
+- Lakatos's four components by name: hard core, protective belt, positive heuristic, negative heuristic (any order is fine).
 - Progressive **predicts novel facts**; degenerating **only accommodates known facts**. Halley's comet; Marxism's theory of imperialism.
-- Lakatos against Popper: thick skins, all theories born refuted. Against Kuhn: change is rational. On objectivity: for, a public record of predictions; against, verdicts only in hindsight.
+- Lakatos against Popper: thick skins, all theories born refuted. Against Kuhn: change is rational.
+- Is Lakatos's criterion objective? For: whether a predicted fact was found is a public matter, independent of anyone's belief. Against: it only gives verdicts in hindsight.
 
 Full model answers for mock Q2 and Q3 are in the first two exam questions below.
 
@@ -305,36 +310,35 @@ Full model answers for mock Q2 and Q3 are in the first two exam questions below.
 > - **Objection:** Popper's criterion "ignores the remarkable tenacity of scientific theories. Scientists have thick skins." Faced with contrary facts they invent a rescue hypothesis for a "mere anomaly", or ignore it and work on other problems.
 > - Crucial-experiment stories are "fabricated long after the theory had been abandoned". A Newtonian asked what would make him abandon Newton "would have been exactly as nonplussed as are some Marxists", so Popper's test fails to separate Newton from Marx.
 > - All theories are born refuted (lunar motion and Newton; Kaufmann and relativity), so "unrefuted" cannot mark science.
-> - **Not Kuhn:** Kuhn concluded theory change is irrational; then there is no demarcation, no distinction between progress and decay, no objective standard of honesty.
+> - **Not Kuhn:** Lakatos reads Kuhn as concluding theory change is irrational (Kuhn denied this); then there is no demarcation, no distinction between progress and decay, no objective standard of honesty.
 > - **Answer:** shift the unit from the theory to the research programme (hard core, belt, heuristics) and the test from refutation to **novel prediction**: progressive programmes predict novel facts, degenerating ones accommodate known facts.
 > - Revolutions are rational: scientists join the progressive programme, with no instant rationality.
 
 > [!exam]- Popper and Lakatos both discuss modifying auxiliary hypotheses to save a theory from contrary evidence. Compare how each judges such a modification, using an example.
-> **Key points:** Popper judges a patch when it is made: independent support or new testable content, else ad hoc and status lowered; independent reasons required to blame the measurement; Lakatos: belt modification normal and necessary; judged later by whether novel facts were found; they agree on the textbook cases (invented planet fine, theory of imperialism not) and split on the cases in between.
+> **Key points:** Popper judges a patch when it is made: independent support or new testable content, else ad hoc and status lowered; independent reasons required to blame the measurement; Lakatos: belt modification normal and necessary, degenerating if it predicts nothing new, otherwise judged by whether its predictions come true; they agree on the textbook cases (invented planet fine, theory of imperialism not) and split on failed testable patches and long-ignored anomalies.
 >
 > - **Popper:** the modification is judged **when it is made**, by its independent support and testable content. If introduced only to absorb the refutation (ad hoc: for this purpose only, adding no new testable consequences) it is a conventionalist stratagem that lowers scientific status. Blaming the measurement is allowed only with **independent reasons**.
-> - **Lakatos:** belt modification is **normal, constant and necessary**, since that is what the positive heuristic does. It is judged only by its **consequences**: did the modified programme go on to predict a novel fact that was found?
-> - Example: an invented planet to explain an orbital anomaly makes a new testable prediction, so it is acceptable to both; the Marxists' theory of imperialism predicted nothing new, so both reject it. They differ on patches whose new predictions fail, or programmes that sit on anomalies for decades: Popper is suspicious at once, Lakatos waits for the track record. (Background example, which Lakatos does not name: the planet postulated to explain Uranus's orbit was found as Neptune, while the same move for Mercury gave Vulcan, never found.)
+> - **Lakatos:** belt modification is **normal, constant and necessary**, since that is what the positive heuristic does. A patch that predicts nothing new is degenerating at once; one that does is judged by whether its predictions are then found, as part of the programme's record.
+> - Example: an invented planet to explain an orbital anomaly makes a new testable prediction, so it is acceptable to both; the Marxists' theory of imperialism predicted nothing new, so both reject it. They differ on what happens next. A testable patch whose prediction fails (Vulcan) simply refutes the theory for Popper; for Lakatos one failure does not sink a programme with other successes. On a programme that sits on anomalies for decades, Popper calls it dogmatic and Lakatos waits for the track record. (Background example, which Lakatos does not name: the planet postulated to explain Uranus's orbit was found as Neptune, while the same move for Mercury gave Vulcan, never found.)
 >
 > Losing marks: treating every protective-belt modification as automatically ad hoc.
 
 > [!exam]- Contrast Carnap's verifiability criterion with Popper's falsifiability criterion: what each demarcates, its verdict on metaphysics, and the direction of its logic.
 > **Key points:** Verifiability demarcates meaningful from meaningless; falsifiability demarcates science from non-science; metaphysics nonsense for Carnap, possibly valuable for Popper; universal laws cannot be verified but can be falsified by modus tollens.
 >
-> - **Verifiability (Carnap, Vienna Circle):** a statement is meaningful if its truth can in principle be determined by observation or experiment; "the meaning of a statement is its method of verification". Demarcates **meaningful from meaningless**. Metaphysics is nonsense, pseudo-statements to be eliminated.
+> - **Verifiability (Carnap, Vienna Circle):** a statement is meaningful if its truth can in principle be determined by observation or experiment; "the meaning of a statement is its method of verification". Demarcates **meaningful from meaningless**. Metaphysics is nonsense: pseudo-statements.
 > - **Falsifiability (Popper):** a statement is scientific if capable of conflicting with possible observations. Demarcates **science from non-science**. Non-scientific statements are meaningful, sometimes important, sometimes the ancestors of science (Empedocles).
 > - **Logic:** verification wants observations to establish universal laws, which is impossible; falsification wants observations able to destroy them, which modus tollens permits.
-> - Popper: his problem "was neither a problem of meaningfulness or significance, nor a problem of truth or acceptability" but of separating the empirical sciences from all other statements.
 
 > [!exam]- Compare Popper, Kuhn and Lakatos on the unit of appraisal, the demarcation criterion, and how theory change happens.
-> **Key points:** Unit: theory, paradigm, programme; criterion: falsifiability, none explicit, novel prediction; contrary evidence: refutes, anomaly, absorbed by belt; theory change: crucial experiment, Gestalt switch, desertion of a degenerating programme.
+> **Key points:** Unit: theory, paradigm, programme; criterion: falsifiability, puzzle-solving tradition, novel prediction; contrary evidence: refutes unless independent reasons, anomaly, absorbed by belt; theory change: reject what fails a serious test, revolution, desertion of a degenerating programme.
 >
 > - **Unit:** Popper, the individual theory; Kuhn, the paradigm and its community; Lakatos, the research programme (a series of theories over time).
-> - **Demarcation:** Popper, falsifiability (a potential falsifier specified in advance); Kuhn, no explicit criterion (puzzle-solving tradition, stable community); Lakatos, progressive versus degenerating (novel predictions).
-> - **Contrary evidence:** Popper, refutes the theory, which must be rejected; Kuhn, an anomaly tolerated until anomalies pile up into crisis; Lakatos, hits the belt and is digested by the positive heuristic.
+> - **Demarcation:** Popper, falsifiability (a potential falsifier specified in advance); Kuhn, a puzzle-solving tradition (Lakatos charges him with having no real criterion); Lakatos, progressive versus degenerating (novel predictions).
+> - **Contrary evidence:** Popper, refutes the theory unless there are independent reasons to doubt the evidence; Kuhn, an anomaly tolerated until anomalies pile up into crisis; Lakatos, hits the belt and is digested by the positive heuristic.
 > - **Tenacity:** Popper, suspect when it takes an ad hoc rescue; Kuhn, functional in normal science; Lakatos, rational and often correct.
-> - **Theory change:** Popper, a crucial experiment kills the theory (rational by logic); Kuhn, a revolution or Gestalt switch, no algorithm (charged with irrationalism); Lakatos, desertion of a degenerating programme for a progressive rival, rational but no instant rationality.
-> - **Crucial experiments:** Popper, the heart of method; Kuhn, rare and reconstructed after the fact; Lakatos, a myth.
+> - **Theory change:** Popper, reject what fails a serious test; Kuhn, a revolution, no algorithm decides it (Lakatos charges him with irrationalism); Lakatos, desertion of a degenerating programme for a progressive rival, rational but no instant rationality.
+> - **Crucial experiments:** Popper, decisive tests; Kuhn, rare and reconstructed later; Lakatos, a myth.
 
 ## Flashcards
 
@@ -393,7 +397,7 @@ Full model answers for mock Q2 and Q3 are in the first two exam questions below.
 > They **re-interpreted** both theory and evidence to agree, a **conventionalist twist** that made it irrefutable.
 
 > [!card]- Is Popper's verdict on Freud and Adler about the content or the form of their claims?
-> The **form**: they may describe facts and contain important suggestions, but not in a **testable** form.
+> The **form**: they may contain real psychological insight, but not in a **testable** form.
 
 > [!card]- What does "ad hoc" mean for a modification that saves a theory from refutation?
 > **For this purpose only**: its only motive is to **absorb the refuting evidence**, adding **no new testable consequences**.
@@ -434,7 +438,7 @@ Full model answers for mock Q2 and Q3 are in the first two exam questions below.
 > [!card]- Why does Popper's test fail to separate Newton from Marx, according to Lakatos?
 > **Some Newtonians**, asked to name a falsifier, would be **as nonplussed as some Marxists**.
 
-> [!card]- Why does Lakatos refuse Kuhn's conclusion that theory change is irrational?
+> [!card]- Why does Lakatos refuse what he reads as Kuhn's conclusion, that theory change is irrational?
 > Then there is **no demarcation**, no distinction between progress and decay, and **no objective standard** of honesty.
 
 > [!card]- What is Lakatos's unit of appraisal?
@@ -482,8 +486,8 @@ Full model answers for mock Q2 and Q3 are in the first two exam questions below.
 > [!card]- What kind of question does Lakatos's criterion make of scientific status?
 > A **historical** question about track record, which can change: programmes can recover or run out.
 
-> [!card]- What novel fact does Lakatos treat as the flagship of the Newtonian programme?
-> Halley's comet: from a brief stretch of its path, Halley predicted its **return in seventy-two years**, and it returned.
+> [!card]- Which comet prediction does Lakatos give as a novel fact of the Newtonian programme?
+> Halley's comet: from a short stretch of its path, Halley predicted its **return in seventy-two years**, and it returned.
 
 > [!card]- What novel fact did the Einsteinian programme predict, according to Lakatos?
 > Two stars' separation measured **during an eclipse** would **differ** from their separation measured at night.
@@ -501,13 +505,13 @@ Full model answers for mock Q2 and Q3 are in the first two exam questions below.
 > **Dramatic, unexpected, stunning predictions**; a few are enough to tilt the balance. Trivial verifications count for nothing.
 
 > [!card]- What is the difference between how Popper and Lakatos judge a modification that saves a theory?
-> Popper judges its **motive and form**; Lakatos judges its **consequences**: did it lead to novel facts?
+> Popper judges it **when it is made**: independent support or a new test? Lakatos judges the **record**: did novel predictions follow?
 
 > [!card]- Is a protective-belt modification automatically ad hoc, for Lakatos?
-> No: it is **normal, constant and necessary**; only the absence of later novel predictions damns it.
+> No: it is **normal, constant and necessary**; it counts against the programme only if it predicts nothing new.
 
 > [!card]- Why does Lakatos judge an invented planet and the Marxist theory of imperialism differently?
-> Same manoeuvre, but one can lead to a **novel discovery** and the other produced **nothing**.
+> The planet **predicted something new** that was then found; the theory of imperialism only explained a **known fact** after the event.
 
 > [!card]- How do scientific revolutions happen, according to Lakatos?
 > Scientists **desert a degenerating programme** for a progressive rival.

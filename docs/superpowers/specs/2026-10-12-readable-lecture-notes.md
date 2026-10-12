@@ -126,8 +126,10 @@ Target: **2,500 to 3,500 words of body per lecture, 4,000 at most.** A lecture w
 gets a shorter note; nothing gets padded to hit the range. At this size the PhilSci body comes to
 roughly 25,000 words in total, half of what's there now.
 
-The pilot (L01b) went from 10,546 to 3,809 words. It covers two thinkers and two mock questions, so
-it sits at the top of the range.
+The pilot (L01b) went from 10,546 to 4,326 words after review. It is over the 4,000 ceiling: it covers
+two readings, two mock questions and two tutorial weeks, the additions came from gaps the reviewers
+found, and none of the reviewers found a section that dragged. Treat 4,000 as the normal ceiling and
+this as about the most a double lecture should need.
 
 ## On sacrificing accuracy
 
@@ -176,12 +178,48 @@ Proposed, applied once he has read the L01b pilot and is happy with it:
 
 ## Status
 
-- L01b rewritten as the pilot. The flashcards and exam questions underneath it were checked against
-  the new body.
+- L01b rewritten as the pilot, then reviewed (see below). Its flashcards and exam questions were
+  brought in line with the new body.
 - Remaining PhilSci notes (L01, L02, L03, L03b, L04, L05, L06): to do once he approves the pilot.
 - MNLP: next. Its notes are longer (the L05 to L07 files run 22,000 to 26,000 words each,
   cards included) and the exam is multiple choice with a cheat sheet allowed, so the length target needs
   a separate look.
+
+## How the pilot was reviewed
+
+Six independent reviews on L01b, 2026-10-12:
+
+1. A first-time reader with no philosophy background read the body cold, flagged every confusing
+   spot, then wrote the mock answers from the body alone and compared them with the key.
+2. An examiner listed everything examinable (mock keys, tutorial questions, slides, other notes) and
+   marked each item covered, thin or missing.
+3. A philosophy-of-science accuracy check, claim by claim, against the old note and the readings.
+4. A line editor for flow, padding, phone rendering and the writing rules.
+5. and 6. After the fixes: a fresh cold read and a fresh accuracy check that also verified every
+   flashcard and exam answer against the new body.
+
+What they caught that is worth turning into rules for the other notes:
+
+- **Simplifying can change the philosophy.** The first rewrite had Popper condemning Le Verrier's
+  invented planet as ad hoc, which he would not (it made a new testable prediction). It also
+  presented Lakatos's reading of Kuhn as Kuhn's own view. Plain wording needs an accuracy pass of
+  its own.
+- **Two verdicts on one case must be kept apart.** Popper calls Einstein's "dear Lord" line
+  dogmatic; Lakatos says holding on to Kaufmann-refuted relativity was right. A note that blurs
+  them costs marks.
+- **Simplified statements must not contradict the later careful version.** "One black swan
+  refutes the law" needed the $(T \wedge A)$ step before "falsification is a decision" made sense.
+- **Explain every term on first use**, including names (Adler) and words the source treats as
+  obvious (sublimation, conventionalist, crucial experiment, heuristic).
+- **Tables with long cells are miserable on a phone.** Use short paragraphs, or a table with cells of
+  a few words.
+- **Tutorial questions count as much as the mock key** when deciding what to keep. The first
+  rewrite dropped the passage a tutorial question was built on.
+- **When the body changes, the cards and exam answers below it must be re-checked.** Several still
+  carried claims the new body had dropped or corrected.
+- **Cross-references by section number break** when a note is restructured. Refer to headings.
+
+Each remaining note gets the same review before it is called done.
 
 ## Sources
 
