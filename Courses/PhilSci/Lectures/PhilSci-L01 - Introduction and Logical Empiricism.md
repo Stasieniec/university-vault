@@ -346,7 +346,7 @@ The lecture's own conclusion slide frames it in four parts: (A) philosophy of sc
 > >
 > > Its significance for demarcation is that it draws the line between science and non-science as a line between meaningful and meaningless. Statements that can be neither verified nor established by logic are pseudo-statements: they are grammatically well formed and seem to say something, but are literally meaningless. Metaphysics is the main target. Heidegger's “The Nothing itself noths” treats “nothing” as a name and a verb, whereas logically “nothing is $P$” is just $\neg\exists x\,P(x)$, so the sentence expresses no proposition at all. Science is then the body of verifiable statements, and pseudo-science and metaphysics are excluded not as false but as without meaning.
 >
-> Contrast to have ready: Popper's falsifiability criterion demarcates science from non-science **without** declaring non-science meaningless (see [[PhilSci-L01b - Popper and Lakatos]], section 2.9).
+> Contrast to have ready: Popper's falsifiability criterion demarcates science from non-science **without** declaring non-science meaningless (see [[PhilSci-L01b - Popper and Lakatos]], "Not science does not mean nonsense").
 
 ## Exam questions
 

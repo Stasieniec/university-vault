@@ -29,38 +29,40 @@ topics:
 
 ## The question both of them are answering
 
-Astrology has a stupendous mass of observations. Psychoanalysis has a clinic full of case studies. Physics has experiments. All three can point at evidence, so "it has evidence" cannot be what makes something science. Popper calls astrology's method **pseudo-empirical**: it appeals to observation, but not in the way science does.
+Astrology has a stupendous mass of observations. Psychoanalysis has a clinic full of case studies. Physics has experiments. All three can point at evidence, so "it has evidence" cannot be what makes something science. Popper calls astrology's method **pseudo-empirical**: it appeals to observation, but in a way that observation can never go against.
 
-Finding what does make the difference is called the **problem of demarcation**. A **demarcation criterion** is a condition a field has to meet to count as science; fail it and you are not science.
+Finding what does make the difference is called the **problem of demarcation**. A **demarcation criterion** is a necessary condition a field has to meet to count as science.
 
-One thing to get straight first: the criterion is not about truth. Science is often wrong, and a pseudoscience can get lucky. Popper wanted a mark of scientific status that holds whether or not the theory turns out true.
+The criterion is not about truth. Science is often wrong, and a pseudoscience can get lucky. Popper wanted a mark of scientific status that holds whether or not the theory turns out true.
 
-## Part 1: Popper, science is what can be proved wrong
+And it is not an armchair question. In Lakatos's examples, the Catholic Church banned Copernicus's theory as pseudoscience in 1616, and the Soviet Communist Party declared Mendelian genetics pseudoscientific (he dates it 1949), with geneticists such as Vavilov dying in prison. Each decision rested on some demarcation criterion, so getting the criterion right has ethical and political stakes.
+
+## Part 1. Popper: a scientific theory must be able to fail
 
 ### The theories that explain everything
 
-Vienna, 1919. Popper is surrounded by four fashionable theories: Einstein's relativity, Marx's theory of history, Freud's psychoanalysis and Adler's individual psychology.
+Vienna, 1919. Popper is surrounded by four fashionable theories: Einstein's relativity, Marx's theory of history (history is driven by class struggle and heads for a workers' revolution), Freud's psychoanalysis, and Alfred Adler's individual psychology (a breakaway from Freud that explains behaviour through feelings of inferiority).
 
-The fans of the last three were most impressed by how much they explained. Once you "got" Marxism, every newspaper confirmed it. Once you "got" Freud, every patient did. Popper's favourite illustration:
+Their fans loved how much they explained. Once you "got" Marxism, every newspaper confirmed it; once you "got" Freud, every patient did. Popper's favourite illustration:
 
 > [!example] The two men and the child
 > One man pushes a child into a river to drown it. Another man drowns trying to save a child.
 >
-> Freud explains the first by repression and the second by sublimation. Adler explains both by inferiority feelings: the first man needed to prove he dared commit a crime, the second needed to prove he dared to rescue.
+> Freud explains the first by repression (a desire pushed out of awareness) and the second by sublimation (the same desire turned into something admirable). Adler explains both by inferiority feelings: the first man needed to prove he dared commit a crime, the second needed to prove he dared to rescue.
 >
 > Two opposite behaviours, and both theories explain both of them with total confidence.
 
-Popper also told Adler about a case that did not look very Adlerian. Adler explained it in terms of inferiority feelings on the spot, without having seen the child. Asked how he could be so sure, he said "because of my thousandfold experience". Popper's reply: "And with this new case, I suppose, your experience has become thousand-and-one-fold."
+Popper had worked in Adler's social guidance clinics in Vienna, and once reported a case to him that did not look very Adlerian. Adler explained it in terms of inferiority feelings without difficulty, without having seen the child. Asked how he could be so sure, he said "because of my thousandfold experience". Popper's reply: "And with this new case, I suppose, your experience has become thousand-and-one-fold."
 
-That is the whole argument in one joke. If every possible case can be interpreted in the light of the theory, then fitting one more case confirms nothing. Popper's conclusion: the fact that these theories always fitted was not their strength. It was their weakness. A theory that no possible observation could count against cannot be tested against the world, so its fit with the evidence is worth nothing.
+That is the whole argument in one joke. If every possible case can be interpreted in the light of the theory, then fitting one more case confirms nothing. So the constant fit that impressed Freud's and Adler's fans was, for Popper, a weakness: if no possible observation could count against a theory, the world never gets to test it, and its fit with the evidence is worth nothing.
 
 ### The contrast: Einstein and the eclipse
 
-General relativity says gravity bends light. So a star whose light passes close to the sun should appear slightly shifted away from the sun, by an angle the theory calculates in advance. You can only see such stars during a total eclipse, so you photograph them then, photograph the same stars at night months later, and compare.
+General relativity says gravity bends light. So a star whose light passes close to the sun should appear slightly shifted away from the sun, by an angle the theory calculates in advance. Normally the sun's glare hides such stars, so you photograph them during a total eclipse, photograph the same stars at night months later, and compare.
 
 Eddington's expeditions did exactly this in 1919 and found the shift Einstein predicted.
 
-What impressed Popper was not that the prediction came true. It was that it **could have failed**. If the shift had not been there, the theory would simply have been refuted. Before Einstein, everyone would have expected a different result. That is a **risky prediction**, and it is the opposite of Adler explaining every possible child.
+What impressed Popper was that the prediction **could have failed**. If the shift had not been there, the theory would simply have been refuted. The theory is incompatible with results that everybody before Einstein would have expected. That is a **risky prediction**, and it is the opposite of Adler explaining every possible child.
 
 ### The criterion: falsifiability
 
@@ -69,187 +71,193 @@ What impressed Popper was not that the prediction came true. It was that it **co
 >
 > To be ranked as scientific, a theory must be capable of conflicting with possible observations.
 
-Popper's conclusions from the winter of 1919-20, boiled down:
+Popper's conclusions, boiled down:
 
 - **Confirmations are cheap.** You can find them for nearly any theory if you look. They only count when they come from a risky prediction: one where, without the theory, you would have expected the opposite.
 - **A good theory is a prohibition.** It forbids certain things from happening, and the more it forbids, the better.
-- **Irrefutability is a vice**, not the virtue people take it for.
+- **Irrefutability, which people take for a virtue, is a vice.**
 - **A real test is an attempt to falsify.** If the theory survives a serious attempt, it is **corroborated**.
 
-"The more it forbids, the better" sounds backwards, so here is an illustration. "Tomorrow it will either rain or not rain" forbids nothing. It can never be wrong, and it tells you nothing. "Tomorrow 12mm of rain falls in Amsterdam between two and three in the afternoon" forbids almost everything. It is easy to refute, and if it survives, you have learned a lot. Content and risk come together.
-
-> [!warning] Corroborated does not mean "probably true"
-> Corroboration is a report on the past: the theory has survived our attempts to kill it so far. Popper argued (in 1934) that the probability of any theory, scientific or pseudoscientific, given any amount of evidence, is zero. So "well corroborated, therefore probably true" is exactly the inductive step he refuses to make. Do not write it in an exam answer about Popper.
+"The more it forbids, the better" sounds backwards until you try it on the weather. "Tomorrow it will either rain or not rain" forbids nothing. It can never be wrong, and it tells you nothing. "Tomorrow 12mm of rain falls in Amsterdam between two and three in the afternoon" forbids almost everything. It is easy to refute, and if it survives, you have learned a lot. Saying more and risking more are the same thing.
 
 ### Why falsify instead of verify
 
-Take "all swans are white". A million white swans do not prove it, because the next swan might be black. No finite number of observations logically gets you to a claim about all swans: this is Hume's problem of induction.
+Take "all swans are white". A million white swans do not prove it, because the next swan might be black. No finite number of observations logically gets you to a claim about all swans: this is Hume's **problem of induction**.
 
-One black swan, on the other hand, does disprove it. The logic is **modus tollens**: the theory $T$ implies an observation $O$; we observe that $O$ is false; so $T$ is false.
+One black swan, on the other hand, does refute it. The logic is **modus tollens**: the theory $T$ implies an observation $O$; we observe that $O$ is false; so $T$ is false.
 
 $$\frac{T \rightarrow O \qquad \neg O}{\therefore\ \neg T}$$
 
-So logic lets you refute a universal law and never lets you prove one. Popper builds science on the side of that asymmetry that actually works: science makes bold guesses (conjectures) and tries to knock them down (refutations). Whatever survives is corroborated, never proved.
+So logic lets you refute a universal law and never lets you prove one. Popper builds science on the half that works: make bold guesses (**conjectures**), try hard to knock them down (**refutations**), and keep whatever survives, for now.
+
+> [!warning] Corroborated does not mean "probably true"
+> Corroboration is a report on the past: the theory has survived our attempts to kill it so far. Popper argued that the probability of any theory, scientific or pseudoscientific, given any amount of evidence, is zero: a universal law covers infinitely many cases, and any body of evidence is a vanishing fraction of them. So "well corroborated, therefore probably true" is exactly the inductive step he refuses to make.
 
 ### Popper's scorecard
 
-| Theory | Verdict | Why |
-|---|---|---|
-| **Einstein's relativity** | Scientific | Made risky predictions that could have failed |
-| **Astrology** | Not scientific | Astrologers were so impressed by confirmations that they ignored unfavourable evidence, and made their prophecies vague enough to fit anything. "In order to escape falsification they destroyed the testability of their theory" |
-| **Marx's theory of history** | Not scientific, **but it used to be** | Early versions made testable predictions about the coming revolution, and those were falsified. Followers then re-interpreted both the theory and the evidence until they agreed again: a conventionalist twist that made it irrefutable |
-| **Freud and Adler** | Not scientific, **never were** | No conceivable human behaviour could contradict them |
+**Einstein's relativity: scientific.** It made risky predictions that could have failed.
 
-The difference between Marxism and psychoanalysis is a favourite exam detail. Marxism was testable, got falsified, and was then rescued in a way that cost it its scientific status. Psychoanalysis never took a risk in the first place.
+**Astrology: not scientific.** Astrologers were so impressed by confirmations that they ignored unfavourable evidence, and made their prophecies vague enough to fit anything. "In order to escape falsification they destroyed the testability of their theory."
 
-Popper is not saying Freud and Adler saw nothing. He thinks they may contain important psychological insights that a future testable psychology could use. His verdict is about the **form** of their claims (untestable), not about whether there is anything in them.
+**Marx's theory of history: not scientific, but it used to be.** Its early predictions about the coming revolution were testable, and they failed. Followers then re-interpreted both the theory and the evidence until the two agreed again, which made it irrefutable. Popper's name for this kind of rescue, the conventionalist twist, comes in the next section.
+
+**Freud and Adler: not scientific, and never were.** No conceivable human behaviour could contradict them. Marxism took a risk and lost; psychoanalysis never took one.
 
 ### Rescuing a theory, and when it is allowed
 
-Any refuted theory can be saved. You add an extra assumption that explains away the bad result, or you re-interpret the theory until it no longer clashes. Popper calls this the **conventionalist twist** or **conventionalist stratagem**. It always works, and that is the problem: it rescues the theory "only at the price of destroying, or at least lowering, its scientific status".
+The Marxists' move works for any theory. You can save a refuted theory by adding an extra assumption whose only job is to explain away the bad result, or by re-interpreting the theory until it no longer clashes. Popper calls this rescue the **conventionalist twist** or **conventionalist stratagem** (the theory ends up held true by convention, whatever the evidence says). It always works, and that is the problem: it rescues the theory "only at the price of destroying, or at least lowering, its scientific status".
 
-The key word is **ad hoc**, Latin for "for this purpose only". A change is ad hoc when its only job is to absorb the evidence that would have refuted the theory. It makes no new testable predictions of its own.
+The key word is **ad hoc**, Latin for "for this purpose only". A change is ad hoc when its only job is to absorb the evidence that would have refuted the theory. It has no independent support and makes no new testable predictions of its own.
 
-But Popper does **not** say every failed prediction kills the theory on the spot. A prediction never comes from the theory alone. It also relies on auxiliary assumptions: that the telescope works, that the photographic plates were not warped, that the data were reduced properly, that the stars were identified correctly. When the prediction fails, the fault could lie in any of those. (This is the Duhem-Quine point, covered properly in [[PhilSci-L03 - Under-determination]].)
+But Popper does **not** say every failed prediction kills the theory on the spot, and here the swans need one correction. A prediction never comes from the theory alone. In the eclipse test it also relied on **auxiliary assumptions**: that the telescopes worked, that the photographic plates were not warped, that the data were reduced properly, that the stars were identified correctly. So the real logic is:
 
-Falsification is a decision to reject the theory, taken without logic telling you exactly where the fault lies. So Popper allows you to blame the measurement instead of the theory, **on one condition: you need independent reasons** to reject the measurement. "Otherwise my theory would be refuted" is not an independent reason. With independent reasons, it is ordinary scientific correction. Without them, it is an ad hoc rescue.
+$$\frac{(T \wedge A) \rightarrow O \qquad \neg O}{\therefore\ \neg (T \wedge A)}$$
+
+Modus tollens only tells you that *something* among the premises is false: the theory or one of the auxiliaries $A$. Logic does not say which. This is the **Duhem-Quine thesis**, covered properly in [[PhilSci-L03 - Under-determination|L03]]. Popper accepts it: rejecting the theory is a decision, and even accepting the observation report is, in the end, a matter of agreement among scientists.
+
+So Popper allows you to blame the measurement instead of the theory, **on one condition: you need independent reasons** to reject the measurement. "Otherwise my theory would be refuted" is not an independent reason. With independent reasons, it is ordinary scientific correction. Without them, it is an ad hoc rescue.
 
 > [!example] "Then I am very sorry for the dear Lord" (mock Q3)
 > In 1953 Einstein was asked what he would have done if Eddington had not found the shift. He said he would have been sorry for the dear Lord, because the theory is correct.
 >
-> Would Popper accept that? **No, if the measurement was sound.** Relativity earned its scientific status by forbidding a null result. If the null result had come in, the theory would be falsified and should be given up. Insisting it is correct anyway is dogmatic, the same move as the Marxists.
+> Would Popper accept that? **No, if the measurement was sound.** Relativity earned its scientific status by forbidding certain results, such as no shift at all. If one of them had come in, the theory would be falsified and should be given up. Insisting it is correct anyway is dogmatic, the same move as the Marxists.
 >
-> **Could it ever be acceptable?** Yes, if there were independent reasons to think the measurement was wrong, because by Duhem-Quine the blame can always fall on an auxiliary assumption. But Einstein gives no such reason, only his confidence in the theory. So on Popper's terms, no.
+> **Could it ever be acceptable?** Yes, if there were independent reasons to think the measurement was wrong, because by the Duhem-Quine thesis the blame can always fall on an auxiliary assumption. But Einstein gives no such reason, only his confidence in the theory. So on Popper's terms, no.
 
 ### Not science does not mean nonsense
 
-Popper often gets lumped in with the logical positivists of [[PhilSci-L01 - Introduction and Logical Empiricism|L01]]. He was arguing against them, and the difference is worth having ready because mock Q1 asks about the verifiability criterion of meaning.
+Popper often gets lumped in with the logical positivists of [[PhilSci-L01 - Introduction and Logical Empiricism|L01]] (also called logical empiricists: Carnap and the Vienna Circle). He was arguing against them, and mock Q1 asks about exactly this difference.
 
-| | Carnap and the Vienna Circle | Popper |
-|---|---|---|
-| Criterion | **Verifiability**: a statement is meaningful if observation could in principle settle whether it is true. "The meaning of a statement is its method of verification" | **Falsifiability**: a statement is scientific if it could conflict with possible observations |
-| What it separates | Meaningful from **meaningless** | Science from **non-science** |
-| Metaphysics is | Pseudo-statements: they look like they say something but are literally meaningless | Meaningful, sometimes important, possibly the seed of a future science |
-| Direction of the logic | Wants observations to establish a statement, which universal laws make impossible | Wants observations to be able to destroy it, which logic allows |
+**Carnap and the Vienna Circle: verifiability.** A statement is meaningful only if observation could in principle settle whether it is true: "the meaning of a statement is its method of verification". The line runs between meaningful and meaningless. Metaphysics lands on the meaningless side: pseudo-statements that only look as if they say something.
 
-Popper's own words: his problem "was neither a problem of meaningfulness or significance, nor a problem of truth or acceptability", only where to draw the line around empirical science. He points out that most scientific theories started life as myths (Empedocles had evolution by trial and error long before Darwin). A theory found to be non-scientific "is not thereby found to be unimportant, or insignificant, or meaningless". It just cannot claim the backing of scientific evidence.
+**Popper: falsifiability.** A statement is scientific if it could conflict with possible observations. The line runs between science and non-science, and says nothing about meaning. Non-scientific ideas can be meaningful, important, and the seed of later science: most scientific theories started life as myths (the Greek philosopher Empedocles had evolution by trial and error). Popper even thinks Freud and Adler may contain real psychological insight, just not in a testable form.
 
-## Part 2: Lakatos, judge the research programme over time
+The logic also runs in opposite directions. Verification needs observations to establish universal laws, which the swans showed is impossible, so strictly applied it makes laws of nature meaningless. Falsification only needs observations to be able to knock them down.
+
+Which is better? Falsifiability survives the problem that sinks verifiability. Its own weak spots: Duhem-Quine, and Lakatos's point (next) that scientists rightly keep refuted theories.
+
+## Part 2. Lakatos: judge the research programme over time
+
+### Clearing the ground
+
+Lakatos keeps Popper's goal, an objective line between science and pseudoscience, and attacks the way Popper draws it. First he disposes of three older answers.
+
+- **Knowledge is not strong belief.** People have believed absurd things with total commitment. The hallmark of science is scepticism even towards your favourite theory: "blind commitment to a theory is not an intellectual virtue: it is an intellectual crime". A theory's scientific value is **objective**, independent of anyone's mind. A claim can be pseudoscientific though everybody believes it, and valuable though nobody does.
+- **Facts cannot prove a theory.** No law follows validly from finitely many facts. Newton claimed to deduce his laws from Kepler's ellipses, yet his own theory says planets disturb each other, so no planet moves in an exact ellipse.
+- **Probability does not help.** If Popper is right that every theory has probability zero, theories are equally improbable as well as equally unprovable.
+
+That leaves Popper's falsificationism.
 
 ### The objection: scientists have thick skins
 
-Lakatos puts Popper's criterion like this: a theory is scientific if you are willing to say **in advance** which observation would make you give it up (a potential falsifier), and pseudoscientific if you refuse.
+Lakatos puts Popper's criterion like this: a theory is scientific if you are willing to say **in advance** which observation would make you give it up (a **potential falsifier**), and pseudoscientific if you refuse.
 
-He notices something odd about that. It makes scientific status depend on the attitude of the people holding the theory. Strictly, it separates scientific *method* from non-scientific method, rather than scientific *theories* from pseudoscientific ones.
+Notice what that does: the same theory would be science for someone willing to name a falsifier and pseudoscience for someone who refuses. So Popper's test really sorts scientific *method* from non-scientific method, rather than theories.
 
-Then the real objection. Popper's criterion "ignores the **remarkable tenacity** of scientific theories. Scientists have thick skins." When an observation contradicts their theory, they do not abandon it. They do one of two things:
+Then the real objection, the one that makes this falsificationism **naive**. It "ignores the **remarkable tenacity** of scientific theories. Scientists have thick skins." When an observation contradicts their theory, they do not abandon it. They do one of two things:
 
-1. call it an **anomaly** and invent a rescue hypothesis to explain it, or
+1. call it an **anomaly** and invent an auxiliary hypothesis to explain it, or
 2. if they cannot explain it, ignore it and work on something else.
 
-Lakatos's sharpest line: if Popper had asked a Newtonian physicist what experiment would make him give up Newton, some Newtonians would have been just as stuck for an answer as some Marxists. So Popper's test, applied to real science, cannot tell Newton from Marx. And the famous stories of a crucial experiment killing a theory were, Lakatos says, "fabricated long after the theory had been abandoned".
+Lakatos's sharpest line: ask Newtonian physicists which experiment would make them give up Newton, and some would be as stuck for an answer as some Marxists. So Popper's test, applied to real science, cannot tell Newton from Marx. And the famous stories of a **crucial experiment** (one test that settles the matter for good) killing a theory were, Lakatos says, "fabricated long after the theory had been abandoned".
 
 ### All theories are born refuted
 
-It gets worse for Popper. Every major theory has had contradicting evidence from day one.
+Every major theory has faced contradicting results from day one. Lakatos uses "refuted" loosely here: a well-founded result that seems to clash with the theory.
 
 - When Newton published, everyone knew his theory could not properly explain the motion of the moon.
-- The physicist Kaufmann "refuted" Einstein's relativity in the very year it was published.
+- The physicist Kaufmann "refuted" Einstein's special relativity (the 1905 theory, before the general relativity of the eclipse) in the very year it was published.
 
-Both "refutations" later turned out to be spurious: the moon's motion is consistent with Newton after all, and Kaufmann's results came from experimental error. So a good Popperian Einstein would have thrown away a correct theory because of a bad measurement. Stubbornness is sometimes exactly what saves the right theory.
+Both "refutations" later turned out to be spurious: the moon's motion is consistent with Newton after all, and Kaufmann's results came from experimental error. At the time, though, nobody had independent reasons to doubt them, so Popper's escape clause did not apply. A naive falsificationist would have told Einstein to throw away a correct theory because of a bad measurement. Holding on was the "sorry for the dear Lord" attitude, and here it saved the right theory.
 
-So "still unrefuted" cannot be the mark of science, because nothing is ever unrefuted.
-
-Kuhn drew a radical conclusion from the same observation: if refutation does not drive theory change, maybe theory change is irrational, more like a religious conversion (see [[PhilSci-L02 - Kuhn on Scientific Practice|L02]]). Lakatos refuses to go there. If Kuhn were right, there would be no demarcation, no difference between progress and decay, and no objective standard of honesty. He wants a third option: keep Popper's demand for objective standards while admitting that scientists behave the way Kuhn describes.
+So "still unrefuted" cannot be the mark of science. Every programme, at every stage, lives with unsolved anomalies.
 
 ### The fix: the research programme
 
-Lakatos changes what gets judged. Not a single hypothesis, but a **research programme**: a series of theories that develop over time around a shared core. Newton's physics is not "four conjectures"; it is a programme, building model after model on the same base.
+Lakatos reads Thomas Kuhn (next lecture, [[PhilSci-L02 - Kuhn on Scientific Practice|L02]]) as drawing a radical conclusion from the same facts: if refutation does not drive theory change, theory change is irrational, more like a religious conversion. (Kuhn himself denied this.) Lakatos refuses to go there. Then there would be no line between science and pseudoscience, and no objective way to tell progress from decay. He wants a third option: keep Popper's objective standards while accepting the thick-skinned behaviour just described.
 
-A research programme has four parts. The mock exam key lists exactly these four, so learn them by name.
+His answer is to change what gets judged. Not a single hypothesis, but a **research programme**: a series of theories that develop over time around a shared core. Newton's physics, for instance, is a long series of models of planets, moons and comets, all built on the same laws. A "heuristic" in what follows just means a rule for where to look and what to do.
 
-> [!definition] The four components (Newton as the example)
-> 1. **Hard core.** The basic assumptions that define the programme. For Newton: the three laws of motion plus the law of gravitation. Scientists in the programme agree not to touch it. That makes it irrefutable **by decision**, not by logic or meaning: give up the core and you have left the programme.
+> [!definition] Parts of a research programme (Newton as the example)
+> 1. **Hard core.** The basic assumptions that define the programme. For Newton: the three laws of motion plus the law of gravitation. Scientists in the programme agree not to touch it. That makes it irrefutable by **methodological decision**: evidence could logically count against it, but the scientists agree never to let it. Give up the core and you have left the programme.
 > 2. **Protective belt.** Everything around the core that can be adjusted: auxiliary hypotheses, initial conditions, theories of the instruments, models of the particular system. The belt is what actually meets the evidence, and it is what gets changed when something goes wrong.
-> 3. **Negative heuristic.** The rule saying where *not* to aim: never direct modus tollens (the refutation) at the hard core. Fix something in the belt instead.
-> 4. **Positive heuristic.** The programme's problem-solving machinery: a partly worked-out plan for what to do next: which models to build, which anomalies to tackle in which order, which mathematical tools to develop. It is what lets scientists keep working for years without being derailed by every awkward result.
+> 3. **Negative heuristic.** The rule saying where *not* to aim: never direct modus tollens at the hard core. Blame something in the belt instead.
+> 4. **Positive heuristic.** The programme's problem-solving machinery, a partly worked-out plan for what to do next: which models to build, which anomalies to tackle in which order, which mathematical tools to develop. It "digests anomalies and even turns them into positive evidence".
 
-```
-     anomaly ──►  PROTECTIVE BELT        ──►   HARD CORE
-                  auxiliary hypotheses,        Newton's 3 laws
-                  instruments, models          + gravitation
-                  (adjust here)                (off-limits)
-```
+The belt is Lakatos's answer to Duhem-Quine. Since a failed prediction never says where the fault is, the programme decides in advance that it goes in the belt.
 
-> [!example] A planet misbehaves
-> A planet does not move quite as Newton's theory says it should. The Newtonian does not conclude that gravitation is wrong. She checks her assumptions about how the atmosphere bends light, about light in magnetic storms, and hundreds of other belt assumptions. She may even invent an unseen planet and calculate its position, mass and velocity.
+> [!example] A planet misbehaves: both heuristics at work
+> A planet does not move quite as Newton's theory says it should. The negative heuristic says: gravitation is not on trial. The positive heuristic says what to check instead: assumptions about how the atmosphere bends light, about light in magnetic storms, and hundreds of others. The astronomer may even invent an unseen planet and calculate its position, mass and velocity.
 >
-> Background (Lakatos does not name the case): this really happened twice. Uranus wobbled, Le Verrier and Adams predicted a new planet, and Neptune was found in 1846. Mercury's perihelion did not match either, the same move predicted a planet called Vulcan, and it never turned up; general relativity explained Mercury instead. Same move, opposite outcomes. That is why Lakatos judges a move by what it leads to.
+> This really happened, twice, though Lakatos does not name the cases. Uranus strayed from its predicted orbit, Le Verrier and Adams predicted a new planet, and Neptune was found in 1846. Mercury's orbit did not fit either, the same move predicted a planet called Vulcan, and it never turned up; general relativity explained Mercury instead.
 
 ### Progressive or degenerating
 
-So what separates science from pseudoscience? Not whether a programme has anomalies, because they all do. Lakatos asks which direction it is moving in.
+Having a hard core, a belt and a heuristic does not make something science. Lakatos counts Newton's physics, relativity and quantum mechanics as research programmes, but also Marxism and Freudianism, each with a stubbornly defended core. And every one of them has anomalies. So he asks which direction a programme is moving in.
 
 > [!definition] Lakatos's criterion
-> - A programme is **progressive** when it **predicts novel facts**: facts nobody expected, or that rival programmes said were impossible, and which are then found. The theory runs **ahead** of the facts.
+> - A programme is **progressive** when it **predicts novel facts**: facts nobody expected, or that rival programmes said were impossible, which are then found. In the key's words, it leads to new discoveries. The theory runs **ahead** of the facts.
 > - A programme is **degenerating** when its theories are made up **only to accommodate facts already known**. The theory **lags behind** the facts and runs to catch up.
 
 Progressive examples:
 
-- **Halley's comet.** Using Newton's theory, Halley watched a short stretch of a comet's path and predicted it would return in seventy-two years, at a specific spot in the sky. Seventy-two years later, with Newton and Halley long dead, it came back as predicted.
+- **Halley's comet.** Using Newton's theory, Halley watched a short stretch of a comet's path and predicted it would return in seventy-two years (Lakatos's figure; the real period is about 76), at a specific spot in the sky. It came back as predicted, with Newton and Halley long dead.
 - **Newton's unseen planets.** Newtonians predicted the existence and exact motion of small planets nobody had seen yet.
-- **Einstein's eclipse.** The distance between two stars would be different when measured during an eclipse than when measured at night. Nobody had even thought to check that before.
+- **Einstein's eclipse.** The distance between two stars would be different when measured during an eclipse than when measured at night. Nobody had thought to check that before. It is the same test Popper admired, now counted as a novel fact.
 
-The degenerating example is Marxism. "Has Marxism ever predicted a stunning novel fact successfully? Never!" Its bold predictions all failed: workers would become ever poorer, the first socialist revolution would happen in the most industrialised country, socialist societies would have no revolutions, and socialist countries would not clash with each other. Each failure was then explained after the event: rising living standards by a **theory of imperialism**, the revolution in backward Russia, the uprisings in Berlin (1953), Budapest (1956) and Prague (1968), and the Russia-China split.
+The degenerating example is Marxism. "Has Marxism ever predicted a stunning novel fact successfully? Never!" Its bold predictions all failed, and each failure was explained after the event:
 
-Lakatos's summary: trivial confirmations are worthless (Popper was right, there are millions of them, and stones falling to the ground do nothing for Newton). Refutations are not fatal either, because every programme lives in "a permanent ocean of anomalies". What counts are dramatic, unexpected predictions that come true, and a few of them are enough.
+- Workers would get ever poorer. They got richer, and a **theory of imperialism** was produced to explain why.
+- The first socialist revolution would come in the most industrialised country. It came in backward Russia.
+- Socialist societies would have no revolutions. Berlin (1953), Budapest (1956) and Prague (1968) followed.
+- Socialist countries would not clash. Russia and China split.
 
-This makes scientific status a **historical** question about a track record, and the answer can change. A degenerating programme can recover; a progressive one can run out of steam. "Progressive" and "degenerating" describe a direction of travel, which is why they apply to a programme over time and never to a single hypothesis at one moment.
+Lakatos's summary: trivial confirmations are worthless (every falling stone "confirms" Newton), and refutations are not fatal, because every programme lives in "a permanent ocean of anomalies". What counts are dramatic, unexpected predictions that come true, and a few are enough.
 
-### Patching a theory: where Popper and Lakatos disagree
+This makes scientific status a **historical** question about a track record, and the answer can change: a degenerating programme can recover, a progressive one can run out of steam. "Progressive" and "degenerating" describe a direction of travel, so they apply to a programme over time, never to a single hypothesis.
 
-This is the distinction people lose marks on.
+### Patching a theory: Popper and Lakatos compared
 
-- **Popper** judges a patch by how it was made. If its only purpose was to absorb the refuting evidence, it is ad hoc, and the theory loses scientific status.
-- **Lakatos** says patching the protective belt is normal, constant and necessary; it is what the positive heuristic is for. A patch is judged by **what comes after it**: did the patched programme go on to predict a new fact that was then found?
+- **Popper** judges a patch at the moment it is made. Is there an independent reason for it, or a new test it could fail? If its only job is to absorb the refuting evidence, it is ad hoc, and the theory loses scientific status.
+- **Lakatos** says patching the protective belt is normal, constant and necessary; it is what the positive heuristic is for. Belt changes are not suspect by default. He judges a patch by **what comes after it**: did the patched programme go on to predict a new fact that was then found?
 
-Le Verrier's invented planet and the Marxist theory of imperialism are the same kind of move. For Lakatos one gave us Neptune and the other gave us nothing, and that is the entire difference.
+On the textbook cases they agree. Le Verrier's invented planet made a new testable prediction (point the telescope here), so it is not ad hoc for Popper either, and it paid off when Neptune was found. The Marxist theory of imperialism predicted nothing new, so both reject it. They split on the cases in between: a patch that makes new predictions which never come true, or a programme that sits on its anomalies for decades. Popper is suspicious at once. Lakatos waits for the track record.
 
 ### How revolutions happen
 
-When there are two rival programmes and one is progressing while the other is degenerating, scientists tend to move to the progressive one. That is what a scientific revolution is, and it is rational. Lakatos adds four qualifications:
+When there are two rival programmes and one is progressing while the other is degenerating, scientists tend to move to the progressive one. That is what a scientific revolution is, and it is rational. Lakatos adds three qualifications and one jab at Kuhn:
 
 - **Loyalty is allowed.** It is not dishonest to stick with a degenerating programme and try to turn it around, as long as you keep its record public.
 - **No instant rationality.** A new programme deserves patience; it can take decades to get going. There is no rule that tells you the exact moment to give up.
-- **No refutation without a better theory.** There is no Popperian quick kill by finding a counterexample. You abandon it when there is somewhere better to go.
+- **No refutation without a better theory.** There is no Popperian quick kill by counterexample. You abandon a programme when there is somewhere better to go.
 - **Against Kuhn:** revolutions are not sudden, irrational changes of vision. "On close inspection both Popperian crucial experiments and Kuhnian revolutions turn out to be myths."
 
 The price of all this: verdicts only come in hindsight. You can say a programme has been degenerating for thirty years. You cannot tell a scientist today that she must abandon it.
 
-### Why any of this matters
-
-Lakatos insists demarcation is not armchair philosophy, because people act on it. The Catholic Church banned Copernicus's theory as pseudoscience in 1616. The Soviet Communist Party declared Mendelian genetics pseudoscientific in 1949, and geneticists such as Vavilov died in the camps. Every one of those decisions rested on some demarcation criterion, so getting the criterion right has ethical and political stakes.
-
 ## Popper, Kuhn and Lakatos side by side
 
-| | **Popper** | **Kuhn** ([[PhilSci-L02 - Kuhn on Scientific Practice\|L02]]) | **Lakatos** |
+Kuhn's terms (paradigm, puzzle-solving, crisis) are explained in [[PhilSci-L02 - Kuhn on Scientific Practice|L02]].
+
+| | **Popper** | **Kuhn** | **Lakatos** |
 |---|---|---|---|
-| What gets judged | A single theory | A paradigm and its community | A research programme over time |
-| What marks science | Falsifiability | No explicit criterion: puzzle-solving under a paradigm | Predicting novel facts (progressive) |
-| What contradicting evidence does | Refutes the theory | Becomes an anomaly, tolerated until crisis | Hits the protective belt and is digested by the positive heuristic, never the core |
-| Tenacity is | A vice | Normal and useful | Rational, since all theories are born refuted |
-| Theory change | A crucial experiment kills the theory | A revolution, like a Gestalt switch | Scientists leave a degenerating programme for a progressive one |
-| Is theory change rational? | Yes, by logic | No algorithm decides it, hence the charge of irrationalism | Yes, but no instant rationality |
-| Crucial experiments are | The heart of the method | Rare, reconstructed after the fact | A myth |
+| Judges | One theory | Paradigm and community | Programme over time |
+| Mark of science | Falsifiability | Puzzle-solving tradition | Novel predictions |
+| Contrary evidence | Refutes, unless independent reasons | Anomaly, tolerated until crisis | Absorbed by the belt |
+| Tenacity | Suspect if ad hoc | Normal and useful | Rational |
+| Theory change | Reject what fails a serious test | Revolution, no algorithm | Leave a degenerating programme |
+| Crucial experiments | Decisive tests | Rare, reconstructed later | A myth |
+
+Lakatos charges Kuhn with having no real demarcation criterion; Kuhn's own answer is the puzzle-solving tradition.
 
 ## What to be able to write
 
-- Popper's criterion in one sentence, and what a risky prediction is (Eddington).
-- Why Marxism and psychoanalysis fail differently.
-- The ad hoc condition: blaming the measurement is fine **only with independent reasons**.
-- Lakatos's four components in the key's order: hard core, protective belt, positive heuristic, negative heuristic.
-- Progressive **predicts novel facts**; degenerating **only accommodates known facts**. One example of each (Halley's comet, Marxism's theory of imperialism).
-- Lakatos's objection to Popper: thick skins, and all theories are born refuted.
+- Popper's criterion, and what made Eddington's test a risky prediction.
+- Marxism (falsified, then rescued) versus psychoanalysis (never testable).
+- Blaming the measurement is fine **only with independent reasons**, because by Duhem-Quine the fault could lie anywhere.
+- Verifiability sorts meaning; falsifiability sorts science.
+- Lakatos's four components by name (the key lists the positive heuristic first; order does not matter).
+- Progressive **predicts novel facts**; degenerating **only accommodates known facts**. Halley's comet; Marxism's theory of imperialism.
+- Lakatos against Popper: thick skins, all theories born refuted. Against Kuhn: change is rational. On objectivity: for, a public record of predictions; against, verdicts only in hindsight.
 
 Full model answers for mock Q2 and Q3 are in the first two exam questions below.
 
@@ -273,7 +281,7 @@ Full model answers for mock Q2 and Q3 are in the first two exam questions below.
 > **Key points:** No, if the measurement was correct: theory falsified, Einstein dogmatic; perhaps the measurement was wrong; Duhem-Quine: blame can always go elsewhere; acceptable only with independent reasons for rejecting the measurement (no ad hoc hypothesis).
 >
 > Follow the official key:
-> 1. **No**, assuming the measurement was correct: the theory is falsified and has to be rejected. Einstein shows a **dogmatic attitude**. Eddington's test is exactly the risky prediction that makes relativity scientific: it forbids the null result everyone before Einstein expected.
+> 1. **No**, assuming the measurement was correct: the theory is falsified and has to be rejected. Einstein shows a **dogmatic attitude**. Eddington's test is exactly the risky prediction that makes relativity scientific: it is incompatible with results which everybody before Einstein would have expected.
 > 2. Einstein's move is the Marxists' move: re-interpreting to escape refutation, which rescues the theory only at the price of destroying or lowering its scientific status.
 > 3. **However**, perhaps the measurement was not correct. The prediction comes from the theory plus auxiliary assumptions (telescope optics, photographic plates, data reduction, star identification). Given the **Duhem-Quine thesis**, scientists can always put the blame elsewhere and retain the theory.
 > 4. For Popper this is acceptable **only if there are independent reasons for rejecting the measurement result**, reasons other than that the theory would otherwise be refuted. Without them it is an **ad hoc** hypothesis (a conventionalist stratagem).
@@ -302,11 +310,11 @@ Full model answers for mock Q2 and Q3 are in the first two exam questions below.
 > - Revolutions are rational: scientists join the progressive programme, with no instant rationality.
 
 > [!exam]- Popper and Lakatos both discuss modifying auxiliary hypotheses to save a theory from contrary evidence. Compare how each judges such a modification, using an example.
-> **Key points:** Popper judges motive and form, ad hoc lowers status; independent reasons required to blame the measurement; Lakatos: belt modification normal and necessary; judged by later novel facts; same manoeuvre, different outcomes (invented planet, theory of imperialism).
+> **Key points:** Popper judges a patch when it is made: independent support or new testable content, else ad hoc and status lowered; independent reasons required to blame the measurement; Lakatos: belt modification normal and necessary; judged later by whether novel facts were found; they agree on the textbook cases (invented planet fine, theory of imperialism not) and split on the cases in between.
 >
-> - **Popper:** the modification is judged by its **motive and form**. If introduced only to absorb the refutation (ad hoc: for this purpose only, adding no new testable consequences) it is a conventionalist stratagem that lowers scientific status. Blaming the measurement is allowed only with **independent reasons**.
+> - **Popper:** the modification is judged **when it is made**, by its independent support and testable content. If introduced only to absorb the refutation (ad hoc: for this purpose only, adding no new testable consequences) it is a conventionalist stratagem that lowers scientific status. Blaming the measurement is allowed only with **independent reasons**.
 > - **Lakatos:** belt modification is **normal, constant and necessary**, since that is what the positive heuristic does. It is judged only by its **consequences**: did the modified programme go on to predict a novel fact that was found?
-> - Example: an invented planet to explain an orbital anomaly and the Marxists' theory of imperialism are the same manoeuvre in Popper's terms. In Lakatos's terms one can lead to a novel discovery and the other produced nothing. (Background example, which Lakatos does not name: the planet postulated to explain Uranus's orbit was found as Neptune, while the same move for Mercury gave Vulcan, never found.)
+> - Example: an invented planet to explain an orbital anomaly makes a new testable prediction, so it is acceptable to both; the Marxists' theory of imperialism predicted nothing new, so both reject it. They differ on patches whose new predictions fail, or programmes that sit on anomalies for decades: Popper is suspicious at once, Lakatos waits for the track record. (Background example, which Lakatos does not name: the planet postulated to explain Uranus's orbit was found as Neptune, while the same move for Mercury gave Vulcan, never found.)
 >
 > Losing marks: treating every protective-belt modification as automatically ad hoc.
 
@@ -314,7 +322,7 @@ Full model answers for mock Q2 and Q3 are in the first two exam questions below.
 > **Key points:** Verifiability demarcates meaningful from meaningless; falsifiability demarcates science from non-science; metaphysics nonsense for Carnap, possibly valuable for Popper; universal laws cannot be verified but can be falsified by modus tollens.
 >
 > - **Verifiability (Carnap, Vienna Circle):** a statement is meaningful if its truth can in principle be determined by observation or experiment; "the meaning of a statement is its method of verification". Demarcates **meaningful from meaningless**. Metaphysics is nonsense, pseudo-statements to be eliminated.
-> - **Falsifiability (Popper):** a statement is scientific if capable of conflicting with possible observations. Demarcates **science from non-science**. Non-scientific statements are meaningful, sometimes important, sometimes the ancestors of science (Empedocles, Parmenides).
+> - **Falsifiability (Popper):** a statement is scientific if capable of conflicting with possible observations. Demarcates **science from non-science**. Non-scientific statements are meaningful, sometimes important, sometimes the ancestors of science (Empedocles).
 > - **Logic:** verification wants observations to establish universal laws, which is impossible; falsification wants observations able to destroy them, which modus tollens permits.
 > - Popper: his problem "was neither a problem of meaningfulness or significance, nor a problem of truth or acceptability" but of separating the empirical sciences from all other statements.
 
@@ -324,7 +332,7 @@ Full model answers for mock Q2 and Q3 are in the first two exam questions below.
 > - **Unit:** Popper, the individual theory; Kuhn, the paradigm and its community; Lakatos, the research programme (a series of theories over time).
 > - **Demarcation:** Popper, falsifiability (a potential falsifier specified in advance); Kuhn, no explicit criterion (puzzle-solving tradition, stable community); Lakatos, progressive versus degenerating (novel predictions).
 > - **Contrary evidence:** Popper, refutes the theory, which must be rejected; Kuhn, an anomaly tolerated until anomalies pile up into crisis; Lakatos, hits the belt and is digested by the positive heuristic.
-> - **Tenacity:** Popper, a vice; Kuhn, functional in normal science; Lakatos, rational and often correct.
+> - **Tenacity:** Popper, suspect when it takes an ad hoc rescue; Kuhn, functional in normal science; Lakatos, rational and often correct.
 > - **Theory change:** Popper, a crucial experiment kills the theory (rational by logic); Kuhn, a revolution or Gestalt switch, no algorithm (charged with irrationalism); Lakatos, desertion of a degenerating programme for a progressive rival, rational but no instant rationality.
 > - **Crucial experiments:** Popper, the heart of method; Kuhn, rare and reconstructed after the fact; Lakatos, a myth.
 
@@ -520,7 +528,7 @@ Full model answers for mock Q2 and Q3 are in the first two exam questions below.
 > Kuhn, as Lakatos reads him: a sudden, **irrational** change in vision. Lakatos: rational **desertion** of a degenerating programme for a progressive one.
 
 > [!card]- What is the difference between Popper's and Lakatos's attitude to scientists' tenacity?
-> Popper: a **vice** that lowers scientific status. Lakatos: **rational and often correct**, since all theories are born refuted.
+> Popper: suspect, since an **ad hoc rescue** lowers scientific status. Lakatos: **rational and often correct**, since all theories are born refuted.
 
 > [!card]- What is the cost of Lakatos's position?
 > Verdicts are only **retrospective**: you cannot tell a scientist today he must abandon a programme.
