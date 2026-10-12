@@ -126,7 +126,7 @@ Target: **2,500 to 3,500 words of body per lecture, 4,000 at most.** A lecture w
 gets a shorter note; nothing gets padded to hit the range. At this size the PhilSci body comes to
 roughly 25,000 words in total, half of what's there now.
 
-The pilot (L01b) went from 10,546 to 3,575 words. It covers two thinkers and two mock questions, so
+The pilot (L01b) went from 10,546 to 3,809 words. It covers two thinkers and two mock questions, so
 it sits at the top of the range.
 
 ## On sacrificing accuracy
