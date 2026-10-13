@@ -41,11 +41,9 @@ The picture he attacked is science as steady accumulation: observations pile up,
 - **Observation is theory-laden.** What scientists observe, and what they take it to show, is partly shaped by their theoretical commitments. So there is no fully theory-neutral observational language, which is exactly what the logical empiricists' project needed.
 - **Science is social.** Frameworks, standards and verdicts belong to communities, not lone individuals.
 
-The historian Peter Galison put the contrast in one picture: for the positivists, observation is a continuous floor under changing theories; for Kuhn, observation breaks wherever theory breaks.
-
 ## Paradigms: what a scientific community shares
 
-Kuhn's central word is **paradigm**: everything a scientific community takes for granted in order to do its work. That includes a theory, but also methods, tools, standards for what counts as a good answer, model problems, and assumptions about what the world is like. Because the community shares all this, the paradigm holds it together, which is why Kuhn treats science as a social enterprise.
+Kuhn's central word is **paradigm**: everything a scientific community takes for granted in order to do its work. That includes a theory, but also methods, tools, standards for a good answer, model problems, and assumptions about what the world is like. Sharing all this is what holds the community together, which is why Kuhn treats science as a social enterprise.
 
 > [!example] The Newtonian paradigm
 > - **Theoretical principles:** Newton's laws, such as the second law $\sum \mathbf{F} = m\mathbf{a}$ (the forces on a body add up to its mass $m$ times its acceleration $\mathbf{a}$).
@@ -108,7 +106,7 @@ Kuhn's answer is that "cumulative acquisition of novelty is not only rare in fac
 
 So revolutions are necessary because normal science cannot repair its own foundations: it can only notice, through anomalies, that they have stopped working.
 
-**The positivist reply: Newton as a special case of Einstein.** The logical positivists answered that Newton's dynamics can be derived from Einstein's relativity for bodies moving slowly. Newton was never overthrown, only restricted, so science accumulates after all. Kuhn's reply: the equations you derive look like Newton's but are not Newton's laws, because their terms mean different things. Newtonian mass is conserved; Einsteinian mass is convertible with energy. The two can be measured the same way only at low relative speeds, and even then they are different concepts. And a theory restricted to the cases already observed predicts nothing new, so saving theories this way would end research.
+**The positivist reply: Newton as a special case of Einstein.** The logical positivists answered that Newton's dynamics can be derived from relativity for slowly moving bodies, so Newton was only restricted, never overthrown, and science accumulates after all. Kuhn's reply: the derived equations look like Newton's laws but are not, because their terms mean different things. Newtonian mass is conserved; Einsteinian mass is convertible with energy. The two are measured the same way only at low speeds, and even then they are different concepts. Besides, a theory restricted to cases already observed predicts nothing new, so saving theories this way would end research.
 
 ## Why arguments between paradigms are circular
 
@@ -117,11 +115,11 @@ Now the second question: why "revolution"? Kuhn draws the parallel with politica
 > [!quote] Kuhn
 > "Like the choice between competing political institutions, that between competing paradigms proves to be a choice between incompatible modes of community life."
 
-That is why paradigm debates are **circular**. When paradigms enter a debate about paradigm choice, "their role is necessarily circular": each side uses its own paradigm to argue in that paradigm's defence, because its paradigm supplies the standards it judges arguments by. A phlogiston chemist and Lavoisier disagree about what the same weight measurements show.
+That is why paradigm debates are **circular**. When paradigms enter a debate about paradigm choice, "their role is necessarily circular": each side uses its own paradigm to argue in that paradigm's defence, because its paradigm supplies the standards it judges arguments by. A phlogiston chemist and Lavoisier, for instance, disagree about what the same weight measurements show.
 
 Kuhn adds that circularity does not make the arguments wrong or useless. It makes them **persuasion**: they can be powerful, but they cannot be made logically or even probabilistically compelling for someone who refuses to step into the circle. "There is no standard higher than the assent of the relevant community."
 
-This passage is what Lakatos read as irrationalism (L01b): if no neutral argument decides, theory change looks like a conversion or a mob decision. Kuhn's answer comes in the section on his critics below.
+This is the kind of passage Lakatos read as irrationalism (L01b): if no neutral argument decides, theory change looks like a conversion or a mob decision. Kuhn's answer comes in the section on his critics below.
 
 ## Revolutions as Gestalt switches
 
@@ -129,24 +127,22 @@ This passage is what Lakatos read as irrationalism (L01b): if no neutral argumen
 
 The standard example is the **duck-rabbit**, a drawing that can be seen as a duck facing one way or a rabbit facing the other: the duck's bill is the rabbit's ears. Nothing on the page changes when you switch, but what you see does. Kuhn's phrase: after a revolution, "what were ducks in the scientist's world before the revolution are rabbits afterwards."
 
-He makes the comparison for two reasons, and the mock key wants both.
+He makes the comparison for two reasons.
 
 1. **A revolution is a sudden, holistic shift.** The duck turns into a rabbit all at once, not feature by feature. Likewise a new paradigm makes scientists see the world in a different light as a whole, without a piecemeal accumulation of new facts. Kuhn compares the change of allegiance to a **conversion experience**: logic alone cannot force it.
 2. **It expresses his view of observation, taken from the Gestalt psychologists: observation is theory-laden.** What scientists see, and what they take their observations to show, depends on the paradigm they bring. After a revolution the same data are organised into a different whole.
 
 Three demonstrations support the second point.
 
-- **The priming experiment.** In the lecture, each side of the room was first shown a clear drawing of either a young woman or an old woman, then everyone saw the ambiguous drawing "My Wife and My Mother-in-Law", which can be seen as either. People tended to see the version they had been primed with, and some could not see the other until it was pointed out. The prior image plays the role of a paradigm.
+- **The priming experiment.** In the lecture, each side of the room was first shown a clear drawing of a young woman or of an old woman, then everyone saw the ambiguous drawing "My Wife and My Mother-in-Law", which can be seen as either. People tended to see the version they were primed with, some unable to see the other until it was pointed out. The prior image plays the role of a paradigm.
 - **The playing-cards experiment** (Bruner and Postman, used in SSR). Subjects saw cards in brief flashes, some of them anomalous, such as a red six of spades. At short exposures they identified the odd cards as normal ones, without any sense of trouble. With longer exposures they hesitated and got confused; most eventually saw the cards correctly. Kuhn's moral for discovery: an anomaly is at first not perceived at all, because expectation shapes perception. It is recognised only against the background of that expectation, and with effort.
 - **The Müller-Lyer illusion.** Two equal lines, one with arrowheads at its ends and one with the heads reversed, look unequal even after you have measured them: perception organises the stimulus automatically. The persistence cuts both ways. Jerry Fodor later used it (outside the course material) to argue that perception is partly insulated from belief, and so against strong theory-ladenness.
 
-**Where the analogy stops.** Someone looking at the duck-rabbit can switch back and forth, and knows the lines on the page stayed the same. A scientist has no standpoint outside both paradigms from which to check that the world stayed the same.
-
-Kuhn sometimes says that after a revolution scientists "work in a different world". This does not mean perception is arbitrary or that they inhabit different physical worlds. It means that what an observation is taken to show depends partly on a paradigm, so no completely theory-neutral description can settle a revolutionary dispute from outside both sides.
+**Where the analogy stops.** Someone looking at the duck-rabbit can switch back and forth, and knows the lines on the page stayed the same. A scientist has no standpoint outside both paradigms from which to check that the world stayed the same. Kuhn also says that after a revolution scientists "work in a different world". He does not mean perception is arbitrary or that they inhabit different physical worlds. He means that what an observation is taken to show depends partly on a paradigm, so no theory-neutral description can settle a revolutionary dispute from outside both sides.
 
 ## Incommensurability: no common measure
 
-The word comes from Greek mathematics. Two lengths are **commensurable** if some common unit fits a whole number of times into both. The side and the diagonal of a unit square are not: the diagonal is $\sqrt{2}$, which is irrational, so there are no whole numbers $p, q$ with $\sqrt{2} = p/q$, and no unit however small measures both exactly. They can still be related; they just lack a common unit.
+The word comes from Greek mathematics. Two lengths are **commensurable** if some common unit fits a whole number of times into both. The side and the diagonal of a unit square are not: the diagonal is $\sqrt{2}$, which is irrational, so no unit however small measures both exactly. They can still be related; they just lack a common unit.
 
 Kuhn borrows the word for paradigms. The tradition that comes out of a revolution is not only incompatible with the old one but often incommensurable with it.
 
@@ -173,7 +169,7 @@ The criticisms:
 - **Irrationalism:** paradigm victory would be a social victory with no rational basis. Lakatos accused Kuhn of vindicating **"mob psychology"**, because of the comparison with political revolutions.
 - **The history is less tidy:** a "winning" paradigm never eradicates all its competitors, and Kuhn's own *The Copernican Revolution* (1957) stresses far more continuity than SSR.
 
-Keep the two views apart. The charge that theory change is irrational is **Lakatos's reading** of Kuhn. **Kuhn denied it** and insisted science is rational. His reply, in "Objectivity, Value Judgment, and Theory Choice" (1977), names five shared values that scientists use to assess theories, which he calls objective criteria.
+Keep the two views apart. The charge that theory change is irrational is **Lakatos's reading** of Kuhn. **Kuhn denied it** and insisted science is rational. His reply, in "Objectivity, Value Judgment, and Theory Choice" (1977), names five shared values that scientists use to assess theories. He calls them objective criteria, objective in the limited sense that the whole scientific community shares them.
 
 > [!definition] Kuhn's five values of theory choice
 > 1. **Accuracy** within its domain of application.
@@ -254,7 +250,7 @@ Heather Douglas distinguishes two roles for values.
 
 An illustration from outside the course material: a regulator's scientists must say whether a chemical causes cancer, on uncertain data. Wrongly calling it safe risks illness; wrongly calling it dangerous costs jobs and money. How much evidence is "enough" depends on how bad each error would be, and weighing that needs non-epistemic as well as epistemic values.
 
-Values do not thereby become **evidence** for the hypothesis. They do not make the chemical more or less carcinogenic; they set how high the bar is. That is why Douglas counts as an internality position: non-epistemic values may indirectly affect scientific decisions under inductive risk. This matters most in regulatory science, public health, environmental science and risk assessment.
+Values do not thereby become **evidence** for the hypothesis: they do not make the chemical more or less carcinogenic, they set how high the bar is. This indirect role inside science makes Douglas an internality position. It matters most in regulatory science, public health, environmental science and risk assessment.
 
 ## Where values enter
 
@@ -267,21 +263,18 @@ Values do not thereby become **evidence** for the hypothesis. They do not make t
 
 The difference between the last two: for Douglas, the evidence is what it is, and values decide how much of it is enough. For Longino, values can help decide what counts as evidence in the first place: which variables are measured, which models are tested, which comparison groups are chosen, what counts as an explanation.
 
-This is how the two halves of the lecture connect. Kuhn showed that scientific judgement depends on values, practices and communities, which raised the question of how it can still be rational and objective. The later debates answer by separating the roles in the table.
-
 ## What to be able to write
 
-- Kuhn's cycle: paradigm and normal science, anomaly, crisis and extraordinary science, revolution. One case (phlogiston to oxygen).
-- What a paradigm contains (the Newtonian example), and why normal science is conservative but productive.
-- Why revolutions are necessary (only anomalies produce new theories, and a new theory must clash with the old) and why paradigm debates are circular (each side's standards come from its paradigm).
-- Mock Q4: the Gestalt comparison, with **both** reasons: sudden, holistic shift; observation is theory-laden. Support with the priming or playing-cards experiment.
-- Incommensurability, semantic and methodological, and the later "local untranslatability".
-- Lakatos's irrationalism charge versus Kuhn's reply: five values, imprecise and conflicting, so choice is rational but not algorithmic.
-- The triptych and the weak value-free ideal; epistemic versus non-epistemic values.
-- Mock Q5: Longino's social character of knowledge, how a claim becomes knowledge, the four mechanisms; contextual empiricism and the four conditions for depth.
+- Kuhn's cycle, with the Newtonian paradigm and phlogiston to oxygen as examples.
+- Why revolutions are necessary (only anomalies produce new theories, which must clash with the old) and why paradigm debates are circular.
+- Mock Q4: **both** reasons for the Gestalt comparison (sudden, holistic shift; theory-laden observation), backed by the priming or playing-cards experiment.
+- Incommensurability, semantic and methodological, later softened to local untranslatability.
+- Lakatos's irrationalism charge, and Kuhn's reply: five values, imprecise and conflicting, so choice is rational but not algorithmic.
+- The triptych and the weak value-free ideal.
+- Mock Q5: two or more individuals, critical emendation, surviving it, the four mechanisms; for depth, contextual empiricism and the four conditions.
 - Douglas versus Longino on where values enter.
 
-Full model answers are in the exam questions below, Q4 and Q5 first.
+Full model answers for Q4 and Q5 are the first two exam questions below.
 
 ## Exam questions
 
@@ -348,9 +341,6 @@ Full model answers are in the exam questions below, Q4 and Q5 first.
 
 > [!card]- What does Kuhn mean by saying observation is theory-laden?
 > Observation is partly **shaped by theoretical commitments**, so there is no fully theory-neutral observational language.
-
-> [!card]- What is the difference between the positivist and the Kuhnian picture of observation across the history of science (Galison)?
-> Positivist: observation is **one continuous band** under changing theories. Kuhn: theory and observation **break together**.
 
 > [!card]- What is a Kuhnian paradigm?
 > The **shared framework** through which a scientific community practises its science, and which holds that community together.
@@ -584,4 +574,4 @@ Full model answers are in the exam questions below, Q4 and Q5 first.
 - **Next:** [[PhilSci-L03 - Under-determination]] (Quine's "On Empirically Equivalent Systems of the World" was assigned at the end of this lecture)
 - **Source:** lecture slides, "Lecture 2: Kuhn's Scientific Revolutions and Values in Science", Sebastian De Haro, 8 September 2026
 - **Readings (Curd & Cover):** Kuhn, "The Nature and Necessity of Scientific Revolutions", pp. 79-93 (the circularity quote is on p. 88, the cumulative-novelty quote on p. 89). Longino, "Values and Objectivity", pp. 144-164 (the mock model answer cites pp. 175-176 of an older edition).
-- **Further:** Kuhn, *The Structure of Scientific Revolutions* (1962), Chapter X for the duck-rabbit passage. Kuhn, "Objectivity, Value Judgment, and Theory Choice" (given as a lecture, published 1977 in *The Essential Tension*). Kuhn, "Logic of Discovery or Psychology of Research?" (1970) for the astrology argument. Galison (1997) for the periodisation figures. Masterman, "The Nature of a Paradigm" (1970). Kuhn, *The Copernican Revolution* (1957). Kahneman, *Thinking, Fast and Slow* (2011). Stanford Encyclopedia of Philosophy, "Scientific Objectivity", section on epistemic and contextual values: https://plato.stanford.edu/entries/scientific-objectivity/#EpisContValu
+- **Further:** Kuhn, *The Structure of Scientific Revolutions* (1962), Chapter X for the duck-rabbit passage. Kuhn, "Objectivity, Value Judgment, and Theory Choice" (given as a lecture, published 1977 in *The Essential Tension*). Kuhn, "Logic of Discovery or Psychology of Research?" (1970) for the astrology argument. Masterman, "The Nature of a Paradigm" (1970). Kuhn, *The Copernican Revolution* (1957). Kahneman, *Thinking, Fast and Slow* (2011). Stanford Encyclopedia of Philosophy, "Scientific Objectivity", section on epistemic and contextual values: https://plato.stanford.edu/entries/scientific-objectivity/#EpisContValu
