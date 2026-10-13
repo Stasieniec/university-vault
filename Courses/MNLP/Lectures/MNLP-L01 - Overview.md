@@ -44,7 +44,7 @@ Language is people's medium of choice for complex information: a limited set of 
 
 ## The tasks NLP serves
 
-These models serve concrete end-user tasks, and much of the IT industry (Google, Microsoft, Amazon, Booking, Bloomberg and others) invests in them for ad matching, review analysis, speech, web translation and dialog agents.
+These models serve concrete end-user tasks, which is why much of the IT industry (Google, Microsoft, Amazon, Bloomberg and others) invests in them.
 
 **Question answering differs from retrieval in what goes in and what comes out.** In document retrieval ([[Information Retrieval]]) the user types keywords, and even a well-formed question is chopped into words: "When was the Cuba Crisis?" becomes {cuba, crisis} after stop-word removal. The system returns a **ranked list of documents**. In question answering the user types a **well-formed question** and gets back **the actual answer**, or a short list of them: "1962", or "Warsaw" for "What is the capital of Poland?".
 
@@ -66,17 +66,7 @@ These models serve concrete end-user tasks, and much of the IT industry (Google,
 
 Machine learning's job was to **weigh how important each feature is** for making correct predictions. The features themselves came from people.
 
-**Neural networks now hold the state of the art for all NLP applications.** Their advantages:
-
-- strong performance
-- **very little or no feature engineering**: the network learns its own representations
-- a **limited repertoire of network types** applies to most, perhaps all, NLP tasks
-
-Their disadvantages:
-
-- they **require large amounts of training data**
-- errors are **difficult to trace**
-- they can **get it spectacularly wrong** at times
+**Neural networks now hold the state of the art for all NLP applications.** Their advantages: strong performance, **very little or no feature engineering** (the network learns its own representations), and a **limited repertoire of network types** that applies to most, perhaps all, NLP tasks. Their disadvantages: they **require large amounts of training data**, their errors are **difficult to trace**, and they can **get it spectacularly wrong**.
 
 The same success shows up across AI: computer vision, handwriting recognition, speech recognition, robotics, information retrieval. **Insights transfer between these fields** because the network types are uniform and few features are specific to one application.
 
@@ -90,15 +80,15 @@ The same success shows up across AI: computer vision, handwriting recognition, s
 > [!example] Four LLMs translate one Amharic sentence
 > Asked to translate a news sentence from Amharic (an Ethiopian language) into English, GPT-5.6 Terra, Gemini 3.6 Flash and Claude Sonnet 4.6 all give, in slightly different words: "The embassy in South Sudan called for an investigation into the attack in which Ethiopian peacekeeping soldiers were killed."
 >
-> Mistral Small 3.2 gives: "The Ethiopian embassy in Khartoum, where the Ethiopian peacekeepers were detained, is closed." A different place, detained instead of killed, an embassy closing instead of asking for an investigation: a fluent translation of an event that did not happen.
+> Mistral Small 3.2 gives: "The Ethiopian embassy in Khartoum, where the Ethiopian peacekeepers were detained, is closed." A different place, detained instead of killed, an embassy closing instead of asking for an investigation: a fluent translation of an event the source does not describe.
 
 **Why the weakness shows up on non-English text:** LLMs are trained mostly on Internet resources, and English makes up about half of that material, with Chinese, German, Spanish and Japanese far behind. So most state-of-the-art models are **English-centric**. General models that are multilingual, such as Llama 3.1 and DeepSeek, **perform better on high-resource languages** (those with plenty of data) than on the rest. Models built specifically to be multilingual, such as Aya-Expanse, **tend to lag behind** the large general models.
 
 ## Multilingual against crosslingual
 
-This is the distinction the rest of the course is organised around.
+The rest of the course is organised around this split.
 
-**Multilingual** means one system that handles many languages, where each input is processed and answered in its own language. The questions are about not being tied to one language:
+**Multilingual** means one system that handles many languages, with each input staying in its own language. The questions are about not being tied to one language:
 
 - **NER for multiple languages**: how to build a system that can be trained without being language-specific?
 - **Language-independent parsing**: how to find language-independent, or universal, features of sentence structure?
@@ -122,13 +112,12 @@ Later lectures fill in both halves: [[MNLP-L06 - Contextual Embeddings]] tests w
 
 ## What to be able to answer
 
-- Which way written text, speech, images and tables fall on structured/unstructured and continuous/discrete.
-- The fields NLP sits between and the four aspects of language it models.
-- QA against IR: keywords in, ranked documents out, against a well-formed question in, the answer out.
-- NER entity types, and that it is harder outside English; summarization's frequency-based weights; sentiment analysis needs NER and works at sentence and document level; MT works sentence by sentence.
-- Pre-deep-learning NLP: one approach per application, ML weighing hand-built features. Deep learning: no feature engineering, few architectures, but data-hungry, opaque, spectacular failures.
+- Where text, speech and tables fall on structured/unstructured and continuous/discrete.
+- QA against IR: what goes in, what comes out.
+- NER is harder outside English; sentiment analysis needs NER and works per sentence and per document; MT works sentence by sentence.
+- Pre-deep-learning NLP (one approach per application, ML weighing hand-built features) against deep learning (no feature engineering, few architectures, data-hungry, opaque).
 - The two uses of LLMs, and why they are English-centric.
-- Multilingual against crosslingual, and which scenario belongs to which (classification across languages is multilingual).
+- Which scenario is multilingual and which crosslingual (classification across languages is multilingual).
 
 Model answers are in the exam questions below.
 
@@ -188,8 +177,8 @@ Model answers are in the exam questions below.
 > [!card]- What did summarization systems traditionally use to decide what is important?
 > **Frequency-based term weights** from information retrieval.
 
-> [!card]- Which NLP task does sentiment analysis depend on, and why?
-> **NER**: fine-grained sentiment ("X likes Y about Z") needs to know who X and Z are.
+> [!card]- Why does sentiment analysis require named entity recognition?
+> Fine-grained sentiment ("X likes Y about Z") needs to know what X and Z are.
 
 > [!card]- At which levels does sentiment analysis operate?
 > **Sentence** and **document** level.
@@ -216,7 +205,7 @@ Model answers are in the exam questions below.
 > Data **annotation**, evaluation (**LLM as a judge**), **dialog**.
 
 > [!card]- Why are most state-of-the-art LLMs English-centric?
-> They are trained predominantly on **Internet resources**, about half of which are English.
+> They are trained predominantly on **Internet resources**, where English dominates.
 
 > [!card]- On which languages do general multilingual LLMs such as Llama 3.1 and DeepSeek perform better?
 > **High-resource** languages.
