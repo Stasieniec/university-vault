@@ -32,9 +32,9 @@ topics:
 
 ## The problem: which theory did the observation refute?
 
-Suppose an astronomical theory predicts where a planet will be, and the telescope shows it somewhere else. Which theory has just failed: the astronomy, or the theory of optics that says the telescope shows things where they are? The observation itself does not say.
+Suppose an astronomical theory predicts where a planet will be, and the telescope shows it somewhere else. Which theory has just failed: the astronomy, or the optics that says the telescope shows things where they are? The observation does not say.
 
-This matters for Popper ([[PhilSci-L01b - Popper and Lakatos|L01b]]), whose account of science rests on observations refuting theories. Popper admits that even the observation is not forced on us: no objective facts determine it. Scientists accept an **empirical basis** (the observation reports that tests rest on) by **intersubjective agreement**, a consensus among investigators. So accepting a report that falsifies a theory is, in the end, **a human decision**.
+This matters for Popper ([[PhilSci-L01b - Popper and Lakatos|L01b]]), whose account of science rests on observations refuting theories. Popper admits that no objective facts force even the observation on us. Scientists accept an **empirical basis** (the observation reports that tests rest on) by **intersubjective agreement**, a consensus among investigators. So accepting a report that falsifies a theory is, in the end, **a human decision**.
 
 Duhem's thesis opens a second gap: even once the report is accepted, logic does not say which theory it refutes.
 
@@ -50,7 +50,7 @@ No hypothesis predicts anything on its own, so a failed prediction says only tha
 > - $P_3$: the initial conditions (where the planet was last month, how fast it was moving).
 > - Together these entail $O$: "the planet appears at position $x$ tonight".
 > - Observation gives $O'$: "the planet appears at position $y$". $O'$ entails that $O$ is false.
-> - Conclusion: $P_1 \wedge P_2 \wedge P_3$ is false. Perhaps the astronomy is wrong, perhaps the telescope, perhaps last month's data. Logic does not say which.
+> - Conclusion: $P_1 \wedge P_2 \wedge P_3$ is false. The astronomy, the telescope or last month's data: logic does not say which.
 
 In symbols, where $P_1, \dots, P_n$ are the hypothesis under test plus every auxiliary assumption the prediction needs, and $O$ is the predicted observation:
 
@@ -76,7 +76,7 @@ Duhem says this is impossible:
 
 ### Good sense
 
-If logic does not decide which premise to give up, what does? Duhem's answer is the scientist's **good sense** (*bon sens*): "certain opinions which do not fall under the hammer of the principle of contradiction are in any case perfectly unreasonable". You could keep the astronomy and blame the telescope every single time without contradicting yourself, and it would still be unreasonable.
+What decides which premise to give up? Duhem's answer is the scientist's **good sense** (*bon sens*): "certain opinions which do not fall under the hammer of the principle of contradiction are in any case perfectly unreasonable". You could keep the astronomy and blame the telescope every single time without contradicting yourself, and it would still be unreasonable.
 
 So Duhem does **not** say theory choice is arbitrary. He says it is not settled by **formal** logic alone. "Not formal" and "arbitrary" are different claims, and the difference returns with Laudan.
 
@@ -261,14 +261,13 @@ For us, whose senses are used to Euclidean space, it is easier to describe this 
 
 **No experiment can decide**, because every experimental set-up can itself be interpreted in either picture. To measure the geometry you need measuring instruments, and what they do depends on the physics you assume. Change the physics (add or remove the temperature law) and you can keep either geometry. (In Poincaré's own version, beyond the lecture, light is also bent by the temperature field, so light cannot expose the shrinking either.) The choice is a **convention**, like measuring distance in metres or in yards.
 
-This is Duhem's thesis again: laws are tested only indirectly. Geometry and physics face experience as a bundle, so experience cannot test the geometry alone.
+This is Duhem's thesis again: laws are tested only indirectly, and geometry faces experience bundled with physics.
 
 ## Duhem, Quine and Laudan side by side
 
 | | **Duhem** | **Quine** | **Laudan** |
 |---|---|---|---|
 | What faces a test | Hypothesis plus auxiliaries | The whole web | Same as Quine (granted) |
-| What can be revised | Any premise in the bundle | Anything, even logic | Anything, logically |
 | What settles the choice | Good sense | Nothing forces one choice | Evidence, ampliative rules |
 | Main point | Logic cannot pick the culprit | Any statement can be kept | Possible is not rational |
 
@@ -287,7 +286,7 @@ Full model answers for mock Q6 and Q3 are the first two exam questions below.
 ## Exam questions
 
 > [!exam]- Mock exam Q6 (half a page): The under-determination thesis was first formulated by Pierre Duhem, and it was later on strengthened by W.V.O. Quine. State this thesis in Duhem's own version, and explain it with an example.
-> **Key points:** premises entail $O$, experiment gives $O'$ incompatible with $O$; only the conjunction is false, no particular premise; no crucial experiment; hypotheses tested together with auxiliary assumptions, including the apparatus; an example (telescope or Poincaré's sphere).
+> **Key points:** premises entail $O$, experiment gives $O'$ incompatible with $O$; only the conjunction is false, and no particular premise follows as false; no crucial experiment; hypotheses tested together with auxiliary assumptions, including the apparatus; an example (telescope or Poincaré's sphere).
 >
 > Follow the official key: the formal version, plus no crucial experiment because hypotheses are only tested with auxiliary assumptions.
 > 1. **The formal version.** If premises $\{P_1, \dots, P_n\}$ deductively entail a statement $O$ describing a possible observation, and experiment establishes $O'$, where $O'$ entails that $O$ is false, then the **conjunction** of the premises is false. It does **not** follow that any particular premise is false: falsification is ambiguous.
