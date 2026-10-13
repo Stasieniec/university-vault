@@ -38,11 +38,11 @@ topics:
 
 **Scientific realism** says our best theories are approximately true, so the unobservable things they posit (electrons, fields) exist. The lecturer, Enrico Cinti, gave each argument from [[PhilSci-L05 - Scientific Realism and its Critiques|L05]] a verdict.
 
-**For realism, each with some force:** inference to the best explanation (van Fraassen replies that "the theory is empirically adequate", right about the observables, explains just as well); the no-miracles argument (success, above all novel prediction, would be a miracle if theories were not approximately true); the demand for explanation; and Grover Maxwell's argument that there is no sharp line between observable and unobservable.
+**For realism, each with some force:** inference to the best explanation (van Fraassen: there is no such rule, and the rival hypothesis, that we only ever infer the best explanation to be empirically adequate, right about the observables, fits our practice just as well); the no-miracles argument (success, above all novel prediction, would be a miracle if theories were not approximately true); the demand for explanation; and Grover Maxwell's argument that the theory-observation distinction cannot be sharply drawn.
 
 **Against realism:**
 
-- **Empirical under-determination** (the same evidence fits rival theories): probably a **stalemate**, with **not much force**. Equivalent rivals are easy as toy models, rare in real physics. Realists say **theoretical virtues** (simplicity, beauty, fruitfulness) break the tie, being **truth-conducive**; anti-realists deny it.
+- **Empirical under-determination** (the same evidence fits rival theories): probably a **stalemate**, with **not much force**. Equivalent rivals are easy as toy models, rare in real physics. Realists say **theoretical virtues** (simplicity, beauty, fruitfulness) break the tie, being **truth-conducive**; anti-realists deny it, and neither side can prove its case.
 - **Constructive empiricism** (van Fraassen: science aims only at empirical adequacy): the **main contender**. It has fewer of the problems of logical empiricism and some virtues of realism, but where "observable" ends **remains a problem**.
 - **The pessimistic meta-induction**: **some force**.
 
@@ -65,7 +65,7 @@ Keep an eye on "obviously": De Haro denies it.
 
 ### What realists actually claim
 
-Kitcher and Psillos first correct the target. Van Fraassen defined realism as: "Science aims to give us, in its theories, a **literally true** story of what the world is like; and acceptance of a scientific theory involves the belief that it is true." Realists in fact believe theories **approximately or probably true**. And a theory is **not monolithic**: it has parts (laws, mechanisms, posits), some more important than others. So "approximately true" can mean the important parts are true even if others are false, which answers Laudan's first problem part by part.
+Kitcher and Psillos first correct the target. Van Fraassen defined realism as: "Science aims to give us, in its theories, a **literally true** story of what the world is like; and acceptance of a scientific theory involves the belief that it is true." Realists in fact believe theories **approximately or probably true**. And a theory is **not monolithic**: it has parts (laws, mechanisms, posits), some more important than others. So "approximately true" can mean the important parts are true even if others are false, which is how they aim to make Laudan's first problem precise.
 
 ## First reply: only mature, genuinely successful theories count
 
@@ -108,7 +108,7 @@ Psillos' own case, the nineteenth-century optical aether, is subtler. What was d
 
 ## Third reply: keep only the structure
 
-**Structural realism** (John Worrall, named in the Psillos reading) splits a theoretical claim into its **content**, which gets superseded, and its **mathematical structure**, which is retained. (Standard example, from outside the readings: Augustin Fresnel's equations for light survived into Maxwell's theory; Fresnel's elastic aether did not.)
+**Structural realism** (John Worrall, 1989) splits a theoretical claim into its **content** (what the entities are), which gets superseded, and its **mathematical structure**, which is retained. (Standard example, from outside the readings: Augustin Fresnel's equations for light survived into Maxwell's theory; Fresnel's elastic aether did not.)
 
 **Objection:** structure may **not be enough to specify an ontology**: what kinds of things the world contains, which was the point of realism. Psillos' core keeps laws and mechanisms with their content. De Haro also wants more than structure: matching equations (formal correspondence) are not enough for him, and his extensions include entities with their properties.
 
@@ -128,7 +128,7 @@ Back to Psillos' causal core. Stanford's **historicist** critique (testing philo
 
 **Stanford's later paper**, "'Atoms exist' is probably true, and other facts that should not comfort scientific realists", moves away from reference. Grant that old terms like "atom" refer: what was believed about atoms still changed profoundly. The real question is whether science will keep showing a "broad pattern of repeated, profound, and unpredictable changes in fundamental theoretical orthodoxy". And the trouble with an abandoned term is that it is no longer part of "the most pragmatically powerful and successful conceptual apparatus" for its phenomena.
 
-His 2006 book adds the **problem of unconceived alternatives** (background): past scientists kept missing equally good rivals later adopted, so ours probably have some too.
+His 2006 book also raises the **problem of unconceived alternatives** (background): past scientists kept missing equally good rivals later adopted, so ours probably have some too.
 
 ## De Haro's extensional scientific realism
 
@@ -180,7 +180,7 @@ The PMI denies **continuity of reference and approximate truth** between discard
 
 **Why stop at extensions?** An intension applies wherever the words could be used, including situations where the theory was never tested and may be false. The evidence supports only the extension within the domain, and prudent scientists never claim more. So a successor that differs radically **outside** the old domain is no threat: nobody had reason to believe the old theory there. De Haro's example: for navigation and the motions of the sun and moon, at ordinary accuracy, Newton's "gravitational force" and general relativity's spacetime curvature cause the same phenomena (Newton's force can be derived from general relativity), so there they are extensionally equivalent.
 
-This answers Stanford's later test too. In its domain, Newton's gravity is still the most powerful apparatus we have, and so is Maxwell's theory in its domain. And reference does matter: dismissing it treats an extension as a bare, "faceless" object, but extensions are partly fixed by intensions, so they carry content.
+This also meets Stanford's criterion of the most powerful conceptual apparatus. In its domain, Newton's gravity is still the most powerful apparatus we have, and so is Maxwell's theory in its domain. And reference does matter: dismissing it treats an extension as a bare, "faceless" object, but extensions are partly fixed by intensions, so they carry content.
 
 > [!definition] What determines an extension
 > The extension is determined by the **intension** together with the **specific circumstances or context** in which a phenomenon is studied.
@@ -218,11 +218,11 @@ De Haro: **"aether" does refer. The aether does exist.**
 > [!definition] What "aether" refers to
 > What Maxwell called the "aether" is **extensionally equivalent** to what we now call **"the electromagnetic field", together with a fixed frame of reference**, for speeds far below light ($v \ll c$). "Aether" and "electromagnetic field" are, of course, **intensionally distinct**.
 
-(A frame of reference is a standpoint from which positions and speeds are measured.) De Haro thinks **Maxwell's argument for the aether was very good**: electromagnetic energy does not vanish at the sender and pop up at the receiver elsewhere (**conservation of energy**), so something in between carries it. That "medium" is the field together with a fixed frame. On a natural reading, the missing conceptual correspondence is then there: in the domain, Maxwell's medium and our field play the same role, carrying the energy. Why a fixed frame? (Background physics:) a medium has a state of rest, singling out one frame; the field singles out none; in that frame at low speeds they predict the same.
+(A frame of reference is a standpoint from which positions and speeds are measured.) De Haro thinks **Maxwell's argument for the aether was very good**: electromagnetic energy does not vanish at the sender and pop up at the receiver elsewhere (**conservation of energy**), so something in between carries it. That "medium" is the field together with a fixed frame. On a natural reading, the missing conceptual correspondence is then there: in the domain, Maxwell's medium and our field play the same role, carrying the energy. Why a fixed frame? A plausible reason (background physics; De Haro's own argument is not in the readings): a medium has a state of rest, singling out one frame; the field singles out none; in that frame at low speeds they predict the same.
 
 **How this differs from Psillos.** Psillos also lets "aether" refer to the field. The difference is the route: Psillos sorts the theory into core and idle parts and anchors reference in what did the work, the sorting Stanford attacks. De Haro sorts nothing: he takes Maxwell's argument at face value, treats the aether as real, and says only that what the argument established is, extensionally, the field.
 
-**Phlogiston and caloric.** The readings work the view through only for the aether and Newtonian gravity. De Haro cites one more case: "caloric" refers to the same thing as the "heat" of thermodynamics, within situations with no interchange of heat and work. Cases like "dephlogisticated air" he calls controversial (realists either deny the theory was mature or argue the term sometimes referred) and, either way, not really a problem for realism.
+**Phlogiston and caloric.** Of the terms on Laudan's list, only the aether is worked through. For caloric, De Haro cites John Norton's example of extensional equivalence: "caloric" refers to the same thing as the "heat" of thermodynamics, within situations with no interchange of heat and work. Cases like "dephlogisticated air" he calls controversial (realists either deny the theory was mature or argue the term sometimes referred) and, either way, not really a problem for realism.
 
 ### No parts, so no Pyrrhic victory
 
@@ -235,7 +235,7 @@ Stanford's dilemma came from sorting theories into parts. **Extensional realism 
 
 ### Approximate truth as truth on a larger domain
 
-The last step answers Laudan's first problem. A theory is **extensionally true** on a domain when what it says, taken extensionally, is true of the situations in that domain; it is approximately true when extensionally true on its domain of application. To compare theories, De Haro borrows **Laudan's own measure of scientific progress**: the relative number and significance of the problems a theory solves. Read a domain as a set of problems solved: a theory right in more, and more important, situations has made more progress.
+The last step addresses Laudan's first problem. A theory is **extensionally true** on a domain when what it says, taken extensionally, is true of the situations in that domain; it is approximately true when extensionally true on its domain of application. To compare theories, De Haro borrows **Laudan's own measure of scientific progress**: the relative number and significance of the problems a theory solves. Read a domain as a set of problems solved: a theory right in more, and more important, situations has made more progress.
 
 > [!definition] Closer to the truth (De Haro's sketch)
 > $T$ is closer to the truth than $T'$ **iff** $T$ is **extensionally true in a larger, and more significant, domain of application**.
@@ -245,7 +245,7 @@ The last step answers Laudan's first problem. A theory is **extensionally true**
 > [!example] Comparing two theories
 > An old theory is extensionally true on domains $D_1$ and $D_2$. Its successor is true on larger domains $D_1' \supset D_1$ and $D_2' \supset D_2$, and on a further domain $D_3$. The successor is closer to the truth, and the old theory is **not refuted**: it was, and still is, extensionally true on $D_1$ and $D_2$, so approximately true.
 
-**The upshot.** Stanford is partly right, but his "broad pattern(s) of repeated, profound, and unpredictable changes in fundamental theoretical orthodoxy" misses the **restricted domains of application** where successive theories are extensionally equivalent: intensions can change radically, extensions change piecemeal. Each of Laudan's problems gets an answer: approximate truth has a definition; on this account, success within a domain is evidence of extensional truth there, which is what approximate truth now means; and the aether refers.
+**The upshot.** Stanford is partly right, but his "broad pattern(s) of repeated, profound, and unpredictable changes in fundamental theoretical orthodoxy" misses the **restricted domains of application** where successive theories are extensionally equivalent: intensions can change radically, extensions change piecemeal. Two of Laudan's problems get a direct answer: approximate truth has a (sketched) definition, and the aether refers. The link between success and truth De Haro mostly sets aside: he assumes a theory well confirmed in its domain, and says belief in its extensions is then justified.
 
 ## Are we in the same position as past scientists?
 
@@ -330,14 +330,14 @@ The PMI assumes our situation is like that of past scientists.
 
 ## Flashcards
 
-> [!card]- On Cinti's assessment, how much force do the main arguments for realism (best explanation, no-miracles, demand for explanation, no observable/unobservable line) each have?
+> [!card]- On Cinti's assessment, how much force do the main arguments for realism (best explanation, no-miracles, demand for explanation, no sharp theory-observation distinction) each have?
 > **Some force** each.
 
 > [!card]- On Cinti's assessment, how strong is empirical under-determination as an argument against realism?
 > Probably a **stalemate**, with not much force.
 
 > [!card]- Why is the empirical under-determination argument against realism a stalemate?
-> Equivalent rivals are **rare** outside toy models; realists cannot show theoretical virtues are **truth-conducive**.
+> Equivalent rivals are **rare** outside toy models; whether theoretical virtues are **truth-conducive** neither side can prove.
 
 > [!card]- How does the realist claim to break empirical under-determination?
 > With **theoretical virtues** (simplicity, beauty, fruitfulness): non-empirical but truth-conducive.
@@ -552,7 +552,7 @@ The PMI assumes our situation is like that of past scientists.
 > [!card]- Psillos and De Haro both let "aether" refer to the electromagnetic field. What is the difference?
 > The route: Psillos **sorts core from idle parts**; De Haro **sorts nothing**, treating all terms alike within a domain.
 
-> [!card]- How does De Haro treat "caloric"?
+> [!card]- Which example does De Haro cite (from John Norton) for "caloric"?
 > As referring to thermodynamic **heat**, within situations with **no interchange of heat and work**.
 
 > [!card]- How does De Haro's extensional realism escape Stanford's "Pyrrhic victory" dilemma?
