@@ -38,7 +38,7 @@ topics:
 
 **Scientific realism** says our best theories are approximately true, so the unobservable things they posit (electrons, fields) exist. The lecturer, Enrico Cinti, gave each argument from [[PhilSci-L05 - Scientific Realism and its Critiques|L05]] a verdict.
 
-**For realism, each with some force:** inference to the best explanation (van Fraassen: there is no such rule, and the rival hypothesis, that we only ever infer the best explanation to be empirically adequate, right about the observables, fits our practice just as well); the no-miracles argument (success, above all novel prediction, would be a miracle if theories were not approximately true); the demand for explanation; and Grover Maxwell's argument that the theory-observation distinction cannot be sharply drawn.
+**For realism, each with some force:** inference to the best explanation (van Fraassen: there is no such rule, and the rival hypothesis, that we only infer the best explanation to be empirically adequate, fits our practice as well); the no-miracles argument (success, above all novel prediction, would be a miracle if theories were not approximately true); the demand for explanation; and Grover Maxwell's argument that the theory-observation distinction cannot be sharply drawn.
 
 **Against realism:**
 
@@ -124,9 +124,9 @@ Back to Psillos' causal core. Stanford's **historicist** critique (testing philo
 > [!definition] Pyrrhic victory
 > A victory so costly it is no better than defeat. Selective realism beats the historical record only by sorting past theories with hindsight. If past scientists repeatedly misjudged which parts of their theories did the work, today's probably misjudge ours too. So the method says nothing about which parts of our own theories to believe, and that was the point of realism.
 
-**Psillos' answer, given in advance:** scientists draw the line themselves, at the time. Lavoisier, Laplace and Carnot believed the caloric laws that fuelled their predictions while treating "heat is a material fluid" as speculative. Stanford's aether case targets exactly this: Maxwell did not treat the aether as idle.
+**Psillos' answer:** scientists draw the line themselves, at the time. Lavoisier, Laplace and Carnot believed the caloric laws that fuelled their predictions while treating "heat is a material fluid" as speculative. Stanford's aether case targets exactly this: Maxwell did not treat the aether as idle.
 
-**Stanford's later paper**, "'Atoms exist' is probably true, and other facts that should not comfort scientific realists", moves away from reference. Grant that old terms like "atom" refer: what was believed about atoms still changed profoundly. The real question is whether science will keep showing a "broad pattern of repeated, profound, and unpredictable changes in fundamental theoretical orthodoxy". And the trouble with an abandoned term is that it is no longer part of "the most pragmatically powerful and successful conceptual apparatus" for its phenomena.
+**Stanford's later paper**, "'Atoms exist' is probably true, and other facts that should not comfort scientific realists", moves away from reference. Grant that "atom" refers: beliefs about atoms still changed profoundly. The real question is whether science will keep showing a "broad pattern of repeated, profound, and unpredictable changes in fundamental theoretical orthodoxy". And the trouble with an abandoned term is that it is no longer part of "the most pragmatically powerful and successful conceptual apparatus" for its phenomena.
 
 His 2006 book also raises the **problem of unconceived alternatives** (background): past scientists kept missing equally good rivals later adopted, so ours probably have some too.
 
@@ -148,7 +148,7 @@ So De Haro accepts Stanford's demands and rejects his claim that successive theo
 
 ### The diagnosis: one word, two kinds of meaning
 
-De Haro's realism is cautious: approximate truth, since belief in literal truth is often naive. The literature from Putnam (who stated an early PMI in 1978) to Stanford assumes **a single kind of meaning**. Hence Laudan's perplexity: there are plausible arguments both that "aether" refers (Kitcher, causal theories) and that it does not (descriptive theories). When both sides look right, a distinction is missing, and philosophy of language (Gottlob Frege, a founder of modern logic; Carnap; Lewis) has it.
+The literature from Putnam (who stated an early PMI in 1978) to Stanford assumes **a single kind of meaning**. Hence Laudan's perplexity: there are plausible arguments both that "aether" refers (Kitcher, causal theories) and that it does not (descriptive theories). When both sides look right, a distinction is missing, and philosophy of language (Gottlob Frege, a founder of modern logic; Carnap; Lewis) has it.
 
 > [!example] The morning star and the evening star
 > Venus is seen both in the morning and in the evening, and was called both "morning star" and "evening star". The names **mean different things**, "the brightest star in the morning" and "the brightest star in the evening", yet in our world both pick out **one object, the planet Venus**.
@@ -218,7 +218,7 @@ De Haro: **"aether" does refer. The aether does exist.**
 > [!definition] What "aether" refers to
 > What Maxwell called the "aether" is **extensionally equivalent** to what we now call **"the electromagnetic field", together with a fixed frame of reference**, for speeds far below light ($v \ll c$). "Aether" and "electromagnetic field" are, of course, **intensionally distinct**.
 
-(A frame of reference is a standpoint from which positions and speeds are measured.) De Haro thinks **Maxwell's argument for the aether was very good**: electromagnetic energy does not vanish at the sender and pop up at the receiver elsewhere (**conservation of energy**), so something in between carries it. That "medium" is the field together with a fixed frame. On a natural reading, the missing conceptual correspondence is then there: in the domain, Maxwell's medium and our field play the same role, carrying the energy. Why a fixed frame? A plausible reason (background physics; De Haro's own argument is not in the readings): a medium has a state of rest, singling out one frame; the field singles out none; in that frame at low speeds they predict the same.
+(A frame of reference: a standpoint for measuring positions and speeds.) De Haro thinks **Maxwell's argument for the aether was very good**: electromagnetic energy does not vanish at the sender and pop up at the receiver elsewhere (**conservation of energy**), so something in between carries it. That "medium" is the field together with a fixed frame. On a natural reading, the missing conceptual correspondence is then there: in the domain, Maxwell's medium and our field play the same role, carrying the energy. Why a fixed frame? A plausible reason (background physics, not De Haro's argument): a medium is at rest in one frame; the field singles out none.
 
 **How this differs from Psillos.** Psillos also lets "aether" refer to the field. The difference is the route: Psillos sorts the theory into core and idle parts and anchors reference in what did the work, the sorting Stanford attacks. De Haro sorts nothing: he takes Maxwell's argument at face value, treats the aether as real, and says only that what the argument established is, extensionally, the field.
 
@@ -226,7 +226,7 @@ De Haro: **"aether" does refer. The aether does exist.**
 
 ### No parts, so no Pyrrhic victory
 
-Stanford's dilemma came from sorting theories into parts. **Extensional realism sorts no parts.** It is a linguistic and philosophical theory of **how to interpret scientific statements**, treating all terms alike: for all we know (assuming empirically adequate theories and sound arguments), **all the terms that scientists claim refer, do refer**. It needs no facts about hidden intentions and never says scientists misidentified their successes. Hindsight helps find a domain's exact borders, but reference needs none: Newton's "gravitational force" already referred, in the domain where he had applied his theory.
+Stanford's dilemma came from sorting theories into parts. **Extensional realism sorts no parts.** It is a linguistic and philosophical theory of **how to interpret scientific statements**, treating all terms alike: for all we know (assuming empirically adequate theories and sound arguments), **all the terms that scientists claim refer, do refer**. It needs no facts about hidden intentions and never says scientists misidentified their successes. Hindsight finds a domain's borders, but reference needs none: Newton's "gravitational force" already referred where he had applied his theory.
 
 **The parallel with van Fraassen:** he interprets a theory **literally** but believes only what it says about the **observable**. Extensional realism takes literally what the scientist says, but **believes it only in its extensional, not intensional, meaning**.
 
@@ -253,7 +253,7 @@ The PMI assumes our situation is like that of past scientists.
 
 - **Laudan**, with the philosopher Mary Hesse's "principle of no privilege": yes, our theories are as liable to radical conceptual change.
 - **Psillos:** not quite. Scientists learn from failures and improve their methods, and many posits survived several revolutions: gene, atom, chemical bond, electromagnetic field. This works only against Saatsi's first reading; the second needs no analogy, since past successful but false theories already show success is no reliable sign of truth.
-- **Stanford:** yes. Future scientists will judge ours with hindsight.
+- **Stanford:** yes; future scientists will judge ours with hindsight.
 - **De Haro:** past scientists were justified only within their domains, and there their beliefs mostly survived. What changed were intensions and claims about untested domains.
 
 ## The replies side by side
@@ -553,7 +553,7 @@ The PMI assumes our situation is like that of past scientists.
 > The route: Psillos **sorts core from idle parts**; De Haro **sorts nothing**, treating all terms alike within a domain.
 
 > [!card]- Which example does De Haro cite (from John Norton) for "caloric"?
-> As referring to thermodynamic **heat**, within situations with **no interchange of heat and work**.
+> "Caloric" refers to thermodynamic **heat**, within situations with **no interchange of heat and work**.
 
 > [!card]- How does De Haro's extensional realism escape Stanford's "Pyrrhic victory" dilemma?
 > It **distinguishes no theory parts**: for all we know, all terms scientists claim refer do refer.
