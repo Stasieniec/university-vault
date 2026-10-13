@@ -54,7 +54,7 @@ Immanuel Kant (18th-century German philosopher) found a middle ground between re
 
 There is an external reality, the **things-in-themselves** or **noumena** (the chair as it is in itself), but we cannot know it. We can only know **appearances**, the **phenomena** (the chair as it appears to me).
 
-Phenomena are shaped by structures the mind brings to every experience: **space and time** (Kant's "forms of intuition") and **categories** such as causality and possibility. Since the input still comes from the world, knowing phenomena is knowing the world, through the mind's filter.
+Phenomena are shaped by structures the mind brings to every experience: **space and time** (Kant's "forms of intuition") and **categories** such as causality and possibility. Since the input still comes from the world, knowing phenomena is knowing the world as it appears through the mind's filter, never as it is in itself.
 
 ### Eddington's two tables: science sharpens the worry
 
@@ -110,7 +110,7 @@ Bas van Fraassen, the leading modern anti-realist (below), made this precise in 
 The definition packs in three claims: read the theory as talking about electrons, think we are entitled to believe it, and hold that it is true. A scientific realist accepts all three. An **anti-realist** is anyone who rejects at least one.
 
 > [!definition] The kinds of scientific realism
-> - **Semantic realism** (about language): interpret scientific theories **literally**. Theories aim to tell a "literal story" about how the world works. The contrast is the logical empiricists' construal of theoretical terms as shorthand for observations.
+> - **Semantic realism** (about language): interpret scientific theories **literally**. Theories aim to tell a "literal story" about how the world works. The contrast is the early logical positivists' construal of theoretical terms as shorthand for observations.
 > - **Epistemic realism** (about knowledge): one is **justified in accepting** scientific theories as true.
 > - **Metaphysical realism** (about what there is): the theory **is true** or approximately true. **The world is like the theory says it is**, and its entities exist.
 
@@ -149,7 +149,7 @@ Here $E$ is the evidence (for the realist: the success of science), $H_1, \dots,
 
 Like induction, IBE is **ampliative** (the conclusion goes beyond what is logically contained in the premises) and **fallible**. Deduction is neither: it is **truth-preserving** (true premises guarantee a true conclusion). Induction appeals to observed frequencies; IBE also appeals to **explanatory considerations**.
 
-That is where the anti-realist pushes back: **many anti-realists do not accept explanation as an aim of science.** On van Fraassen's view from [[PhilSci-L04 - Scientific Explanation and Understanding|L04]], an explanation is an answer to a why-question, and what counts as a good answer depends on the context of who asks and why. Explaining is a use of science for our own purposes, so "best explanation" gives no reason to believe a theory true. Musgrave's reply to this comes below.
+That is where the anti-realist pushes back: **many anti-realists do not accept explanation as an aim of science.** On van Fraassen's view from [[PhilSci-L04 - Scientific Explanation and Understanding|L04]], an explanation is an answer to a why-question, and what counts as a good answer depends on the context of who asks and why. Explaining is a use of science for our own purposes, so "best explanation" gives no reason to believe a theory true. Van Fraassen also argues that explanation is not an aim of science at all; Musgrave's reply to that comes below.
 
 ## Van Fraassen's alternative: constructive empiricism
 
@@ -183,7 +183,7 @@ So the disagreement with the realist is only about **unobservable** entities. He
 
 ### Reply to Maxwell: the line can be vague
 
-Maxwell's argument was deadly for the positivists because they hung **meaning** on the line, and meaning is all-or-nothing. Existence is all-or-nothing too, which is one reason van Fraassen never says "only observable things exist". He escapes in three moves.
+Maxwell's argument was deadly for the positivists because they hung **meaning** on the line, and meaning is all-or-nothing. Existence is all-or-nothing too, so an anti-realist who said "only observable things exist" would hit the same problem. Van Fraassen never says that. He escapes in three moves.
 
 1. **Take theories literally in all respects.** Drop the verifiability theory of meaning. "Electrons exist" is meaningful, true or false. Whether we are justified in believing it is a separate question.
 2. **The theory-observation distinction is a category mistake** (treating a thing as the wrong kind of thing). It runs together a distinction in **language**, theoretical versus non-theoretical **terms**, and one in **objects**, observable versus unobservable **entities**. Once they are separated, the observable/unobservable line is about which things we can see. It says nothing about which words are meaningful, and a theoretical term can describe an observable thing.
@@ -213,7 +213,7 @@ So van Fraassen's argument works against essentialism and does not touch realism
 
 ### Reply to the no-miracles argument: survival of the fittest
 
-This reply is in van Fraassen's reading for the week, though the lecture did not cover it. It answers the realist's question of why a theory would be empirically adequate unless true: theories compete and only the successful ones survive, "the ones which in fact latched on to actual regularities in nature". As in Darwin, selection explains the fit. Success needs no truth behind it.
+Van Fraassen's own answer to the realist's question of why a theory would be empirically adequate unless true: theories compete and only the successful ones survive, "the ones which in fact latched on to actual regularities in nature". As in Darwin, selection explains the fit. Success needs no truth behind it.
 
 ## The case against: Laudan's pessimistic meta-induction
 
@@ -261,7 +261,7 @@ Laudan attacks the links between these three elements, in three related problems
 ### Laudan's problems with approximate truth
 
 1. **There is no good definition of "approximate truth".** "Few of the writers of whom I am aware have defined what it means for a statement or theory to be 'approximately true'." And truth, like meaning, seems all-or-nothing, so it is hard to say what being true "to a degree" could mean.
-2. **Nothing justifies the link between empirical success and reference that realism assumes.** The realist's route runs **success → approximate truth → reference**: success is the reason to think a theory approximately true, and a theory can only be approximately true if its central terms refer. Approximate truth is too vague to work with, so the realist is left with reference. But reference touches success only through that vague middle step, so the link is **extremely tenuous**. It fails in both directions in practice. A theory can refer and still be unsuccessful: in the old theory of tectonic plates, "tectonic plates" referred, yet the theory was unsuccessful (probably the early theory of drifting continents, rejected for decades: an identification from outside the course material). And a theory can succeed without referring, as aether theories did.
+2. **Nothing justifies the link between empirical success and reference that realism assumes.** The realist's route runs **success → approximate truth → reference**: success is the reason to think a theory approximately true, and a theory can only be approximately true if its central terms refer. Approximate truth is too vague to work with, so the realist is left with reference. But reference touches success only through that vague middle step, so the link is **extremely tenuous**. It fails in both directions in practice. A theory can refer and still be unsuccessful: in the old theory of tectonic plates, "tectonic plates" referred, yet the theory was unsuccessful (probably the early theory of continental drift, rejected for decades). And a theory can succeed without referring, as aether theories did.
 3. **Central terms of once-successful theories do not refer, so those theories were not approximately true.** Aether and phlogiston theories were successful anyway. So success does not indicate approximate truth.
 
 All three come back to **approximate truth**. The realist needs it to carry the argument. It is extremely hard to make sense of, and the historical cases may refute it outright.
@@ -409,7 +409,7 @@ The full model answer for mock Q8 is the first exam question below.
 > The **Higgs boson** and the **top quark**: unobservables predicted on theoretical grounds before any experiment.
 
 > [!card]- According to the no-miracles argument, why does fitting the observations made so far not explain novel predictive success?
-> A theory built to fit them is bound to; getting right observations **nobody has made yet** is not.
+> A theory built to fit past observations is **bound to fit them**; getting right observations **nobody has made yet** is not guaranteed.
 
 > [!card]- What question does the realist put to van Fraassen about empirical adequacy?
 > Why would a theory be empirically adequate, future observations included, **unless it were true**?
@@ -496,7 +496,7 @@ The full model answer for mock Q8 is the first exam question below.
 > When there is **something in the world** it picks out.
 
 > [!card]- In the pessimistic meta-induction, why does a non-referring central term make a theory false?
-> A theory whose central terms refer to **nothing** cannot be true, or even approximately true.
+> Its central claims are about something that **does not exist**, so they cannot be even approximately true.
 
 > [!card]- What historical premise does Laudan's pessimistic meta-induction start from?
 > Many theories now considered **false** were once **empirically successful**.
