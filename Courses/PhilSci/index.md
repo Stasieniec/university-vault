@@ -30,7 +30,7 @@ Schedule, assessment and deadlines live in the [[PhilSci - Overview|course overv
 - **L03** [[PhilSci-L03 - Under-determination|Under-determination]] · 61 cards  
   *Duhem's under-determination thesis, Crucial experiments and good sense, Quine's Two Dogmas of Empiricism, The web of belief and the Duhem-Quine thesis, ...*
 - **L03b** [[PhilSci-L03b - GenAI, Writing and Philosophical Learning|GenAI, Writing and Philosophical Learning]]  
-  *The course policy on GenAI use, Strengthening versus replacing your own learning, Gartenberg et al. (2026) on AI in journal submissions and peer review, Why writing with AI requires expertise, ...*
+  *The course policy on GenAI use, Strengthening versus replacing your own learning, The AI use statement for the paper, Requirements and writing advice for the paper, ...*
 - **L04** [[PhilSci-L04 - Scientific Explanation and Understanding|Scientific Explanation and Understanding]] · 81 cards  
   *Hempel's deductive-nomological model, Inductive-statistical explanation, Asymmetry, irrelevance and correlation objections, Causal-mechanical explanation (Salmon), ...*
 - **L05** [[PhilSci-L05 - Scientific Realism and its Critiques|Scientific Realism and its Critiques]] · 68 cards  
