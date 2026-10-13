@@ -289,7 +289,7 @@ Full model answers for mock Q6 and Q3 are the first two exam questions below.
 > [!exam]- Mock exam Q6 (half a page): The under-determination thesis was first formulated by Pierre Duhem, and it was later on strengthened by W.V.O. Quine. State this thesis in Duhem's own version, and explain it with an example.
 > **Key points:** premises entail $O$, experiment gives $O'$ incompatible with $O$; only the conjunction is false, no particular premise; no crucial experiment; hypotheses tested together with auxiliary assumptions, including the apparatus; an example (telescope or Poincaré's sphere).
 >
-> Must hit:
+> Follow the official key: the formal version, plus no crucial experiment because hypotheses are only tested with auxiliary assumptions.
 > 1. **The formal version.** If premises $\{P_1, \dots, P_n\}$ deductively entail a statement $O$ describing a possible observation, and experiment establishes $O'$, where $O'$ entails that $O$ is false, then the **conjunction** of the premises is false. It does **not** follow that any particular premise is false: falsification is ambiguous.
 > 2. **The consequence.** There is no crucial experiment that irrefutably decides between two hypotheses, because a hypothesis is only ever tested together with auxiliary assumptions, such as the theory of the experimental apparatus (and there may be unconceived alternatives). Logic does not say which premise to give up; for Duhem the scientist's good sense does.
 > 3. **An example.** An astronomical theory, together with the optics of the telescope and the initial conditions, predicts the planet at position $x$; the telescope shows it at $y$. The conflict does not say whether the astronomy or the optics of the telescope (or the initial data) is at fault. Poincaré's sphere is the richer alternative: geometry and physics face experience together, so no experiment tests the geometry alone.
@@ -314,21 +314,24 @@ Full model answers for mock Q6 and Q3 are the first two exam questions below.
 > - **Duhem:** no. Logic alone does not settle which premise to give up, but **good sense** does: some opinions are "perfectly unreasonable" even though no contradiction forces you to drop them. Choice is not *formal*, which is different from arbitrary.
 > - **Quine:** pushes hardest. Our beliefs face experience as one web, and any statement can be held true "come what may" if you make drastic enough adjustments elsewhere (pleading hallucination, even amending logical laws).
 > - **Laudan:** logically possible is not rational. Quine argues in an "**evaluative vacuum**": he never examines the ampliative rules of theory choice to show they are too weak to decide between any two theories on any evidence. Rationality includes epistemic warrant, above all the evidence.
-> - Laudan's two theses: non-uniqueness (at least one rival as well supported) is harmless, since choosing among survivors is what methodology does; only the **egalitarian** thesis (every theory as well supported as any rival) would make choice arbitrary, and nothing in Quine establishes it.
+> - Laudan's two theses: non-uniqueness (at least one rival as well supported) is harmless, since the rules can still reject almost every theory; only the **egalitarian** thesis (every theory as well supported as any rival) would make choice arbitrary, and nothing in Quine establishes it.
 > - Verdict: holism shows a theory *can* be saved, not that it is *reasonable* to save it.
 
 > [!exam]- Explain under-determination using Poincaré's sphere, and say what conclusion Poincaré draws.
 > **Key points:** Euclidean disk with $T = R^2 - r^2$, bodies shrink towards the edge; inhabitants find infinite non-Euclidean space; no experiment separates the two; geometry is conventional, no fact of the matter; geometry is tested only together with physics (Duhem).
 >
-> - A world inside a sphere of radius $R$. **Description 1:** a Euclidean disk with temperature $T = R^2 - r^2$ (highest at the centre, zero at the edge), where every body expands in proportion to $T$, so everything shrinks towards the edge. **Description 2:** inhabitants, whose rulers shrink with them, never reach the edge and find space **infinite and non-Euclidean**.
-> - No experiment separates the two, because every experimental set-up can itself be interpreted in either picture: rulers and light behave according to the physics you assume.
+> - A world inside a sphere of radius $R$. **Description 1:** a Euclidean disk with temperature $T = R^2 - r^2$ (highest at the centre, zero at the edge), where every body's size is proportional to $T$, so everything shrinks towards the edge. **Description 2:** inhabitants, whose rulers shrink with them, never reach the edge and find space **infinite and non-Euclidean**.
+> - No experiment separates the two, because every experimental set-up can itself be interpreted in either picture: measuring instruments behave according to the physics you assume.
 > - Conclusion: geometry is **conventional**, neither a priori (against Kant's synthetic a priori) nor a posteriori. We pick the description that is simplest for us, as we choose metres or yards. There is no fact of the matter.
 > - Link to Duhem: laws are tested only indirectly; geometry faces experience together with physics.
 
 ## Flashcards
 
 > [!card]- For Popper, how does science come to accept its empirical basis?
-> By **intersubjective agreement**. No objective facts force it, so accepting a falsifying report is a **human decision**.
+> By **intersubjective agreement** among investigators: no objective facts force it.
+
+> [!card]- For Popper, what is accepting an observation report that falsifies a theory, in the end?
+> A **human decision**.
 
 > [!card]- Duhem's thesis: if premises $P_1, \dots, P_n$ entail $O$ and experiment establishes $O'$ incompatible with $O$, what follows?
 > The **conjunction** of the premises is false. It does **not** follow that any particular premise is false.
@@ -361,7 +364,7 @@ Full model answers for mock Q6 and Q3 are the first two exam questions below.
 > **Reductionism** and the **analytic-synthetic distinction**.
 
 > [!card]- What does the dogma of reductionism claim, according to Quine?
-> Every scientific statement is equivalent to one in a special empiricist language: the **verification theory of meaning**.
+> Every meaningful scientific statement is equivalent to one in a special empiricist language: the **verification theory of meaning**.
 
 > [!card]- What is Quine's objection to reductionism?
 > You **cannot test isolated statements**: no statement has its own private stock of empirical consequences.
@@ -369,8 +372,8 @@ Full model answers for mock Q6 and Q3 are the first two exam questions below.
 > [!card]- What is Quine's objection to the analytic-synthetic distinction?
 > The difference between conceptual schemes and facts is "**of degree only**".
 
-> [!card]- For Quine, what are analytic statements?
-> The **limiting case** of true statements: no empirical content, confirmed however the world turns out.
+> [!card]- What would an analytic statement be, if reductionism were true?
+> The **limiting case**: a statement confirmed by every possible experience. Quine denies there are any.
 
 > [!card]- Why does Quine say the two dogmas are "at bottom identical"?
 > Both assume statements can be assessed **one at a time** against experience. Deny that and both fall together.
@@ -386,6 +389,15 @@ Full model answers for mock Q6 and Q3 are the first two exam questions below.
 
 > [!card]- How does Quine strengthen Duhem's thesis?
 > The bundle tested becomes **everything we believe**, logic and mathematics included.
+
+> [!card]- What is holism, in Quine's sense?
+> Beliefs face experience **only as a whole**, never one statement at a time.
+
+> [!card]- What does the Duhem-Quine thesis say about a disconfirming observation?
+> It hits the web only at its edges, so adjusting **auxiliary hypotheses** inside can absorb it.
+
+> [!card]- Why does holism seem to support under-determination, according to Quine?
+> There is always **more than one way to repair** the web, so more than one system seems to fit all the data.
 
 > [!card]- What can be held true "come what may", according to Quine?
 > **Any statement**, given drastic enough adjustments elsewhere, such as pleading hallucination or amending logical laws.
@@ -403,7 +415,7 @@ Full model answers for mock Q6 and Q3 are the first two exam questions below.
 > **Sense** (intension) is the linguistic meaning of the words. **Reference** (extension) is the object they pick out.
 
 > [!card]- In possible-world semantics, what is the intension of a sentence?
-> The maximal **set of possible worlds** where it is true.
+> The **set of all possible worlds** where it is true.
 
 > [!card]- What does Laudan say discussions of under-determination have proceeded in?
 > An "**evaluative vacuum**": assuming that if a move is logically possible, its rationality need not be asked about.
@@ -424,10 +436,10 @@ Full model answers for mock Q6 and Q3 are the first two exam questions below.
 > Only the **egalitarian** thesis.
 
 > [!card]- Why does the non-uniqueness thesis of under-determination not threaten methodology?
-> One equally supported rival existing leaves room to choose; methodology's job is **choosing among the survivors**.
+> The rules can still **reject almost every theory**; at worst a few tied rivals remain.
 
 > [!card]- Why would the egalitarian thesis make methodology idle?
-> It says there is **never anything to choose on**, so theory choice would be arbitrary.
+> Every theory is as well supported as every rival, so the rules could **never reject anything**.
 
 > [!card]- What two conditions define Quine's empirical under-determination (1975)?
 > Two theory formulations that are **empirically equivalent** but **theoretically inequivalent**.
@@ -456,11 +468,14 @@ Full model answers for mock Q6 and Q3 are the first two exam questions below.
 > [!card]- Is Quine's empirical under-determination transient or permanent?
 > **Permanent**: it concerns all possible observations.
 
+> [!card]- Why does Quine's denial of "extra-theoretic" truth matter for under-determination?
+> With no standpoint outside all theories, "which rival is **really true**?" has no outside answer.
+
 > [!card]- Dualities are potential cases of which kind of under-determination?
 > **Semantic** under-determination.
 
 > [!card]- On De Haro's view, do dualities threaten scientific realism?
-> Not a **cautious scientific realism**.
+> No, not a **cautious scientific realism**.
 
 > [!card]- According to Laudan and Leplin, what do contrived examples of empirical equivalence always involve?
 > The **relativity of motion**: the impossibility of distinguishing apparent from absolute motion.
@@ -471,7 +486,7 @@ Full model answers for mock Q6 and Q3 are the first two exam questions below.
 > [!card]- What does Quine (1975) say about whether real cases of empirical under-determination exist?
 > It is an "**open question**".
 
-> [!card]- What does Stanford say critics may demand before anyone withholds belief on grounds of empirical equivalence?
+> [!card]- What does Stanford say critics of under-determination may demand before they withhold belief in a theory?
 > That serious, genuinely distinct empirical equivalents **actually be produced**, not presumed.
 
 > [!card]- Why does the conjunction of a theory's finitely many observation conditionals not create under-determination, for Quine?
@@ -483,7 +498,7 @@ Full model answers for mock Q6 and Q3 are the first two exam questions below.
 > - **no formulation** fitting more tightly
 
 > [!card]- What was Kant's view of the status of geometry and Newton's three laws?
-> **Synthetic a priori**: independent of experience, yet adding content beyond logic.
+> **Synthetic a priori**: known independently of experience, yet saying something beyond what their terms mean.
 
 > [!card]- Which nineteenth-century result put pressure on Kant's view of geometry?
 > **Non-Euclidean geometries** were shown to be mathematically consistent (Gauss, Riemann).
@@ -492,10 +507,10 @@ Full model answers for mock Q6 and Q3 are the first two exam questions below.
 > **Conventional**: neither a priori nor a posteriori. We choose the geometry that describes experience most simply.
 
 > [!card]- What is Poincaré's perceptual argument that space is not given as three-dimensional?
-> The visual field is prima facie **two-dimensional**, and tactile space could be multi-dimensional.
+> The visual field is at first sight **two-dimensional**, and tactile space could be multi-dimensional.
 
 > [!card]- In Poincaré's sphere, what is the outside (Euclidean) description?
-> A Euclidean disk with temperature $T = R^2 - r^2$; bodies expand with $T$, so everything **shrinks towards the edge**.
+> A Euclidean disk with temperature $T = R^2 - r^2$; every body's size is proportional to $T$, so everything **shrinks towards the edge**.
 
 > [!card]- In Poincaré's sphere, what geometry do the inhabitants find?
 > **Infinite, curved, non-Euclidean** space: their rulers shrink with what they measure, so they never reach the boundary.

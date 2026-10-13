@@ -304,15 +304,15 @@ The difference between the last two: for Douglas, values decide how much evidenc
 > [!exam]- Describe Kuhn's model of scientific development, illustrate it with one historical case, and explain why it challenges the idea of cumulative progress.
 > **Key points:** paradigm, normal science, anomaly, crisis, extraordinary science, revolution; one case (phlogiston to oxygen, or Ptolemy to Copernicus); revolutions are non-cumulative; theory-ladenness and incommensurability block neutral comparison; Kuhn's five shared values as reply.
 >
-> - **Cycle:** a shared **paradigm** organises **normal science** (puzzle-solving, paradigm accepted unconditionally); a puzzle that persistently resists solution becomes an **anomaly**; anomalies weaken confidence and cause a **crisis**; in **extraordinary science** rival approaches are explored and standards are contested; a **revolution** installs a new paradigm, which sets new puzzles, and normal science resumes.
-> - **Case:** chemistry went from a preparadigmatic stage (alchemy) to the phlogiston paradigm (Priestley: burning releases phlogiston) to the oxygen paradigm (Lavoisier: burning is combination with oxygen). The substance, the explanatory vocabulary and the reading of weight changes all changed. Alternatively Ptolemy (geocentric) to Copernicus (heliocentric), where the meaning of "planet" changed.
+> - **Cycle:** a shared **paradigm** organises **normal science** (puzzle-solving, paradigm accepted unconditionally); a puzzle that persistently resists solution becomes an **anomaly**; anomalies weaken confidence and cause a **crisis**; in **extraordinary science** rival approaches are explored and standards are contested; a crisis can end in a **revolution**, which installs a new paradigm that sets new puzzles, and normal science resumes.
+> - **Case:** chemistry went from a preparadigmatic stage (alchemy) to the phlogiston paradigm (Priestley: burning releases phlogiston) to the oxygen paradigm (Lavoisier: burning is combination with oxygen). The key substance, the explanatory vocabulary and the reading of the weight gain all changed. Alternatively Ptolemy (geocentric) to Copernicus (heliocentric), where the meaning of "planet" changed.
 > - **Against cumulative progress:** a revolution is non-cumulative. Only anomalies give rise to new theories, and a new theory must clash with the old one somewhere, so one displaces the other ("cumulative acquisition of novelty is not only rare in fact but improbable in principle"). Observation is theory-laden, and paradigms differ in meanings (semantic incommensurability) and standards (methodological incommensurability), so no neutral algorithm compares them and it becomes unclear in what sense the new paradigm is objectively better.
 > - **Close with Kuhn's reply:** five shared values keep theory choice rational, though not algorithmic.
 
 > [!exam]- Why does Kuhn hold that scientific revolutions are necessary, and why are arguments in paradigm debates necessarily circular?
 > **Key points:** normal science does not aim at novelty, so novelty arrives as anomaly; only recognised anomalies give rise to new theories; new theory must be incompatible with the old; Newton is not a special case of Einstein (mass changes meaning); evaluation standards depend on the paradigm in dispute, so each side argues from its own, which makes argument persuasion.
 >
-> - **Necessity:** normal science is cumulative because it picks problems solvable with existing tools; it does not aim at novelty. Discovery comes only where expectations fail, as an anomaly. Of three kinds of phenomena (already explained; indicated by the paradigm but needing articulation; recognised anomalies), only anomalies produce new theories. A new theory must predict differently from the old one somewhere, so the two are incompatible and one must displace the other. Hence "cumulative acquisition of novelty is not only rare in fact but improbable in principle". Revolutions are how science corrects foundations that normal science cannot touch.
+> - **Necessity:** normal science is cumulative because it picks problems solvable with existing tools; it does not aim at novelty. Discovery comes only where expectations fail, as an anomaly. Of three kinds of phenomena (already explained, which seldom prompt a new theory; indicated by the paradigm but needing articulation; recognised anomalies), only anomalies give rise to new theories. A new theory must predict differently from the old one somewhere, so it contradicts the old paradigm and must replace it. Hence "cumulative acquisition of novelty is not only rare in fact but improbable in principle". Revolutions are how science corrects foundations that normal science cannot touch.
 > - **Against the positivist escape:** Newton derived from Einstein at low speeds is not Newton, since Newtonian mass is conserved and Einsteinian mass is convertible with energy; and a theory restricted to past observations predicts nothing new.
 > - **Circularity:** as with political revolutions, which change institutions in ways the institutions forbid, the normal procedures cannot decide, because they depend on the paradigm in question. "Like the choice between competing political institutions, that between competing paradigms proves to be a choice between incompatible modes of community life." Each group uses its own paradigm to argue in its defence.
 > - **Consequence:** the arguments are not wrong or useless, but they are persuasion, not logically compelling to someone outside the circle; there is no standard higher than the assent of the relevant community. Lakatos read this as irrationalism ("mob psychology"); Kuhn replied with shared values.
@@ -392,6 +392,9 @@ The difference between the last two: for Douglas, values decide how much evidenc
 > [!card]- What happens during Kuhn's extraordinary science?
 > Researchers explore **competing approaches**, and even the **standards** for judging theories become contested.
 
+> [!card]- Must a Kuhnian crisis end in a revolution?
+> No: normal science may solve the anomaly after all, or the problem may be set aside.
+
 > [!card]- What is a scientific revolution for Kuhn?
 > A **non-cumulative** change in which a new paradigm replaces the old one.
 
@@ -437,6 +440,9 @@ The difference between the last two: for Douglas, values decide how much evidenc
 > [!card]- Which view of observation does Kuhn's Gestalt-switch comparison express?
 > Observation is **theory-laden**: what scientists see depends on the paradigm they bring to it.
 
+> [!card]- Is a Kuhnian paradigm change sudden for the whole community?
+> No: each scientist switches **all at once**, but the community converts **gradually**, a few at a time.
+
 > [!card]- Where does Kuhn's Gestalt-switch analogy break down?
 > The viewer knows the lines stayed the same, but a scientist has **no external standpoint** to check the world stayed the same.
 
@@ -457,6 +463,9 @@ The difference between the last two: for Douglas, values decide how much evidenc
 
 > [!card]- What is Kuhn's incommensurability?
 > Two paradigms cannot be fully measured against each other by a **common language or fixed set of standards**.
+
+> [!card]- How does theory-laden observation feed incommensurability?
+> There is **no theory-neutral observation language** in which to compare two paradigms.
 
 > [!card]- Why are the side and diagonal of a unit square incommensurable?
 > $\sqrt{2}$ is **irrational**, so no common unit measures both exactly.
@@ -545,8 +554,11 @@ The difference between the last two: for Douglas, values decide how much evidenc
 > [!card]- For Longino, what secures objectivity if no individual is free of assumptions?
 > **Transformative criticism** within a community, which exposes and revises background assumptions.
 
-> [!card]- What are Longino's four conditions for objectively transformative discourse?
+> [!card]- What are Longino's four necessary conditions for objectively transformative discourse?
 > Recognised avenues for criticism, shared standards, responsiveness to criticism, equality of intellectual authority.
+
+> [!card]- Is objectivity all-or-nothing for Longino?
+> No: it comes in **degrees**, with the depth and breadth of critical scrutiny.
 
 > [!card]- For Longino, how does a claim become scientific knowledge?
 > By **surviving critical emendation and modification** by others, which frees it from any individual's subjective preferences.
