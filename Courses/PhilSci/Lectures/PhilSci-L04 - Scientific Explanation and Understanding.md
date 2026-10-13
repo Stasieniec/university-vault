@@ -38,7 +38,7 @@ Explanation matters because it is tied to evidence: scientists prefer theories t
 It is problematic because empiricists (who hold that all knowledge comes from experience) distrusted it. "Explaining" sounds like claiming insight into hidden causes behind the appearances: **metaphysics** (claims about ultimate reality that no observation can settle), which the logical empiricists of [[PhilSci-L01 - Introduction and Logical Empiricism|L01]] wanted science to do without.
 
 - **Pierre Duhem** (French physicist and historian of science, see [[PhilSci-L03 - Under-determination|L03]]): explaining "gives hostages to fortune". It makes physics depend on metaphysical claims like "atoms exist", which science can neither confirm nor refute. So explaining is not physics's job.
-- **Rudolf Carnap** (the leading logical empiricist) dismissed metaphysical **why-questions** ("why $X$?") and their answers as pseudo-explanations. But he admitted a respectable **empiricist explanation**, closely linked with **prediction from laws**.
+- **Rudolf Carnap** (the leading logical empiricist) dismissed why-questions that ask for metaphysical causes as pseudo-explanations. But he admitted a respectable **empiricist explanation**, closely linked with **prediction from laws**.
 
 As Peter Godfrey-Smith (philosopher of science, author of this week's reading) puts it, the logical empiricists "made peace with the idea that science explains" by construing it "in a low-key way that fitted into their empiricist picture". The result, in 1948, was the **covering law model** of Carl Hempel (German-American logical empiricist) and Paul Oppenheim: a "philosophically light" account, with nothing about hidden causes, only how statements relate logically.
 
@@ -49,7 +49,7 @@ Hempel's idea: to explain something is to show that, given the laws of nature an
 > [!example] The sticking front door
 > Why is my front door hard to close lately? My door is made of wood ($C_1$). Wooden objects expand if humidity increases ($L_1$, a law). Humidity has increased this autumn ($C_2$). So my door has expanded this autumn ($E$).
 
-If we ask "why $X$?", $X$ is the **explanandum** (what is explained). If we answer "because $Y$", $Y$ is the **explanans** (what does the explaining).
+If we ask "why $X$?" (a **why-question**), $X$ is the **explanandum** (what is explained). If we answer "because $Y$", $Y$ is the **explanans** (what does the explaining).
 
 > [!definition] Deductive-nomological (D-N) explanation
 > An **explanation** is a deductive argument in which the **explanandum** (the phenomenon or law to be explained) is deduced from premises containing **general laws** and **particular facts and initial/boundary conditions** (the **explanans**).
@@ -74,7 +74,7 @@ Three clarifications:
 
 ## What goes wrong: a good deduction need not explain
 
-The flagpole, the hexed salt and the barometer are arguments that meet all of Hempel's conditions and still do not explain. So the conditions are not **sufficient**. The last two problems go the other way: explanations that fail the conditions, so the conditions are not **necessary** either.
+The flagpole, the hexed salt and the barometer are arguments that meet all of Hempel's conditions and still do not explain. So the conditions are not **sufficient**. Two further cases, the broken window and syphilis (at the end of this section), go the other way: genuine explanations that lack a law or a high probability, so the conditions are not **necessary** either.
 
 ### Asymmetry: the flagpole and its shadow
 
@@ -112,7 +112,7 @@ An excellent prediction, and no explanation: the barometer does not cause the st
 
 ### Laws and high probability are not needed either
 
-- **Explanations do not always involve laws.** "The window broke because the ball hit it" explains by citing a causally relevant fact. Hempel would call it elliptical, with a law about balls and glass left unstated. The standard rejoinder (from outside the course material): we understand it fully without any such law, and nobody can state a true one.
+- **Explanations do not always involve laws.** "The window broke because the ball hit it" explains by citing a causally relevant fact. Hempel would call it elliptical, with a law about balls and glass left unstated. The standard rejoinder (from outside the course material): we understand it fully without any such law, and every candidate law is either false (balls do not always break windows) or empty.
 - **High probability is not needed** (against the I-S version). Syphilis explains a patient's late symptom, though few syphilis patients develop it: an unlikely outcome, still explained.
 
 > [!summary] What the counterexamples share
@@ -178,7 +178,7 @@ His motive: Duhem said only metaphysics explains, so science does not; later phi
 > [!definition] Van Fraassen: explanation as a three-term relation
 > "The discussion of explanation went wrong at the very beginning when explanation was conceived of as a relationship like description: a relation between theory and fact. Really it is a **three-term relation, between theory, fact, and context**. An explanation is an answer... So **scientific explanation is not (pure) science but an application of science. It is a use of science to satisfy certain of our desires.**"
 
-An answer to a why-question, and what counts as a good answer depends on who asks and why.
+An explanation is an answer to a why-question, and what counts as a good answer depends on who asks and why.
 
 > [!warning] Two contextual views that are opposites
 > For **van Fraassen**, explanation is **external** to science: something people do *with* a theory to answer questions from outside scientific discussion, adding nothing to what we believe. For **Godfrey-Smith** it is **thoroughly internal**: assessing what explains what is an important part of scientific reasoning, with standards that differ by field.
@@ -205,7 +205,7 @@ On Hempel's view, explanation relates a theory and a phenomenon; understanding i
 - **Lipton (2004):** "understanding is not some sort of super-knowledge, but simply more knowledge: knowledge of causes."
 - **Trout (2002):** the *Eureka!* feeling of understanding results from **cognitive biases** like overconfidence and hindsight, so it is no epistemic guide.
 
-**Carnap's three senses of "understanding":** **pragmatic**, the **capability to use** a theory (legitimate); **subjective**, the **intuitive** feeling of grasping (rejected); **epistemic**, **knowing the semantic rules** of a language, when each sentence is true (legitimate). De Regt and Dieks build on the first.
+**Carnap's three senses of "understanding":** **pragmatic**, the **capability to use** a theory (legitimate); **subjective**, the **intuitive** feeling of grasping (rejected); **epistemic**, **knowing the semantic rules** of a language, when each sentence is true (legitimate). De Regt and Dieks's skill view is close to the first.
 
 **The equivocation on "pragmatic".** Friedman (1974) and Woodward and Ross (2021) say Hempel and van Fraassen slide between two meanings:
 
@@ -259,7 +259,7 @@ CUP says when a phenomenon is understood; CIT gives a test that shows a theory i
 CUP says "iff"; CIT says only "if". Passing CIT shows a theory is intelligible; failing it does not prove it unintelligible.
 
 > [!example] Passing the CIT
-> A standard illustration (from outside the course slides): with the kinetic theory of gases, a physicist sees without calculating that heating a gas in a closed container raises its pressure, since the molecules move faster and hit the walls harder. That shows the theory is intelligible to her.
+> A standard illustration (from outside the course material): with the kinetic theory of gases, a physicist sees without calculating that heating a gas in a closed container raises its pressure, since the molecules move faster and hit the walls harder. That shows the theory is intelligible to her.
 
 ### Does this make understanding subjective?
 
@@ -291,7 +291,7 @@ The phenomenon stayed the same; the community's standard of intelligibility chan
 
 ### Quantum mechanics around 1926
 
-From 1920 to 1925 physics lost its pictures: wave-particle duality left **no unambiguous visualization** and **no particle trajectories**. Electron spin (Pauli, 1925) had no picture in Bohr's model of electrons orbiting the nucleus, so atoms became completely non-visualizable.
+From 1920 to 1925 physics lost its pictures: wave-particle duality left **no unambiguous visualization** and **no particle trajectories**. Pauli's fourth quantum number (1925, later read as electron spin) had no picture in Bohr's model of electrons orbiting the nucleus, so atoms became completely non-visualizable.
 
 Around 1926 two theories of the atom competed:
 
@@ -300,11 +300,11 @@ Around 1926 two theories of the atom competed:
 
 The debate was about ***Anschaulichkeit***, German for visualizability and, by extension, intelligibility: when is a theory *anschaulich*?
 
-Schrödinger was repelled by Heisenberg's "transcendental algebra" and "lack of *Anschaulichkeit*"; physicists found his own theory easier to use.
+Schrödinger was "discouraged, if not repelled" by Heisenberg's "transcendental algebra" and "lack of *Anschaulichkeit*"; physicists found Schrödinger's theory easier to use.
 
-Pauli (1924): the demand for pictures "should never count as an argument for the retention of fixed conceptual systems in physics. Once the new conceptual systems are settled, then also these will be *anschaulich*." New theories become intelligible once people have the skills to use them: De Regt and Dieks's contextual view in a 1924 letter.
+Pauli (1924): the demand for pictures "should never count as an argument for the retention of fixed conceptual systems in physics. Once the new conceptual systems are settled, then also these will be *anschaulich*." New theories become intelligible once people have the skills to use them: Pauli's 1924 letter already states De Regt and Dieks's contextual view.
 
-**Outcome.** Schrödinger read $|\psi|^2$, the squared wave function, as a real charge density spread through space. That failed; Born's reading won, on which $|\psi|^2$ is a **probability density**, the chance of finding the electron at each place. Heisenberg went on to use visualizable concepts, redefining what *anschaulich* means (his 1927 uncertainty paper, from outside the course material), as Pauli predicted. The result combined both theories.
+**Outcome.** Schrödinger read $|\psi|^2$ (the squared magnitude of the wave function) as the electron's charge, really spread out through space. That failed; Born's reading won, on which $|\psi|^2$ is a **probability density**: how likely the electron is to be found in each small region. Heisenberg went on to use visualizable concepts, redefining what *anschaulich* means (his 1927 uncertainty paper, from outside the course material), as Pauli predicted. The result combined both theories.
 
 The lesson: **visualizability was valued as increasing the intelligibility** of theories, but it is **not necessary** for understanding: one tool, valued by some communities at some times.
 
@@ -424,7 +424,7 @@ The model answer for mock Q7 is the first exam question below.
 > As **elliptical**: a law about balls and glass left unstated.
 
 > [!card]- What is the rejoinder to reading the window case as an elliptical D-N explanation?
-> We understand it fully **without any such law**, and nobody can state a true one.
+> We understand it fully **without any such law**, and every candidate law is false or empty.
 
 > [!card]- What do the flagpole, hexed-salt and barometer counterexamples to Hempel have in common?
 > All lack the right **causation**: the shadow does not cause the pole, the hex causes nothing, barometer and storm share a cause.
@@ -531,7 +531,7 @@ The model answer for mock Q7 is the first exam question below.
 > [!card]- Why does Hempel's step from "pragmatic" to "epistemically irrelevant" fail?
 > It only works if pragmatic means **subjective**; read as **useable for aims**, understanding can be epistemic.
 
-> [!card]- What three requirements for understanding do De Regt and Dieks list?
+> [!card]- What three requirements for understanding do pragmatic theories, such as De Regt and Dieks's, use?
 > **Explanation**, **requirements of adequacy** (consistency, empirical confirmation), **useability**.
 
 > [!card]- What is the difference between reductivists and "more than explanation" theorists of understanding?
@@ -616,7 +616,7 @@ The model answer for mock Q7 is the first exam question below.
 > ***Anschaulichkeit***.
 
 > [!card]- Why had atoms become non-visualizable by 1925?
-> **Wave-particle duality** left no particle trajectories, and **spin** had no picture in the Bohr model.
+> **Wave-particle duality** left no particle trajectories, and Pauli's **fourth quantum number** had no picture in the Bohr model.
 
 > [!card]- What was Pauli's reply to the demand for visualizability?
 > Once new conceptual systems are settled, **they too become *anschaulich***: visualizability is not a fixed standard.
