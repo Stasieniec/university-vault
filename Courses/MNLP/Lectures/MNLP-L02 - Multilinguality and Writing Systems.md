@@ -23,9 +23,9 @@ topics:
 # MNLP-L02: Multilinguality and Writing Systems
 
 > [!abstract] In short
-> Standard NLP pipelines split on whitespace, rely on word order, treat a word as one unit of meaning and assume text runs left to right. Those are properties of English, and each fails for a large group of languages. The lecture then goes down to where text enters a model: how writing systems become numbers and bytes.
+> Standard NLP pipelines split on whitespace, rely on word order, treat a word as one unit of meaning and assume text runs left to right. Those are properties of English, and each fails for a large group of languages. A second set of problems sits lower down, where text becomes numbers and bytes.
 >
-> What a reader sees as one character (a grapheme) can be several Unicode codepoints, each stored as 1 to 4 bytes in UTF-8. The same visible text can have different codepoint sequences, so pipelines must normalize consistently, and the normalization form (NFC, NFD, NFKC, NFKD) decides what information survives. Byte-level tokenizers see bytes, so scripts with more bytes per character get split into more tokens.
+> What a reader sees as one character (a grapheme) can be several Unicode codepoints, each stored as 1 to 4 bytes in UTF-8. The same visible text can have different codepoint sequences, so pipelines must normalize consistently, and the normalization form (NFC, NFD, NFKC, NFKD) decides what information survives.
 >
 > No sample exam question covers this lecture. Expect statements on exact conditions: which normalization forms are lossy, which encodings are ASCII compatible, which languages break which assumption.
 
@@ -33,21 +33,23 @@ topics:
 
 Most NLP resources are in English: **annotated (labelled) training data, unannotated training data, toolkit coverage** (dictionaries, analyzers) and **benchmarks and competitions**. Most publications also focus on English.
 
-Non-English resources arise mostly:
+Non-English resources come about mostly in two ways, and less often in a third:
 
-- **as a naturally occurring by-product**: translations, product reviews, which nobody made for NLP;
+- **as a naturally occurring by-product** of something else, such as translations or product reviews, which nobody made for NLP;
 - **as translations of existing (annotated) English resources**, so the annotation scheme and content stay English-shaped;
 - **less so as a dedicated effort**, the route that would actually close the gap.
 
-### Resource tiers follow money
+The result is that standard pipelines encode assumptions that are **properties of English, not of language in general**: whitespace tokenization, fixed word order, closed vocabularies. **Claims of language independence are usually untested** outside English (or a very small set of languages). This is **understandable**: creating resources costs time and money.
 
-There are **over 7,000 spoken languages**: a long tail, though more than a hundred have very large speaker populations. How well a language is covered by NLP resources does not follow how many people speak it. It depends on **commercial interest** and **military relevance**. Christof Monz (the lecturer) sorts languages into three tiers:
+### Resource tiers follow commercial and military interest
 
-**High resource:** large labelled and unlabelled data, many tools. English and Mandarin Chinese, then a **big gap**, then French, Spanish, Arabic and Russian. So even the top tier is two very different groups.
+There are **over 7,000 spoken languages**. Most have few speakers, but more than a hundred have over ten million each. How well a language is covered by NLP resources does not follow its speaker numbers: it depends on **commercial interest** and **military relevance**. Christof Monz (the lecturer) sorts languages into three tiers:
 
-**Medium resource:** limited labelled data, reasonable unlabelled data, some tools. German, Italian, Dutch, Korean, Japanese (European and Asian languages).
+**High resource:** large labelled and unlabelled data, many tools. English and Mandarin Chinese, then a **big gap**, then French, Spanish, Arabic and Russian. All six are high resource, but the tier holds two very different groups.
 
-**Low resource:** no labelled data, limited unlabelled data, no tools. All of the roughly 7,000 remaining languages.
+**Medium resource:** limited labelled data, reasonable unlabelled data, some tools. German, Italian, Dutch, Korean, Japanese.
+
+**Low resource:** no labelled data, limited unlabelled data, no tools. All of the roughly 7,000 remaining languages, which includes most of the languages with over ten million speakers.
 
 ## Languages differ in ways English hides
 
@@ -63,13 +65,15 @@ There are **over 7,000 spoken languages**: a long tail, though more than a hundr
 > | wǒ | bù | zhīdào | tā | qù | nǎr | le | |
 > | I | NEG | know | she | go | where | SFP | PUNC |
 
-(NEG: negation; SFP: sentence-final particle.) The gloss shows:
+(NEG: negation; SFP: sentence-final particle.)
 
 - **The verb 去 ("go") carries no tense.** English changes the verb ("go" against "went"); Chinese leaves it alone.
-- **Past tense comes from the sentence-final particle 了**, at the end of the clause, away from the verb.
-- **Both clauses are SVO** (subject, verb, object): the main clause "I NEG know" and the embedded clause "she go where". Word order matches English here; word boundaries and the place of tense do not.
+- **Past tense comes from the sentence-final particle 了**, at the end of the clause, away from the verb. (Outside the course material: 了 marks a completed event, so [[MNLP-L03 - Morphology and Word Formation|L03]] glosses it as perfective.)
+- **Both clauses are SVO** (subject, verb, object): the main clause "I NEG know" and the embedded clause "she go where". Word order matches English here; word boundaries and the place of past-time marking do not.
 
 ### Morphology: what is inside a word
+
+Words have parts: *unfriendly* is *un-* + *friend* + *-ly*, and each part adds meaning.
 
 > [!definition] Morphology
 > **Morphology** is the study of the internal structure of words and how they are formed from smaller units of meaning.
@@ -77,81 +81,74 @@ There are **over 7,000 spoken languages**: a long tail, though more than a hundr
 > - **Root / base:** the core part of a word that carries the primary meaning (*friend* in *unfriendly*).
 > - **Affix:** a prefix (added to the front) or suffix (added to the back) that modifies a root's meaning or grammatical role (*un-* and *-ly* in *unfriendly*).
 
-The lecture runs three languages of increasing morphological complexity.
+Three languages show the range, from limited to very complex morphology.
 
 **English has limited morphology.** From *happy* you get *happier, happiest, unhappy, unhappier, unhappiest, happiness, unhappiness*, and little more. That is why closed (fixed-size) word vocabularies seemed a reasonable design.
 
-**Russian has more complex morphology.** The noun *kniga* ("book") changes its ending for six cases (grammatical roles such as subject, possessor, instrument) in singular and plural: *kníga, knígi, knígye, knígu, knígoy, knig, knígam, knígami, knígakh*. Some forms fill several cells: *knígi* is "of the book", "the books" and "books" as direct object. So the case cannot always be read off the string.
+**Russian has more complex morphology.** The noun *kniga* ("book") has twelve slots, six cases (grammatical roles such as subject, possessor, instrument) times singular and plural, but only nine distinct forms. So some forms fill several slots: *knígi* is "of the book", "the books" and "books" as direct object, and the case cannot always be read off the string.
 
 **Finnish has very complex morphology.** It is **agglutinative**: morphemes are glued on one after another, each adding one piece of meaning, so a single word can carry what English spreads over a phrase.
 
 > [!example] Building "even at my happiest" in Finnish
-> *onni* ("happiness") + *-llinen* (adjective-forming suffix, "having the quality of") gives *onnellinen*, "happy". Before further suffixes the stem becomes *onnellis-*, so *onnellis-* + *-empi* (comparative) gives *onnellisempi*, "happier". Then:
+> *onni* ("happiness") + *-llinen* ("having the quality of") gives *onnellinen*, "happy"; with the stem *onnellis-* and comparative *-empi*, *onnellisempi* is "happier". Then *onnellisimmillanikin*, "even at my happiest", is:
 >
 > ```
-> onnellis  -imm-  -i-   -lla   -ni     -kin
-> │         │      │     │      │       │
-> │         │      │     │      │       └─ "even"
-> │         │      │     │      └───────── 1st person singular possessive, "my"
-> │         │      │     └──────────────── adessive case, "at/on/in"
-> │         │      └────────────────────── plural oblique-case marker
-> │         └───────────────────────────── superlative marker
-> └─────────────────────────────────────── stem, "happy"
+> onnellis-  stem, "happy"
+> -imm-      superlative
+> -i-        plural oblique-case marker
+> -lla       adessive case, "at/on/in"
+> -ni        "my" (1st person possessive)
+> -kin       "even"
 > ```
 >
-> *onnellisimmillanikin* = "even at my happiest": one word for four English ones.
+> One word for four English ones.
 
 A fixed word-level vocabulary has almost certainly never seen *onnellisimmillanikin*, and Finnish produces combinatorially many words like it, so more data does not fix this. That motivates subword segmentation ([[MNLP-L04 - Subword Segmentation|L04]]); morphology itself is [[MNLP-L03 - Morphology and Word Formation|L03]].
 
-## The four English-first assumptions
-
-Each assumption is invisible in an English pipeline and false for a large group of languages.
+## The English-first assumptions
 
 **1. Words are separated by whitespace.** False for **Chinese, Japanese, Thai, Lao, Khmer and Burmese**, which have no word delimiter. Thai does use spaces, but to end **clauses or sentences** (it has no dedicated full stop), so a Thai space does not mark a word boundary.
 
-**2. Grammatical relations are encoded by word order.** False for languages with **rich morphology, especially case marking**: **Russian, Finnish, Korean**. Who did what to whom is marked on the nouns themselves, so word order is free and a word's position says much less about its role.
+**2. Grammatical relations are encoded by word order.** False for languages with **rich morphology, especially case marking**: **Russian, Finnish, Korean**. Who did what to whom is marked on the nouns themselves, so word order is more flexible and a word's position says much less about its role.
 
 **3. One word = one unit of meaning.** False for **agglutinative** languages (**Finnish, Turkish, Hungarian**) and for languages with **compounding** (**German, Dutch, Swedish**). German *Bundesverfassungsgericht* is one token holding three concepts: federal, constitutional, court.
 
 **4. Text flows from left to right.** False for **Semitic languages and languages in Arabic script**: **Arabic, Hebrew, Urdu, Persian**, which are read right to left. Unicode text in these languages is **written (stored) left to right but rendered right to left**: codepoints sit in the file in reading order and are displayed from the right, so the first character of the string is the rightmost on screen.
 
-### Why the assumptions are built in
-
-- The overwhelming majority of NLP research and resources target **a small handful of languages**.
-- Standard pipelines encode assumptions that are **properties of English, not of language in general**: whitespace tokenization, fixed word order, closed vocabularies.
-- **Claims of language independence are usually untested** outside English (or a very small set of languages).
-- This is **understandable**: creating resources costs time and money.
-
 ## Writing systems: what a symbol stands for
+
+Writing systems differ in what one symbol stands for: a sound, a syllable or a whole word or morpheme.
 
 > [!definition] Types of writing system
 > - **Alphabetic:** each symbol represents a **consonant or vowel sound**; typically a **small inventory** of symbols. Latin, Cyrillic, Hangul.
 > - **Syllabic:** each symbol represents a **whole syllable**, a combination of consonant and vowel. Japanese Hiragana and Katakana.
 > - **Logographic:** each symbol represents **words or morphemes directly**, with typically **little sound information**. Chinese Hanzi, Japanese Kanji.
 
-For NLP the practical difference is inventory size: an alphabet has tens of symbols, a logographic script thousands, which a character-level vocabulary must budget for.
+One practical difference for NLP is inventory size: an alphabet has tens of symbols, a logographic script thousands, which a character-level vocabulary must budget for.
 
-| Script | Word | Reading | What the symbols encode |
-|---|---|---|---|
-| Latin | water | water | alphabetic: sounds spelled with letters |
-| Devanagari | पानी | pani | alphasyllabic: consonant + inherent vowel |
-| Han | 水 | shui | logographic: one symbol, one morpheme |
-| Arabic | كتب | ktb | root only, vowels omitted |
-| Korean | 한글 | Hangul | letter shapes encode articulation |
+| Script | Word | Reading |
+|---|---|---|
+| Latin | water | water |
+| Devanagari | पानी | pani |
+| Han | 水 | shui |
+| Arabic | كتب | ktb |
+| Korean | 한글 | Hangul |
 
-**Devanagari** (Hindi) is **alphasyllabic**: each consonant letter carries a built-in vowel, which an attached vowel sign can replace; पानी is two units, *pā* + *nī*. (Outside the course material such scripts are called abugidas.)
+**Latin** spells sounds with letters (alphabetic), and **Han** uses one symbol per morpheme (logographic). Two of the examples do not fit one of the three types cleanly:
 
-**Arabic** writes the consonant root and omits the vowels: كتب (k-t-b, "write") can be read *kataba* ("he wrote"), *kutiba* ("it was written") or *kutub* ("books"). (Outside the course material: an abjad.) The writing is lossier than the language, so the model must resolve the ambiguity from context; no tokenizer can recover vowels that were never written.
+**Devanagari** (Hindi) is **alphasyllabic**, between alphabetic and syllabic: each consonant letter carries a built-in vowel, which an attached vowel sign can replace, so पानी is two units, *pā* + *nī*.
 
-**Korean Hangul** is alphabetic (each letter a consonant or vowel), and its letter shapes depict how the sound is articulated. Outside the course material: the letters are grouped into square syllable blocks, so it looks syllabic while working alphabetically.
+**Arabic** writes the **consonant root only; vowels are omitted**: letters for sounds, but only the consonants. In examples from outside the course material, كتب (k-t-b, "write") can be read *kataba* ("he wrote"), *kutiba* ("it was written") or *kutub* ("books"). The writing is lossier than the language, so the model must resolve the ambiguity from context; no tokenizer can recover vowels that were never written.
 
-A single Japanese sentence can mix three systems: in アムステルダムはオランダの首都です ("Amsterdam is the capital of the Netherlands"), the names are Katakana, 首都 ("capital") is Kanji and は, の, です are Hiragana. One "script of this text" label cannot describe it.
+**Korean Hangul** is alphabetic (each letter a consonant or vowel), and its **letter shapes encode articulatory features** (how the sound is produced).
+
+A single Japanese sentence can mix three systems: in アムステルダムはオランダの首都です ("Amsterdam is the capital of the Netherlands"), the names are Katakana, 首都 ("capital") is Kanji, the rest Hiragana.
 
 ## Script is not language
 
 **One writing system, many languages:**
 - **Latin:** English, German, French, most European languages (except some Eastern European ones), and also several African, Turkic and Asian languages
-- **Arabic:** Arabic, Persian, Urdu, Pashto, Sorani
+- **Arabic:** Arabic, Persian, Urdu, Pashto, Sorani (Central Kurdish)
 - **Cyrillic:** Russian, Belarusian, Serbian
 - **Devanagari:** Hindi, Marathi, Nepali
 - **Ethiopic (Ge'ez):** Amharic, Tigrinya
@@ -163,63 +160,71 @@ A single Japanese sentence can mix three systems: in アムステルダムはオ
 > [!tip] What each direction breaks
 > **Detecting the script does not identify the language.** Latin script narrows almost nothing; Arabic script still leaves Arabic, Persian, Urdu, Pashto and Sorani.
 >
-> **Knowing the language does not fix the script.** A Serbian corpus can contain Cyrillic and Latin text, even in the same document. A model trained on one script and tested on the other sees no shared characters, though the language is the same.
+> **Knowing the language does not fix the script.** A Serbian corpus can contain Cyrillic and Latin text, even in the same document. A model trained on one script and tested on the other shares almost no letters with the test data, though the language is the same.
 
 ## Before Unicode: ASCII and code pages
 
+From here on, the question is how text in all these scripts becomes numbers and bytes, which is where multilingual pipelines break silently.
+
 **ASCII** (1963) assigned **128 codes**: enough for English letters, digits and punctuation.
 
-**Code pages** extended this by reinterpretation. They use the same 128 (or 256) codes that fit in one byte, and **interpret them differently depending on the language or script**: Latin-1 for Western Europe, Shift-JIS for Japanese, GBK for Chinese, KOI8-R for Russian, and many more.
+**Code pages** extended this by reinterpretation. They use the same 128 (or 256) codes in a byte as ASCII and **interpret them differently depending on the language or script**: Latin-1 for Western Europe, Shift-JIS for Japanese, GBK for Chinese, KOI8-R for Russian, and many more. (Outside the course material: Shift-JIS and GBK use two bytes for most characters.)
 
 Two disadvantages:
 
-- **Gibberish when text encoded for one script is decoded as another.** The bytes are legal in both tables, so usually no error is raised (the result is called **mojibake**).
+- **Gibberish when text encoded in one script is decoded in another.** The bytes are often legal in both tables, so usually no error is raised (the result is called mojibake, a term from outside the course material).
 - **No mixing of scripts in one document**, since a document is read with one table.
 
-> [!example] Same bytes, two readings
-> The bytes `D0 9F D1 80 D0 B8 D0 B2 D0 B5 D1 82` decoded as UTF-8 give Привет (Russian "hello"). Decoded with the Western European code page Windows-1252, they give ÐŸÑ€Ð¸Ð²ÐµÑ‚, with no error.
-
-## Unicode: one number for every character
+## Unicode: one number per codepoint
 
 > [!definition] Unicode and codepoints
-> **Unicode** is a **single, universal character set**, maintained by the Unicode Consortium, in which **every character, in every supported script, gets exactly one unique number**. That number is the character's **codepoint**, written `U+number` in hexadecimal: `U+0041` is Latin "A", `U+4E2D` is the Han character 中.
+> **Unicode** is a **single, universal character set**, maintained by the Unicode Consortium. Every character it encodes, in every supported script, gets **exactly one unique number**, its **codepoint**, written `U+number` in hexadecimal: `U+0041` is Latin "A", `U+4E2D` is the Han character 中. What a reader sees as one character can be a sequence of several codepoints (next section).
 
-- **Unicode defines meaning and leaves bytes to an encoding.** A codepoint is an abstract identifier. How to store it as bytes on disk or in memory is a separate encoding question, answered by UTF-8, UTF-16 or UTF-32.
-- **Unicode is a superset of ASCII:** `U+0000` to `U+007F` are identical to ASCII. So English-only documents were Unicode compatible from the start.
+One code space for every script removes both code-page problems: no table to guess, and one document can mix any scripts.
 
-**Scale.** The code space runs from `U+0000` to `U+10FFFF`, over 1.1 million possible codepoints, in **17 planes of $2^{16} = 65{,}536$ codepoints each**. Plane 0, the **Basic Multilingual Plane** (BMP), holds most modern languages, including the common CJK (Chinese, Japanese, Korean) characters. Plane 1 holds historic scripts, symbols and **emoji**. Anything beyond plane 0 needs more than 16 bits, which is why it takes 4 bytes in both UTF-8 and UTF-16.
+- **Unicode defines meaning, not bytes.** A codepoint is an abstract identifier for a character. How to store it as bytes on disk or in memory is a separate encoding question, answered by UTF-8, UTF-16 or UTF-32.
+- **Unicode is a superset of ASCII:** `U+0000` to `U+007F` are identical to ASCII. So an English-only ASCII or Latin-1 file is already valid UTF-8.
 
-## Codepoint, character, glyph, grapheme
+**Scale.** The code space runs from `U+0000` to `U+10FFFF`, over 1.1 million possible codepoints, in **17 planes of $2^{16} = 65{,}536$ codepoints each**:
 
-> [!definition] Three levels that are easy to conflate
-> - **Codepoint:** an abstract number, such as `U+00E9`; Unicode's unit of identity.
+- **Plane 0, the Basic Multilingual Plane** (BMP): most modern languages, including the most common CJK (Chinese, Japanese, Korean) ideographs.
+- **Plane 1:** historic scripts, symbols such as musical notation, **emoji**.
+- **Planes 2 and 3:** more CJK ideographs, mostly historical or rare, so not every CJK character is in the BMP.
+- **Plane 14:** tags and variation selectors; **planes 15 and 16:** private use; planes 4 to 13 unassigned.
+
+## Codepoint, character, glyph
+
+> [!definition] Codepoint, character, glyph
+> - **Codepoint:** one abstract number, such as `U+00E9`; Unicode's unit of identity.
 > - **Character:** what a reader perceives as one unit. It may be built from **several codepoints**.
 > - **Glyph:** a stylistic rendering of a character (how a font draws it).
 >
 > What a reader perceives as one character is also called a **grapheme**.
 
+So a codepoint is always one number, and one perceived character is one or more codepoints: é can be the single codepoint `U+00E9`, or e followed by a combining accent.
+
 > [!example] Two identical-looking "café"
 > ```
-> café    U+0063 U+0061 U+0066 U+00E9            4 codepoints
-> café    U+0063 U+0061 U+0066 U+0065 U+0301     5 codepoints
+> café in NFC: 4 codepoints
+> U+0063 U+0061 U+0066 U+00E9
+> café in NFD: 5 codepoints
+> U+0063 U+0061 U+0066 U+0065 U+0301
 > ```
-> In the first, é is one **precomposed** codepoint; in the second, plain e plus a **combining** acute accent. They render identically but differ in equality, length and hash: **a naive string comparison will not match them.** In JavaScript, `'ã' === 'ã'` can return false, with lengths 1 and 2.
+> In NFC, é is one **precomposed** codepoint; in NFD, e plus a **combining** acute accent. They render identically but compare unequal: **a naive string comparison will not match them.** The same holds for ã: in JavaScript, `'ã' === 'ã'` is false, though both display as ã (lengths 1 and 2).
 
 ## Normalization: choosing one sequence for the same text
 
-**Normalization** rewrites text into a standard codepoint sequence. Four forms come from two choices: **composed** (C) or **decomposed** (D: base character plus combining marks), and **canonical** (merges only sequences for the same character) or **compatibility** (K: also merges stylistic variants, such as a ligature and its letters).
+**Normalization** rewrites text into a standard codepoint sequence. The four forms come from two choices: **composed** (C: precomposed codepoints where possible) or **decomposed** (D: base character plus combining marks), and **canonical** (merges only sequences for the same character) or **compatibility** (K: also merges stylistic variants, such as a ligature and its letters).
 
 | | Composed | Decomposed |
 |---|---|---|
-| **Canonical** (reversible) | NFC | NFD |
+| **Canonical** (lossless) | NFC | NFD |
 | **Compatibility** (lossy) | NFKC | NFKD |
 
-The two "café" strings above are the NFC and NFD versions of one word.
-
 > [!example] Where compatibility forms lose information
-> The source character is long s with dot above plus a combining dot below (ẛ̣).
-> - **NFC:** ẛ + combining dot below (2 codepoints)
-> - **NFD:** long s ſ + combining dot below + combining dot above (3 codepoints)
+> Take long s (ſ, an old form of s) with a dot above, followed by a combining dot below: ẛ̣.
+> - **NFC:** ẛ + combining dot below (2 codepoints: no precomposed character has both dots)
+> - **NFD:** ſ + dot below + dot above (3 codepoints)
 > - **NFKC:** ṩ, a plain s with both dots (1 codepoint)
 > - **NFKD:** plain s + dot below + dot above (3 codepoints)
 >
@@ -233,35 +238,60 @@ The two "café" strings above are the NFC and NFD versions of one word.
 
 Why: for analysis, merging variants helps (the ligature ﬁ should match "fi" in a search index, ① should count as 1). For generation it can hurt: a model trained on NFKD targets never sees, and so cannot produce, the characters that were folded away.
 
+For an equality check, what matters is that both strings get the same canonical form: NFD makes the two "café" strings identical, and so does NFC (decompose, then compose again).
+
+### Normalizing crawled data
+
+**Resources crawled from the internet can mix normalization forms even when they are all in Unicode**: some pages NFC, others NFD.
+
+Many preprocessing steps **assume identical codepoint sequences**: **deduplication**, **search**, **string equality and prefix matching**. Without proper normalization they become **inaccurate**, silently: deduplication keeps two copies that differ only in normalization form.
+
+**The easy fix: always perform consistent normalization as part of the pipeline**, for example first decompose and then compose, which ends in NFC. In Python, the `unicodedata` module can **normalize** a string into a given form and **test** whether it is already in one:
+
+```python
+import unicodedata as ud
+
+a = "caf\u00e9"    # NFC: 4 codepoints
+b = "cafe\u0301"   # NFD: 5 codepoints
+
+a == b                         # False
+ud.is_normalized("NFD", b)     # True
+ud.normalize("NFD", a) == b    # True
+```
+
+Text that is not in Unicode at all, but in a code page such as GB2312 or KOI8-R, is converted on the way in, for example with `iconv -f GB2312 -t UTF-8`. This **fails if the source encoding is not correct**, which is useful: a failure is better than silent mojibake. Outside the course material: iconv only fails on bytes that are invalid in the stated encoding. That is common for multi-byte GB2312, but in a single-byte code page such as KOI8-R every byte is legal, so a wrong guess converts silently into mojibake.
+
 ## Storing codepoints as bytes: UTF-8, UTF-16, UTF-32
 
-| Encoding | Bytes per codepoint | ASCII compatible | Used by |
-|---|---|---|---|
-| **UTF-8** | 1 to 4 | yes | the web, Linux, most file formats, nearly all NLP tooling |
-| **UTF-16** | 2 or 4 | no: at least 2 bytes each | Java, JavaScript strings, Windows, .NET |
-| **UTF-32** | exactly 4 | no: exactly 4 bytes each | rare; simple to index, memory-hungry |
+| Encoding | Bytes per codepoint | ASCII compatible |
+|---|---|---|
+| **UTF-8** | 1 to 4 | yes |
+| **UTF-16** | 2 or 4 | no: at least 2 |
+| **UTF-32** | exactly 4 | no: exactly 4 |
 
-**UTF-8 is by far the most common**; it is what people usually mean by "Unicode".
+**UTF-8 is by far the most common** (the web, Linux, NLP tooling), and it is what people usually mean by "Unicode". UTF-16 is used by Java, JavaScript and Windows; UTF-32 is rare, simple to index but memory-hungry.
 
 ### How UTF-8 works
 
-UTF-8 uses more bytes for larger codepoints. The first byte says how many bytes follow, and every following byte carries 6 bits of the codepoint.
+UTF-8 uses more bytes for larger codepoints. The **number of leading 1s in the first byte gives the length of the whole sequence**, the first byte included (`1110xxxx` starts a 3-byte sequence, so two bytes follow), and every following byte carries 6 bits of the codepoint.
 
-> [!definition] The three UTF-8 byte rules
+> [!definition] The UTF-8 byte rules
 > - A byte starting with **`0`** is a **single byte**, encoding one of 128 characters: ASCII.
-> - A byte starting with **`11`** is the **first byte of a multi-byte sequence**; the **number of leading 1s** gives the sequence length.
+> - A byte starting with **`11`** is the **first byte of a multi-byte sequence**; the **number of leading 1s** gives the length of the whole sequence.
 > - A byte starting with **`10`** is a **continuation byte** inside a multi-byte sequence.
 
 ```pseudo
-Algorithm: encode one codepoint c in UTF-8
-───────────────────────────────────────────
-if c ≤ U+007F:     pattern 0xxxxxxx                              // 7 payload bits
-elif c ≤ U+07FF:   pattern 110xxxxx 10xxxxxx                     // 5+6 = 11 bits
-elif c ≤ U+FFFF:   pattern 1110xxxx 10xxxxxx 10xxxxxx            // 4+6+6 = 16 bits
-else (≤ U+10FFFF): pattern 11110xxx 10xxxxxx 10xxxxxx 10xxxxxx   // 3+6+6+6 = 21 bits
-write c in binary, left-padded with zeros to the pattern's payload width
-fill the x positions left to right with those bits
+Encode codepoint c in UTF-8
+───────────────────────────
+c ≤ U+007F    0xxxxxxx
+c ≤ U+07FF    110xxxxx 10xxxxxx
+c ≤ U+FFFF    1110xxxx 10xxxxxx
+              10xxxxxx
+c ≤ U+10FFFF  11110xxx + three
+              10xxxxxx bytes
 ```
+
+The payload widths are 7, 11 (5+6), 16 (4+6+6) and 21 (3+6+6+6) bits. Write c in binary, pad it with zeros on the left to the payload width, and fill the x positions from left to right.
 
 > [!example] 中, U+4E2D
 > 0x4E2D in binary is `100111000101101`, 15 bits. That is more than the 2-byte form's 11, so use the 3-byte form with 16 payload bits. Pad to `0100111000101101` and split 4 + 6 + 6: `0100 | 111000 | 101101`.
@@ -270,9 +300,9 @@ fill the x positions left to right with those bits
 > Byte 2 = `10` + `111000` = `10111000`
 > Byte 3 = `10` + `101101` = `10101101`, so 中 is `E4 B8 AD`.
 
-By the same rules, A (`U+0041`) is one byte identical to ASCII, é (`U+00E9`) two bytes, most CJK characters three, and a plane-1 emoji such as `U+1F600` four.
+By the same rules, A (`U+0041`) is one byte identical to ASCII, é (`U+00E9`) two bytes, most CJK characters three, and a plane-1 emoji such as `U+1F600` four. Codepoints beyond plane 0 need more than 16 bits, so they take 4 bytes in both UTF-8 and UTF-16.
 
-Since no byte is ambiguous about its role, you can drop into a UTF-8 stream anywhere and find the next character start by skipping continuation bytes (called self-synchronisation, a term from outside the course material).
+Since no byte is ambiguous about its role, from any point in a UTF-8 stream you find the next character start by skipping continuation bytes (outside the course material this is called self-synchronisation).
 
 ## What bytes do to tokenizers: byte inflation
 
@@ -285,36 +315,14 @@ Since no byte is ambiguous about its role, you can drop into a UTF-8 stream anyw
 > - $\lvert \text{UTF-8 bytes}(s) \rvert$: the length of string $s$ once encoded as UTF-8
 > - $\lvert \text{characters}(s) \rvert$: the number of characters a reader perceives
 
-> [!example] Three strings
-> "hello": 5 bytes for 5 characters, 1.0x. "café": 5 bytes for 4 characters (é takes two), 1.25x. "中文": 6 bytes for 2 characters, 3.0x.
+For example, "hello" is 5 bytes for 5 characters, 1.0x; "café" in NFC is 5 bytes for 4 characters (é takes two), 1.25x; "中文" is 6 bytes for 2 characters, 3.0x.
 
 Two consequences:
 
-- **The more bytes are needed, the more aggressively text tends to be split into tokens.** The same meaning costs more tokens in a script with more bytes per character.
+- **The more bytes are needed, the more aggressively text tends to be split into tokens**: more pieces per character.
 - **Byte-level splitting can produce non-existent characters.** Cut a 3-byte character after its second byte and neither piece is a valid character.
 
-An implication beyond the lecture's own claims: CJK users pay more tokens for the same content, so a shorter effective context window and more compute.
-
-## Normalizing crawled data
-
-**Resources crawled from the internet can mix normalization forms even when they are all in Unicode**: some pages NFC, others NFD.
-
-Many preprocessing steps **assume identical codepoint sequences**: **deduplication**, **search**, **string equality and prefix matching**. If the text is not normalized properly, these steps become **inaccurate**, silently: a deduplicated corpus keeps two copies of a document that differ only in normalization form, and no error is raised.
-
-**The easy fix: always perform consistent normalization as part of the pipeline**, for example first decompose and then compose. In Python, the `unicodedata` module can **normalize** a string into a given form and **test** whether it is already in one:
-
-```python
-import unicodedata
-
-a = "caf\u00e9"     # NFC: 4 codepoints
-b = "cafe\u0301"    # NFD: 5 codepoints
-
-a == b                                    # False
-unicodedata.is_normalized("NFC", b)       # False
-unicodedata.normalize("NFC", a) == unicodedata.normalize("NFC", b)   # True
-```
-
-Text that is not in Unicode at all, but in a code page such as GB2312 or KOI8-R, is converted on the way in, for example with `iconv -f GB2312 -t UTF-8`. This **fails if the source encoding is wrong**, which is useful: a failure is better than silent mojibake.
+Outside the course material: in practice CJK text often costs more tokens for the same content, depending on how much CJK the tokenizer was trained on.
 
 ## Where to break a string
 
@@ -325,66 +333,66 @@ Splitting a string can happen at three levels, each with a cost:
 - **Ideally, break at the grapheme level** (what the reader perceives as a character), but grapheme boundaries are **very language-specific**.
 
 ```
-  "café" in NFD, broken at three levels
-
-  bytes:       63 | 61 | 66 | 65 | CC | 81    the last two are not characters
-  codepoints:  c  | a  | f  | e  | ◌́          the accent is stranded
-  graphemes:   c  | a  | f  | é               what the reader sees
+"café" in NFD, split three ways
+bytes:      63|61|66|65|CC|81
+codepoints: c |a |f |e |◌́
+graphemes:  c |a |f |é
 ```
+
+CC and 81 on their own are not characters, and at the codepoint level the accent is stranded.
 
 **Mixing breaking strategies leads to misalignments**:
 
 - **Span annotation systems** (SQuAD-style question answering stores answers as character offsets): offsets counted one way and read another give shifted answers.
-- **Any counting across corpora** that used different breaking strategies: lengths and counts are no longer comparable.
+- **Any counting across corpora** with different breaking strategies: counts are no longer comparable.
 
 So breaking and length computation must be **consistent across documents**.
+
+> [!tip] The Unicode stack
+> A reader sees a **grapheme**, which is represented by **one or more codepoints**, each encoded in **1 to 4 bytes** (UTF-8). For é in NFD:
+> ```
+> reader sees      é               1 grapheme
+> Unicode numbers  U+0065 U+0301   2 codepoints
+> tokenizer eats   65 CC 81        3 bytes
+> ```
 
 ## Other pitfalls: case, sorting, punctuation
 
 **Lowercasing is language-dependent.** In English, lowercase(I) = i. In Turkish, lowercase(I) = ı (dotless i), because Turkish has two pairs: dotted İ / i and dotless I / ı. Lowercasing Turkish with English rules changes the word.
 
-**Codepoint order is not alphabetical order**: accented letters' codepoints are not necessarily near their base letter's.
+**Codepoint order is not alphabetical order**: accented letters' codepoints are not necessarily near their base letter's. é is `U+00E9`, far after z (`U+007A`), so a codepoint sort puts "émile" after "zoe".
 
 **Languages use different alphabetical orders.** Swedish puts å, ä, ö **after z**, as separate letters. German sorts ä as ae, ö as oe, ü as ue, **interleaved** with the plain letters.
 
-**Punctuation.** Defining a word is hard, but **punctuation adjacent to a word is not part of it**. Tokenizers split it off, and may also expand contractions, a further, lossy normalization decision:
+**Punctuation.** Defining a word is hard, but **punctuation adjacent to a word is not part of it**, so tokenizers split it off. Some also expand contractions (*He'd* to *He would*), another normalization decision and a lossy one, since *He'd* can also mean *He had*:
 
 ```
-He'd say "I promise you!", but then disappear.
-→ He ' d say " I promise you ! " , but then disappear .
-→ He would say " I promise you ! " , but then disappear .
+He'd say "I promise you!", but
+then disappear.
+→ He ' d say " I promise you ! " ,
+  but then disappear .
+→ He would say " I promise you ! " ,
+  but then disappear .
 ```
 
-Punctuation is matched as a **general category** rather than a hand-written list: the Unicode property `\p{P}` covers punctuation in every script, and `re.sub(r'(\p{P})', r' \1 ', string)` puts spaces around each mark. (Outside the course material: Python's built-in `re` lacks `\p{P}`; the third-party `regex` module has it.) A class such as `[.!?]` misses the Japanese 。, the Bengali ।, the Amharic ።.
+Unicode gives every character a **general category** (letter, number, punctuation, and so on), so punctuation is matched by category rather than a hand-written list: `\p{P}` covers punctuation in every script, and `re.sub(r'(\p{P})', r' \1 ', s)` puts spaces around each mark. (Outside the course material: Python's built-in `re` lacks `\p{P}`; the third-party `regex` module has it.) A class such as `[.!?]` misses the Japanese 。, the Bengali ।, the Amharic ።.
 
 **Punctuation normalization** (“...” against «...» against 「...」) has **no simple solution: the mappings must be encoded by hand**. It comes up in quotes, end-of-sentence markers, question marks and single quotes.
 
-## The Unicode stack in one picture
-
-> [!tip] Recap
-> A reader sees a **grapheme**, which is represented by **one or more codepoints**, each encoded in **1 to 4 bytes** (UTF-8).
-> ```
->   what the reader sees      é                1 grapheme
->   what Unicode identifies   U+0065 U+0301    2 codepoints (NFD)
->   what the tokenizer eats   65 CC 81         3 bytes (UTF-8)
-> ```
-
 ## What to be able to answer
 
-- The four English-first assumptions and the languages that break each (Thai spaces end clauses).
+- The English-first assumptions and the languages that break each (Thai spaces end clauses).
 - What sets a language's resource tier; the three tiers; why "language independent" claims are suspect.
 - Alphabetic, syllabic, logographic; the Devanagari, Arabic and Hangul cases.
 - Script and language in both directions.
-- The two disadvantages of code pages.
+- The two disadvantages of code pages, and what Unicode fixes.
 - Codepoint, character, glyph, grapheme; why two "café" strings fail to match.
 - The four normalization forms: which are lossy, which for rendered text, which for search.
+- What breaks silently without normalization, and the fix.
 - UTF-8, UTF-16, UTF-32: bytes and ASCII compatibility; the UTF-8 byte rules; encoding by hand.
 - Byte inflation and its two consequences.
-- What breaks silently without normalization, and the fix.
 - Byte, codepoint and grapheme breaking; where mixing them misaligns.
 - Turkish lowercasing, Swedish and German sorting, punctuation handling.
-
-Model answers are in `## Exam questions` below.
 
 ## Exam questions
 
@@ -392,15 +400,15 @@ Model answers are in `## Exam questions` below.
 > **Key points:** whitespace word boundaries fail for Chinese, Japanese, Thai; word-order grammar fails for case-marking Russian, Finnish, Korean; one word one meaning fails for agglutinative and compounding languages; left-to-right fails for Arabic, Hebrew, Urdu, Persian.
 >
 > 1. **Words are separated by whitespace.** Fails for Chinese, Japanese, Thai, Lao, Khmer, Burmese: there is no word delimiter, so whitespace tokenization returns one token for a whole Chinese sentence. Thai uses spaces to end **clauses or sentences** and has no dedicated full stop, so a space does not mark a word boundary.
-> 2. **Grammatical relations are encoded by word order.** Fails for languages with rich morphology, especially case marking (Russian, Finnish, Korean): who did what to whom is marked on the noun, word order is free, and position says much less about a word's role.
+> 2. **Grammatical relations are encoded by word order.** Fails for languages with rich morphology, especially case marking (Russian, Finnish, Korean): who did what to whom is marked on the noun, word order is more flexible, and position says much less about a word's role.
 > 3. **One word = one unit of meaning.** Fails for agglutinative languages (Finnish, Turkish, Hungarian) and compounding languages (German, Dutch, Swedish): *Bundesverfassungsgericht* is one token holding federal + constitutional + court.
 > 4. **Text flows left to right.** Fails for Semitic languages and languages in Arabic script (Arabic, Hebrew, Urdu, Persian): the text is stored left to right but rendered right to left, so the first character in the string is the rightmost on screen.
 
 > [!exam]- Argue that "script is not language" holds in both directions, and explain what each direction breaks in an NLP pipeline.
-> **Key points:** one script serves many languages (Latin, Arabic); script detection does not identify the language; one language uses several scripts (Serbian, Uzbek); language does not fix the script, so train and test scripts can share no characters.
+> **Key points:** one script serves many languages (Latin, Arabic); script detection does not identify the language; one language uses several scripts (Serbian, Uzbek); language does not fix the script, so train and test data can share almost no letters.
 >
 > - **One script, many languages:** Latin (English, German, French, most European languages, several African, Turkic and Asian languages), Arabic (Arabic, Persian, Urdu, Pashto, Sorani), Cyrillic (Russian, Belarusian, Serbian), Devanagari (Hindi, Marathi, Nepali), Ethiopic (Amharic, Tigrinya). So **detecting the script does not identify the language**: Latin narrows almost nothing, and Arabic script still leaves five candidates.
-> - **One language, many scripts:** Serbian (Cyrillic and Latin), Kurdish (Latin and Arabic), Uzbek (Latin and Cyrillic), Punjabi (Gurmukhi and Arabic). So **knowing the language does not tell you the script**: a Serbian corpus can mix both, even in one document, and a model trained on one script and tested on the other sees no shared characters for the same language.
+> - **One language, many scripts:** Serbian (Cyrillic and Latin), Kurdish (Latin and Arabic), Uzbek (Latin and Cyrillic), Punjabi (Gurmukhi and Arabic). So **knowing the language does not tell you the script**: a Serbian corpus can mix both, even in one document, and a model trained on one script and tested on the other shares almost no letters with the test data, though the language is the same.
 > - Some scripts are language-specific (Armenian, Georgian, Greek, Sinhala, Khmer).
 > - Also: one sentence can mix several writing systems (Japanese uses Katakana, Kanji and Hiragana together), so a single "script of this text" label can fail.
 
@@ -409,20 +417,20 @@ Model answers are in `## Exam questions` below.
 >
 > - Most resources are in English: annotated data, unannotated data, toolkit coverage (dictionaries, analyzers), benchmarks. Most publications also focus on English.
 > - Non-English resources arise mostly as **by-products** (translations, product reviews) or as **translations of English annotated resources** (so the annotation scheme stays English-shaped), less so as dedicated efforts.
-> - Coverage tracks **commercial interest and military relevance**. Over 7,000 languages exist; only English and Mandarin are strongly covered, then (after a big gap) French, Spanish, Arabic, Russian; German, Dutch, Japanese and Korean are only medium resource; the rest are low resource.
+> - Coverage tracks **commercial interest and military relevance**, not speaker numbers. Over 7,000 languages exist. The high-resource tier is English and Mandarin, then, after a big gap, French, Spanish, Arabic and Russian. German, Italian, Dutch, Korean and Japanese are medium resource. The rest are low resource, including most languages with over ten million speakers.
 > - Standard pipelines encode properties of English (whitespace tokenization, fixed word order, closed vocabularies) as if they were properties of language.
 > - "Language independent" claims are usually untested outside English or a very small set of languages.
 > - The bias is understandable, since resource creation costs time and money.
 
 > [!exam]- Compare alphabetic, syllabic and logographic writing systems and explain what each, plus the Devanagari, Arabic and Hangul cases, implies for NLP.
-> **Key points:** alphabetic: sounds, small inventory; syllabic: whole syllables; logographic: words or morphemes, thousands of symbols; Devanagari alphasyllabic; Arabic omits vowels, so the model must disambiguate; Hangul letter shapes encode articulation.
+> **Key points:** alphabetic: sounds, small inventory; syllabic: whole syllables; logographic: words or morphemes, thousands of symbols; Devanagari alphasyllabic, between alphabetic and syllabic; Arabic writes the consonant root and omits vowels, so the model must disambiguate; Hangul letter shapes encode articulation.
 >
 > - **Alphabetic:** each symbol is a consonant or vowel sound, small inventory (Latin, Cyrillic, Hangul).
 > - **Syllabic:** each symbol is a whole syllable (Hiragana, Katakana).
 > - **Logographic:** each symbol is a word or morpheme directly, little sound information (Chinese Hanzi, Japanese Kanji).
 > - **Inventory size** sets the cost of a character: tens of symbols for an alphabet, thousands for a logographic script, which a character-level vocabulary must budget for.
-> - **Devanagari** is alphasyllabic: a consonant letter carries an inherent vowel that a vowel sign can replace.
-> - **Arabic** writes the consonant root and omits vowels: كتب can be *kataba*, *kutiba* or *kutub*, so the writing is lossier than the language and the model must resolve the ambiguity from context. No tokenizer can recover vowels that were never written.
+> - **Devanagari** is alphasyllabic, between alphabetic and syllabic: a consonant letter carries an inherent vowel that a vowel sign can replace.
+> - **Arabic** writes the consonant root and omits vowels, so one written form can stand for several words (كتب can be read *kataba*, *kutiba* or *kutub*, examples from outside the course material). The writing is lossier than the language and the model must resolve the ambiguity from context. No tokenizer can recover vowels that were never written.
 > - **Hangul** is alphabetic, and its letter shapes encode articulatory features.
 
 > [!exam]- Explain the difference between a grapheme, a codepoint and a byte, and show how confusing them corrupts tokenization, deduplication and span annotation.
@@ -435,24 +443,24 @@ Model answers are in `## Exam questions` below.
 > - **Span annotation** (SQuAD-style QA): offsets recorded under one breaking convention and read under another give shifted answers. Counts across corpora with different conventions are not comparable.
 > - Fix: normalize consistently in the pipeline, and keep breaking and length computation consistent across documents.
 
-> [!exam]- Crawled multilingual data mixes normalization forms. Which Unicode normalization form would you use for search indexing, for comparing rendered text, and for generation targets, and why?
-> **Key points:** canonical reversible, compatibility lossy; NFD for comparing rendered text; NFKD for search indexing and analysis; NFKD not necessarily for generation; normalize consistently.
+> [!exam]- Crawled multilingual data mixes normalization forms. Which Unicode normalization form would you use for search indexing and for comparing rendered text, and is NFKD suitable for generation targets? Why?
+> **Key points:** canonical lossless, compatibility lossy; NFD for comparing rendered text; NFKD for search indexing and analysis; NFKD not necessarily for generation; normalize consistently.
 >
-> - The four forms form a grid: canonical (reversible) NFC and NFD; compatibility (lossy) NFKC and NFKD; composed (C) against decomposed (D).
-> - **Comparing rendered text:** NFD, which splits into base characters plus combining marks and preserves semantic and visual equivalence. It is non-lossy, so you can decompose and recompose.
+> - The four forms form a grid: canonical (lossless) NFC and NFD; compatibility (lossy) NFKC and NFKD; composed (C) against decomposed (D).
+> - **Comparing rendered text:** NFD, which splits into base characters plus combining marks and preserves semantic and visual equivalence. It is non-lossy, so you can decompose and recompose. For an equality check, NFC works as well, as long as both strings get the same form.
 > - **Search indexing or NLP analysis:** NFKD. Its lossiness helps: the ligature ﬁ and the pair fi become the same, ① becomes 1.
 > - **Generation:** NFKD is not necessarily suitable. A model trained on NFKD targets never sees, so cannot produce, the folded-away characters (for example the long s ſ becomes plain s).
-> - Whatever you choose, apply it consistently in the pipeline (for example decompose then compose), otherwise dedup, search and equality checks are silently inaccurate.
+> - Whatever you choose, apply it consistently in the pipeline (for example decompose then compose, which ends in NFC), otherwise dedup, search and equality checks are silently inaccurate.
 >
 > Losing marks: getting the analysis against generation rule backwards, or claiming NFKD is reversible.
 
 > [!exam]- Explain byte inflation for byte-level tokenizers and compute it for "hello", "café" and "中文". What are its consequences?
-> **Key points:** UTF-8 bytes over perceived characters; 1.0x, 1.25x, 3.0x; more bytes means more aggressive splitting; byte splits can produce non-existent characters.
+> **Key points:** UTF-8 bytes over perceived characters; 1.0x, 1.25x (café in NFC), 3.0x; more bytes means more aggressive splitting; byte splits can produce non-existent characters.
 >
 > - $\text{inflation}(s) = \lvert\text{UTF-8 bytes}(s)\rvert \,/\, \lvert\text{characters}(s)\rvert$, characters meaning what a reader perceives.
 > - "hello": 5 bytes / 5 = **1.0x**. "café" (NFC, é is 2 bytes): 5 / 4 = **1.25x**. "中文" (3 bytes each): 6 / 2 = **3.0x**.
-> - More bytes per character means more aggressive splitting, so the same meaning costs more tokens; byte splits can also produce fragments that are not characters at all.
-> - An implication beyond the lecture's own claims: CJK users pay more tokens for the same sentence, so a shorter effective context window and more compute.
+> - More bytes per character means text tends to be split more aggressively, into more pieces per character; byte splits can also produce fragments that are not characters at all.
+> - Outside the course material: in practice CJK text often costs more tokens for the same content, depending on the tokenizer's training data.
 
 > [!exam]- Encode U+4E2D (中) in UTF-8 by hand, stating which byte rules you use.
 > **Key points:** 15 bits exceed 11, so 3-byte form; 1110xxxx 10xxxxxx 10xxxxxx; result E4 B8 AD; lead and continuation byte rules.
@@ -460,7 +468,7 @@ Model answers are in `## Exam questions` below.
 > - 0x4E2D = `100111000101101`: 15 bits, more than the 11 payload bits of the 2-byte form, so use the 3-byte form `1110xxxx 10xxxxxx 10xxxxxx` with $4 + 6 + 6 = 16$ payload bits.
 > - Pad to 16 bits and split 4 + 6 + 6: `0100 | 111000 | 101101`.
 > - Bytes: `11100100 10111000 10101101` (hex E4 B8 AD).
-> - Rules: a byte starting `0` is a single byte (ASCII); a byte starting `11` begins a multi-byte sequence, with the number of leading 1s giving its length; a byte starting `10` is a continuation byte.
+> - Rules: a byte starting `0` is a single byte (ASCII); a byte starting `11` begins a multi-byte sequence, with the number of leading 1s giving the length of the whole sequence (here 3); a byte starting `10` is a continuation byte.
 > - Because no byte is ambiguous about its role, a reader can find the next character start from any offset by skipping `10xxxxxx` bytes.
 
 ## Flashcards
@@ -469,13 +477,13 @@ Model answers are in `## Exam questions` below.
 > **Commercial interest** and **military relevance**.
 
 > [!card]- Is speaker count a good predictor of how well a language is resourced for NLP?
-> **No.** Coverage follows commercial and military interest; Dutch, for example, is only medium resource.
+> **No.** Coverage follows commercial and military interest; most languages with over ten million speakers are low resource.
 
 > [!card]- Which languages make up Monz's high-resource tier?
 > English and Mandarin, then after a **big gap** French, Spanish, Arabic, Russian.
 
 > [!card]- How do most non-English NLP resources come about?
-> As **by-products** (translations, reviews) or **translations of English resources**; rarely as dedicated efforts.
+> As **by-products** (translations, reviews) or **translations of English resources**; less often as dedicated efforts.
 
 > [!card]- Why do claims that an NLP method is "language independent" deserve suspicion?
 > They are usually **untested** outside English or a very small set of languages.
@@ -499,7 +507,7 @@ Model answers are in `## Exam questions` below.
 > Chinese, Japanese, Thai, Lao, Khmer, Burmese.
 
 > [!card]- Why do word-position features carry little information in Russian, Finnish or Korean?
-> Grammatical relations are marked by **case on the noun**, so word order is free.
+> Grammatical relations are marked by **case on the noun**, so word order is flexible.
 
 > [!card]- Which two kinds of language break the assumption "one word = one unit of meaning"?
 > **Agglutinative** languages (Finnish, Turkish, Hungarian) and **compounding** languages (German, Dutch, Swedish).
@@ -520,13 +528,13 @@ Model answers are in `## Exam questions` below.
 > Alphabets need **tens** of symbols; logographic scripts need **thousands**, which the vocabulary must budget for.
 
 > [!card]- What is Devanagari called, where each consonant carries an inherent vowel that a vowel sign can replace?
-> **Alphasyllabic** (outside the course material also called an abugida).
+> **Alphasyllabic**, between alphabetic and syllabic.
 
 > [!card]- What does Arabic script leave out of a word such as كتب (ktb)?
 > The **vowels**: only the consonant root is written.
 
 > [!card]- Why is Arabic's vowel-less writing a problem no tokenizer can fix?
-> One written form (كتب: *kataba*, *kutiba*, *kutub*) maps to several words; the vowels were **never written**, so context must disambiguate.
+> The vowels were **never written**, so one written form can stand for several words; context must disambiguate.
 
 > [!card]- What do the letter shapes of Korean Hangul encode, beyond the sound itself?
 > **Articulatory features**: how the sound is produced.
@@ -541,7 +549,7 @@ Model answers are in `## Exam questions` below.
 > **No.** Serbian is written in Cyrillic and Latin, sometimes in the same document.
 
 > [!card]- What happens to a model trained on Cyrillic Serbian and tested on Latin Serbian?
-> It sees **no shared characters**, although the language is the same.
+> It shares **almost no letters** with the test data, although the language is the same.
 
 > [!card]- How many codes did ASCII define?
 > **128**: enough for English letters, digits and punctuation.
@@ -553,13 +561,16 @@ Model answers are in `## Exam questions` below.
 > Gibberish when decoded with the **wrong table**; **one script per document**.
 
 > [!card]- Why does decoding text with the wrong code page usually raise no error?
-> The bytes are **legal in both tables**, so you silently get wrong characters (mojibake).
+> The bytes are often **legal in both tables**, so you silently get wrong characters (mojibake).
 
 > [!card]- What is Unicode?
-> A **single universal character set** giving every character in every supported script one unique number, its **codepoint** (written `U+number`).
+> A **single universal character set** giving every character it encodes, in every supported script, one unique number, its **codepoint** (`U+number`).
 
 > [!card]- Does Unicode define how characters are stored as bytes?
 > **No.** Unicode defines codepoints; storing them as bytes is a separate **encoding** question (UTF-8, UTF-16, UTF-32).
+
+> [!card]- Which two code-page problems does Unicode remove?
+> No **table to guess** when decoding, and one document can **mix any scripts**.
 
 > [!card]- How does Unicode relate to ASCII?
 > Unicode is a **superset**: `U+0000` to `U+007F` are identical to ASCII.
@@ -569,6 +580,9 @@ Model answers are in `## Exam questions` below.
 
 > [!card]- What follows from a codepoint lying outside plane 0, the Basic Multilingual Plane?
 > It needs **more than 16 bits**, so it takes four bytes in UTF-8 and UTF-16, as emoji do.
+
+> [!card]- Is every CJK character in the Basic Multilingual Plane (plane 0)?
+> **No.** Planes 2 and 3 hold more CJK ideographs, mostly rare or historical.
 
 > [!card]- What is the difference between a codepoint, a character and a glyph?
 > Codepoint: abstract **number**. Character: what a reader **perceives**, possibly several codepoints. Glyph: a stylistic **rendering**.
@@ -580,7 +594,7 @@ Model answers are in `## Exam questions` below.
 > A **grapheme**; one or more **codepoints**; 1 to 4 **bytes** per codepoint.
 
 > [!card]- Which Unicode normalization forms are lossy?
-> The **compatibility** forms NFKC and NFKD; the canonical forms NFC and NFD are reversible.
+> The **compatibility** forms NFKC and NFKD; the canonical forms NFC and NFD are lossless.
 
 > [!card]- What does the K in NFKC and NFKD stand for?
 > **Compatibility**: these forms also merge stylistic variants such as ligatures.
@@ -590,6 +604,12 @@ Model answers are in `## Exam questions` below.
 
 > [!card]- Which normalization form should you use to compare rendered text?
 > **NFD** (non-lossy, preserves semantic and visual equivalence).
+
+> [!card]- For an equality check between two strings, must you use NFD rather than NFC?
+> **No.** Either canonical form works, as long as both strings get the **same** one.
+
+> [!card]- Which form do you end in after first decomposing and then composing?
+> **NFC**.
 
 > [!card]- Which normalization form should you use for search indexing or NLP analysis?
 > **NFKD**.
@@ -619,7 +639,7 @@ Model answers are in `## Exam questions` below.
 > A complete **single-byte** character (ASCII).
 
 > [!card]- In UTF-8, what does a byte starting with `11` signal?
-> The **first byte** of a multi-byte sequence; the number of leading 1s gives its length.
+> The **first byte** of a multi-byte sequence; its number of leading 1s gives the **whole sequence's** length.
 
 > [!card]- What is a UTF-8 byte of the form `10xxxxxx`?
 > A **continuation byte** inside a multi-byte sequence.
@@ -637,16 +657,16 @@ Model answers are in `## Exam questions` below.
 > **中文**: 3 bytes per character, against 1 per character for "hello".
 
 > [!card]- How does higher byte inflation affect byte-level tokenization?
-> Tokens are split **more aggressively**, so the same meaning costs more tokens.
+> Text tends to be split **more aggressively**: more pieces per character.
 
 > [!card]- Which preprocessing steps silently go wrong when crawled text mixes NFC and NFD?
 > **Deduplication**, **search**, string equality and prefix matching: all assume identical codepoint sequences.
 
 > [!card]- What is the fix for crawled data that mixes normalization forms?
-> **Consistent normalization** in the pipeline, e.g. first decompose, then compose.
+> **Consistent normalization** in the pipeline, e.g. decompose then compose (ending in NFC).
 
-> [!card]- What happens when `iconv` converts text using the wrong source encoding?
-> It **fails**, which is useful: silent wrong decoding is what produces mojibake.
+> [!card]- When does `iconv` fail on a wrong source encoding?
+> When some bytes are **invalid** in the stated encoding; a single-byte code page can convert silently.
 
 > [!card]- What goes wrong when breaking a string at the byte level?
 > Multi-byte codepoints get split into fragments that are **not characters** at all.
@@ -690,8 +710,8 @@ Model answers are in `## Exam questions` below.
 > [!card]- True or false: UTF-16 encodes every codepoint in exactly 2 bytes.
 > **False.** 2 or 4 bytes; codepoints outside plane 0 need 4.
 
-> [!card]- True or false: NFKD normalization is reversible.
-> **False.** Compatibility forms are lossy (ſ becomes s); only the canonical forms NFC and NFD are reversible.
+> [!card]- True or false: NFKD normalization is lossless.
+> **False.** Compatibility forms are lossy (ſ becomes s); only the canonical forms NFC and NFD are lossless.
 
 > [!card]- True or false: NFKD normalization makes the ligature ﬁ and the pair fi identical.
 > **True.** Compatibility decomposition splits ligatures, which is why NFKD suits search indexing.
@@ -711,8 +731,17 @@ Model answers are in `## Exam questions` below.
 > [!card]- True or false: Grapheme boundaries are language-independent.
 > **False.** They are very language-specific, which makes grapheme-level breaking hard.
 
-> [!card]- True or false: A byte-level tokenizer splits Chinese text into more tokens than English text of the same meaning.
-> **True.** CJK characters take 3 UTF-8 bytes against 1 for basic Latin, so splitting is more aggressive.
+> [!card]- True or false: Byte-level tokenizers tend to split text more aggressively in scripts that need more UTF-8 bytes per character.
+> **True.** More bytes per character means more pieces per character.
+
+> [!card]- True or false: In UTF-8, the number of leading 1s in the first byte gives the number of continuation bytes.
+> **False.** It gives the length of the whole sequence, first byte included.
+
+> [!card]- True or false: In Unicode, every character a reader perceives has exactly one codepoint.
+> **False.** A perceived character (grapheme) can be several codepoints, such as e plus a combining accent.
+
+> [!card]- True or false: iconv always fails when given the wrong source encoding.
+> **False.** It fails only on bytes invalid in the stated encoding; single-byte code pages convert silently.
 
 > [!card]- True or false: Whitespace tokenization works for Thai because Thai uses spaces between words.
 > **False.** Thai spaces end clauses or sentences, not words.
@@ -723,7 +752,7 @@ Model answers are in `## Exam questions` below.
 > [!card]- Multiple selection: which are true of script and language? (A) Serbian is written in Cyrillic and Latin (B) Arabic script identifies the Arabic language (C) Armenian has a language-specific script
 > **A and C.** B is false: Arabic script also writes Persian, Urdu, Pashto and Sorani.
 
-> [!card]- Multiple selection: which are true of Unicode normalization? (A) NFC and NFD are reversible (B) NFKD is the recommended form for generation targets (C) NFKD maps the long s ſ to s (D) NFD merges a base letter and combining mark into one codepoint
+> [!card]- Multiple selection: which are true of Unicode normalization? (A) NFC and NFD are lossless (B) NFKD is the recommended form for generation targets (C) NFKD maps the long s ſ to s (D) NFD merges a base letter and combining mark into one codepoint
 > **A and C.** B is false: NFKD is for analysis, not necessarily generation. D is false: NFD decomposes; NFC composes.
 
 > [!card]- Multiple selection: which are true of UTF-8? (A) It uses 1 to 4 bytes per codepoint (B) The number of leading 1s in a lead byte gives the sequence length (C) Emoji fit in 3 bytes (D) From a random offset you cannot tell whether you are at a character start
