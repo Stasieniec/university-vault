@@ -28,20 +28,23 @@
 
 This Obsidian vault is Stanisław's **single source of truth** for university coursework. The goal: reading these notes alone should be **sufficient to pass every exam, solve every exercise, and understand every concept** — without needing to go back to lecture slides, textbooks, or recordings.
 
-**Every note must be a full substitute for its source material.** If a lecture slide explains something, the note must capture that explanation completely. If a book chapter proves a theorem, the note must contain that proof. Nothing should be "see the book for details" — the details belong here.
+**A lecture note replaces attending the lecture and doing the reading.** After reading it once, Stas understands the ideas well enough to answer exam questions on them. He has no other contact with the subject, so the note explains; it does not transcribe. Coverage serves that goal: a detail that helps neither understanding nor an exam answer is left out, and nothing an exam or tutorial question needs is left out. Nothing is "see the slides for details": what matters is explained here.
+
+He reads each note once, then drills its flashcards, then practises exam answers. A note that will be read once has to be understood on that one read. He is fine with losing nuance for readability, but never with a simplification that changes what a thinker or method actually says. The research behind this, and the review of the first rewrite, are in `docs/superpowers/specs/2026-10-12-readable-lecture-notes.md`.
 
 ---
 
 ## 2. What Goes Into Notes
 
-### 2.1 Completeness Requirements
+### 2.1 What a note must carry
 
-- **All theory** from lectures and book chapters — definitions, theorems, proofs, derivations
-- **All algorithms** — full pseudocode, not "see Algorithm 5.1"
-- **All formulas** — in LaTeX, named, and with intuition for what each term means
-- **All examples** from lectures/book — worked through, not just referenced
-- **All images and diagrams** — when source material contains a figure (backup diagrams, gridworlds, learning curves, etc.), **process the image and reproduce its content** in the note. Describe what the figure shows, redraw it as ASCII/Mermaid where possible, or transcribe its data. **Never write "see Figure X" and move on.**
-- **All exercises and solutions** — full worked solutions with step-by-step reasoning, not just final answers
+- **Every idea an exam or tutorial question could need**: definitions, arguments, theorems, derivations, methods. Check the mock exam, its answer key and the tutorial questions, not only the slides.
+- **The exact wording the answer key uses** for key terms and definitions, kept in a definition box, even where the surrounding prose is plain.
+- **Algorithms**: full pseudocode when the course examines the algorithm, not "see Algorithm 5.1"
+- **Formulas**: in LaTeX, named, and with intuition for what each term means
+- **Examples**: the best example for each idea, worked through. More only when the examples are the point (a thinker's own scorecard, a worked computation the exam repeats).
+- **Figures**: reproduce what a figure shows about an idea, and only when the text needs it: a redrawn diagram, a transcribed table, a described trend. Never describe the figure itself (layout, colours, portraits, photo credits, export glitches). A diagram that repeats the prose next to it is cut.
+- **Exercises and solutions** (exercise notes): full worked solutions with step-by-step reasoning, not just final answers
 - **Intuitions and "why"** — not just "what." If a method has a known weakness, say why. If a formula looks a certain way, explain the intuition behind each term.
 
 ### 2.2 What NOT to Include
@@ -49,6 +52,37 @@ This Obsidian vault is Stanisław's **single source of truth** for university co
 - Administrative info (deadlines, group policies, grading weights) — that lives in the course overview MOC only
 - Redundant re-explanations of the same concept across multiple notes — use `[[wikilinks]]` to the Concept note instead
 - Raw copy-paste of source text without formatting — everything must be structured and scannable
+- **Talk about the source**: "the slide says", "the deck", "added to the deck on", slide numbers, figure descriptions, notes on what a PDF export lost. The note is about the ideas.
+- **Seductive details**: publication history, biography, epigraphs, footnote trivia, anecdotes, unless the argument needs them or an exam or tutorial question touches them. Interesting-but-irrelevant detail measurably lowers learning, most of all for newcomers.
+- **Page numbers in the body.** Sources go in `## Links`.
+- **Inline uncertainty notes about the source** (#needs-review asides about which paragraph a quote is on). If something genuinely unresolved matters for the exam, say so once in plain words.
+- **Exam signposting in the middle of the text** ("worth marks", "this is the escape hatch"). Exam pointers go once at the top and in the closing list.
+- **Numbers the exam does not ask you to recall.** For a course with a cheat sheet, exact figures go on the cheat sheet; the note keeps the direction or comparison.
+
+### 2.3 How a lecture note reads
+
+The order follows the ideas, not the slides. Each lecture tells a story: a problem, a proposal, an example, what goes wrong with it, the next proposal. Write it that way.
+
+1. **`> [!abstract] In short`**: 3 to 6 sentences giving the question the lecture answers and the answer, in plain words, plus one line naming the mock exam question(s) it feeds.
+2. **Sections named after ideas** ("The objection: scientists have thick skins"), never after sources or slide titles.
+3. **For each idea: plain explanation first, then one good example, then the precise wording** in a `> [!definition]` box when the exam needs it. Novices need the explanation before the formal statement.
+4. **Explain every term on first use**, including names ("Alfred Adler, a breakaway from Freud...") and words the source treats as obvious. Glosses go in brackets, a few words long.
+5. **Spell out the links between ideas** ("because", "which means", "so"). Shorter does not mean compressed: cut side material, never the reasoning between steps.
+6. **One comparison table** where several thinkers or methods answer the same questions, with short cells. Long-cell tables are miserable on a phone: use short bold-led paragraphs instead.
+7. **`## What to be able to write`** (or `## What to be able to answer` for multiple-choice courses): a short list at the end, pointing to the full model answers in `## Exam questions`.
+8. Then `## Exam questions`, `## Flashcards` and `## Links` (section 3.8).
+
+**Accuracy rules for plain writing**, each learned from a real mistake in the first rewrite:
+- A simplified statement must not contradict the careful version later in the note. Introduce the simple version so the later correction refines it.
+- Keep two thinkers' verdicts on the same case apart, and say whose view each is. Never present one thinker's reading of another as the other's own view.
+- Keep necessary conditions necessary and "trivial confirmations" trivial: do not strengthen or weaken a claim while shortening it.
+- Additions from outside the course material (historical background, a real-world case) are labelled as such.
+
+**Length.** A lecture note's body (everything above `## Exam questions`) should read in about 15 to 20 minutes: **2,500 to 3,500 words, about 4,000 at most** for an essay-exam course. A lecture covering two readings and two mock questions can run a little over (PhilSci L01b is about 4,400). A thin lecture gets a shorter note; nothing is padded to reach the range. Courses whose exam is multiple choice on specific details may need more room; their target is set in the course's Overview.
+
+**Review.** A rewritten or new lecture note is not `complete` until it has been reviewed by independent subagents: a first-time reader who then answers the mock questions from the body alone, an examiner checking coverage against the keys, tutorial questions and slides, an accuracy check against the sources, and a line editor (flow, padding, phone rendering, the writing rules below). After the fixes, a fresh check of the changed lines, including every flashcard and exam answer against the new body.
+
+**Writing rules** (Stas's own): no em-dashes, no emoji, no "X, not Y" constructions unless the contrast is the information, no slop phrasing, no headings that lead with a count, no invented category labels.
 
 ---
 
@@ -79,14 +113,14 @@ tags: [moc]
 
 **Location:** `Courses/<COURSE>/Lectures/<COURSE>-L<##> - <Title>.md`
 
-Captures **everything** from the lecture slides plus context from the book. Should be self-contained — reading this note = attending the lecture + reading the relevant book sections.
+Replaces attending the lecture and doing the readings. Self-contained, written to be understood on one read. Structure, length and review: section 2.3.
 
 **Structure:**
 1. Frontmatter with metadata
-2. Overview / motivation (1-2 paragraphs max)
-3. Content sections mirroring lecture flow
-4. Key takeaways / summary box
-5. Links to related concepts, exercises, and book chapters
+2. `In short` box
+3. Content sections following the argument, named after ideas
+4. Comparison table where it helps, then `What to be able to write`
+5. `Exam questions`, `Flashcards`, `Links`
 
 **Frontmatter:**
 ```yaml
@@ -343,13 +377,14 @@ When creating notes for a topic, synthesize from **all available sources** in th
 4. **Coding assignments** — practical implementation details
 
 When a course has **no textbook** (e.g. RecSys), the lecture notes carry the full load — there is
-no fallback, so process every slide and figure especially thoroughly.
+no fallback, so read every slide and figure especially carefully. Reading everything is not the same
+as writing everything down: the note keeps what section 2.1 asks for.
 
 ### 5.2 Handling Images from Source PDFs
 
-**Do not skip images.** When a lecture slide or book page contains a figure:
-1. Use the **Read** tool to view the page/image (`Read(path, pages="N-M")` for PDFs) and extract its full content.
-2. Reproduce the content in the note:
+**Read every image; reproduce only what carries an idea.** When a lecture slide or book page contains a figure:
+1. Use the **Read** tool to view the page/image (`Read(path, pages="N-M")` for PDFs) and extract its content.
+2. If the figure carries an idea the note needs, reproduce that content (never a description of the figure itself):
    - **Diagrams/flowcharts** → Mermaid or ASCII art
    - **Plots/graphs** → Describe axes, trends, key values; redraw as ASCII if simple
    - **Tables** → Markdown tables
@@ -398,17 +433,18 @@ When dispatching a subagent for note creation, always include:
 1. The exact note type and template to follow (point to the file in `Templates/` or paste the section).
 2. The source file path(s) to read (PDFs via `Read(path, pages=...)`).
 3. The output file path.
-4. Explicit instruction to **process all images** and not skip them.
+4. Instruction to read every image and reproduce only what carries an idea (section 5.2).
 5. The **frozen list of concept names** to wikilink to (so links are consistent and resolve).
-6. Reminder: **completeness over brevity** — the note must substitute the source material.
+6. Section 2.3 (how a lecture note reads, length, accuracy rules), and a finished note in the same course as the model to match.
 
 ### 6.4 Post-Sub-Agent Checklist
 
 After a subagent delivers a note, the main agent must:
 - [ ] Verify frontmatter is correct
 - [ ] Check all wikilinks resolve (run the audit script)
-- [ ] Ensure no images/figures were skipped
+- [ ] Ensure no figure that carries an idea was skipped, and no figure is described for its own sake
 - [ ] Confirm formulas render correctly
+- [ ] Run the review in section 2.3 before marking a lecture note `complete`
 - [ ] Add the note to the Course Overview MOC
 
 ---
@@ -428,10 +464,11 @@ After a subagent delivers a note, the main agent must:
 ## 8. Quality Bar
 
 A note is `complete` when:
-- [ ] Someone reading **only this note** (plus linked concept notes) could answer exam questions on the topic
+- [ ] Someone reading **only this note** (plus linked concept notes) could answer exam questions on the topic, checked by a reviewer answering the mock questions from it
+- [ ] It reads in about 20 minutes or less (section 2.3), and explains each idea before stating it formally
+- [ ] Every term is explained on first use; nothing talks about the slides
 - [ ] All formulas are in LaTeX and explained
-- [ ] All algorithms have full pseudocode
-- [ ] All images from source material are reproduced or described
+- [ ] All examined algorithms have full pseudocode
 - [ ] All exercises/solutions are worked through with reasoning
 - [ ] Wikilinks connect to all relevant concepts
 - [ ] The note has correct frontmatter and tags
