@@ -62,14 +62,14 @@ A **counterfactual** is a statement "if A were to happen, B would happen", usual
 How would you check whether one is true? A first try: in **every** possible world where A holds, B holds. Too strong: there are possible worlds where the match is struck and does not light (it is wet, there is no oxygen, chemistry works differently), yet "if this match had been struck, it would have lit" still seems true. A better try, from David Lewis and Robert Stalnaker (two philosophers who built the logic of counterfactuals in the 1970s): the worlds where A and B both hold are **more similar to ours** than the worlds where A holds without B. Only the closest A-worlds count.
 
 > [!definition] Laws and counterfactuals
-> Laws **support counterfactuals** because they fix a **crucial respect of similarity** between worlds: a world that keeps our laws is much closer to ours than one that breaks them. So the closest worlds where A holds still obey our laws. If our laws take A to B, then B holds in those worlds, and "if A were the case, B would be" is true. In short: the counterfactual is true when "A, then B" is an instance of a law.
+> Laws **support counterfactuals** because they fix a **crucial respect of similarity** between worlds: a world that keeps our laws is much closer to ours than one that breaks them. So the closest worlds where A holds obey our laws from A onwards. (Outside the course material: for a deterministic world, Lewis allows a small break in the laws just before A.) If our laws take A to B, then B holds in those worlds, and "if A were the case, B would be" is true. In short: the counterfactual is true when "A, then B" is an instance of a law.
 
 > [!example] The match and the coin
 > "If this match had been struck, it would have lit": true, because "struck matches (in normal conditions) light" is a law.
 >
 > Suppose every coin in my pocket happens to be silver. "If this copper coin were in my pocket, it would be silver" is false: in the closest worlds where I put it there, it stays copper. "All coins in my pocket are silver" is accidental, so it supports no counterfactual.
 
-**Causation.** Hume, and later Lewis, used counterfactuals to give an account of causation: two events are causally related when there is **counterfactual dependence** between them. My striking the match caused it to light because, had I not struck it, it would not have lit. (Hume is better known for the regularity view, causation as constant conjunction, in [[PhilSci-L04 - Scientific Explanation and Understanding|L04]]; his definition of cause contains both. Chen notes that counterexamples have led many to drop the counterfactual analysis.)
+**Causation.** Hume, and later Lewis, used counterfactuals to give an account of causation: two events are causally related when there is **counterfactual dependence** between them. My striking the match caused it to light because, had I not struck it, it would not have lit. (Hume is better known for the regularity view, causation as constant conjunction, in [[PhilSci-L04 - Scientific Explanation and Understanding|L04]]; his definition of cause contains both. Eddy Keming Chen, philosopher of physics and author of this week's reading, *Laws of Physics*, notes that counterexamples have led many to drop the counterfactual analysis.)
 
 ### Laws pick out what is physically possible
 
@@ -100,9 +100,9 @@ Picture it in state space: under deterministic laws the allowed trajectories nev
 - **General relativity** is the interesting case. Only its **globally hyperbolic** models are deterministic: those where the state at one time plus the Einstein field equations (which relate spacetime's curvature to the matter in it) fix the state at all times. Not every model of the theory is globally hyperbolic. So whether general relativity is deterministic depends on whether the other models count as **physically significant**.
 - **Quantum mechanics**, on collapse interpretations (on measurement the quantum state jumps at random to one outcome), is **not deterministic**.
 
-**Chance.** Cinti draws a strong moral: a theory that fails to be deterministic involves **chance in an ineliminable way**. Probabilities are then part of what the laws say, and there is no way to get rid of them. Chen is more careful. An indeterministic theory *may* posit chances, but it does not have to. And chances can also sit on top of deterministic laws: statistical mechanics puts a probability distribution over the possible initial states of a deterministic world.
+**Chance.** Enrico Cinti, the lecturer, draws a strong moral: a theory that fails to be deterministic involves **chance in an ineliminable way**. Probabilities are then part of what the laws say, and there is no way to get rid of them. Chen is more careful. An indeterministic theory *may* posit chances, but it does not have to. And chances can also sit on top of deterministic laws: statistical mechanics puts a probability distribution over the possible initial states of a deterministic world.
 
-**Strong determinism.** Eddy Keming Chen (philosopher of physics, author of this week's reading, *Laws of Physics*), following the physicist Roger Penrose, discusses a stronger notion: **only one world** is compatible with the laws. Ordinary determinism fixes the world once you give a segment; strong determinism fixes it with no input at all. So the theory itself says there is only one physically possible world. There are no real examples (string theory was hoped to have the property, but does not on any reasonable reading).
+**Strong determinism.** Chen, following the physicist Roger Penrose, discusses a stronger notion: **only one world** is compatible with the laws. Ordinary determinism fixes the world once you give a segment; strong determinism fixes it with no input at all. So the theory itself says there is only one physically possible world. There are no real examples (string theory was hoped to have the property, but does not on any reasonable reading).
 
 ### Must laws push the world forward in time?
 
@@ -113,11 +113,7 @@ Two objections:
 1. **Most laws of physics are time-symmetric**: run any allowed history backwards and you get another allowed history. The direction of time is **emergent**, for example from thermodynamics (entropy, roughly disorder, increases in one direction). For Chen, this asymmetry comes from the **Past Hypothesis**: a law about the universe's boundary (its starting state), saying that at one end of time the universe was in a low-entropy state. That law is itself not a FLOTE.
 2. **Not all laws describe evolution.** Some, like the Einstein field equations, are **constraints**: they say which whole spacetimes are allowed, without producing one moment from the last. Chen adds Gauss's law (a purely spatial law linking electric charge to the field around it) and principles of least action (which constrain a whole history between two times).
 
-Both objections come back in the non-Humean accounts below.
-
 ## The great divide: Humeans and non-Humeans
-
-Today the debate is mostly **Humean versus non-Humean**.
 
 > [!definition] The two camps
 > - **Non-Humeans:** there is an **irreducible** form of nomological modality in the world. Most non-Humeans add that the laws themselves **govern** the world; dispositionalists place the modality in dispositions instead (below).
@@ -130,11 +126,11 @@ Non-Humean views come in more varieties than Humean ones. Three matter here, eac
 - **Dispositionalism**, which Chen calls **Aristotelian reductionism** (Aristotle grounded change in the powers of things).
 
 > [!warning] Two kinds of reduction
-> DTA and dispositionalism **reduce laws** to something more basic (universals, dispositions). That something is still modal, so the necessity stays irreducible and the views stay non-Humean. Humeans **reduce the modality itself** to non-modal facts. So "reductive about laws" and "irreducible modality" are compatible.
+> DTA reduces laws to **necessitation relations between universals**, dispositionalism to **dispositions**. The necessitation and the dispositions are still modal, so the necessity stays irreducible and the views stay non-Humean. Humeans **reduce the modality itself** to non-modal facts. So "reductive about laws" and "irreducible modality" are compatible.
 
 ## Non-Humean 1: minimal primitivism (Chen)
 
-"Primitive" means we do **not analyse** a notion in terms of anything else, possibly more fundamental. A primitive notion is conceptual rock-bottom. Saying laws are primitive gives up any chance of analysing them, in exchange for avoiding the complicated metaphysics any analysis brings.
+"Primitive" means we do **not analyse** a notion in terms of anything else. A primitive notion is conceptual rock-bottom. Saying laws are primitive gives up any chance of analysing them, in exchange for avoiding the complicated metaphysics any analysis brings.
 
 Maudlin's primitive laws govern by **producing** later states from earlier ones (FLOTEs). Chen's govern differently.
 
@@ -147,9 +143,9 @@ Maudlin's primitive laws govern by **producing** later states from earlier ones 
 
 **Why "minimal":** compared with heavier primitivism like Maudlin's, it commits to the least irreducible nomological modality you can have and still be non-Humean. There are only the entities and a constraint on how they may combine. It sets no substantial conditions on what laws look like, unlike Maudlin's demand that they be FLOTEs. So time-symmetric laws and constraint laws like the Einstein equations fit without trouble.
 
-**How primitive laws explain.** For Chen, laws explain by constraining; they need not produce one state from the last. The best explanations show a rich, surprising pattern following from a simple rule. His toy case is a world whose matter is laid out like the Mandelbrot set: an intricate fractal that follows from one short rule (a number $c$ is in the set if repeatedly applying $z \mapsto z^2 + c$, starting from 0, stays bounded). Finding that rule would be a deep discovery, and it would be that world's law, although it says nothing about time. Because the law is a fact over and above the pattern, it can explain the pattern; a Humean law only summarises it.
+**How primitive laws explain.** For Chen, laws explain by constraining; they need not produce one state from the last. Explanations are especially illuminating when a rich, surprising pattern follows from a simple rule. His toy case is a world whose matter is laid out like the Mandelbrot set: an intricate fractal that follows from one short rule (a number $c$ is in the set if repeatedly applying $z \mapsto z^2 + c$, starting from 0, stays bounded). Finding that rule would be a deep discovery, and it would be that world's law, although it says nothing about time. Because the law is a fact over and above the pattern, it can explain the pattern; a Humean law only summarises it.
 
-Chen adds two points. Simplicity and informativeness are only **clues** that help us find the laws; they are not what makes something a law, as Humeans say (below). And to the **mystery objection** (who imposes the laws?) he answers with the axiom analogy: $2 + 3 = 5$ constrains every possible world, and no agent imposes it. Chen grants that this does not remove every mystery. It answers only the worry that governing needs someone to do the governing.
+Chen adds two points. Simplicity and informativeness are only **clues** that help us find the laws. For Humeans they are what makes something a law (below); for Chen they are not. And to the **mystery objection** (who imposes the laws?) he answers with the axiom analogy: $2 + 3 = 5$ constrains every possible world, and no agent imposes it. Chen grants that this does not remove every mystery. It answers only the worry that governing needs someone to do the governing.
 
 ## Non-Humean 2: universals (Dretske, Tooley, Armstrong)
 
@@ -183,9 +179,9 @@ $F = ma$ becomes, roughly: necessarily, if the universal force takes some value,
 **Is it non-Humean?** Yes, insofar as dispositions are **irreducible and modal**.
 
 - **Modal:** a disposition encodes a **tendency**: under certain conditions, something happens. It is there **before** anything happens (unstruck glass is still fragile), so it is about what would happen: it is **intrinsically modal**.
-- **Irreducible:** less obvious. Dispositions are **not analysed further**. One could try to explain glass's fragility by some property of the glass that is not itself a disposition, such as how its molecules are arranged. Friends of dispositions deny that such explanations are available at the fundamental level.
+- **Irreducible:** less obvious. Dispositions are **not analysed further**. One could try to explain glass's fragility by some property of the glass that is not itself a disposition, such as how its molecules are arranged (a standard example from outside the course material). Friends of dispositions deny that such explanations are available at the fundamental level.
 
-Keep one nuance apart: Chen says that on this view **laws themselves do not govern**. The necessity lives in the dispositions, and laws are derived from them. Chen adds that the laws are then metaphysically necessary: given the dispositions, they could not have been otherwise.
+Keep one nuance apart: Chen says that on this view **laws themselves do not govern**. The necessity lives in the dispositions, and laws are derived from them. On this view, Chen notes, the laws are also metaphysically necessary: given the dispositions, they could not have been otherwise.
 
 **Assessment.** It is **reductionist about laws** (laws analysed in terms of dispositions), so it has the **same advantage over primitivism** as DTA. It also has **similar problems**: irreducible dispositions are as mysterious as universals and primitive laws. And **modern physical theories may not fit the dispositionalist mould**. From a list of problems the dispositionalist Alexander Bird himself admits (reported by Chen): conservation laws say a total stays fixed, and nothing responds to a stimulus. Chen adds that a manifestation must follow its stimulus, which builds in the fundamental direction of time the first objection to Maudlin said laws need not have.
 
@@ -195,8 +191,6 @@ The main alternative to all three is **Humeanism**, today chiefly David Lewis's 
 
 > [!definition] Best Systems Account
 > Laws of nature are **the axioms of a system that provides the best balance of strength and simplicity** when accounting for the **mosaic of spatiotemporally related local matters of fact** of our world.
-
-Unpacking it:
 
 - **The Humean mosaic** is the collection of local matters of fact, each about a single point or small region, arranged in space and time: things like "a particle of mass $m$ is here". It is the **bedrock**: the ontological structure that determines the laws. Nothing in it is modal.
 - **A system** is a set of true sentences about the mosaic, organised as axioms and their consequences.
@@ -213,7 +207,7 @@ Unpacking it:
 
 This handles the puzzle: laws are distinguished from mere universal generalisations by belonging to the best balance of strength and simplicity. "All gold spheres are under a mile" would add a little strength at a real cost in simplicity, so it stays out. (Optional Carroll reading: in Lewis's own statement, theorems of the best system are laws too, as well as its axioms; the axioms are the fundamental laws. The uranium generalisation follows from the nuclear physics in the system, so it is a law.)
 
-It also **reduces** laws, and with them nomological modality, to something **non-modal**: the mosaic. Laws are no longer an irreducible feature of reality.
+It also **reduces** laws, and with them nomological modality, to something **non-modal**: the mosaic.
 
 > [!definition] The hallmark of Humeanism
 > The relation between laws and world is **reversed**. For non-Humeans the laws govern, constrain or determine the world. For Humeans **the world determines the laws**.
@@ -273,12 +267,12 @@ Model answers for these are in the practice questions below.
 > - **Verdict (one option):** primitivism, since only a law over and above the pattern can explain it; the price is leaving "governing" unanalysed.
 
 > [!exam]- Practice question: Explain the Dretske-Tooley-Armstrong account of laws and the dispositionalist account. In what sense are both reductive, and what advantage and problems do they share compared with primitivism?
-> **Key points:** DTA: laws are necessitation relations between multilocated universals, N(F,G); dispositionalism: laws derived from dispositions via causation (window, Demarest); both reduce laws to something modal, so the modality stays irreducible and they stay non-Humean; reductive, so more explanatory than primitivism; shared problems: mysterious entities, laws of modern physics that do not fit.
+> **Key points:** DTA: laws are necessitation relations between multilocated universals, N(F,G); dispositionalism: laws derived from dispositions via causation (window, Demarest); both reduce laws to something that is still modal (necessitation between universals, dispositions), so they stay non-Humean; reductive, so more explanatory than primitivism; shared problems: mysterious entities, laws of modern physics that do not fit.
 >
 > - **Universal:** the abstract entity encoding a property in full generality; redness is wholly present in every red thing, so universals are multilocated.
 > - **DTA:** laws are **relations of necessitation between universals**: "necessarily, if F then G", $N(F,G)$. $F = ma$: necessarily, if force takes some value, mass and acceleration take matching values. Non-Humean insofar as this modality is irreducible.
 > - **Dispositionalism (Chen: Aristotelian reductionism):** a disposition is a property that shows itself under a stimulus (fragility: breaking when dropped). Causation via dispositions: the stone broke the window because windows are disposed to break when hit. Laws recovered from causation, e.g. as the best summary of patterns of causal relations (Demarest). Non-Humean insofar as dispositions are **modal** (a tendency present before anything happens) and **irreducible** (not explained by non-dispositional properties such as molecular arrangement, at the fundamental level). On this view laws themselves do not govern; the dispositions carry the necessity.
-> - **In what sense reductive:** both **reduce laws** to something more fundamental (universals, dispositions), but that something is modal, so the modality stays irreducible. Humeans, by contrast, reduce the modality itself.
+> - **In what sense reductive:** both **reduce laws** to something more fundamental (necessitation between universals; dispositions), but the necessitation and the dispositions are modal, so the modality stays irreducible. Humeans, by contrast, reduce the modality itself.
 > - **Shared advantage:** both say what laws are, which primitivism declines to do, so they are more explanatory.
 > - **Shared problems:** the posited entities are as mysterious as primitive laws; modern physics may not fit (constraint laws like the Einstein equations and path integrals for DTA; conservation laws, a problem Bird admits, for dispositions). Also: the necessitation relation is put in by hand (Chen), and Lewis asked why $N(F,G)$ should guarantee that all Fs are Gs.
 
