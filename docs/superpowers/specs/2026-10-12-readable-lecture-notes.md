@@ -178,12 +178,22 @@ Proposed, applied once he has read the L01b pilot and is happy with it:
 
 ## Status
 
-- L01b rewritten as the pilot, then reviewed (see below). Its flashcards and exam questions were
-  brought in line with the new body.
-- Remaining PhilSci notes (L01, L02, L03, L03b, L04, L05, L06): to do once he approves the pilot.
-- MNLP: next. Its notes are longer (the L05 to L07 files run 22,000 to 26,000 words each,
-  cards included) and the exam is multiple choice with a cheat sheet allowed, so the length target needs
-  a separate look.
+Done 2026-10-13, after he approved the L01b pilot:
+
+- `CLAUDE.md` updated (sections 1, 2.1 to 2.3, 3.2, 5, 6, 8).
+- **PhilSci**, all eight notes rewritten and reviewed. Bodies 4,000 to 4,400 words (L03b, not
+  examinable, 2,600): about 32,000 words in total, was 50,000. The official mock exam with answers
+  is in `Courses/PhilSci/Assets/`; every mock question and key in the notes matches it.
+- **MNLP**, all seven notes rewritten and reviewed. Length set per teaching session (about 3,000
+  words each; target in the MNLP Overview): about 35,000 words in total, was about 80,000. Every
+  exact figure taken out of a note is in `docs/mnlp-cheat-sheet-numbers/`. Where the slides and the
+  original paper disagree, the note gives both and says the exam is likely marked by the slides.
+  True/false cards are about half true in every set.
+
+Each note went through: a writer, then three independent reviewers (a first-time reader who
+answered the mock or card questions from the body alone, an examiner checking coverage and accuracy
+against the slides and readings, a line editor who also checked every card), a fix round, and a
+final check of the changed lines, whose findings were fixed too.
 
 ## How the pilot was reviewed
 
