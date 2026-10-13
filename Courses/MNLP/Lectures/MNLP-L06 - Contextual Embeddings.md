@@ -145,7 +145,7 @@ loss ← − Σ_{i∈S} log softmax(W T_i)[x_i]
 
 In pre-training that task is NSP. Each input holds two segments A and B. **50%** of the time B really follows A in the document (*IsNext*); **50%** of the time B is a random segment from the corpus (*NotNext*). A classifier on $C$, the final-layer output at `[CLS]`, predicts the label. In practice A and B are stretches of running text, much longer than single sentences.
 
-BERT was pre-trained on BookCorpus plus English Wikipedia, in two sizes, base and large. BERT-base has 12 attention heads and BERT-large 16 (other dimensions on the cheat sheet).
+BERT was pre-trained on BookCorpus plus English Wikipedia, in two sizes, base and large. BERT-base has 12 attention heads and BERT-large 16 (Devlin et al.), although the lecture's table gives 16 for both, so a statement taken from that table will likely be keyed with 16 (other dimensions on the cheat sheet).
 
 ### Fine-tuning, entailment and SQuAD spans
 
@@ -394,7 +394,7 @@ Of the architecture factors K et al. varied, **depth had the largest impact**. K
 
 So far "cross-lingual" meant: fine-tune on English, test on monolingual Spanish or Russian inputs. What if the **task itself is multilingual**, with the premise in one language and the hypothesis in another?
 
-K et al. tested B-BERT on XNLI with one side in fake English and the other in the target language. Both monolingual conditions work. **Mixed pairs fall below both**, for all three languages, and a fake-English hypothesis with a target-language premise does better than the reverse. Hindi has the lowest mixed scores, but only because its monolingual score is lowest too; measured as a drop from each language's own zero-shot score, Russian loses most.
+K et al. tested B-BERT on XNLI with one side in fake English and the other in the target language. Both monolingual conditions work. **Mixed pairs fall below both**, for all three languages, and a fake-English hypothesis with a target-language premise does better than the reverse. Hindi has the lowest mixed scores, but its monolingual score is also the lowest, so this does not show that mixing hurts Hindi most: measured as a drop from each language's own score, all three lose a similar amount.
 
 This is the surprising result. In a truly language-neutral space, an English premise and a Spanish hypothesis would be as easy to compare as two English sentences. They are not: the models are **good at doing the same task in another language, and poor at relating two languages inside one input**.
 
@@ -428,18 +428,14 @@ How this would explain the across drop is an interpretation, not an established 
 
 ## XLM-R: scaling mBERT up
 
-The most prominent extension of mBERT is **XLM-R** (XLM-RoBERTa, Conneau et al. 2020), a **RoBERTa-style** mBERT. RoBERTa is BERT retrained with a tuned recipe; XLM-R takes that recipe multilingual and adds a new corpus and vocabulary.
+The most prominent extension of mBERT is **XLM-R** (XLM-RoBERTa, Conneau et al. 2020), a **RoBERTa-style extension of mBERT**. All four of its changes come under that heading:
 
-From the RoBERTa recipe:
-
-- **MLM only**: next sentence prediction is dropped because it **contributes little and sometimes hurts**.
+- **Drop NSP, MLM only**: next sentence prediction **contributes little and sometimes hurts**.
 - **Dynamic masking** instead of static.
-- **More training data.**
-
-XLM-R's own choices:
-
-- **CC-100**: filtered CommonCrawl web text in **100 languages**, about **two orders of magnitude more** monolingual data than mBERT's Wikipedia.
+- **More training data**: **CC-100**, filtered CommonCrawl web text in **100 languages**, about **two orders of magnitude more** monolingual data than mBERT's Wikipedia.
 - **A larger shared vocabulary**: **250k** entries, double mBERT's, built with **Unigram LM (SentencePiece)**, giving **better fertility** (fewer pieces per word) at the cost of a bigger embedding matrix.
+
+(Background, not from the lecture: RoBERTa is BERT retrained with a tuned recipe, which already dropped NSP, used dynamic masking, more data and a larger vocabulary. The CC-100 corpus and the Unigram LM vocabulary are specific to XLM-R.)
 
 > [!definition] Static and dynamic masking
 > - **Static masking** is applied **at the data level, as part of pre-processing**: each sequence is masked once, and the same masked copy is reused in every epoch.
@@ -545,7 +541,7 @@ Model answers are in the exam questions below.
 > [!exam]- Compare XLM-R with mBERT: what changed in training, and how do the two compare within a language and across languages on XNLI and cross-lingual QA?
 > **Key points:** MLM only, dynamic masking, CC-100, 250k SentencePiece Unigram vocabulary; better within a language on XNLI and QA; better across languages on XNLI; worse across languages on QA; better per language, not better at relating languages.
 >
-> - **XLM-R** (Conneau et al. 2020) is a RoBERTa-style extension of mBERT. From the RoBERTa recipe: **MLM only** (NSP dropped: it contributes little and sometimes hurts), **dynamic masking**, more data. Its own choices: **CC-100** (filtered CommonCrawl, 100 languages, about two orders of magnitude more data than Wikipedia) and a **250k** Unigram LM vocabulary via SentencePiece (better fertility, bigger embedding matrix). Still no cross-lingual signal.
+> - **XLM-R** (Conneau et al. 2020) is a RoBERTa-style extension of mBERT: **MLM only** (NSP dropped: it contributes little and sometimes hurts), **dynamic masking**, more data (**CC-100**: filtered CommonCrawl, 100 languages, about two orders of magnitude more than Wikipedia) and a larger **250k** Unigram LM vocabulary via SentencePiece (better fertility, bigger embedding matrix). Still no cross-lingual signal.
 > - **Within** a language XLM-R is better on both XNLI and QA, on average and in almost every language.
 > - **Across** languages on XNLI it is also better, with a slightly smaller within-across gap.
 > - **Across** languages on QA it is **worse** than mBERT on average, with a far larger within-across gap. Thai within-language QA improves enormously while Thai across barely moves.
@@ -556,7 +552,7 @@ Model answers are in the exam questions below.
 > **Key points:** B-BERT mixed pairs fall below both monolingual conditions; mBERT across below within for every language; XLM-R worse across on QA; the space is not language-neutral; heuristics hypothesis: the word-overlap shortcut fails across languages.
 >
 > - Standard zero-shot transfer is English fine-tuning, then monolingual testing in another language. Cross-lingual inference within a task means, for example, an English premise with a Spanish hypothesis.
-> - **K et al. (2020), B-BERT on XNLI:** fake-English pairs and target-language pairs both work; mixed pairs fall below **both** monolingual conditions for all three languages (Hindi scores lowest because its baseline is lowest; Russian drops most). A fake-English hypothesis beats a fake-English premise.
+> - **K et al. (2020), B-BERT on XNLI:** fake-English pairs and target-language pairs both work; mixed pairs fall below **both** monolingual conditions for all three languages (Hindi scores lowest, but its monolingual baseline is lowest too). A fake-English hypothesis beats a fake-English premise.
 > - **Rajaee and Monz (2024), mBERT on XNLI, 15 languages:** across is below within for every language. An English hypothesis helps; a Swahili hypothesis is barely above chance and a Thai one little better.
 > - **XLM-R:** better than mBERT within and across on XNLI (on average), but worse than mBERT across languages on QA.
 > - **Interpretation:** the models can do the same task in another language but are poor at relating two languages inside one input, so the space is not language-neutral.
@@ -799,7 +795,7 @@ Model answers are in the exam questions below.
 > The space is **not truly language-neutral**: good at a task in another language, poor at **relating two languages** in one input.
 
 > [!card]- In K et al.'s mixed-language XNLI test, why does Hindi have the lowest mixed scores?
-> Its **monolingual baseline is lowest** too; measured as a drop, Russian loses most.
+> Its **monolingual baseline is lowest** too, so the low mixed scores do not show that mixing hurts Hindi most.
 
 > [!card]- What is the difference between "within" and "across" in Rajaee and Monz's XNLI evaluation?
 > Within: premise and hypothesis in the **same** language. Across: in **different** languages.
@@ -837,8 +833,8 @@ Model answers are in the exam questions below.
 > [!card]- On which task is XLM-R worse than mBERT across languages, on average?
 > **Cross-lingual QA**; on XNLI it is better across too.
 
-> [!card]- Which of XLM-R's changes are its own rather than taken from RoBERTa?
-> The **CC-100** corpus and the **250k Unigram LM** vocabulary.
+> [!card]- Which segmentation method builds XLM-R's 250k vocabulary?
+> **Unigram LM** via SentencePiece.
 
 > [!card]- What structure does XLM-R's cross-lingual QA (context by question language) matrix show?
 > "**Own language, or English question**": both work, little in between.
