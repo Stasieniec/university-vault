@@ -691,6 +691,6 @@ Model answers are in the exam questions below.
 
 - **Course:** [[MNLP - Overview|Course overview]] · [[MNLP - Mini Project]]
 - **Previous:** [[MNLP-L02 - Multilinguality and Writing Systems]]
-- **Next:** [[MNLP-L04 - Subword Segmentation]], morphological analysis and subword segmentation, which takes the OOV problem from section 15 and solves it statistically
+- **Next:** [[MNLP-L04 - Subword Segmentation]], morphological analysis and subword segmentation, which takes the OOV problem from "Why word-level vocabularies break" and solves it statistically
 - **Concepts:** [[Word Embeddings]] · [[Tokenization]] · [[Bag of Words]] · [[Dynamic Programming]]
-- **Source:** `MNLP_morphology.pdf` (Christof Monz, Morphology: Word Formation, 34 slides)
+- **Source:** `morphology.pdf` on Canvas, module Week 2 (Christof Monz, Morphology: Word Formation, 34 slides)

@@ -368,7 +368,6 @@ Do mBERT's sentence representations line up across languages, and in which layer
 > - Compute **one average difference vector** for the language pair:
 > $$\bar v^{(l)}_{\text{EN}\to\text{DE}} = \frac{1}{M}\sum_{i=1}^{M} \left( v^{(l)}_{\text{DE}_i} - v^{(l)}_{\text{EN}_i} \right)$$
 > - "Translate" each English sentence by shifting it, $v^{(l)}_{\text{EN}_i} + \bar v^{(l)}_{\text{EN}\to\text{DE}}$, and find its **nearest German neighbour by $\ell_2$ distance** (Euclidean distance, not cosine similarity). It is a hit when that neighbour is the true translation.
->
 
 ```pseudo
 Algorithm: Layer-wise translation retrieval accuracy
