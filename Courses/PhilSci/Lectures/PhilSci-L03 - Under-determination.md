@@ -34,7 +34,7 @@ topics:
 
 Suppose an astronomical theory predicts where a planet will be, and the telescope shows it somewhere else. Which theory has just failed: the astronomy, or the optics that says the telescope shows things where they are? The observation does not say.
 
-This matters for Popper ([[PhilSci-L01b - Popper and Lakatos|L01b]]), whose account of science rests on observations refuting theories. Popper admits that no objective facts force even the observation on us. Scientists accept an **empirical basis** (the observation reports that tests rest on) by **intersubjective agreement**, a consensus among investigators. So accepting a report that falsifies a theory is, in the end, **a human decision**.
+This matters for Popper ([[PhilSci-L01b - Popper and Lakatos|L01b]]), whose account of science rests on observations refuting theories. Popper's answer: no objective facts force the choice, not even the choice of which observation reports to accept. Scientists accept an **empirical basis** (the observation reports that tests rest on) by **intersubjective agreement**, a consensus among investigators. So accepting a report that falsifies a theory is, in the end, **a human decision**.
 
 Duhem's thesis opens a second gap: even once the report is accepted, logic does not say which theory it refutes.
 
@@ -47,7 +47,7 @@ No hypothesis predicts anything on its own, so a failed prediction says only tha
 > [!example] The telescope, step by step
 > - $P_1$: the astronomical theory (the laws of planetary motion).
 > - $P_2$: the optics of the telescope (it shows objects where they are).
-> - $P_3$: the initial conditions (where the planet was last month, how fast it was moving).
+> - $P_3$: the initial conditions (last month's position and speed).
 > - Together these entail $O$: "the planet appears at position $x$ tonight".
 > - Observation gives $O'$: "the planet appears at position $y$". $O'$ entails that $O$ is false.
 > - Conclusion: $P_1 \wedge P_2 \wedge P_3$ is false. The astronomy, the telescope or last month's data: logic does not say which.
@@ -100,7 +100,7 @@ Quine's objection is Duhem's point, generalised: **you cannot test isolated stat
 
 Quine denies the sharp line: the difference between conceptual schemes (truths we hold because of what our words mean) and facts "is of degree only". Some statements are simply held more firmly than others.
 
-**At bottom the two dogmas are identical.** If each statement had its own range of confirming experiences (dogma 1), there could be a **limiting case**: a statement with no empirical content, confirmed by every possible experience, however the world turns out. Those would be the analytic statements (dogma 2). Both dogmas assume statements can be assessed one at a time. Quine denies that, so no statement is confirmed come what may, and both dogmas fall together.
+**At bottom the two dogmas are identical.** If each statement had its own range of confirming experiences (dogma 1), there could be a **limiting case**: a statement with no empirical content, confirmed by every possible experience, however the world turns out. Those would be the analytic statements (dogma 2). Both dogmas assume statements can be assessed one at a time. Quine denies that, so no statement is confirmed by experience whatever happens, and both dogmas fall together. (This is compatible with his claim below that any statement can be *held* true come what may: that is our choice to protect a statement by changing other beliefs, and experience does not confirm it.)
 
 Behind both attacks sits Quine's scepticism about **meanings** as such, which undercuts any non-empirical knowledge. If no statement is true by meaning alone, even logic and mathematics belong to the body of belief that faces experience as a whole.
 
@@ -117,7 +117,6 @@ Picture a spider's web inside a circle whose rim is observation.
 
 - **The rim** touches experience. Beliefs near it (geography, history, particular facts) are the first candidates for revision when an observation goes wrong.
 - **The centre** holds logic and mathematics. They are revisable too, but revising them forces the largest rearrangement of everything else. They sit deep because they are expensive to change, and for no other reason.
-- **A contrary observation** forces some change somewhere, but the web does not dictate where.
 
 ### How Quine strengthens Duhem
 
@@ -141,7 +140,7 @@ Howard Stein, a philosopher of physics, locates the trouble in Quine's **sceptic
 
 In possible-world semantics (a possible world is a complete way things could have been), the intension of a sentence $S$ is the set of all possible worlds in which $S$ is true: a precise, workable notion of meaning.
 
-Quine does not engage with this. He traces analyticity to Leibniz's truths that hold in all possible worlds, and sets that formulation aside as "picturesque". He treats intensions as leftovers of Aristotle's essences. Stein's complaint: Quine **assumes** an empiricist must be sceptical about meanings, when intensions in the Frege-Carnap sense merited real engagement.
+Quine does not engage with this. He sets Leibniz's possible-worlds formulation of analyticity aside as "picturesque", and treats intensions as leftovers of Aristotle's essences. Stein's complaint: Quine **assumes** an empiricist must be sceptical about meanings, when intensions in the Frege-Carnap sense merited real engagement.
 
 ### Laudan: logically possible is not the same as rational
 
@@ -154,7 +153,7 @@ His reply to the argument from holism, step by step:
 
 1. Holism shows that any hypothesis *can* be kept, whatever the evidence, by adjusting something else (pleading hallucination, if need be). That is a claim about **logical possibility**.
 2. The under-determination that would threaten methodology is a claim about **rational warrant**: that the evidence supports rival theories *equally*. Rationality includes **epistemic warrant** (justification), above all the empirical evidence.
-3. To get from 1 to 2, Quine would have to examine the **ampliative rules of theory choice** (rules beyond deductive logic: how strongly evidence supports a theory, when to prefer one theory to another) and show that they are so ambiguous that, faced with any pair of theories and any body of evidence, they could never yield a decision. Quine never examines them.
+3. To get from 1 to 2, Quine would have to examine the **ampliative rules of theory choice** (rules beyond deductive logic for weighing evidence and preferring one theory to another) and show that they are so ambiguous that, faced with any pair of theories and any body of evidence, they could never yield a decision. Quine never examines them.
 4. So holism does not show that theory choice is arbitrary.
 
 ### Non-uniqueness and the egalitarian thesis
@@ -167,11 +166,11 @@ Laudan separates two claims:
 >
 > Only (2), and not (1), is a threat to epistemology and methodology.
 
-**Why only the egalitarian thesis is a threat.** Non-uniqueness says at least one rival is as well supported as $T$. That leaves the rules of theory choice free to reject every other theory, which is almost all of them. Methodology becomes less decisive, but it still does nearly all its work. The egalitarian thesis says every theory is as well supported as every rival, so the rules could never reject anything: theory choice would be arbitrary and methodology idle.
+**Why only the egalitarian thesis is a threat.** Non-uniqueness says only that at least one rival is as well supported as $T$. That is compatible with the rules of theory choice rejecting most other theories, so methodology can still narrow the field sharply even if it cannot always name a single winner. The egalitarian thesis says every theory is as well supported as every rival, so the rules could never reject anything: theory choice would be arbitrary and methodology idle.
 
 ## Empirical under-determination
 
-Quine's "On Empirically Equivalent Systems of the World" (1975) states a sharper thesis. Duhem's is about a single failed test; this one is about rival theories that no evidence can separate.
+Quine's "On Empirically Equivalent Systems of the World" (1975) states a sharper thesis.
 
 ### Theories, formulations and observation conditionals
 
@@ -196,9 +195,9 @@ This is seen as a problem for **scientific realism** (the view that our best the
 
 **Dualities** in current physics are pairs of very differently formulated theories that agree on everything empirical. De Haro, the lecturer, treats them as potential cases of **semantic** under-determination: perhaps two descriptions of one world. On his view they do not threaten a **cautious scientific realism**: one that claims approximate truth for well-confirmed theories within their domain, and is not committed to differences of formulation that make no difference there.
 
-Under-determination is also **transient** when current evidence does not decide between theories but later evidence might, and **permanent** when no possible evidence decides. Transient under-determination is very common in scientific practice. Quine's thesis is the permanent kind: our system of the world is under-determined even by *all possible* observations. Everything the world could ever show us is compatible with irreconcilable theories. That is the natural answer to why Quine calls it a thesis about the world, but it is not confirmed as his own stated reason.
+Under-determination is also **transient** when current evidence does not decide between theories but later evidence might, and **permanent** when no possible evidence decides. Transient under-determination is very common in scientific practice. Quine's thesis is the permanent kind: it says our system of the world would be under-determined even by *all possible* observations, so that everything the world could ever show us would fit irreconcilable theories (whether real cases exist he leaves open). Tutorial 3 asks why Quine calls under-determination a thesis about the world. The likely answer: it concerns what the world leaves open, and not the limits of one experiment. This reason is a reconstruction, not Quine's own wording.
 
-Quine also holds that there is no "extra-theoretic" truth: we judge truth only from inside our own best theory, since there is no standpoint outside all theories. So if an irreconcilable empirically equivalent rival turned up, "which one is really true?" would have no answer from outside; we would go on calling our own theory true.
+Quine also holds that there is no "extra-theoretic" truth: we judge truth only from inside our own best theory, since there is no standpoint outside all theories. So if an irreconcilable empirically equivalent rival turned up, "which one is really true?" would have no answer from outside. On one of the positions Quine took, we would go on calling our own theory true.
 
 ### Does it ever actually happen?
 
@@ -210,7 +209,7 @@ Real examples are few, and suspiciously of one type.
 
 So the strong thesis is widely asserted and thinly evidenced.
 
-**Which of Laudan's theses does Quine's empirical under-determination support?** The question is open; a defensible answer is: at most **non-uniqueness**. It says a theory has an empirically equivalent rival, and nothing about *every* rival being equally supported. The claim sometimes read as egalitarian is the Two Dogmas slogan, "held true come what may", which is what Laudan's "evaluative vacuum" objection targets.
+**Which of Laudan's theses does Quine's empirical under-determination support?** There is no settled answer; a defensible one is: at most **non-uniqueness**. It says a theory has an empirically equivalent rival (and even that need not mean an equally supported one), and nothing about *every* rival being equally supported. The claim sometimes read as egalitarian is the Two Dogmas slogan, "held true come what may", which is what Laudan's "evaluative vacuum" objection targets.
 
 ### The common core: where under-determination really lurks
 
@@ -259,7 +258,7 @@ We do not perceive space directly as three-dimensional. The visual field is at f
 
 For us, whose senses are used to Euclidean space, it is easier to describe this world as a Euclidean disk plus a law of physics saying that objects expand with temperature. But there is **no fact of the matter** about which description is right. Beings just like us who happened to live inside the sphere would describe it with non-Euclidean geometry.
 
-**No experiment can decide**, because every experimental set-up can itself be interpreted in either picture. To measure the geometry you need measuring instruments, and what they do depends on the physics you assume. Change the physics (add or remove the temperature law) and you can keep either geometry. (In Poincaré's own version, beyond the lecture, light is also bent by the temperature field, so light cannot expose the shrinking either.) The choice is a **convention**, like measuring distance in metres or in yards.
+**No experiment can decide**, because every experimental set-up can itself be interpreted in either picture. To measure the geometry you need measuring instruments, and what they do depends on the physics you assume. Change the physics (add or remove the temperature law) and you can keep either geometry. (In Poincaré's own version, beyond the lecture, light is also bent, because the refractive index of the medium changes with distance from the centre, so light cannot expose the shrinking either.) The choice is a **convention**, like measuring distance in metres or in yards.
 
 This is Duhem's thesis again: laws are tested only indirectly, and geometry faces experience bundled with physics.
 
@@ -313,7 +312,7 @@ Full model answers for mock Q6 and Q3 are the first two exam questions below.
 > - **Duhem:** no. Logic alone does not settle which premise to give up, but **good sense** does: some opinions are "perfectly unreasonable" even though no contradiction forces you to drop them. Choice is not *formal*, which is different from arbitrary.
 > - **Quine:** pushes hardest. Our beliefs face experience as one web, and any statement can be held true "come what may" if you make drastic enough adjustments elsewhere (pleading hallucination, even amending logical laws).
 > - **Laudan:** logically possible is not rational. Quine argues in an "**evaluative vacuum**": he never examines the ampliative rules of theory choice to show they are too weak to decide between any two theories on any evidence. Rationality includes epistemic warrant, above all the evidence.
-> - Laudan's two theses: non-uniqueness (at least one rival as well supported) is harmless, since the rules can still reject almost every theory; only the **egalitarian** thesis (every theory as well supported as any rival) would make choice arbitrary, and nothing in Quine establishes it.
+> - Laudan's two theses: non-uniqueness (at least one rival as well supported) is harmless, since it is compatible with the rules still rejecting most rivals; only the **egalitarian** thesis (every theory as well supported as any rival) would make choice arbitrary, and nothing in Quine establishes it.
 > - Verdict: holism shows a theory *can* be saved, not that it is *reasonable* to save it.
 
 > [!exam]- Explain under-determination using Poincaré's sphere, and say what conclusion Poincaré draws.
@@ -435,7 +434,7 @@ Full model answers for mock Q6 and Q3 are the first two exam questions below.
 > Only the **egalitarian** thesis.
 
 > [!card]- Why does the non-uniqueness thesis of under-determination not threaten methodology?
-> The rules can still **reject almost every theory**; at worst a few tied rivals remain.
+> It is **compatible with the rules rejecting most rivals**; it only denies that a unique winner is guaranteed.
 
 > [!card]- Why would the egalitarian thesis make methodology idle?
 > Every theory is as well supported as every rival, so the rules could **never reject anything**.
