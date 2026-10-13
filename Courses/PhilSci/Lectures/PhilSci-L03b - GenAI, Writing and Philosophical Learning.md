@@ -68,9 +68,9 @@ Each of the first four carries a qualifier (after you tried, then judge, a text 
 > - The vault's lecture notes are AI-written too. For the paper, read the texts you discuss in the original, and take every quotation and page number from the original text, never from a note.
 > - Put no personal or confidential data in prompts.
 > - Misuse is academic misconduct under the UvA Regulations Governing Fraud and Plagiarism (2019).
-> - De Haro: "Pangram detection has become very good." Pangram is a commercial AI-text detector, so assume undeclared AI text will be noticed.
+> - De Haro, on the Jetten case: "Pangram detection has become very good." (Pangram is a commercial AI-text detector.) Whether it is run on papers is not stated; do not count on undeclared AI text going unnoticed.
 
-De Haro's own slides carry an AI use statement, which shows the expected form: "AI was used to produce a first draft of these slides, based on an outline, detailed instructions, and texts that I supplied to AI Chat. Afterwards, I edited and adapted that draft to produce the final slides." Copy the form only. The use it describes, drafting text, is not allowed in your paper.
+De Haro's own slides carry an AI use statement, which is one example of the form: "AI was used to produce a first draft of these slides, based on an outline, detailed instructions, and texts that I supplied to AI Chat. Afterwards, I edited and adapted that draft to produce the final slides." Copy the form only. The use it describes, drafting text, is not allowed in your paper.
 
 The Project Description's AI section speaks of "your submission", meaning the paper. The course policy covers all submitted work, and the presentation slides are submitted on Canvas, so the safe reading (mine; no source says it outright) is that the same rules apply to the slides, with a one-line AI use statement on the last slide if you used AI for them.
 
@@ -90,19 +90,19 @@ What else the Project Description and the proposal guidelines set:
 - **Minimum requirements.** On time, correct spelling and grammar, no plagiarism.
 - **Formative part.** 10% of the paper mark comes from the project idea discussion, the proposal, how you use the feedback, and the first draft. The Project Description also calls the draft "not graded". My reading: the draft gets no grade of its own, but it counts towards that 10%. Hand it in.
 - **The draft** may be partial, but should have a title, abstract, table of contents with a short description and references under each item, a reference list, and substantial text.
-- **Stay near the proposal.** Small changes are expected, but stay as close to the approved proposal as you can.
+- **Stay near the proposal.** Small changes are allowed, but stay as close to the approved proposal as you can.
 - **Submission.** On Canvas, one submission per group, for both the draft and the final version.
 - **One question.** The paper should pursue a single, unified question in depth. A paper whose scope is too wide, with too many claims not properly justified, cannot get above a 7.
 - **Originality.** Explaining an existing question, debate or line of reasoning in your own words, clearly and insightfully, can earn an 8. Higher needs a contribution of your own, even a small one, made by engaging the key arguments in the literature: explicate a difficult problem one of the authors raised, or apply their view to a new case and draw a surprising conclusion. Doing things your own way without engaging the literature does not count.
 - **Audience.** Write for fellow students who did not take this course or do the readings, but are generally engaged in philosophy of science.
-- **Starting point.** An existing discussion in the philosophical literature: start from the Stanford Encyclopedia of Philosophy entry, then journals such as *Synthese* or *Philosophy of Science*. Popular science, articles for a general audience, and scientists writing about philosophy may be cited, but should not be your main topic.
+- **Starting point.** An existing discussion in the philosophical literature. The Project Description recommends the Stanford Encyclopedia of Philosophy page on your topic and journals such as *Synthese* or *Philosophy of Science*. Popular science, articles for a broadly interested philosophical audience, and scientists writing about philosophy may be used and cited, but should not be your main topic.
 - **Citations.** APA or similar, with **page numbers in the text**: "Jones (1985: pp. 175-176)", never just "Jones (1985)".
 - **Scope.** State the limits of your argument explicitly.
 - **Argument reconstruction.** Premises and conclusion (P1, P2, C) can help, e.g. "I accept P1 but argue against P2". If you use one, state it in a valid form, for example modus ponens or modus tollens.
 
 Luka Vinck's writing workshop (tutorial 3) covers how to build the paper section by section: thesis, argumentation scheme as the outline, what goes in the introduction and at the start and end of each argument, and plain language without overstatement. It is written up in [[PhilSci - Tutorials]].
 
-For the presentation, the obvious move (my suggestion; no source says it) is the same skeleton: thesis first, then the argumentation scheme. The presentation's criteria and evaluation form are on Canvas and not in the vault.
+For the presentation, the obvious move (my suggestion; no source says it) is the same skeleton: thesis first, then the argumentation scheme. The presentation's criteria and evaluation form are under Canvas Files (per the course overview) and are not in the vault.
 
 ## Why he draws the line there
 
@@ -137,7 +137,7 @@ Universities reward publications in top journals
   -> journals receive more weak submissions
 ```
 
-The study has limits, which the authors state themselves. The finding is about the system as a whole, and says nothing about whether a particular author writes worse with AI. It comes from one journal. And it does not show that every use of AI makes text worse.
+The study has limits. The finding is about the system as a whole, and says nothing about whether a particular author writes worse with AI. It comes from one journal. And it does not show that every use of AI makes text worse.
 
 ### The authorship problem
 
@@ -149,7 +149,7 @@ The link to your paper is my reading, and no source states it: an apology only c
 
 ### His own experiment: 500 pages and still unfinished
 
-De Haro tried writing a review chapter on scientific theories with AI, for an Elsevier reference work. A review paper surveys an existing debate rather than proposing new research. So he was not asking AI for original philosophical ideas, only for text around an argument he supplied. He gave it a detailed outline with a word count per section and the LaTeX format of an earlier chapter, and worked through it section by section.
+De Haro tried writing a review chapter on scientific theories with AI, for an Elsevier reference work. A review paper surveys an existing debate rather than proposing new research. So he did not start by asking AI for original philosophical ideas, only for text around an argument he supplied. He gave it a detailed outline with a word count per section and the LaTeX format of an earlier chapter, and worked through it section by section.
 
 The division of labour:
 
@@ -177,12 +177,12 @@ The mismatch is sharpest in this subject. De Haro's assessment is that **GenAI i
 
 ## What to remember
 
-- The test is whether a use **strengthens or replaces** your learning; allowed uses all come after your own effort.
+- The test is whether a use **strengthens or replaces** your learning. The four study uses De Haro allows (clarify, compare, test, revise) all come after your own effort.
 - **Bright line for the paper:** AI must not generate or structure your arguments or analysis, or write text you submit.
-- **AI use statement** if you used AI: tool, purpose, extent, plus what you did yourself and which choices were yours.
+- **AI use statement** if you used AI: tool, purpose, extent, what you did yourself and which choices were yours. If you used none, one line saying so (my reading of De Haro's transparency rule).
 - Take every quotation and page number from the original text. A hallucinated reference in your paper is a fabricated reference.
 - The draft feeds the 10% formative part of the paper mark: hand it in.
-- Writing with AI needs both expertise and the ability to write philosophy already, because both are about judging the output.
+- Writing with AI needs both expertise and the ability to write philosophy already, because both are mainly about judging the output.
 - De Haro's closing advice: use AI to test your understanding; develop your own philosophical voice before relying on AI to draft text; be transparent about AI use and responsible for every claim you submit.
 
 ## Links
