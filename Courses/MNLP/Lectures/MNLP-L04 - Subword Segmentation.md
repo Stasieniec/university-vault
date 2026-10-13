@@ -21,11 +21,11 @@ topics:
 # MNLP-L04: Subword Segmentation
 
 > [!abstract] In short
-> How can a model with a fixed vocabulary handle words it has never seen? Whole words turn every unseen word into `<UNK>`; single characters carry almost no meaning and make sequences long. The answer is a vocabulary of word pieces learned from frequency counts, at a size you choose.
+> How can a model with a fixed vocabulary handle words it has never seen? Whole words turn every unseen word into `<UNK>`. Single characters carry almost no meaning and make sequences long. The answer is a vocabulary of word pieces learned from frequency counts, at a size you choose.
 >
-> **BPE** builds it bottom-up, merging the most frequent adjacent pair. **WordPiece** merges too, but scores a pair against how common its parts are. **Unigram LM** works top-down, pruning a huge candidate list, and finds each word's most probable segmentation by dynamic programming, so it can also give alternatives. **SentencePiece** is the toolkit that runs BPE or Unigram LM on raw text with the space as a symbol; **byte-level BPE** starts from the 256 bytes, so nothing is out of vocabulary. Unigram LM's pieces are more morpheme-like, and that matters most outside English.
+> **BPE** builds it bottom-up by merging the most frequent adjacent pair. **Unigram LM** prunes a huge candidate list top-down and scores every segmentation of a word, so it can return the best one or alternatives. Its pieces are more morpheme-like, especially in English, but its downstream gain is small in English and large in Japanese. **SentencePiece** is a toolkit that runs either one on raw text. **Byte-level BPE** starts from the 256 bytes, so nothing is out of vocabulary.
 >
-> The sample exam has no question on this lecture. Expect statements on which method does what: merging up or pruning down, greedy or not, deterministic or not, and who pays for each choice.
+> The sample exam has no question on this lecture. Expect statements on which method does what: merging up or pruning down, greedy or not, deterministic or not, and which languages pay for each choice.
 
 ## The problem: a fixed vocabulary meets an open-ended language
 
@@ -35,7 +35,7 @@ Many word occurrences come from **word formation**: **inflection** (`tall`, `tal
 
 The two obvious vocabularies both fail:
 
-- **Whole words.** Translation systems carried 300,000 to 500,000 entries and still met unknown words, each of which becomes `<UNK>` (the unknown-word symbol): an unseen "Kyrgyzstan" leaves the president of France arriving somewhere unspecified. The embedding and output matrices are huge, and related forms share nothing.
+- **Whole words.** Systems carried 300,000 to 500,000 entries and still met unknown words, each becoming `<UNK>` (the unknown-word symbol): with "Kyrgyzstan" unseen, "The president of France arrived in Kyrgyzstan" becomes an arrival somewhere unspecified. The matrices are huge, and related forms share nothing.
 - **Single characters.** Almost nothing is unknown, but each symbol carries almost no meaning and sequences become long and slow.
 
 > [!definition] Subword
@@ -43,37 +43,37 @@ The two obvious vocabularies both fail:
 > - a **character n-gram** (a sequence of $n$ characters), or
 > - a **morphologically meaningful unit** (language dependent).
 
-A subword vocabulary sits between the extremes, at a size you set. **BPE is typically used with 30K to 128K merge operations**, the top of the range for multilingual models, since a vocabulary shared by many scripts needs more room.
+A subword vocabulary sits between the extremes: few unknown words and moderate sequence length, at a vocabulary size you set.
 
 ## Doing it by hand: finite-state transducers
 
-Historically, morphological analysers were hand-built **finite-state transducers (FSTs)**: states, with transitions that "digest" input and output a string (`a:x` reads `a`, writes `x`). The input is a morpheme, the output an analysis such as *1st person, noun, singular*.
+Historically, morphological analysers were hand-built **finite-state transducers (FSTs)**: states, with transitions that "digest" input and output a string (`a:x` reads `a`, writes `x`). The input is a morpheme (the smallest unit with meaning, see [[MNLP-L03 - Morphology and Word Formation|L03]]) and the output an analysis such as *1st person, noun, singular*.
 
 - **Strength:** a very powerful, efficient framework that handles cases and exceptions with great accuracy.
-- **Weaknesses:** **extremely laborious** to produce, **totally language dependent**, and given an ambiguous word they express **no preference** among its analyses (probabilistic FSTs, which do rank them, exist).
+- **Weaknesses:** **extremely laborious** to produce, **totally language dependent**, and given an ambiguous word they express **no preference** among its analyses. Probabilistic FSTs, which do rank the analyses, exist.
 
 For multilingual NLP the language dependence is fatal: one expert-built analyser per language does not scale.
 
 ## Learning segments from data: Morfessor and description length
 
-The alternative is to learn morphological regularities automatically from data. The first approach was **Morfessor** (Creutz and Lagus, 2002), based on the **Minimum Description Length (MDL)** principle, which adds up two costs:
+The alternative is to learn morphological regularities from data. The first approach was **Morfessor** (Creutz and Lagus, 2002), based on the **Minimum Description Length (MDL)** principle, which adds up two costs:
 
 - how much does it cost the model to **generate the data**?
 - how much does the **model itself** cost?
 
-Why this finds word pieces: whole words make the data cheap (one symbol per word) but the model enormous; characters make the model tiny but the data expensive. Minimising the sum favours pieces reused across many words, and the pieces a language reuses most are roughly its morphemes.
+Whole words make the data cheap but the model enormous; characters make the model tiny but the data expensive. Minimising the sum favours pieces reused across many words, roughly the morphemes.
 
-Current subword methods follow similar principles, with three deliberate simplifications:
+Current subword methods share Morfessor's aim, reusable pieces learned from unannotated data, with three simplifications:
 
 - they **do not label** the data in any way: a split, with no actual analysis;
 - they **do not account for character substitutions or deletions**, so `city`/`cities` or `run`/`ran` get no special treatment;
 - they are **strictly concatenative**: a word is exactly its pieces joined together.
 
-In return they need **no data annotation or linguistic knowledge**, and they **can be fitted to a desired vocabulary size** (computationally handy, since that size fixes the embedding and output layers). The three common methods, all based purely on frequencies, are **BPE** (Sennrich et al., 2016), **WordPiece** (Schuster and Nakajima, 2012) and **Unigram LM** (Kudo, 2018).
+In return they need **no data annotation or linguistic knowledge**, and they **can be fitted to a desired vocabulary size** (which fixes the embedding and output layers). The three common methods, all learned from frequency counts, are **BPE** (Sennrich et al., 2016), **WordPiece** (Schuster and Nakajima, 2012) and **Unigram LM** (Kudo, 2018).
 
 ## BPE: merge the most frequent pair, again and again
 
-Byte Pair Encoding (BPE) starts from characters and repeatedly fuses the most frequent pair of adjacent symbols into one new symbol. Frequent words end up as single symbols; rare words stay split into pieces that are themselves frequent.
+Byte Pair Encoding (BPE) starts from characters and repeatedly fuses the most frequent pair of adjacent symbols into one new symbol, so frequent words end up whole and rare words split into frequent pieces.
 
 > [!definition] BPE training
 > 1. **Split words into characters** (keep word boundaries) and collect frequencies.
@@ -82,114 +82,88 @@ Byte Pair Encoding (BPE) starts from characters and repeatedly fuses the most fr
 >
 > Stop when a maximum number of merge operations has been reached.
 
-The number of merges is the only hyperparameter, and it sets the final vocabulary size: the characters plus one new symbol per merge.
+The number of merges is the only hyperparameter, and it sets the final vocabulary size: the characters plus one new symbol per merge. **BPE is typically used with 30K to 128K merge operations**; multilingual models sit at the top of that range, because a vocabulary shared by many scripts needs more room.
 
-```pseudo
-Algorithm: Learn BPE merges (Sennrich et al., 2016)
-───────────────────────────────────────────────────
-Input:  word types with their frequencies, number of merges m
-Output: ordered merge list M
-
-for each word type w:
-    symbols(w) ← characters of w, then </w>
-M ← empty list
-repeat m times:
-    for each adjacent pair (a, b):
-        count(a, b) ← Σ over words w of freq(w) × (occurrences of a b in w)
-    (a*, b*) ← the pair with the highest count       // ties: implementation-specific
-    append (a*, b*) to M
-    in every word, replace adjacent a* b* by the single symbol a*b*
-return M
-```
-
-Training runs over **word types with their frequencies**, so it is cheap. Each word is counted on its own, so **no pair ever spans two words**. `</w>` marks the end of a word: word-final `est</w>` (*tallest*) differs from word-internal `est` (*establish*), which is what lets pieces be turned back into words.
+Training runs over **word types with their frequencies**, so it is cheap; a pair's count sums the frequencies of the words it occurs in. Each word is counted on its own, so **no pair ever spans two words**. Each word ends in an end-of-word marker `</w>`, so word-final `est</w>` (*tallest*) differs from word-internal `est` (*establish*), which is what lets pieces be turned back into words.
 
 > [!definition] BPE at inference time
 > Split the input into characters and **apply the merge operations in the same order they were learned**.
 
-So a trained BPE model is an **ordered list of merges**, replayed one after another on the word's characters plus `</w>`. The same word always gets the same pieces, whatever sentence it is in.
-
-A segmented sentence, with `@@` marking a piece that continues into the next one:
+A trained BPE model is this **ordered list of merges**, so the same word always gets the same pieces, whatever sentence it is in. A segmented sentence as Sennrich et al.'s system prints it:
 
 ```
-The president of France arrived in Kyrgyzstan .
-The preside@@ nt of France arr@@ ived in K@@ yrg@@ yz@@ stan .
+The preside@@ nt of France
+arr@@ ived in K@@ yrg@@ yz@@ stan .
 ```
 
-Frequent words stay whole. `preside|nt` and `arr|ived` are not morpheme boundaries, but the unseen `Kyrgyzstan` is now four known pieces, so the model can represent it at all. That is the trade: clean morphology for the ability to write down any word.
+`@@` marks a piece that continues into the next one. That is only how the output is displayed, `</w>` turned round (a piece without `@@` ends a word); the merges work with `</w>`. `preside|nt` and `arr|ived` are not morpheme boundaries, but the unseen `Kyrgyzstan` is now four known pieces. That is the trade: clean morphology for the ability to write down any word.
 
 ### A worked merge example
 
 Corpus: `the tall man is taller than the tallest man`. Word types: `the` 2, `tall` 1, `man` 2, `is` 1, `taller` 1, `than` 1, `tallest` 1, each split into characters plus `</w>` (`t a l l e r </w>`).
 
-**Count the pairs.** Six pairs tie at 3: `t+h` (2 from `the`, 1 from `than`), `t+a` (`tall`, `taller`, `tallest`; in `than` the `t` is followed by `h`), `a+l`, `l+l`, `a+n` (`man` twice, `than`) and `n+</w>`. `h+e`, `m+a` and `l+e` occur twice; `i+s`, `e+r` and `e+s` once.
+**Count the pairs.** Six pairs tie at 3: `t+h` (2 from `the`, 1 from `than`), `t+a` (`tall`, `taller`, `tallest`; in `than` the `t` is followed by `h`), `a+l`, `l+l`, `a+n` (`man` twice, `than`) and `n+</w>`. `h+e`, `e+</w>`, `m+a` and `l+e` occur twice; every other pair once.
 
 **Merge 1.** Breaking ties by the pair met first in the corpus gives `t+h → th`, so `the` becomes `th e </w>` and `than` becomes `th a n </w>`.
 
 **Merge 2.** Recount: `t+a` is now the first pair at 3, so `t+a → ta`. Continuing the same way, merges 3 to 10 are `ta+l`, `tal+l`, `a+n`, `an+</w>` (count 3 each), then `th+e`, `the+</w>`, `m+an</w>` and `tall+e` (count 2 each). The corpus ends as:
 
 ```
-the</w>  tall </w>  man</w>  i s </w>  talle r </w>
-th an</w>  the</w>  talle s t </w>  man</w>
+the</w>  tall </w>  man</w>
+i s </w>  talle r </w>  th an</w>
+the</w>  talle s t </w>  man</w>
 ```
 
 `the` and `man` became single symbols, as intended. But morphology says `tall+er` and `tall+est`, and BPE produced `talle+r` and `talle+s+t`: merging `tall+e` was the most frequent move at that point, it buried the morpheme boundary, and BPE never reconsiders a merge.
 
 ### What BPE bought in translation
 
-**BPE has three major advantages:** it **significantly reduces the vocabulary size** (less memory, better speed), it **results in better translation quality**, and it **significantly reduces the number of out-of-vocabulary (OOV) items**. **These benefits apply to both high- and low-resource language pairs.**
+BPE has three major advantages: a much smaller **vocabulary** (less memory, better speed), better **translation quality**, and far fewer **out-of-vocabulary (OOV)** items. These benefits apply to **both** high- and low-resource language pairs.
 
-In Sennrich et al.'s English to German experiment, the best scores came from subword systems with 60K to 90K entries (character bigrams and joint BPE) over word-level systems with 300K source and 500K target entries, though not every subword system beat the best word-level one. A word-level system with a dictionary fallback for unknown words clearly beat one that outputs `<UNK>`. **Joint BPE** learns one set of merges on both languages together, so a name is split the same way on both sides and is easy to copy. Scores are on the cheat sheet.
+In Sennrich et al.'s English to German experiments, the best neural systems used subwords (60K to 90K entries) and beat word-level systems (300K source, 500K target entries). Not every subword system won: **separate BPE** (merges per language) fell below the best word-level single model, and **joint BPE** (one set of merges for both languages) beat separate BPE; Sennrich et al.'s reason is that a name is then split the same way on both sides, so it is easy to copy. A **syntax-based statistical system** still beat every single neural model; only ensembles of 8 subword models beat it.
 
 ## WordPiece: the same merges, a different score
 
-WordPiece is only named in the lecture; this section is from outside the course material (Schuster and Nakajima, 2012, and common implementations). WordPiece builds its vocabulary like BPE, bottom-up by merging adjacent pairs, but picks **a different pair**: the one whose merge most increases the likelihood of the training data, computed as a ratio:
+The course only names WordPiece (Schuster and Nakajima, 2012); this section is from outside the course material. WordPiece builds its vocabulary like BPE, bottom-up by merging adjacent pairs, but scores a pair against how common its parts are:
 
 > [!formula] Merge criteria
-> $$\text{BPE:}\ \ \arg\max_{(a,b)} \text{count}(ab) \qquad \text{WordPiece:}\ \ \arg\max_{(a,b)} \frac{\text{count}(ab)}{\text{count}(a)\,\text{count}(b)}$$
+> $$\text{BPE:}\ \ \arg\max_{(a,b)} \text{count}(ab)$$
+> $$\text{WordPiece:}\ \ \arg\max_{(a,b)} \frac{\text{count}(ab)}{\text{count}(a)\,\text{count}(b)}$$
 >
 > where:
 > - $\text{count}(ab)$ is how often symbol $a$ is directly followed by symbol $b$
 > - $\text{count}(a)$, $\text{count}(b)$ are how often each symbol occurs in total
 
-The denominator is the whole difference. Two individually common symbols, like `t` and `h`, score low even when `th` is common, because seeing them together is no surprise. WordPiece prefers pairs whose parts **rarely occur apart** (the idea behind pointwise mutual information).
+The ratio measures how much more often $a$ and $b$ co-occur than if they were independent. Two individually common symbols, like `t` and `h`, score low even when `th` is common: WordPiece prefers pairs whose parts **rarely occur apart**.
 
 > [!example] First merge on the same corpus
-> Symbol counts in `the tall man is taller than the tallest man`: `t` 7, `a` 6, `l` 6, `e` 4, `h` 3, `n` 3, `m` 2, `s` 2, `i` 1, `r` 1, `</w>` 9.
+> Symbol counts: `t` 7, `a` 6, `l` 6, `e` 4, `h` 3, `n` 3, `m` 2, `s` 2, `i` 1, `r` 1, `</w>` 9.
 >
-> | pair | count | WordPiece score |
+> | pair | count | score |
 > |---|---|---|
-> | `t+h` | 3 | 3 / (7 × 3) = 0.14 |
-> | `a+n` | 3 | 3 / (6 × 3) = 0.17 |
-> | `l+l` | 3 | 3 / (6 × 6) = 0.08 |
-> | `e+r` | 1 | 1 / (4 × 1) = 0.25 |
-> | `i+s` | 1 | 1 / (1 × 2) = 0.50 |
+> | `t+h` | 3 | 3/21 = 0.14 |
+> | `a+n` | 3 | 3/18 = 0.17 |
+> | `e+r` | 1 | 1/4 = 0.25 |
+> | `i+s` | 1 | 1/2 = 0.50 |
 >
-> **BPE** merges `t+h` (highest count, first of the six tied at 3). **WordPiece** merges `i+s`: the pair occurs only once, but `i` never occurs anywhere else. Its second merge is `e+r` (0.25 after the recount), so WordPiece reaches the suffix `er` before it builds anything like `tall`.
+> **BPE** merges `t+h` (highest count, first of the six tied at 3). **WordPiece** merges `i+s`: it occurs once, but `i` occurs nowhere else. Its second merge is `e+r` (0.25, tied with `e+s` and met first), so WordPiece reaches the suffix `er` before it builds anything like `tall`.
 
-These counts use BPE's `</w>` convention so the two can be compared. Real WordPiece differs in two more ways:
+Like BPE, WordPiece merges greedily and gives each word one segmentation; it is BERT's tokenizer. Its vocabulary marks **continuation** (`play ##ing`), where BPE's training marks the **end of a word** with `</w>`. A new word is segmented by repeatedly taking the **longest matching vocabulary entry** from the left (more in [[MNLP-L06 - Contextual Embeddings|L06]]).
 
-- WordPiece marks **continuation**: `playing` becomes `play ##ing`, where `##` means "attaches to the piece before". BPE as given here marks the **end of a word** with `</w>`.
-- WordPiece keeps only the final vocabulary and segments a new word by repeatedly taking the **longest vocabulary entry that matches from the left**. BPE replays its ordered merges.
-
-WordPiece is BERT's tokenizer. Like BPE, it merges greedily and gives each word one segmentation.
-
-## What BPE cannot do, and Unigram LM
+## Unigram LM: prune down, score whole segmentations
 
 BPE has two structural limitations:
 
 - **greedy**: once a character sequence has been merged, it stays that way, so a locally best merge can block a better segmentation, as `tall+e` did;
 - **deterministic**: a word is always segmented the same way, so there is nothing to sample and no second-best option.
 
-**Unigram LM** (Kudo, 2018) addresses both. It is part of Google's **SentencePiece**, whose other part is BPE.
+**Unigram LM** (Kudo, 2018) addresses both. Google's **SentencePiece** toolkit implements it, alongside BPE.
 
 > [!definition] Unigram LM
 > - **considers all possible segmentations** of a word
 > - **optimizes for the best global segmentation**
 > - **supports multiple segmentations** (allowing sampling and n-best lists)
 > - is **top-down**: it **starts with an existing large vocabulary that is shrunk to the desired size**
-
-Top-down is the mirror image of BPE: BPE merges upward from characters until the vocabulary is big enough; Unigram LM prunes downward from far too many candidates until it is small enough.
 
 ### The model
 
@@ -202,47 +176,50 @@ where:
 - $p(x_i)$ is the probability of subword $x_i$
 - $S(X)$ is the set of all segmentations of $X$, and $\mathbf{x}^{\ast}$ is the most probable one
 
-This is what "global" means: BPE replays local decisions, while Unigram LM scores every complete segmentation and takes the best. Each extra piece multiplies in another probability below 1, so few probable pieces beat many.
+This is what "global" means: Unigram LM scores every complete segmentation and takes the best. Each extra piece multiplies in another probability below 1, so the model favours fewer pieces unless the pieces are much more probable, as in the `cats` example below.
 
 ### Building the vocabulary by pruning
 
 ```pseudo
-Algorithm 2: Unigram LM (Kudo, 2018), as given in MNLP
-──────────────────────────────────────────────────────
-Input: set of strings D, target vocab size k
-V ← all substrings occurring more than once in D (not crossing words)
-while |V| > k:                                     // prune tokens
+Unigram LM vocabulary (Kudo 2018),
+course version
+Input: strings D, target vocab size k
+V ← all substrings occurring more
+    than once in D (not crossing words)
+while |V| > k:
     fit unigram LM θ to D
-    for t ∈ V:                                     // estimate token 'loss'
-        L_t ← p_θ(D) − p_θ'(D),  θ' = the LM without token t
-    remove min(|V| − k, ⌊α|V|⌋) of the tokens t with highest L_t from V
-        (α ∈ [0,1] is a hyperparameter)
+    for t ∈ V:            // token 'loss'
+        L_t ← p_θ(D) − p_θ'(D)
+        (θ' = the LM without token t)
+    remove min(|V| − k, ⌊α|V|⌋)
+        tokens with the highest L_t
+        // Kudo: the smallest (box below)
+    (α ∈ [0,1] is a hyperparameter)
 fit final unigram LM θ to D
 return V, θ
 ```
 
-Reading it:
+> [!warning] Which tokens are removed: the course's rule and Kudo's
+> **What $L_t$ is.** $p_\theta(D)$ is the corpus likelihood with token $t$, $p_{\theta'}(D)$ without it, so $L_t$ is the likelihood **lost** by removing $t$: large for a token nothing else can express, small for one a cheap split can replace.
+>
+> **The course's rule** removes the tokens with the **highest** $L_t$: the ones whose removal hurts most.
+>
+> **Kudo's rule** (and SentencePiece's) is the opposite: remove the tokens with the **smallest** $L_t$, the ones the corpus misses least, and never remove single characters, so every string stays segmentable.
+>
+> The exam is set from the lecture, so a statement that copies the course's wording ("removes the tokens with the highest loss") is likely to be marked true. A statement about what Kudo's method or SentencePiece does follows Kudo.
 
-- **The start** is every substring that occurs more than once within a word: typically millions of candidates.
-- **Fitting** uses EM (expectation maximisation), because the segmentation of each string is hidden: expected counts of each subword over all segmentations, then renormalise them into probabilities.
-- **$L_t$** is how much the corpus likelihood drops if token $t$ is removed and the strings that used it are re-segmented. A token a cheap split can replace has a small $L_t$; one nothing else can express has a large one.
-- **Pruning is gradual**: at most a fraction $\alpha$ goes per round, then the model is refitted, because each $L_t$ assumed all other tokens stay.
-
-> [!warning] Which tokens are removed
-> As given in the course, the algorithm removes the tokens with the **highest** $L_t$. Removing a token cannot raise the likelihood, so $L_t \ge 0$, and a high $L_t$ marks a **valuable** token. Kudo's method, and SentencePiece, do the opposite: they **remove the tokens with the smallest $L_t$**, the ones the corpus misses least. Kudo also **never removes single characters**, so every string can still be segmented and pruning never creates unknown symbols.
+The start is every substring occurring more than once within a word, typically millions of candidates. Kudo fits the model with EM (expectation maximisation), since each string's segmentation is hidden. Pruning is gradual, at most a fraction $\alpha$ per round with a refit in between, because each $L_t$ assumed all other tokens stay.
 
 ## Finding the best segmentation: dynamic programming
 
-Unigram LM needs the most probable segmentation of each word, and trying them all is hopeless:
+Unigram LM needs the most probable segmentation of each word. The **brute-force approach**, generating and scoring every segmentation, is exponential in word length:
 
 > [!formula] Number of segmentations
 > A string of $n$ characters has $2^{n-1}$ possible segmentations: each of the $n-1$ gaps between characters is either a cut or not.
 
-The **brute-force approach** generates all of them, scores each and picks the best: exponential in word length. Any approach needs two ingredients: **scores for segments** (units that are not split further) and a way to **combine the scores of sub-segmentations**. In the unigram model these are $p(x)$ and multiplication.
+Any approach needs two ingredients: **scores for segments** (units that are not split further) and a way to **combine the scores of sub-segmentations**. In the unigram model these are $p(x)$ and multiplication.
 
-**Sequence cutting** is the same problem in the abstract: cut a sequence into segments to maximise total value. If pieces of length 1, 2, 3 and 4 are worth 1, 5, 8 and 9, a length-4 sequence is best cut `2+2` (value 10): it beats leaving it whole (9), `1+3` (9), any three pieces (7) and four single pieces (4). Neither extreme wins, and only comparing whole cuttings finds the best one.
-
-**Dynamic programming** avoids the exponential blow-up:
+**Sequence cutting** is the same problem in the abstract. If pieces of length 1, 2, 3 and 4 are worth 1, 5, 8 and 9, a length-4 sequence is best cut `2+2` (10), beating whole (9), `1+3` (9), three pieces (7) and four (4). Neither extreme wins, and complete cuttings have to be compared, which dynamic programming does without listing them all.
 
 > [!definition] Dynamic programming
 > - **Solve each sub-problem only once.**
@@ -250,21 +227,24 @@ The **brute-force approach** generates all of them, scores each and picks the be
 >
 > It uses extra memory to save time, a **time-memory trade-off**. Two strategies: **top-down with memoization** (recursion that caches each result) and **bottom-up** (fill a table from small sub-problems to large). **Both have the same asymptotic run time.**
 
-The segmentation algorithm is bottom-up. For a word with characters $c[1..n]$, cell $m[i,j]$ holds the score of the best segmentation of the span $c[i..j]$, and $s[i,j]$ records where that best segmentation splits the span (unset if the span is best kept whole):
+The segmentation algorithm is bottom-up. Cell $m[i,j]$ holds the score of the best segmentation of the span $c[i..j]$, and $s[i,j]$ where it splits (unset if the span is best kept whole):
 
 ```pseudo
-Input: word w (character string), probabilities p
-Output: segmentation s and subsegment costs
+Input: word w, probabilities p
+Output: split points s, best scores m
 n = length(w)
-let m[1..n,1..n] and s[1..n,1..n] be new tables
+let m[1..n,1..n], s[1..n,1..n] be tables
 let c[1..n] be the characters of w
 for i = 1 to n
-    m[i,i] = p(c[i])                  // single characters
-for l = 2 to n                        // span length, short to long
+    m[i,i] = p(c[i])
+for l = 2 to n          // span length
     for i = 1 to n-l+1
         j = i+l-1
-        m[i,j] = p(c[i:j])            // option 1: keep the span whole (0 if not in V)
-        for k = i to j-1              // option 2: split after position k
+        // option 1: keep span whole
+        // (0 if not in V)
+        m[i,j] = p(c[i:j])
+        // option 2: split after k
+        for k = i to j-1
             t = m[i,k] * m[k+1,j]
             if t > m[i,j]
                 m[i,j] = t
@@ -274,14 +254,14 @@ return m and s
 
 To read the answer out: if $s[1,n]$ is unset, the word is one piece; otherwise split at $k = s[1,n]$ and do the same for both halves.
 
-Combining the best scores of the two halves is valid **only because segments are independent** in the unigram model: the best cut of the left half does not depend on the right half. Filling by increasing length means both halves are finished before they are used. $O(n^2)$ cells with up to $n$ split points each give $O(n^3)$ time and $O(n^2)$ space. Real implementations add log probabilities, because long products underflow to zero.
+Combining the best scores of two halves is valid **only because segments are independent** in the unigram model: the best cut of the left half does not depend on the right. Filling by increasing length means both halves are finished first. $O(n^2)$ cells with up to $n$ split points each give $O(n^3)$ time and $O(n^2)$ space. Real implementations add log probabilities, because long products underflow to zero.
 
 > [!example] Segmenting `cats`
-> Say $p(\texttt{cats}) = .0001$, $p(\texttt{cat}) = .003$, $p(\texttt{s}) = .05$. The whole-word cell starts at .0001; the split after `cat` scores $.003 \times .05 = .00015$ and beats it and every other split, so the answer is **`cat | s`**. Two common pieces beat a rare whole word, which BPE cannot do once it has merged `cats`, and the morphologically right split appears only because plural `s` is frequent. The full table is in the exam questions.
+> Say $p(\texttt{cats}) = .0001$, $p(\texttt{cat}) = .003$, $p(\texttt{s}) = .05$. The split after `cat` scores $.003 \times .05 = .00015$, beating the whole word (the other splits use rarer pieces and score lower): **`cat | s`**. Two common pieces beat a rare whole word, which BPE cannot do once it has merged `cats`.
 
 ### More than one segmentation
 
-**The Viterbi segmentation** (the search above) **only returns the most probable segmentation.** For more, **Yen's and Eppstein's algorithms give n-best segmentations**, or you can **disallow certain sub-solutions** (forbid the winning split and search again). Because every segmentation has a probability, training can also sample a different segmentation each time a word is seen, so the model does not overfit to one arbitrary split (Kudo's subword regularization). BPE, being deterministic, has nothing to sample from.
+**The Viterbi segmentation** (the search above) **only returns the most probable segmentation.** For more, **Yen's and Eppstein's algorithms** (k-best-path algorithms, run on the graph of possible cuts) **give n-best segmentations**, or you can **disallow certain sub-solutions** (forbid the winning split and search again). Because every segmentation has a probability, training can also sample a different segmentation each time a word is seen, so the model does not overfit to one split (Kudo's subword regularization). BPE, being deterministic, has nothing to sample from.
 
 ## SentencePiece: segmenting raw text losslessly
 
@@ -294,7 +274,7 @@ Raw text:   Hello world.
 Tokenized:  [Hello] [world] [.]
 ```
 
-Should this become `Hello world .`, `Helloworld.` or `Hello world.`? The tokens do not record where the spaces were, so a detokenizer guesses with per-language rules. **Languages without clear word boundaries** make it worse: Japanese `[こんにちは] [世界] [。]` ("Hello world.") must be joined with no spaces, the opposite of the English rule.
+Should this become `Hello world .`, `Helloworld.` or `Hello world.`? The tokens do not record where the spaces were, so a detokenizer guesses with per-language rules. **Languages without clear word boundaries** make it worse: Japanese `[こんにちは] [世界] [。]` must be joined with no spaces.
 
 With the space kept as a symbol:
 
@@ -303,112 +283,110 @@ Raw text:   Hello▁world.
 Tokenized:  [Hello] [▁wor] [ld] [.]
 ```
 
-To desegment, join the pieces and turn `▁` back into a space. No rules or language knowledge are needed, and the original text comes back exactly, which is what **lossless** means. No language-specific pre-tokenizer is needed either.
+To desegment, join the pieces and turn `▁` back into a space: no rules, no language knowledge, and the original text comes back exactly, which is what **lossless** means. No language-specific pre-tokenizer is needed either. (Outside the course material: by default pieces still do not cross a space; the space is kept as `▁` instead of thrown away.)
 
 > [!warning] SentencePiece is a toolkit
 > SentencePiece implements **both** BPE and Unigram LM. What belongs to SentencePiece itself is the input handling: a raw stream including spaces, `▁` for the space, lossless desegmentation. "Trained with SentencePiece" does not say which algorithm was used.
 
 ## BPE against Unigram LM in practice
 
-Bostrom and Durrett (2020) trained both on the same data at the same vocabulary size, then pretrained identical models on each, so any difference comes from the tokenizer. Their examples (`▁` marks a word-initial piece):
+Bostrom and Durrett (2020) trained both on the same data at the same vocabulary size, then pretrained and fine-tuned identical language models on each, so any difference comes from the tokenizer. Their examples (`▁` is SentencePiece's escaped space, so it marks a word-initial piece):
 
 | word | BPE | Unigram LM |
 |---|---|---|
-| furiously | `▁fur iously` | `▁fur ious ly` |
 | tricycles | `▁t ric y cles` | `▁tri cycle s` |
 | nanotechnology | `▁n an ote chn ology` | `▁nano technology` |
 | corrupted | `▁cor rupted` | `▁corrupt ed` |
-| 1848 and 1852, | `▁184 8 ▁and ▁185 2,` | `▁1848 ▁and ▁1852 ,` |
+| 1848 | `▁184 8` | `▁1848` |
 
-Unigram LM finds real morpheme boundaries (`corrupt|ed`, `cycle|s`, `ious|ly`); BPE produces frequency artefacts, has no symbol for `nano` (its merges went to generic letter clusters), and splits years into a meaningless prefix plus a digit. In Japanese, BPE glues grammatical particles onto content words (は onto 性, に onto 分類); Unigram LM keeps them apart:
+Unigram LM finds real morpheme boundaries (`corrupt|ed`, `cycle|s`). BPE produces frequency artefacts: it splits `nanotechnology` into generic letter clusters with no `nano`, and splits years into a meaningless prefix plus a digit. In Japanese, BPE glues grammatical particles onto content words (は onto 性, に onto 分類); Unigram LM keeps them apart. For 磁性は様々に分類がなされている。 ("Magnetism is classified in various ways."):
 
-```
-Original     磁性は様々に分類がなされている。   ("Magnetism is classified in various ways.")
-BPE          磁 | 性は | 様々 | に分類 | がなされている | 。
-Unigram LM   磁 | 性 | は | 様々 | に | 分類 | がなされている | 。
-```
+- BPE: 磁 | 性は | 様々 | に分類 | がなされている | 。
+- Unigram LM: 磁 | 性 | は | 様々 | に | 分類 | がなされている | 。
 
 How the two vocabularies differ at the same size:
 
-- **The unigram LM produces longer segments on average**, in English and in Japanese. Both keep all single characters; BPE has more entries of length 3 to 5, Unigram LM more of length 7 and up.
-- **The unigram LM uses its vocabulary space more effectively, with more tokens of moderate frequency.** Ranked by use, the two look alike until the last few thousand entries, where BPE's frequencies collapse: BPE fills the bottom of its vocabulary with near-unused tokens, each still costing an embedding.
-- **Each over-produces something telling.** BPE has more **word-initial single capitals** (`▁H`, `▁K`), leftovers from capitalised words it could not merge. Unigram LM has more **suffixes and punctuation** (`s`, `ed`, `ing`, `ly`, `,`).
-- **Unigram LM needs slightly fewer tokens per word** in English, a difference of about 2%.
+- **The unigram LM produces longer segments on average**, in English and in Japanese. In English, BPE has more entries of length 3 to 5 and Unigram LM more of length 7 and up; in Japanese, BPE has more short entries (lengths 1 to 3) and Unigram LM more from length 4 up.
+- **In English, the unigram LM uses its vocabulary space more effectively, with more tokens of moderate frequency.** Ranked by use, the two look alike until the last few thousand entries, where BPE's frequencies collapse: BPE fills the bottom of its vocabulary with near-unused tokens, each still costing an embedding.
+- **What each over-produces** (English): BPE more **word-initial single capitals** (`▁H`, `▁K`), leftovers of capitalised words; Unigram LM more **suffixes and punctuation** (`s`, `ed`, `ing`, `ly`, `,`).
+- **Unigram LM needs slightly fewer tokens** per word (lower fertility, defined below) and per word type in English.
 
-**Against gold-standard segmentations** (CELEX2, a database of English morphology; MeCab, a standard Japanese segmenter), Unigram LM beats BPE on precision, recall and F1 in both languages, by far more in English. English recall is low for both, because neither looks for morphemes and frequent words stay whole (`walked` misses `walk|ed`).
+**Against gold-standard segmentations** (CELEX2 for English morpheme boundaries, MeCab for Japanese word boundaries), Unigram LM beats BPE on precision, recall and F1 in both languages, by far more in English. English recall is low for both, probably because frequent words stay whole (`walked` misses `walk|ed`).
 
-**Downstream**, with only the tokenizer changed, Unigram LM wins every task: by about a point on English (SQuAD question answering, MNLI inference, CoNLL named-entity recognition), by more than ten on **Japanese TyDi QA** (question answering). So the larger gold-standard gap (English) did not predict the larger downstream gap (Japanese): the tokenizer is nearly invisible in English benchmarks and can dominate outside them. Figures are on the cheat sheet.
+**Downstream**, with only the tokenizer changed, Unigram LM is ahead on every task, but on English only slightly: about a point on SQuAD (question answering) and MNLI matched (inference), and only a few tenths, within run-to-run noise, on MNLI mismatched and CoNLL named-entity recognition. On **Japanese TyDi QA** (question answering) it is ahead by more than ten points. So the larger gold-standard gap (English) did not predict the larger downstream gap (Japanese).
 
 ## The unknown words that remain: byte-level BPE
 
-**Handling low-frequency words (including zero-frequency, that is, OOV) is one of the main motivations for subword segmentation.** **BPE and Unigram have very low OOV rates**, but not zero:
+Handling low-frequency words (including zero-frequency, that is, OOV) is one of the main motivations for subword segmentation. BPE and Unigram have **very low** OOV rates, but not zero:
 
-- **typos can still sometimes cause OOVs**;
-- **unknown characters will result in OOVs**: the base vocabulary holds only characters seen in training, so an unseen emoji or script has nothing to fall back to.
+- **typos** can still sometimes cause OOVs;
+- **unknown characters** will result in OOVs: the base vocabulary holds only characters seen in training.
 
 > [!definition] Byte-level BPE: guaranteeing zero OOV rates
 > - **operate on raw UTF-8 bytes instead of Unicode characters**
 > - **the base alphabet is fixed at 256 symbols**, so any input, in any script, can always be represented
 > - **even unseen scripts can be encoded**, byte by byte, and then merged where patterns emerge
 
-From outside the course material: GPT-2 and many later decoder-only models use byte-level BPE.
+Training and inference are BPE's, run on bytes. (Outside the course material: GPT-2 and many later decoder-only models use it.)
 
-The cost lands on non-Latin scripts. UTF-8 uses one byte for an ASCII character, two for Latin letters with diacritics, Cyrillic or Greek, three for most Chinese, Japanese, Devanagari and Thai, and four for many emoji. So **non-Latin, non-ASCII scripts cost more bytes per character**, and **additional merge operations are required just to go from bytes back to characters, resulting in shorter subsegments** for those scripts. The cause is UTF-8's encoding length, nothing about the language itself.
+The cost lands on non-Latin scripts. UTF-8 uses one byte for an ASCII character and two to four for most others (three for most Chinese, Japanese, Devanagari and Thai). Non-Latin, non-ASCII scripts cost **more bytes per character**, so additional merge operations are required just to get from bytes back to characters, resulting in **shorter subsegments**: each piece covers fewer characters in those scripts. The cause is UTF-8's encoding length, nothing about the language itself.
 
 ## Fertility: what segmentation costs a language
 
 > [!definition] Fertility
 > **Fertility measures the average number of segments a word is split into:**
 > $$\text{fertility} = \frac{\text{number of subword tokens}}{\text{number of words}}$$
-> A fertility of 1 means every word is a single token; higher means more pieces per word.
+> A fertility of 1 means every word is a single token.
 
-**Fertility for a language is influenced by:**
+Fertility for a language is influenced by:
 
 - the **maximum number of merge operations** (BPE) or **target vocabulary size** (Unigram LM): a bigger vocabulary means fewer splits;
 - the **average length of the surface words** in the language;
 - **morphological richness**: how many combinations of affixes are possible.
 
-**Isolating, Latin-script languages typically see fertility close to 1 for common vocabulary words** (an isolating language has about one morpheme per word; see [[MNLP-L03 - Morphology and Word Formation|L03]]). Agglutinative languages such as Finnish or Turkish string many affixes into one word, so they have far more distinct, rarer word forms, each split further.
+**Isolating, Latin-script languages** typically see fertility **close to 1** for common vocabulary words (an isolating language has about one morpheme per word; see [[MNLP-L03 - Morphology and Word Formation|L03]]). Agglutinative languages such as Finnish or Turkish string many affixes into one word, so they have far more distinct, rarer word forms, each split further.
 
-High fertility costs a language in four ways:
+**No single tokenization scheme dominates across all languages and scripts**, so whichever vocabulary a multilingual model picks, some languages end up with high fertility. High fertility costs those languages in three ways:
 
-- **the model has to work harder** to reassemble a word's meaning from many small, less meaningful parts;
-- **no single tokenization scheme dominates across all languages and scripts**, so a shared vocabulary is a compromise for each language;
-- **commercial LLM APIs price by token count**, so **high-fertility languages pay more for the same amount of content**;
-- **fixed context windows fill up faster** for high-fertility languages.
+- the model **has to work harder** to reassemble a word's meaning from many small, less meaningful parts;
+- commercial LLM APIs **price by token count**, so high-fertility languages **pay more** for the same amount of content;
+- fixed **context windows fill up faster**.
 
 ## The methods side by side
 
-| | BPE | WordPiece | Unigram LM | byte-level BPE |
+| | builds | picks by | new word | input |
 |---|---|---|---|---|
-| builds vocabulary | bottom-up, merges | bottom-up, merges | top-down, prunes | bottom-up, merges |
-| picks by | pair count | count ratio | likelihood loss | pair count |
-| per word | one segmentation | one segmentation | best, n-best or sampled | one segmentation |
-| starts from | characters | characters | all frequent substrings | 256 bytes |
-| OOV left | unseen characters | unseen characters | unseen characters | none |
+| BPE | merges up | pair count | replays merges | split words |
+| WordPiece* | merges up | count ratio | longest match | split words |
+| Unigram LM | prunes down | likelihood loss | best, n-best or sampled | raw text (SentencePiece) |
+| byte BPE | merges up | pair count | replays merges | UTF-8 bytes |
 
-**Morfessor** came first: segments chosen by MDL (model cost plus data cost), no annotation. **SentencePiece** is the toolkit that runs BPE or Unigram LM on raw text with `▁` for the space.
+\* outside the course material.
+
+**Morfessor** came first: segments chosen by MDL from unannotated words. Its search and new-word segmentation are not in the course; outside it, Morfessor's baseline method searches top-down, recursively splitting words in two, and segments a new word by finding its most probable split under the learned model. **SentencePiece** runs BPE or Unigram LM on raw text with `▁` for the space.
 
 ## What to be able to answer
 
-- Why word and character vocabularies fail; FST weaknesses; MDL's two costs; the three simplifications and two gains (exam question on why subwords).
-- BPE training and inference, with a merge trace by hand (exam question on the `tall` corpus).
-- The WordPiece score: why it merges `i+s` where BPE merges `t+h` (exam question).
-- Unigram LM: the model, top-down pruning, which tokens go, single characters kept (exam question).
-- DP segmentation: $2^{n-1}$, the table, why independence makes it valid (exam question on `cats`).
-- SentencePiece: raw stream, `▁`, lossless, a toolkit for both algorithms.
-- Bostrom and Durrett: the direction of each comparison, and where the gap is large (exam question).
-- Byte-level BPE and fertility: who pays, and why (exam question).
+Each has a practice question below except SentencePiece.
+
+- Why word and character vocabularies fail; FSTs; MDL; the simplifications and gains of data-driven methods.
+- BPE training and inference, and a merge trace by hand.
+- WordPiece's score: why it merges `i+s` where BPE merges `t+h`.
+- Unigram LM: the model, pruning, the course's and Kudo's rules.
+- DP segmentation and the `cats` example.
+- SentencePiece: raw stream, `▁`, lossless, a toolkit.
+- Bostrom and Durrett: each direction, and where the gap is large.
+- Byte-level BPE and fertility: who pays, and why.
 
 ## Exam questions
 
 > [!exam]- Compare BPE and Unigram LM as subword segmentation methods: mechanism, segmentation quality and downstream effect.
-> **Key points:** BPE bottom-up, greedy, one segmentation per word; Unigram LM top-down likelihood pruning, global best, n-best and sampling; Unigram LM closer to gold segmentations, far more so in English; downstream about a point in English, much larger on Japanese TyDi QA; SentencePiece is the toolkit that implements both.
+> **Key points:** BPE bottom-up, greedy, one segmentation per word; Unigram LM top-down likelihood pruning, global best, n-best and sampling; Unigram LM closer to gold segmentations, far more so in English; downstream gains small in English (within noise on some tasks), large on Japanese TyDi QA; SentencePiece is the toolkit that implements both.
 >
-> 1. **Mechanism.** BPE (Sennrich et al., 2016) is **bottom-up**: start from characters and greedily merge the most frequent adjacent pair until the merge budget is spent. A merge is never undone, and each word has exactly one segmentation. Unigram LM (Kudo, 2018) is **top-down**: start from every substring occurring more than once, fit a unigram LM by EM, and prune the tokens whose removal costs the least likelihood until the target size $k$ is reached. It scores whole segmentations, $P(\mathbf{x}) = \prod_i p(x_i)$, takes the global best by dynamic programming, and can return n-best or sampled segmentations.
-> 2. **Segmentation quality** (Bostrom and Durrett, 2020, same data and same vocabulary size): Unigram LM has higher precision, recall and F1 than BPE against CELEX2 (English morphology) and MeCab (Japanese word segmentation), with a far larger gap in English. Unigram LM recovers suffixes (`ly`, `ed`, `s`); BPE over-produces word-initial single capitals and frequency artefacts such as `n|an|ote|chn|ology`.
-> 3. **Vocabulary use:** Unigram LM produces longer segments on average and uses its vocabulary more effectively, with more tokens of moderate frequency; BPE spends the bottom of its vocabulary on near-unused tokens.
-> 4. **Downstream** (identical pretraining and model, only the tokenizer differs): Unigram LM wins the English tasks by about a point and Japanese TyDi QA by more than ten. The larger gold-standard gap (English) does not predict the larger downstream gap (Japanese).
+> 1. **Mechanism.** BPE (Sennrich et al., 2016) is **bottom-up**: start from characters and greedily merge the most frequent adjacent pair until the merge budget is spent. A merge is never undone, and each word has exactly one segmentation. Unigram LM (Kudo, 2018) is **top-down**: start from every substring occurring more than once, fit a unigram LM by EM, and prune tokens until the target size $k$ is reached (Kudo removes those whose removal costs the least likelihood; the course's version says the highest loss). It scores whole segmentations, $P(\mathbf{x}) = \prod_i p(x_i)$, takes the global best by dynamic programming, and can return n-best or sampled segmentations.
+> 2. **Segmentation quality** (Bostrom and Durrett, 2020, same data and same vocabulary size): Unigram LM has higher precision, recall and F1 than BPE against CELEX2 (English morphology) and MeCab (Japanese word segmentation), with a far larger gap in English. Unigram LM recovers suffixes (`ed`, `s`); BPE over-produces word-initial single capitals and frequency artefacts such as `n|an|ote|chn|ology`.
+> 3. **Vocabulary use:** Unigram LM produces longer segments on average (English and Japanese) and, in English, uses its vocabulary more effectively, with more tokens of moderate frequency; BPE spends the bottom of its vocabulary on near-unused tokens.
+> 4. **Downstream** (identical pretraining and model, only the tokenizer differs): on English, Unigram LM is ahead by about a point on SQuAD and MNLI matched and only within noise on MNLI mismatched and CoNLL NER; on Japanese TyDi QA it is ahead by more than ten points. The larger gold-standard gap (English) does not predict the larger downstream gap (Japanese).
 >
 > Losing marks: calling SentencePiece the algorithm (it is the toolkit that implements both); reading the low absolute English recall as "tokenizers fail at English" when the point is the comparison between the methods.
 
@@ -417,7 +395,7 @@ High fertility costs a language in four ways:
 >
 > - The vocabulary is one of the main bottlenecks of training an NMT system. How well a word is represented depends on its **frequency** and on the **number of different contexts** it occurs in, both properties of the training corpus.
 > - Many word occurrences come from **word formation**: inflection (`tall`, `taller`, `tallest`) and compounding (`Donaudampfschifffahrtsgesellschaft`). A word-level vocabulary treats `tall` and `tallest` as unrelated entries.
-> - **Word-level:** 300K to 500K entries and still OOVs, huge embedding and output matrices, every unseen word collapses to `<UNK>` ("Kyrgyzstan" becomes an unspecified place).
+> - **Word-level:** 300K to 500K entries and still OOVs, huge embedding and output matrices, every unseen word collapses to `<UNK>` (an unseen "Kyrgyzstan" becomes an unspecified place).
 > - **Character-level:** near-zero OOV, but each symbol carries almost no meaning and sequences are long and slow.
 > - **Hand-built FSTs:** accurate and efficient, but extremely laborious, totally language dependent, and with no preference among ambiguous analyses, so they do not scale to many languages.
 > - **Subwords** (typically 30K to 128K merges): learned from frequencies with no annotation, vocabulary size tunable, near-zero OOV, moderate sequence length. The price is that pieces are not clean morphemes.
@@ -433,12 +411,12 @@ High fertility costs a language in four ways:
 >
 > Losing marks: counting `than` towards `t+a` (in `than` the `t` is followed by `h`).
 
-> [!exam]- On the same corpus, which pair does WordPiece merge first, and how does that differ from BPE? Show the computation.
+> [!exam]- On the corpus `the tall man is taller than the tallest man`, which pair does WordPiece merge first, and how does that differ from BPE? Show the computation.
 > **Key points:** WordPiece score count(ab) / (count(a) count(b)); symbol counts `t` 7, `h` 3, `i` 1, `s` 2, `e` 4, `r` 1; `t+h` scores 3/21, `i+s` scores 1/2; WordPiece merges `i+s`, BPE merges `t+h`; WordPiece prefers pairs whose parts rarely occur apart.
 >
 > 1. **BPE** merges the pair with the highest raw count. Six pairs tie at 3, and `t+h` is met first.
 > 2. **WordPiece** merges the pair with the highest $\frac{\text{count}(ab)}{\text{count}(a)\,\text{count}(b)}$. Symbol counts: `t` 7, `a` 6, `l` 6, `e` 4, `h` 3, `n` 3, `m` 2, `s` 2, `i` 1, `r` 1, `</w>` 9.
-> 3. Scores: `t+h` $3/(7 \cdot 3) \approx 0.14$; `a+n` $3/(6 \cdot 3) \approx 0.17$; `l+l` $3/36 \approx 0.08$; `e+r` $1/(4 \cdot 1) = 0.25$; `i+s` $1/(1 \cdot 2) = 0.5$. WordPiece merges **`i+s`**, then `e+r`.
+> 3. Scores: `t+h` $3/(7 \cdot 3) \approx 0.14$; `a+n` $3/(6 \cdot 3) \approx 0.17$; `l+l` $3/36 \approx 0.08$; `e+r` $1/(4 \cdot 1) = 0.25$; `i+s` $1/(1 \cdot 2) = 0.5$. WordPiece merges **`i+s`**, then `e+r` (0.25 after the recount, tied with `e+s` and met first).
 > 4. Comment: `i+s` occurs once, but `i` occurs nowhere else, so the pair is maximally "surprising". `t` and `h` are each common, so `th` scores low despite its count. WordPiece therefore reaches the suffix `er` before building `tall`; both methods remain greedy, bottom-up and deterministic.
 >
 > (WordPiece is only named in MNLP; the score is how common implementations compute its likelihood criterion.)
@@ -454,23 +432,24 @@ High fertility costs a language in four ways:
 > 6. **Points to make:** the rare whole word `cats` loses to two common pieces, which BPE cannot do once it has merged `cats`. The morphologically correct split appears without any morphology in the model, because plural `s` is frequent. Combining the best scores of two halves is valid only because the unigram model treats segments as independent.
 
 > [!exam]- Explain fertility and why one subword vocabulary serves languages unequally. Include byte-level BPE in your answer.
-> **Key points:** fertility = subword tokens / words; drivers: vocabulary size, word length, morphological richness; four consequences: reassembly, no universal scheme, API cost, context; byte-level BPE: zero OOV but multi-byte scripts get shorter subsegments, because of UTF-8 encoding length.
+> **Key points:** fertility = subword tokens / words; drivers: vocabulary size, word length, morphological richness; no single scheme dominates, so some languages get high fertility; three costs: reassembly, API cost, context; byte-level BPE: zero OOV but multi-byte scripts get shorter subsegments, because of UTF-8 encoding length.
 >
 > - **Fertility** = subword tokens / words, the average number of segments per word. 1 means every word is one token.
 > - **Drivers:** merge count or target vocabulary size (the one you control), average surface word length, morphological richness. Isolating Latin-script languages are close to 1 for common words; agglutinative languages (Finnish, Turkish) have many more, individually rarer word forms, which get split further.
-> - **Consequences:** (1) the model must reassemble meaning from many small parts; (2) no tokenization scheme dominates across all languages and scripts, so a shared vocabulary is a compromise for each language; (3) commercial APIs price by token, so high-fertility languages pay more for the same content; (4) fixed context windows fill up faster.
-> - **Byte-level BPE:** the 256-byte base alphabet guarantees zero OOV, but UTF-8 uses 1 byte for ASCII and 2 to 4 for other scripts (Cyrillic, CJK, Devanagari, emoji). Those scripts spend merges just getting from bytes back to characters and end up with shorter subsegments. The cause is encoding length, nothing about the language itself.
+> - **Why it is unequal:** no single tokenization scheme dominates across all languages and scripts, so whichever vocabulary a multilingual model picks, some languages get high fertility.
+> - **Costs of high fertility:** (1) the model must reassemble meaning from many small parts; (2) commercial APIs price by token, so high-fertility languages pay more for the same content; (3) fixed context windows fill up faster.
+> - **Byte-level BPE:** the 256-byte base alphabet guarantees zero OOV, but UTF-8 uses 1 byte for ASCII and 2 to 4 for most other characters (3 for most CJK, Devanagari and Thai). Those scripts spend merges just getting from bytes back to characters and end up with shorter subsegments, each covering fewer characters. The cause is encoding length, nothing about the language itself.
 
-> [!exam]- Walk through Kudo's (2018) Unigram LM vocabulary construction and correct the pruning rule in the version given in MNLP.
-> **Key points:** seed with all substrings occurring more than once, not crossing words; fit unigram LM by EM, segmentation latent; $L_t$ = likelihood drop without $t$; prune at most a fraction $\alpha$ per round, refit; correction: remove the smallest $L_t$, never prune single characters.
+> [!exam]- Walk through Unigram LM vocabulary construction, and compare the course's pruning rule with Kudo's (2018).
+> **Key points:** seed with all substrings occurring more than once, not crossing words; fit unigram LM (EM in Kudo's paper); $L_t$ = likelihood lost by removing $t$; prune at most a fraction $\alpha$ per round, refit; course: remove highest $L_t$; Kudo: remove smallest $L_t$, never single characters.
 >
 > 1. Seed $V$ with all substrings that occur more than once in $D$ and do not cross word boundaries (millions of candidates: the top-down start).
-> 2. While $|V| > k$: fit a unigram LM $\theta$ to $D$ by EM (segmentation is hidden: expected subword counts over all segmentations, then renormalise into $p(x)$).
-> 3. For each token $t$: $L_t = p_\theta(D) - p_{\theta'}(D)$, where $\theta'$ is the LM without $t$ and strings that used $t$ are re-segmented.
+> 2. While $|V| > k$: fit a unigram LM $\theta$ to $D$ (by EM in Kudo's paper, since each string's segmentation is hidden).
+> 3. For each token $t$: $L_t = p_\theta(D) - p_{\theta'}(D)$, where $\theta'$ is the LM without $t$. This is the likelihood lost by removing $t$: large for a token nothing else can express.
 > 4. Remove $\min(|V|-k, \lfloor\alpha|V|\rfloor)$ tokens, $\alpha \in [0,1]$ a hyperparameter, then refit. Pruning is gradual because each $L_t$ assumes all other tokens are still present.
 > 5. Fit the final unigram LM and return $V$ and $\theta$.
 >
-> **The error:** the version given in MNLP removes the tokens with the **highest** $L_t$. Removing a token cannot raise the likelihood, so $L_t \ge 0$ and a large $L_t$ marks a valuable token: taken literally the rule prunes the most useful pieces first. **Correct rule:** remove the tokens with the **smallest** $L_t$, which is Kudo's method and what SentencePiece implements. Kudo also never prunes **single-character tokens**, so every string stays segmentable.
+> **Which tokens go.** The course's version removes the tokens with the **highest** $L_t$, those whose removal hurts most. Kudo's method, and SentencePiece, remove those with the **smallest** $L_t$, the ones the corpus misses least, and never remove single characters, so every string stays segmentable. Since the exam is set from the lecture, a statement copying the course's wording is likely keyed true; a statement about Kudo's method or SentencePiece follows Kudo.
 
 ## Flashcards
 
@@ -484,12 +463,12 @@ High fertility costs a language in four ways:
 > A **character n-gram**, or a **morphologically meaningful unit** (language dependent).
 
 > [!card]- What happens to an unseen word under a word-level NMT vocabulary?
-> It collapses to **`<UNK>`**; related forms like `tall` and `tallest` share nothing either.
+> It collapses to **`<UNK>`**, the unknown-word symbol.
 
 > [!card]- Why is a character-level vocabulary a poor fix for OOV words, even though its OOV rate is near zero?
 > Each symbol carries almost **no meaning**, and sequences become **long and slow**.
 
-> [!card]- What is the typical size range of a BPE vocabulary today?
+> [!card]- How many merge operations is BPE typically trained with?
 > About **30K to 128K** merge operations.
 
 > [!card]- Why do multilingual models sit at the 128K end of the BPE range?
@@ -531,9 +510,6 @@ High fertility costs a language in four ways:
 > [!card]- What does BPE's end-of-word marker `</w>` let it distinguish?
 > **Word-final** pieces from word-internal ones, so pieces can be turned back into words.
 
-> [!card]- Is the `</w>` marker what stops BPE from merging pairs across two words?
-> **No.** Each word is counted on its own, so no pair ever spans two words.
-
 > [!card]- What does a trained BPE model consist of?
 > An **ordered list of merge operations**.
 
@@ -549,13 +525,19 @@ High fertility costs a language in four ways:
 > [!card]- Why does BPE trained on `the tall man is taller than the tallest man` end with `talle + r` where morphology says `tall + er`?
 > The greedy `tall + e` merge was locally most frequent and **buried the boundary**; BPE never undoes a merge.
 
-> [!card]- What are the three major advantages of BPE reported by Sennrich et al.?
+> [!card]- What three major advantages does BPE bring to NMT?
 > Smaller **vocabulary**, better **translation quality**, far fewer **OOV items**.
 
 > [!card]- In Sennrich et al.'s English to German NMT, how did 300K/500K word-level systems compare with 60K to 90K subword systems?
-> The best scores came from **subword** systems, despite their much **smaller vocabularies**.
+> The best **neural** scores came from **subword** systems, despite their much **smaller vocabularies**.
 
-> [!card]- Why does joint BPE, trained on both languages together, help translation?
+> [!card]- In Sennrich et al.'s English to German experiments, which was better: joint or separate BPE?
+> **Joint BPE**, one set of merges learned on both languages together.
+
+> [!card]- In Sennrich et al.'s experiments, did any single neural model beat the syntax-based statistical system?
+> **No.** Only ensembles of 8 subword models beat it.
+
+> [!card]- Why, according to Sennrich et al., does joint BPE help translation?
 > A string is **segmented identically on both sides**, which makes names easy to **copy**.
 
 > [!card]- Which segmentation method merges the pair maximising $\frac{\text{count}(ab)}{\text{count}(a)\,\text{count}(b)}$?
@@ -564,20 +546,17 @@ High fertility costs a language in four ways:
 > [!card]- What is the difference between BPE's and WordPiece's choice of which pair to merge?
 > BPE takes the highest **raw count**; WordPiece divides by the parts' counts, preferring parts that **rarely occur apart**.
 
-> [!card]- Why would WordPiece merge `t + h` less eagerly than BPE does?
-> `t` and `h` are each common, so the **denominator** shrinks the score of `th`.
-
-> [!card]- Which pair does WordPiece merge first on `the tall man is taller than the tallest man`?
-> **`i+s`**: it occurs once, but `i` occurs nowhere else, giving the top score.
-
 > [!card]- How does WordPiece segment a new word at inference?
 > By repeatedly taking the **longest vocabulary entry** matching from the left.
 
 > [!card]- Which well-known encoder model uses WordPiece as its tokenizer?
 > **BERT**.
 
-> [!card]- What is the difference between WordPiece's `##` and BPE's `</w>` markers?
-> WordPiece marks **continuation** (`##ing` attaches left); BPE marks **word end**.
+> [!card]- Which marker does BPE use during training, and which does WordPiece's vocabulary use?
+> BPE: `</w>` for **word end**. WordPiece: `##` for **continuation** (`##ing` attaches left).
+
+> [!card]- What does `@@` mark in BPE output such as `K@@ yrg@@ yz@@ stan`?
+> A piece that **continues** into the next; only a display convention, the merges use `</w>`.
 
 > [!card]- What are BPE's two structural limitations?
 > **Greedy** (a merge is never undone) and **deterministic** (one segmentation per word).
@@ -603,14 +582,17 @@ High fertility costs a language in four ways:
 > [!card]- Which method starts from all substrings occurring more than once and prunes them to the target size?
 > **Unigram LM**.
 
-> [!card]- How is the unigram LM fitted during Unigram LM vocabulary construction?
+> [!card]- In Kudo's paper, how is the unigram LM fitted during vocabulary construction?
 > By **EM**, with each string's segmentation as a **hidden variable**.
 
 > [!card]- What does the token loss $L_t$ measure in Unigram LM vocabulary construction?
 > How much **corpus likelihood drops** if token $t$ is removed and its strings are re-segmented.
 
-> [!card]- When pruning a Unigram LM vocabulary, should the tokens with the highest or the smallest loss $L_t$ be removed?
-> The **smallest** $L_t$. The version given in MNLP says highest, which would prune the most valuable tokens.
+> [!card]- Which tokens does the Unigram LM algorithm as given in Monz's lecture remove each round?
+> Those with the **highest** $L_t$: the ones whose removal loses most likelihood.
+
+> [!card]- Which tokens does Kudo's Unigram LM (and SentencePiece) remove each round?
+> Those with the **smallest** $L_t$: the ones the corpus misses least.
 
 > [!card]- Why does Unigram LM prune at most a fraction $\alpha$ of the vocabulary per round?
 > Each $L_t$ assumes all other tokens stay, so the model is **refitted** between rounds.
@@ -678,11 +660,11 @@ High fertility costs a language in four ways:
 > [!card]- How did Bostrom and Durrett make their BPE against Unigram LM comparison controlled?
 > **Same data, same vocabulary size**, identical pretraining and model; only the tokenizer differs.
 
-> [!card]- Which of BPE and Unigram LM finds real morpheme boundaries in words like `corrupted` and `furiously`?
-> **Unigram LM** (`corrupt|ed`, `ious|ly`); BPE produces **frequency artefacts**.
+> [!card]- Which of BPE and Unigram LM finds real morpheme boundaries in words like `corrupted` and `tricycles`?
+> **Unigram LM** (`corrupt|ed`, `cycle|s`); BPE produces **frequency artefacts**.
 
-> [!card]- Why does BPE have no symbol for `nano` in `nanotechnology`?
-> Its merges went to **generic frequent letter clusters**.
+> [!card]- How does BPE segment `nanotechnology`, compared with Unigram LM?
+> Into **generic letter clusters** with no `nano`; Unigram LM gives `nano` + `technology`.
 
 > [!card]- What goes wrong when BPE segments numbers such as years?
 > It splits them like `184` + `8`, a **meaningless prefix** plus a digit.
@@ -693,23 +675,20 @@ High fertility costs a language in four ways:
 > [!card]- At the same vocabulary size, which produces longer segments on average: BPE or Unigram LM?
 > **Unigram LM**, in both English and Japanese.
 
-> [!card]- How do BPE and Unigram LM differ in how they use the bottom of their vocabulary?
+> [!card]- In English, how do BPE and Unigram LM differ in how they use the bottom of their vocabulary?
 > BPE fills it with **near-unused tokens**; Unigram LM keeps **more tokens of moderate frequency**.
 
 > [!card]- Which extra tokens are characteristic of BPE versus Unigram LM in English?
 > BPE: **word-initial single capitals**; Unigram LM: **suffixes** like `s`, `ed`, `ing`, `ly`.
 
 > [!card]- Why are both tokenizers' recall scores against CELEX2 English morphology low?
-> Neither looks for morphemes, and frequent words **stay whole** (`walked` misses `walk|ed`).
+> Probably because frequent words **stay whole** (`walked` misses `walk|ed`).
 
 > [!card]- Where is Unigram LM's downstream advantage over BPE much larger: English tasks or Japanese TyDi QA?
 > **Japanese TyDi QA**; on English tasks it is small.
 
 > [!card]- Does a larger gold-standard F1 gap between tokenizers predict a larger downstream gap?
 > **No.** The F1 gap is larger in English, the downstream gap larger in Japanese.
-
-> [!card]- What is the multilingual moral of Bostrom and Durrett's tokenizer comparison?
-> The tokenizer is nearly **invisible in English** benchmarks and can **dominate outside** them.
 
 > [!card]- What two things can still cause OOVs under BPE or Unigram LM?
 > **Typos** (sometimes) and **unknown characters**.
@@ -721,9 +700,6 @@ High fertility costs a language in four ways:
 > It runs on **UTF-8 bytes**; the base alphabet is fixed at **256 symbols**.
 
 > [!card]- Which method starts from a fixed base alphabet of 256 symbols?
-> **Byte-level BPE**.
-
-> [!card]- Which segmentation variant do GPT-2 and many later decoder-only models use?
 > **Byte-level BPE**.
 
 > [!card]- Why does byte-level BPE give non-Latin scripts shorter subsegments?
@@ -741,13 +717,16 @@ High fertility costs a language in four ways:
 > [!card]- Why do agglutinative languages like Finnish or Turkish have high fertility?
 > They have many more distinct, **rarer word forms**, so each gets **split further**.
 
-> [!card]- What are the four consequences of high fertility for a language?
-> Harder **meaning reassembly**, no **universal scheme**, higher **API cost**, faster **context exhaustion**.
+> [!card]- What three costs does high fertility bring a language?
+> Harder **meaning reassembly**, higher **API cost**, faster **context exhaustion**.
+
+> [!card]- Why do some languages end up with high fertility under a shared multilingual vocabulary?
+> **No single tokenization scheme dominates** across all languages and scripts.
 
 > [!card]- Why do high-fertility languages pay more on commercial LLM APIs?
 > APIs **price by token**, and the same content takes **more tokens**.
 
-> [!card]- True or false: Unigram LM builds its vocabulary bottom-up by merging the most likely pairs.
+> [!card]- True or false: Unigram LM builds its vocabulary bottom-up.
 > **False.** It is top-down: it prunes a large seed vocabulary to the target size.
 
 > [!card]- True or false: WordPiece merges the most frequent adjacent pair at each step.
@@ -766,7 +745,7 @@ High fertility costs a language in four ways:
 > **False.** It supports multiple segmentations: n-best lists and sampling.
 
 > [!card]- True or false: In Unigram LM vocabulary construction, Kudo removes the tokens with the highest loss $L_t$.
-> **False.** The smallest $L_t$; a high $L_t$ marks a valuable token.
+> **False.** Kudo removes the smallest $L_t$; a high $L_t$ marks a valuable token. (Monz's version says highest.)
 
 > [!card]- True or false: Kudo's Unigram LM can prune single-character tokens.
 > **False.** Single characters are never pruned, so every string stays segmentable.
@@ -795,14 +774,17 @@ High fertility costs a language in four ways:
 > [!card]- True or false: At the same vocabulary size, Unigram LM produces longer segments on average than BPE.
 > **True.** In both English and Japanese.
 
+> [!card]- True or false: In Bostrom and Durrett's comparison, Unigram LM gained about a point on every English task.
+> **False.** About a point on SQuAD and MNLI matched; within noise on MNLI mismatched and CoNLL NER.
+
 > [!card]- Multiple selection: which are true of BPE? (A) It is greedy: a merge is never undone. (B) It can sample alternative segmentations of a word. (C) Its only hyperparameter is the number of merges. (D) It starts from a large vocabulary and prunes it.
 > **A and C.** B: BPE is deterministic. D: that is Unigram LM; BPE merges up from characters.
 
 > [!card]- Multiple selection: which are true of WordPiece? (A) It builds its vocabulary bottom-up by merging pairs. (B) It merges the pair with the highest raw count. (C) It prefers pairs whose parts rarely occur apart. (D) It prunes a large seed vocabulary.
 > **A and C.** B is BPE's criterion. D is Unigram LM.
 
-> [!card]- Multiple selection: which are true of Unigram LM? (A) It scores a segmentation as a product of subword probabilities. (B) It is deterministic, like BPE. (C) It fits its model by EM. (D) It removes the tokens whose removal costs the most likelihood.
-> **A and C.** B: it supports n-best and sampled segmentations. D: it removes those costing the least.
+> [!card]- Multiple selection: which are true of Unigram LM? (A) It scores a segmentation as a product of subword probabilities. (B) It is deterministic, like BPE. (C) It fits its model by EM. (D) In Kudo's method, it removes the tokens whose removal costs the most likelihood.
+> **A and C.** B: it supports n-best and sampled segmentations. D: Kudo removes those costing the least.
 
 > [!card]- Multiple selection: which are true of SentencePiece? (A) It is an algorithm distinct from BPE and Unigram LM. (B) It escapes the space as a visible symbol `▁`. (C) It requires a language-specific pre-tokenizer. (D) Its segmentation is lossless.
 > **B and D.** A: it is a toolkit implementing both. C: raw-stream input removes the pre-tokenizer.
@@ -810,11 +792,11 @@ High fertility costs a language in four ways:
 > [!card]- Multiple selection: which are true of byte-level BPE? (A) Its base alphabet has 256 symbols. (B) It cannot encode a script unseen in training. (C) Scripts with more bytes per character get shorter subsegments. (D) It operates on Unicode characters.
 > **A and C.** B: any script can be encoded byte by byte. D: it operates on raw UTF-8 bytes.
 
-> [!card]- Multiple selection: which are true of fertility? (A) It is subword tokens divided by words. (B) It depends only on the vocabulary size. (C) High fertility fills fixed context windows faster. (D) Agglutinative languages tend to have lower fertility than English.
+> [!card]- Multiple selection: which are true of fertility? (A) It is subword tokens divided by words. (B) It depends only on the vocabulary size. (C) High fertility fills fixed context windows faster. (D) Agglutinative languages tend to have lower fertility than isolating Latin-script languages.
 > **A and C.** B: word length and morphological richness matter too. D: their many rare word forms get split further.
 
 > [!card]- Multiple selection: which are true of Bostrom and Durrett's BPE against Unigram LM comparison? (A) Unigram LM wins English tasks by a large margin. (B) Unigram LM's advantage is much larger on Japanese TyDi QA. (C) Both tokenizers had the same vocabulary size. (D) BPE recovers more English morpheme boundaries.
-> **B and C.** A: about a point in English. D: Unigram LM has higher precision and recall against CELEX2.
+> **B and C.** A: the English gains are at most about a point. D: Unigram LM has higher precision and recall against CELEX2.
 
 ## Links
 
