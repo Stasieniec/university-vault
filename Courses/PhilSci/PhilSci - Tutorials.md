@@ -71,7 +71,7 @@ Internally by the difficulty of stating the verification criterion precisely, th
 
 > **How did later logical empiricism differ from early logical positivism?**
 
-It softened. Verification gave way to weaker confirmation, the demand that theoretical terms reduce to observation was relaxed, and the syntactic conception of theories gave way to the semantic one, on which a theory is a class of models rather than an axiomatised language.
+It softened. Verification gave way to weaker confirmation, and the demand that theoretical terms reduce to observation was relaxed: after meeting Tarski, Carnap accepted a full semantics, with theoretical terms only partially interpreted through correspondence rules. The semantic conception of theories (a theory as a class of models rather than an axiomatised language) came afterwards as a criticism of this syntactic picture, and was not logical empiricism's own next step.
 
 > **Popper: what makes a theory scientific? How does falsifiability relate to verificationism? Which is more accurate?**
 
@@ -412,7 +412,7 @@ For: it explains the historical variation (Newton, Huygens, Maxwell; Schrödinge
 > [!card]- How did later logical empiricism soften early logical positivism?
 > - Verification gave way to weaker **confirmation**
 > - Reduction of theoretical terms to observation **relaxed**
-> - **Syntactic** conception of theories gave way to the **semantic** one
+> - Carnap accepted a full **semantics** and **partial interpretation** of theoretical terms
 
 > [!card]- Why does Kuhn hold that cumulative acquisition of novelty is improbable in principle?
 > Novelty is what the paradigm does **not anticipate**, so it can only appear as an **anomaly**, which counts as a failure rather than a contribution.
