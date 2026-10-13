@@ -94,7 +94,7 @@ The other standard case is astronomy: Ptolemy's **geocentric** world-picture gav
 
 ## Why revolutions are necessary
 
-Kuhn asks two questions about revolutions. First, why can't new theories simply be added to the old ones? His answer: "cumulative acquisition of novelty is not only rare in fact but improbable in principle." The argument:
+Kuhn asks two questions about revolutions: why they are needed at all, and why they deserve the name. The first: why can't new theories simply be added to the old ones? His answer: "cumulative acquisition of novelty is not only rare in fact but improbable in principle." The argument:
 
 1. Normal science is cumulative, and it succeeds because scientists choose problems they can solve with concepts and instruments close to the ones they already have. It does not aim at novelty.
 2. So a genuine discovery can only arrive where the scientist's expectations about nature and instruments turn out wrong: as an anomaly.
@@ -112,7 +112,7 @@ So a new theory cannot simply be added to the old one. It comes from anomalies, 
 
 ## Why arguments between paradigms are circular
 
-Second question: why "revolution"? A political revolution changes institutions in ways those institutions themselves forbid, so normal political procedures cannot settle it, and the parties resort to mass persuasion. Likewise, the normal ways of evaluating a theory depend on a paradigm, and the paradigm is what is in dispute.
+The second: why "revolution"? A political revolution changes institutions in ways those institutions themselves forbid, so normal political procedures cannot settle it, and the parties resort to mass persuasion. Likewise, the normal ways of evaluating a theory depend on a paradigm, and the paradigm is what is in dispute.
 
 > [!quote] Kuhn
 > "Like the choice between competing political institutions, that between competing paradigms proves to be a choice between incompatible modes of community life."
@@ -129,7 +129,7 @@ The standard example is the **duck-rabbit**, a drawing that can be seen as a duc
 
 He makes the comparison for two reasons.
 
-1. **A revolution is a sudden, holistic shift.** The duck turns into a rabbit all at once, not feature by feature. Likewise a new paradigm makes scientists see the world in a different light as a whole, without a piecemeal accumulation of new facts. Kuhn compares the change to a **conversion experience** that logic alone cannot force. The suddenness is in each scientist's switch, which happens all at once or not at all (though not necessarily in an instant). Across the community the change is gradual, as scientists convert a few at a time.
+1. **A revolution is a sudden, holistic shift.** The duck turns into a rabbit all at once, not feature by feature. Likewise a new paradigm makes scientists see the world in a different light as a whole, without a piecemeal accumulation of new facts. Kuhn compares the change to a **conversion experience** that logic alone cannot force. The suddenness is in each scientist's switch, which happens all at once or not at all (though not necessarily in an instant). Across the community the change is gradual, as scientists convert a few at a time (Kuhn says this in a later chapter of SSR, outside the course reading).
 2. **It expresses his view of observation, taken from the Gestalt psychologists: observation is theory-laden.** What scientists see, and what they take their observations to show, depends on the paradigm they bring. After a revolution the same data are organised into a different whole.
 
 Two experiments support the second point, and a third complicates it.
@@ -200,7 +200,7 @@ Kuhn's values raise a bigger question: what role may values play in science at a
 - **Value relevance:** values may guide which research problems are chosen.
 - **Value freedom:** research must not present the researcher's own commitments as empirical conclusions; empirical claims are assessed by evidential standards.
 
-Behind this is the **fact-value distinction**: descriptive statements (how things are) versus normative ones (how they ought to be). The logical positivists agreed: value statements express subjective attitudes, so they cannot be true or false.
+Behind this is the **fact-value distinction**: descriptive statements (how things are) versus normative ones (how they ought to be). The logical positivists agreed: value statements express subjective attitudes, not propositions, so they cannot be true or false.
 
 This gives the **triptych model** of science, three panels side by side. Heather Douglas (a philosopher of science, below) calls it the **externality model**, because values are kept outside the middle panel.
 
@@ -258,7 +258,7 @@ Values do not thereby become **evidence** for the hypothesis: they do not make t
 
 ## Where values enter
 
-| Values... | Whose view | Role |
+| Values... | View | Role |
 |---|---|---|
 | set the agenda or applications | Value-free ideal | Outside research |
 | guide theory choice | Kuhn, weak ideal | Epistemic values inside |
@@ -277,6 +277,8 @@ The difference between the last two: for Douglas, values decide how much evidenc
 - The triptych and the weak value-free ideal.
 - Mock Q5: two or more individuals, critical emendation, surviving it, the four mechanisms; for depth, the four conditions.
 - Douglas versus Longino on where values enter.
+
+Full model answers for Q4 and Q5 are the first two exam questions below.
 
 ## Exam questions
 
@@ -423,7 +425,7 @@ The difference between the last two: for Douglas, values decide how much evidenc
 > The terms change meaning: Newtonian mass is **conserved**, Einsteinian mass is **convertible with energy**.
 
 > [!card]- Why does Kuhn call paradigm change a revolution?
-> Like a political revolution, it changes the framework in ways the **framework itself prohibits**, so normal procedures cannot decide it.
+> Like a political revolution, it cannot be settled by **normal procedures**, because those depend on the **paradigm in dispute**; so the sides turn to persuasion.
 
 > [!card]- Why are arguments in paradigm debates necessarily circular, for Kuhn?
 > Each side argues from **its own paradigm**, which supplies the standards for judging arguments.
@@ -435,7 +437,7 @@ The difference between the last two: for Douglas, values decide how much evidenc
 > The **assent of the relevant community**.
 
 > [!card]- Why does Kuhn compare a revolution to a Gestalt switch, as regards how the change happens?
-> A revolution is **sudden and holistic**, like a conversion, not a piecemeal accumulation of new facts.
+> Each scientist's switch is **sudden and holistic**, like a conversion, not a piecemeal accumulation of new facts.
 
 > [!card]- Which view of observation does Kuhn's Gestalt-switch comparison express?
 > Observation is **theory-laden**: what scientists see depends on the paradigm they bring to it.
