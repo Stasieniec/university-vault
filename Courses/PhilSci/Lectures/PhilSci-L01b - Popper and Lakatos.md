@@ -268,7 +268,7 @@ Full model answers for mock Q2 and Q3 are in the first two exam questions below.
 
 ## Exam questions
 
-> [!exam]- Mock exam Q2 (10 points): Imre Lakatos analyses the development of science in terms of "scientific research programmes". Describe the components of research programmes, and explain what, according to Lakatos, scientific progress consists in.
+> [!exam]- Mock exam Q2 (10 points, half a page): Imre Lakatos analyses the development of science in terms of "scientific research programmes". Describe the components of research programmes, and explain what, according to Lakatos, scientific progress consists in.
 > **Key points:** Hard core; protective belt of auxiliary hypotheses; positive heuristic; negative heuristic; progressive leads to new discoveries, degenerating only accommodates known facts.
 >
 > Follow the official key: "(1) Hard core; (2) protective belt with auxiliary hypotheses; (3) positive heuristic; (4) negative heuristic. Progressive programme: leads to new discoveries. Degenerating programme: only accommodates known facts."
@@ -282,7 +282,7 @@ Full model answers for mock Q2 and Q3 are in the first two exam questions below.
 >
 > Losing marks: calling the hard core unfalsifiable in principle (it is protected by decision), or treating every belt modification as ad hoc.
 
-> [!exam]- Mock exam Q3 (10 points): Popper praised Albert Einstein's theory of general relativity as a truly scientific theory, citing the example of Eddington's expedition. This expedition set out to measure the shift of a distant star during a solar eclipse. Einstein's theory states that large masses, like the sun, curve space-time. Thus, incoming light rays will follow a curved path around the sun and will appear in a different spot as seen from the earth. The theory makes a very precise prediction about this shift. In 1953, however, Einstein was asked how he would have responded to a measurement outcome that did not show this shift: "Then I am very sorry for the dear Lord [Eddington], for the theory is correct." Would, and-or could, this be acceptable for Popper? Explain your answer.
+> [!exam]- Mock exam Q3 (10 points, half a page): Popper praised Albert Einstein's theory of general relativity as a truly scientific theory, citing the example of Eddington's expedition. This expedition set out to measure the shift of a distant star during a solar eclipse. Einstein's theory states that large masses, like the sun, curve space-time. Thus, incoming light rays will follow a curved path around the sun and will appear in a different spot as seen from the earth. The theory makes a very precise prediction about this shift. In 1953, however, Einstein was asked how he would have responded to a measurement outcome that did *not* show this shift: "Then I am very sorry for the dear Lord [Eddington], for the theory is correct." Would, and-or could, this be acceptable for Popper? Explain your answer.
 > **Key points:** No, if the measurement was correct: theory falsified, Einstein dogmatic; perhaps the measurement was wrong; Duhem-Quine: blame can always go elsewhere; acceptable only with independent reasons for rejecting the measurement (no ad hoc hypothesis).
 >
 > Follow the official key:

@@ -129,7 +129,7 @@ The standard example is the **duck-rabbit**, a drawing that can be seen as a duc
 
 He makes the comparison for two reasons.
 
-1. **A revolution is a sudden, holistic shift.** The duck turns into a rabbit all at once, not feature by feature. Likewise a new paradigm makes scientists see the world in a different light as a whole, without a piecemeal accumulation of new facts. Kuhn compares the change to a **conversion experience** that logic alone cannot force. The suddenness is in each scientist's switch, which happens all at once or not at all (though not necessarily in an instant). Across the community the change is gradual, as scientists convert a few at a time (Kuhn says this in a later chapter of SSR, outside the course reading).
+1. **A revolution is a radical, sudden, holistic shift.** The duck turns into a rabbit all at once, not feature by feature. Likewise a new paradigm makes scientists see the world in a different light as a whole, without a piecemeal accumulation of new facts. Kuhn compares the change to a **conversion experience** that logic alone cannot force. The suddenness is in each scientist's switch, which happens all at once or not at all (though not necessarily in an instant). Across the community the change is gradual, as scientists convert a few at a time (Kuhn says this in a later chapter of SSR, outside the course reading).
 2. **It expresses his view of observation, taken from the Gestalt psychologists: observation is theory-laden.** What scientists see, and what they take their observations to show, depends on the paradigm they bring. After a revolution the same data are organised into a different whole.
 
 Two experiments support the second point, and a third complicates it.
@@ -235,10 +235,10 @@ Does that make science subjective? Longino says no, because objectivity is not a
 
 Each condition is necessary: a community that ignores criticism, or shuts qualified members out, falls short however careful its scientists are. And objectivity comes in **degrees**, depending on how deep and wide the critical scrutiny goes.
 
-Together, this is what Longino means by the **social character** of scientific knowledge. Knowledge becomes scientific through the participation of **two or more individuals**, in a process of **critical emendation** (correction) **and modification** of individual contributions. Each step of that process is transformative. A claim becomes scientific knowledge by **surviving** this process: once it has been criticised from several points of view and modified in response, it is freed from the subjective preferences of any one investigator. The social mechanisms that do this:
+Together, this is what Longino means by the **social character** of scientific knowledge. Knowledge becomes scientific through the participation of **two or more individuals**, in a process of **critical emendation** (correction) **and modification** of the individual processes. Each step of that process is transformative. A claim becomes scientific knowledge by **surviving** this process: once it has been criticised from several points of view and modified in response, it is free of the subjective preferences of any one investigator. The social mechanisms that do this:
 
 - **Replication** of experiments, with variations.
-- **Peer review**, which brings another point of view on the phenomena, so the authors' interpretation is checked for subjective preferences.
+- **Peer review**, which brings another point of view on the phenomena, so the authors interpret the phenomena free of subjective preferences.
 - **Treatment after publication**: others refine the new ideas and techniques.
 - **Absorption into the body of knowledge**: later citation, use and modification by others.
 
@@ -282,8 +282,8 @@ Full model answers for Q4 and Q5 are the first two exam questions below.
 
 ## Exam questions
 
-> [!exam]- Mock exam Q4: Thomas Kuhn compares scientific revolutions, which consist in a change of paradigm, to visual "Gestalt switches", in which "what were ducks in the scientists' world before the revolution are rabbits afterwards". Explain why Kuhn makes this comparison.
-> **Key points:** revolution is a sudden, holistic shift, like a conversion; observation is theory-laden (Gestalt-inspired); after a revolution the same data form a different whole; support with priming or playing-cards experiment; no theory-neutral observation language (incommensurability).
+> [!exam]- Mock exam Q4 (10 points, half a page): Thomas Kuhn compares scientific revolutions, which consist in a change of paradigm, to visual "Gestalt switches", in which "what were ducks in the scientists' world before the revolution are rabbits afterwards". Explain why Kuhn makes this comparison.
+> **Key points:** revolution is a radical, sudden, holistic shift, like a conversion; observation is theory-laden (Gestalt-inspired); after a revolution the same data form a different whole; support with priming or playing-cards experiment; no theory-neutral observation language (incommensurability).
 >
 > Follow the model answer (two reasons, both needed):
 > 1. **A revolution is a radical, sudden shift.** Like a conversion experience, it makes one see the world in a different light all at once, without piecemeal accumulation of new facts. The duck becomes a rabbit as a whole.
@@ -293,13 +293,13 @@ Full model answers for Q4 and Q5 are the first two exam questions below.
 >
 > Losing marks: giving only one of the two reasons.
 
-> [!exam]- Mock exam Q5: What does Helen Longino mean by the statement that objective scientific knowledge has a "social character"? How does something become "scientific knowledge"? Give some examples of social mechanisms that secure objectivity.
-> **Key points:** two or more individuals; critical emendation and modification, each step transformative; knowledge is what survives this, freed from subjective preferences; replication and peer review; treatment after publication and absorption into knowledge.
+> [!exam]- Mock exam Q5 (10 points, half a page): What does Helen Longino mean by the statement that objective scientific knowledge has a "social character"? How does something become "scientific knowledge"? Give some examples of social mechanisms that secure objectivity.
+> **Key points:** two or more individuals; critical emendation and modification of the individual processes, each step transformative; knowledge is what survives this, free of subjective preferences; replication and peer review; treatment after publication and absorption into knowledge.
 >
 > Follow the model answer:
-> 1. **Social character.** Knowledge becomes scientific through the participation of **two or more individuals**, in a process of **critical emendation and modification** of individual contributions. Each such step is transformative.
-> 2. **How something becomes scientific knowledge.** By surviving this process: a claim criticised from several points of view and modified in response is freed from the subjective preferences of any single investigator. Objectivity is a property of the community's practice.
-> 3. **Mechanisms:** **replication** of experiments with variations; **peer review**, which brings another point of view on the phenomena so the interpretation is freed from subjective preferences; **treatment after publication** (refining new ideas and techniques); **absorption into knowledge** (subsequent citation, use and modification by others).
+> 1. **Social character.** Knowledge becomes scientific through the participation of **two or more individuals**, in a process of **critical emendation and modification** of the individual processes. Each such step is transformative.
+> 2. **How something becomes scientific knowledge.** By surviving this process: a claim criticised from several points of view and modified in response is free of the subjective preferences of any single investigator. Objectivity is a property of the community's practice.
+> 3. **Mechanisms:** **replication** of experiments with variations; **peer review**, which brings another point of view on the phenomena so the interpretation is free of subjective preferences; **treatment after publication** (refining new ideas and techniques); **absorption into knowledge** (subsequent citation, use and modification by others).
 >
 > For depth: tie it to contextual empiricism (data support a hypothesis only against background assumptions, which may be value-laden, so an individual cannot guarantee objectivity alone) and list the four conditions for transformative criticism: recognised avenues for criticism, shared standards, responsiveness to criticism, equality of intellectual authority.
 

@@ -322,7 +322,7 @@ The model answer for mock Q7 is the first exam question below.
 
 ## Exam questions
 
-> [!exam]- Mock exam Q7: "Carl Hempel's "deductive-nomological model" for a long time was the "received view" of scientific explanation. Briefly summarize Hempel's model, and give at least one argument *against* the model's being a satisfactory account of scientific explanation." (half a page)
+> [!exam]- Mock exam Q7 (10 points, half a page): Carl Hempel's 'deductive-nomological model' for a long time was the "received view" of scientific explanation. Briefly summarize Hempel's model, and give at least one argument *against* the model's being a satisfactory account of scientific explanation.
 > **Key points:** explanandum deduced from general laws plus particular conditions; law used essentially, empirical content, explanans true; explanation and prediction symmetric; asymmetry objection (flagpole); barometer: correlation is not explanation.
 >
 > Follow the official key:

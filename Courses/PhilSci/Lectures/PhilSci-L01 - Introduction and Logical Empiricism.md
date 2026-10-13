@@ -253,8 +253,8 @@ The full model answer for mock Q1 is the first exam question below.
 
 ## Exam questions
 
-> [!exam]- Mock exam Q1: "Explain briefly the verifiability criterion of meaning, and its significance for the problem of demarcation." (10 points)
-> **Key points:** Meaningful (scientific) iff verifiable in principle by observation or experiment; meaning of a statement is its method of verification; unverifiable statements are pseudo-statements; theories made of them are pseudo-science; pseudo-science (like metaphysics) seems to say something but is literally meaningless.
+> [!exam]- Mock exam Q1: "Explain briefly the verifiability criterion of meaning, and its significance for the problem of demarcation." (10 points, half a page)
+> **Key points:** Meaningful (scientific) if verifiable in principle by observation or experiment; meaning of a statement is its method of verification; unverifiable statements are pseudo-statements; theories made of them are pseudo-science; pseudo-science (like metaphysics) seems to say something but is literally meaningless.
 >
 > Follow the official key:
 > 1. **The criterion.** A statement is meaningful (scientific) if it is verifiable: its truth can in principle be determined through observation or experiment. Slogan: "**the meaning of a statement is its method of verification**".
