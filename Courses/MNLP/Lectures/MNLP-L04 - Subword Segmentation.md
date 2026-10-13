@@ -120,7 +120,7 @@ the</w>  talle s t </w>  man</w>
 
 BPE has three major advantages: a much smaller **vocabulary** (less memory, better speed), better **translation quality**, and far fewer **out-of-vocabulary (OOV)** items. These benefits apply to **both** high- and low-resource language pairs.
 
-In Sennrich et al.'s English to German experiments, the best neural systems used subwords (60K to 90K entries) and beat word-level systems (300K source, 500K target entries). Not every subword system won: **separate BPE** (merges per language) fell below the best word-level single model, and **joint BPE** (one set of merges for both languages) beat separate BPE; Sennrich et al.'s reason is that a name is then split the same way on both sides, so it is easy to copy. A **syntax-based statistical system** still beat every single neural model; only ensembles of 8 subword models beat it.
+In Sennrich et al.'s English to German experiments, the best neural systems used subwords (60K to 90K entries) and beat word-level systems (300K source, 500K target entries). Not every subword system won: **separate BPE** (merges per language) fell below the best word-level single model, and **joint BPE** (one set of merges for both languages) beat separate BPE; Sennrich et al.'s reason (outside the course material): a name is then split the same way on both sides, so its pieces map one to one. A **syntax-based statistical system** still beat every single neural model; only ensembles of 8 subword models beat it.
 
 ## WordPiece: the same merges, a different score
 
@@ -193,20 +193,18 @@ while |V| > k:
         (θ' = the LM without token t)
     remove min(|V| − k, ⌊α|V|⌋)
         tokens with the highest L_t
-        // Kudo: the smallest (box below)
+        // Kudo's paper: smallest (box)
     (α ∈ [0,1] is a hyperparameter)
 fit final unigram LM θ to D
 return V, θ
 ```
 
-> [!warning] Which tokens are removed: the course's rule and Kudo's
+> [!warning] Which tokens are removed
 > **What $L_t$ is.** $p_\theta(D)$ is the corpus likelihood with token $t$, $p_{\theta'}(D)$ without it, so $L_t$ is the likelihood **lost** by removing $t$: large for a token nothing else can express, small for one a cheap split can replace.
 >
-> **The course's rule** removes the tokens with the **highest** $L_t$: the ones whose removal hurts most.
+> **The exam answer.** The algorithm, presented as "Unigram LM (Kudo, 2018)", removes the tokens with the **highest** $L_t$: the ones whose removal hurts most. Expect "highest $L_t$" to be keyed true whether a statement names Unigram LM, Kudo, SentencePiece or nobody.
 >
-> **Kudo's rule** (and SentencePiece's) is the opposite: remove the tokens with the **smallest** $L_t$, the ones the corpus misses least, and never remove single characters, so every string stays segmentable.
->
-> The exam is set from the lecture, so a statement that copies the course's wording ("removes the tokens with the highest loss") is likely to be marked true. A statement about what Kudo's method or SentencePiece does follows Kudo.
+> **Background, outside the course material.** Kudo's paper and SentencePiece's code do the reverse: they remove the tokens with the **smallest** $L_t$, the ones the corpus misses least, and never remove single characters, so every string stays segmentable. Know it, but do not expect it to be the key.
 
 The start is every substring occurring more than once within a word, typically millions of candidates. Kudo fits the model with EM (expectation maximisation), since each string's segmentation is hidden. Pruning is gradual, at most a fraction $\alpha$ per round with a refit in between, because each $L_t$ assumed all other tokens stay.
 
@@ -313,7 +311,7 @@ How the two vocabularies differ at the same size:
 
 **Against gold-standard segmentations** (CELEX2 for English morpheme boundaries, MeCab for Japanese word boundaries), Unigram LM beats BPE on precision, recall and F1 in both languages, by far more in English. English recall is low for both, probably because frequent words stay whole (`walked` misses `walk|ed`).
 
-**Downstream**, with only the tokenizer changed, Unigram LM is ahead on every task, but on English only slightly: about a point on SQuAD (question answering) and MNLI matched (inference), and only a few tenths, within run-to-run noise, on MNLI mismatched and CoNLL named-entity recognition. On **Japanese TyDi QA** (question answering) it is ahead by more than ten points. So the larger gold-standard gap (English) did not predict the larger downstream gap (Japanese).
+**Downstream**, with only the tokenizer changed, Unigram LM is ahead on every task, but on English only slightly: about a point on SQuAD (question answering) and MNLI matched (inference), and only a few tenths of a point on MNLI mismatched and CoNLL named-entity recognition. On **Japanese TyDi QA** (question answering) it is ahead by more than ten points. So the larger gold-standard gap (English) did not predict the larger downstream gap (Japanese).
 
 ## The unknown words that remain: byte-level BPE
 
@@ -356,12 +354,12 @@ Fertility for a language is influenced by:
 
 | | builds | picks by | new word | input |
 |---|---|---|---|---|
-| BPE | merges up | pair count | replays merges | split words |
+| BPE | merges up | pair count | replays merges | words or raw text† |
 | WordPiece* | merges up | count ratio | longest match | split words |
-| Unigram LM | prunes down | likelihood loss | best, n-best or sampled | raw text (SentencePiece) |
+| Unigram LM | prunes down | likelihood loss | best, n-best or sampled | words or raw text† |
 | byte BPE | merges up | pair count | replays merges | UTF-8 bytes |
 
-\* outside the course material.
+\* outside the course material. † raw text when run through SentencePiece.
 
 **Morfessor** came first: segments chosen by MDL from unannotated words. Its search and new-word segmentation are not in the course; outside it, Morfessor's baseline method searches top-down, recursively splitting words in two, and segments a new word by finding its most probable split under the learned model. **SentencePiece** runs BPE or Unigram LM on raw text with `▁` for the space.
 
@@ -381,12 +379,12 @@ Each has a practice question below except SentencePiece.
 ## Exam questions
 
 > [!exam]- Compare BPE and Unigram LM as subword segmentation methods: mechanism, segmentation quality and downstream effect.
-> **Key points:** BPE bottom-up, greedy, one segmentation per word; Unigram LM top-down likelihood pruning, global best, n-best and sampling; Unigram LM closer to gold segmentations, far more so in English; downstream gains small in English (within noise on some tasks), large on Japanese TyDi QA; SentencePiece is the toolkit that implements both.
+> **Key points:** BPE bottom-up, greedy, one segmentation per word; Unigram LM top-down likelihood pruning, global best, n-best and sampling; Unigram LM closer to gold segmentations, far more so in English; downstream gains small in English (a few tenths on some tasks), large on Japanese TyDi QA; SentencePiece is the toolkit that implements both.
 >
-> 1. **Mechanism.** BPE (Sennrich et al., 2016) is **bottom-up**: start from characters and greedily merge the most frequent adjacent pair until the merge budget is spent. A merge is never undone, and each word has exactly one segmentation. Unigram LM (Kudo, 2018) is **top-down**: start from every substring occurring more than once, fit a unigram LM by EM, and prune tokens until the target size $k$ is reached (Kudo removes those whose removal costs the least likelihood; the course's version says the highest loss). It scores whole segmentations, $P(\mathbf{x}) = \prod_i p(x_i)$, takes the global best by dynamic programming, and can return n-best or sampled segmentations.
+> 1. **Mechanism.** BPE (Sennrich et al., 2016) is **bottom-up**: start from characters and greedily merge the most frequent adjacent pair until the merge budget is spent. A merge is never undone, and each word has exactly one segmentation. Unigram LM (Kudo, 2018) is **top-down**: start from every substring occurring more than once, fit a unigram LM by EM, and prune tokens until the target size $k$ is reached (as given in MNLP, those with the highest loss $L_t$; Kudo's paper actually removes the smallest). It scores whole segmentations, $P(\mathbf{x}) = \prod_i p(x_i)$, takes the global best by dynamic programming, and can return n-best or sampled segmentations.
 > 2. **Segmentation quality** (Bostrom and Durrett, 2020, same data and same vocabulary size): Unigram LM has higher precision, recall and F1 than BPE against CELEX2 (English morphology) and MeCab (Japanese word segmentation), with a far larger gap in English. Unigram LM recovers suffixes (`ed`, `s`); BPE over-produces word-initial single capitals and frequency artefacts such as `n|an|ote|chn|ology`.
 > 3. **Vocabulary use:** Unigram LM produces longer segments on average (English and Japanese) and, in English, uses its vocabulary more effectively, with more tokens of moderate frequency; BPE spends the bottom of its vocabulary on near-unused tokens.
-> 4. **Downstream** (identical pretraining and model, only the tokenizer differs): on English, Unigram LM is ahead by about a point on SQuAD and MNLI matched and only within noise on MNLI mismatched and CoNLL NER; on Japanese TyDi QA it is ahead by more than ten points. The larger gold-standard gap (English) does not predict the larger downstream gap (Japanese).
+> 4. **Downstream** (identical pretraining and model, only the tokenizer differs): on English, Unigram LM is ahead by about a point on SQuAD and MNLI matched and by only a few tenths on MNLI mismatched and CoNLL NER; on Japanese TyDi QA it is ahead by more than ten points. The larger gold-standard gap (English) does not predict the larger downstream gap (Japanese).
 >
 > Losing marks: calling SentencePiece the algorithm (it is the toolkit that implements both); reading the low absolute English recall as "tokenizers fail at English" when the point is the comparison between the methods.
 
@@ -440,8 +438,8 @@ Each has a practice question below except SentencePiece.
 > - **Costs of high fertility:** (1) the model must reassemble meaning from many small parts; (2) commercial APIs price by token, so high-fertility languages pay more for the same content; (3) fixed context windows fill up faster.
 > - **Byte-level BPE:** the 256-byte base alphabet guarantees zero OOV, but UTF-8 uses 1 byte for ASCII and 2 to 4 for most other characters (3 for most CJK, Devanagari and Thai). Those scripts spend merges just getting from bytes back to characters and end up with shorter subsegments, each covering fewer characters. The cause is encoding length, nothing about the language itself.
 
-> [!exam]- Walk through Unigram LM vocabulary construction, and compare the course's pruning rule with Kudo's (2018).
-> **Key points:** seed with all substrings occurring more than once, not crossing words; fit unigram LM (EM in Kudo's paper); $L_t$ = likelihood lost by removing $t$; prune at most a fraction $\alpha$ per round, refit; course: remove highest $L_t$; Kudo: remove smallest $L_t$, never single characters.
+> [!exam]- Walk through Unigram LM vocabulary construction (Kudo, 2018). Which tokens are pruned each round?
+> **Key points:** seed with all substrings occurring more than once, not crossing words; fit unigram LM (EM in Kudo's paper); $L_t$ = likelihood lost by removing $t$; prune at most a fraction $\alpha$ per round, refit; MNLP (labelled Kudo 2018): remove the highest $L_t$; background: Kudo's paper removes the smallest and never single characters.
 >
 > 1. Seed $V$ with all substrings that occur more than once in $D$ and do not cross word boundaries (millions of candidates: the top-down start).
 > 2. While $|V| > k$: fit a unigram LM $\theta$ to $D$ (by EM in Kudo's paper, since each string's segmentation is hidden).
@@ -449,7 +447,7 @@ Each has a practice question below except SentencePiece.
 > 4. Remove $\min(|V|-k, \lfloor\alpha|V|\rfloor)$ tokens, $\alpha \in [0,1]$ a hyperparameter, then refit. Pruning is gradual because each $L_t$ assumes all other tokens are still present.
 > 5. Fit the final unigram LM and return $V$ and $\theta$.
 >
-> **Which tokens go.** The course's version removes the tokens with the **highest** $L_t$, those whose removal hurts most. Kudo's method, and SentencePiece, remove those with the **smallest** $L_t$, the ones the corpus misses least, and never remove single characters, so every string stays segmentable. Since the exam is set from the lecture, a statement copying the course's wording is likely keyed true; a statement about Kudo's method or SentencePiece follows Kudo.
+> **Which tokens go.** As given in MNLP, under the label "Unigram LM (Kudo, 2018)", the tokens with the **highest** $L_t$ are removed, those whose removal hurts most; expect that to be keyed true whether a statement names Unigram LM, Kudo, SentencePiece or nobody. Background, outside the course material: Kudo's paper and SentencePiece's code remove those with the **smallest** $L_t$ and never remove single characters, so every string stays segmentable.
 
 ## Flashcards
 
@@ -538,7 +536,7 @@ Each has a practice question below except SentencePiece.
 > **No.** Only ensembles of 8 subword models beat it.
 
 > [!card]- Why, according to Sennrich et al., does joint BPE help translation?
-> A string is **segmented identically on both sides**, which makes names easy to **copy**.
+> A name is **segmented identically on both sides**, so the pieces map one to one.
 
 > [!card]- Which segmentation method merges the pair maximising $\frac{\text{count}(ab)}{\text{count}(a)\,\text{count}(b)}$?
 > **WordPiece**.
@@ -591,13 +589,13 @@ Each has a practice question below except SentencePiece.
 > [!card]- Which tokens does the Unigram LM algorithm as given in Monz's lecture remove each round?
 > Those with the **highest** $L_t$: the ones whose removal loses most likelihood.
 
-> [!card]- Which tokens does Kudo's Unigram LM (and SentencePiece) remove each round?
-> Those with the **smallest** $L_t$: the ones the corpus misses least.
+> [!card]- Outside MNLP, which tokens do Kudo's paper and SentencePiece's code actually remove each round?
+> Those with the **smallest** $L_t$, the reverse of the MNLP algorithm.
 
 > [!card]- Why does Unigram LM prune at most a fraction $\alpha$ of the vocabulary per round?
 > Each $L_t$ assumes all other tokens stay, so the model is **refitted** between rounds.
 
-> [!card]- Why does Kudo's Unigram LM never prune single-character tokens?
+> [!card]- In Kudo's paper, why are single-character tokens never pruned?
 > So every string stays **segmentable** and pruning cannot create **OOVs**.
 
 > [!card]- How many segmentations does a string of $n$ characters have?
@@ -726,8 +724,8 @@ Each has a practice question below except SentencePiece.
 > [!card]- Why do high-fertility languages pay more on commercial LLM APIs?
 > APIs **price by token**, and the same content takes **more tokens**.
 
-> [!card]- True or false: Unigram LM builds its vocabulary bottom-up.
-> **False.** It is top-down: it prunes a large seed vocabulary to the target size.
+> [!card]- True or false: Unigram LM builds its vocabulary top-down, shrinking a large vocabulary to the desired size.
+> **True.** It prunes a large seed vocabulary to size $k$.
 
 > [!card]- True or false: WordPiece merges the most frequent adjacent pair at each step.
 > **False.** It divides the pair count by its parts' counts; BPE takes the most frequent pair.
@@ -744,10 +742,10 @@ Each has a practice question below except SentencePiece.
 > [!card]- True or false: Unigram LM returns only a single segmentation per word.
 > **False.** It supports multiple segmentations: n-best lists and sampling.
 
-> [!card]- True or false: In Unigram LM vocabulary construction, Kudo removes the tokens with the highest loss $L_t$.
-> **False.** Kudo removes the smallest $L_t$; a high $L_t$ marks a valuable token. (Monz's version says highest.)
+> [!card]- True or false: In Unigram LM vocabulary construction, the tokens with the highest loss $L_t$ are removed each round.
+> **True.** As the algorithm is given for MNLP (labelled Kudo 2018); Kudo's paper and SentencePiece's code remove the smallest.
 
-> [!card]- True or false: Kudo's Unigram LM can prune single-character tokens.
+> [!card]- True or false: In Kudo's paper, Unigram LM can prune single-character tokens.
 > **False.** Single characters are never pruned, so every string stays segmentable.
 
 > [!card]- True or false: DP segmentation under a unigram model is valid because segments are treated as independent.
@@ -762,8 +760,8 @@ Each has a practice question below except SentencePiece.
 > [!card]- True or false: The `</w>` end-of-word marker is what prevents BPE from merging pairs across two words.
 > **False.** Words are counted separately, so no pair spans two words; `</w>` marks word-final pieces.
 
-> [!card]- True or false: SentencePiece requires the input to be split into words first.
-> **False.** It treats the input as a raw stream of Unicode characters, including spaces.
+> [!card]- True or false: SentencePiece treats its input as a raw stream of Unicode characters, including spaces.
+> **True.** The space is escaped as `▁`.
 
 > [!card]- True or false: Byte-level BPE guarantees a zero OOV rate.
 > **True.** Its base alphabet is all 256 bytes.
@@ -775,7 +773,7 @@ Each has a practice question below except SentencePiece.
 > **True.** In both English and Japanese.
 
 > [!card]- True or false: In Bostrom and Durrett's comparison, Unigram LM gained about a point on every English task.
-> **False.** About a point on SQuAD and MNLI matched; within noise on MNLI mismatched and CoNLL NER.
+> **False.** About a point on SQuAD and MNLI matched; only a few tenths on MNLI mismatched and CoNLL NER.
 
 > [!card]- Multiple selection: which are true of BPE? (A) It is greedy: a merge is never undone. (B) It can sample alternative segmentations of a word. (C) Its only hyperparameter is the number of merges. (D) It starts from a large vocabulary and prunes it.
 > **A and C.** B: BPE is deterministic. D: that is Unigram LM; BPE merges up from characters.
@@ -783,8 +781,8 @@ Each has a practice question below except SentencePiece.
 > [!card]- Multiple selection: which are true of WordPiece? (A) It builds its vocabulary bottom-up by merging pairs. (B) It merges the pair with the highest raw count. (C) It prefers pairs whose parts rarely occur apart. (D) It prunes a large seed vocabulary.
 > **A and C.** B is BPE's criterion. D is Unigram LM.
 
-> [!card]- Multiple selection: which are true of Unigram LM? (A) It scores a segmentation as a product of subword probabilities. (B) It is deterministic, like BPE. (C) It fits its model by EM. (D) In Kudo's method, it removes the tokens whose removal costs the most likelihood.
-> **A and C.** B: it supports n-best and sampled segmentations. D: Kudo removes those costing the least.
+> [!card]- Multiple selection: which are true of Unigram LM? (A) It scores a segmentation as a product of subword probabilities. (B) It is deterministic, like BPE. (C) It fits its model by EM. (D) It merges the most frequent adjacent pair.
+> **A and C.** B: it supports n-best and sampled segmentations. D: that is BPE.
 
 > [!card]- Multiple selection: which are true of SentencePiece? (A) It is an algorithm distinct from BPE and Unigram LM. (B) It escapes the space as a visible symbol `▁`. (C) It requires a language-specific pre-tokenizer. (D) Its segmentation is lossless.
 > **B and D.** A: it is a toolkit implementing both. C: raw-stream input removes the pre-tokenizer.
