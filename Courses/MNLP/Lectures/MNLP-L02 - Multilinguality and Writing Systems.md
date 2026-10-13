@@ -49,7 +49,7 @@ There are **over 7,000 spoken languages**. Most have few speakers, but more than
 
 **Medium resource:** limited labelled data, reasonable unlabelled data, some tools. German, Italian, Dutch, Korean, Japanese.
 
-**Low resource:** no labelled data, limited unlabelled data, no tools. All of the roughly 7,000 remaining languages, which includes most of the languages with over ten million speakers.
+**Low resource:** no labelled data, limited unlabelled data, no tools. All of the roughly 7,000 remaining languages, which, on these tiers, includes most of the 100+ languages with over ten million speakers.
 
 ## Languages differ in ways English hides
 
@@ -134,13 +134,11 @@ One practical difference for NLP is inventory size: an alphabet has tens of symb
 | Arabic | كتب | ktb |
 | Korean | 한글 | Hangul |
 
-**Latin** spells sounds with letters (alphabetic), and **Han** uses one symbol per morpheme (logographic). Two of the examples do not fit one of the three types cleanly:
+**Latin** spells sounds with letters and **Korean Hangul** is alphabetic too (each letter a consonant or vowel), with **letter shapes that encode articulatory features** (how the sound is produced); **Han** uses one symbol per morpheme (logographic). Devanagari and Arabic fit none of the three types cleanly:
 
-**Devanagari** (Hindi) is **alphasyllabic**, between alphabetic and syllabic: each consonant letter carries a built-in vowel, which an attached vowel sign can replace, so पानी is two units, *pā* + *nī*.
+**Devanagari** (Hindi) is **alphasyllabic**: each consonant letter carries an **inherent vowel**. (Outside the course material: an attached vowel sign can replace it, so पानी is two units, *pā* + *nī*.)
 
 **Arabic** writes the **consonant root only; vowels are omitted**: letters for sounds, but only the consonants. In examples from outside the course material, كتب (k-t-b, "write") can be read *kataba* ("he wrote"), *kutiba* ("it was written") or *kutub* ("books"). The writing is lossier than the language, so the model must resolve the ambiguity from context; no tokenizer can recover vowels that were never written.
-
-**Korean Hangul** is alphabetic (each letter a consonant or vowel), and its **letter shapes encode articulatory features** (how the sound is produced).
 
 A single Japanese sentence can mix three systems: in アムステルダムはオランダの首都です ("Amsterdam is the capital of the Netherlands"), the names are Katakana, 首都 ("capital") is Kanji, the rest Hiragana.
 
@@ -175,7 +173,7 @@ Two disadvantages:
 - **Gibberish when text encoded in one script is decoded in another.** The bytes are often legal in both tables, so usually no error is raised (the result is called mojibake, a term from outside the course material).
 - **No mixing of scripts in one document**, since a document is read with one table.
 
-## Unicode: one number per codepoint
+## Unicode: one number per encoded character
 
 > [!definition] Unicode and codepoints
 > **Unicode** is a **single, universal character set**, maintained by the Unicode Consortium. Every character it encodes, in every supported script, gets **exactly one unique number**, its **codepoint**, written `U+number` in hexadecimal: `U+0041` is Latin "A", `U+4E2D` is the Han character 中. What a reader sees as one character can be a sequence of several codepoints (next section).
@@ -183,14 +181,14 @@ Two disadvantages:
 One code space for every script removes both code-page problems: no table to guess, and one document can mix any scripts.
 
 - **Unicode defines meaning, not bytes.** A codepoint is an abstract identifier for a character. How to store it as bytes on disk or in memory is a separate encoding question, answered by UTF-8, UTF-16 or UTF-32.
-- **Unicode is a superset of ASCII:** `U+0000` to `U+007F` are identical to ASCII. So an English-only ASCII or Latin-1 file is already valid UTF-8.
+- **Unicode is a superset of ASCII:** `U+0000` to `U+007F` are identical to ASCII. So a pure ASCII file is already valid UTF-8 (UTF-8 keeps ASCII's bytes). A Latin-1 file with accented letters is not: Latin-1 stores é as the single byte E9, which UTF-8 rejects.
 
 **Scale.** The code space runs from `U+0000` to `U+10FFFF`, over 1.1 million possible codepoints, in **17 planes of $2^{16} = 65{,}536$ codepoints each**:
 
 - **Plane 0, the Basic Multilingual Plane** (BMP): most modern languages, including the most common CJK (Chinese, Japanese, Korean) ideographs.
-- **Plane 1:** historic scripts, symbols such as musical notation, **emoji**.
+- **Plane 1:** historic scripts, some modern scripts, symbols such as musical notation, **emoji**.
 - **Planes 2 and 3:** more CJK ideographs, mostly historical or rare, so not every CJK character is in the BMP.
-- **Plane 14:** tags and variation selectors; **planes 15 and 16:** private use; planes 4 to 13 unassigned.
+- **Plane 14:** tags and variation selectors; **planes 15 and 16:** private use (plane 0 also has a private use area); planes 4 to 13 unassigned.
 
 ## Codepoint, character, glyph
 
@@ -238,7 +236,7 @@ So a codepoint is always one number, and one perceived character is one or more 
 
 Why: for analysis, merging variants helps (the ligature ﬁ should match "fi" in a search index, ① should count as 1). For generation it can hurt: a model trained on NFKD targets never sees, and so cannot produce, the characters that were folded away.
 
-For an equality check, what matters is that both strings get the same canonical form: NFD makes the two "café" strings identical, and so does NFC (decompose, then compose again).
+Outside the course material: for a plain equality check NFC works too, because NFD and NFC agree on which strings are equivalent. The course's rule for comparing rendered text is NFD.
 
 ### Normalizing crawled data
 
@@ -246,7 +244,7 @@ For an equality check, what matters is that both strings get the same canonical 
 
 Many preprocessing steps **assume identical codepoint sequences**: **deduplication**, **search**, **string equality and prefix matching**. Without proper normalization they become **inaccurate**, silently: deduplication keeps two copies that differ only in normalization form.
 
-**The easy fix: always perform consistent normalization as part of the pipeline**, for example first decompose and then compose, which ends in NFC. In Python, the `unicodedata` module can **normalize** a string into a given form and **test** whether it is already in one:
+**The easy fix: always perform consistent normalization as part of the pipeline**, for example first decompose and then compose (canonical decomposition then composition ends in NFC). In Python, the `unicodedata` module can **normalize** a string into a given form and **test** whether it is already in one:
 
 ```python
 import unicodedata as ud
@@ -417,19 +415,19 @@ Unicode gives every character a **general category** (letter, number, punctuatio
 >
 > - Most resources are in English: annotated data, unannotated data, toolkit coverage (dictionaries, analyzers), benchmarks. Most publications also focus on English.
 > - Non-English resources arise mostly as **by-products** (translations, product reviews) or as **translations of English annotated resources** (so the annotation scheme stays English-shaped), less so as dedicated efforts.
-> - Coverage tracks **commercial interest and military relevance**, not speaker numbers. Over 7,000 languages exist. The high-resource tier is English and Mandarin, then, after a big gap, French, Spanish, Arabic and Russian. German, Italian, Dutch, Korean and Japanese are medium resource. The rest are low resource, including most languages with over ten million speakers.
+> - Coverage tracks **commercial interest and military relevance**, not speaker numbers. Over 7,000 languages exist. The high-resource tier is English and Mandarin, then, after a big gap, French, Spanish, Arabic and Russian. German, Italian, Dutch, Korean and Japanese are medium resource. The rest are low resource, which on these tiers includes most languages with over ten million speakers.
 > - Standard pipelines encode properties of English (whitespace tokenization, fixed word order, closed vocabularies) as if they were properties of language.
 > - "Language independent" claims are usually untested outside English or a very small set of languages.
 > - The bias is understandable, since resource creation costs time and money.
 
 > [!exam]- Compare alphabetic, syllabic and logographic writing systems and explain what each, plus the Devanagari, Arabic and Hangul cases, implies for NLP.
-> **Key points:** alphabetic: sounds, small inventory; syllabic: whole syllables; logographic: words or morphemes, thousands of symbols; Devanagari alphasyllabic, between alphabetic and syllabic; Arabic writes the consonant root and omits vowels, so the model must disambiguate; Hangul letter shapes encode articulation.
+> **Key points:** alphabetic: sounds, small inventory; syllabic: whole syllables; logographic: words or morphemes, thousands of symbols; Devanagari alphasyllabic (consonant + inherent vowel); Arabic writes the consonant root and omits vowels, so the model must disambiguate; Hangul letter shapes encode articulation.
 >
 > - **Alphabetic:** each symbol is a consonant or vowel sound, small inventory (Latin, Cyrillic, Hangul).
 > - **Syllabic:** each symbol is a whole syllable (Hiragana, Katakana).
 > - **Logographic:** each symbol is a word or morpheme directly, little sound information (Chinese Hanzi, Japanese Kanji).
 > - **Inventory size** sets the cost of a character: tens of symbols for an alphabet, thousands for a logographic script, which a character-level vocabulary must budget for.
-> - **Devanagari** is alphasyllabic, between alphabetic and syllabic: a consonant letter carries an inherent vowel that a vowel sign can replace.
+> - **Devanagari** is alphasyllabic: a consonant letter carries an inherent vowel.
 > - **Arabic** writes the consonant root and omits vowels, so one written form can stand for several words (كتب can be read *kataba*, *kutiba* or *kutub*, examples from outside the course material). The writing is lossier than the language and the model must resolve the ambiguity from context. No tokenizer can recover vowels that were never written.
 > - **Hangul** is alphabetic, and its letter shapes encode articulatory features.
 
@@ -447,10 +445,10 @@ Unicode gives every character a **general category** (letter, number, punctuatio
 > **Key points:** canonical lossless, compatibility lossy; NFD for comparing rendered text; NFKD for search indexing and analysis; NFKD not necessarily for generation; normalize consistently.
 >
 > - The four forms form a grid: canonical (lossless) NFC and NFD; compatibility (lossy) NFKC and NFKD; composed (C) against decomposed (D).
-> - **Comparing rendered text:** NFD, which splits into base characters plus combining marks and preserves semantic and visual equivalence. It is non-lossy, so you can decompose and recompose. For an equality check, NFC works as well, as long as both strings get the same form.
+> - **Comparing rendered text:** NFD, which splits into base characters plus combining marks and preserves semantic and visual equivalence. It is non-lossy, so you can decompose and recompose. (Outside the course material: NFC also gives a valid equality check, but the expected answer is NFD.)
 > - **Search indexing or NLP analysis:** NFKD. Its lossiness helps: the ligature ﬁ and the pair fi become the same, ① becomes 1.
 > - **Generation:** NFKD is not necessarily suitable. A model trained on NFKD targets never sees, so cannot produce, the folded-away characters (for example the long s ſ becomes plain s).
-> - Whatever you choose, apply it consistently in the pipeline (for example decompose then compose, which ends in NFC), otherwise dedup, search and equality checks are silently inaccurate.
+> - Whatever you choose, apply it consistently in the pipeline (for example canonical decomposition then composition, which ends in NFC), otherwise dedup, search and equality checks are silently inaccurate.
 >
 > Losing marks: getting the analysis against generation rule backwards, or claiming NFKD is reversible.
 
@@ -477,7 +475,7 @@ Unicode gives every character a **general category** (letter, number, punctuatio
 > **Commercial interest** and **military relevance**.
 
 > [!card]- Is speaker count a good predictor of how well a language is resourced for NLP?
-> **No.** Coverage follows commercial and military interest; most languages with over ten million speakers are low resource.
+> **No.** Coverage follows commercial and military interest; on Monz's tiers most languages with over ten million speakers are low resource.
 
 > [!card]- Which languages make up Monz's high-resource tier?
 > English and Mandarin, then after a **big gap** French, Spanish, Arabic, Russian.
@@ -527,8 +525,8 @@ Unicode gives every character a **general category** (letter, number, punctuatio
 > [!card]- How does writing-system type affect a character-level vocabulary?
 > Alphabets need **tens** of symbols; logographic scripts need **thousands**, which the vocabulary must budget for.
 
-> [!card]- What is Devanagari called, where each consonant carries an inherent vowel that a vowel sign can replace?
-> **Alphasyllabic**, between alphabetic and syllabic.
+> [!card]- What is Devanagari called, where each consonant letter carries an inherent vowel?
+> **Alphasyllabic**.
 
 > [!card]- What does Arabic script leave out of a word such as كتب (ktb)?
 > The **vowels**: only the consonant root is written.
@@ -605,11 +603,11 @@ Unicode gives every character a **general category** (letter, number, punctuatio
 > [!card]- Which normalization form should you use to compare rendered text?
 > **NFD** (non-lossy, preserves semantic and visual equivalence).
 
-> [!card]- For an equality check between two strings, must you use NFD rather than NFC?
-> **No.** Either canonical form works, as long as both strings get the **same** one.
+> [!card]- True or false: The form to use for comparing rendered text is NFC.
+> **False.** NFD; NFKD is for search and analysis.
 
-> [!card]- Which form do you end in after first decomposing and then composing?
-> **NFC**.
+> [!card]- Which form do you end in after canonical decomposition followed by composition?
+> **NFC** (compatibility decomposition then composition gives NFKC).
 
 > [!card]- Which normalization form should you use for search indexing or NLP analysis?
 > **NFKD**.
@@ -663,10 +661,10 @@ Unicode gives every character a **general category** (letter, number, punctuatio
 > **Deduplication**, **search**, string equality and prefix matching: all assume identical codepoint sequences.
 
 > [!card]- What is the fix for crawled data that mixes normalization forms?
-> **Consistent normalization** in the pipeline, e.g. decompose then compose (ending in NFC).
+> **Consistent normalization** in the pipeline, e.g. first decompose, then compose.
 
-> [!card]- When does `iconv` fail on a wrong source encoding?
-> When some bytes are **invalid** in the stated encoding; a single-byte code page can convert silently.
+> [!card]- What does `iconv -f GB2312 -t UTF-8` do if the source encoding is not correct?
+> It **fails**, which beats silent mojibake.
 
 > [!card]- What goes wrong when breaking a string at the byte level?
 > Multi-byte codepoints get split into fragments that are **not characters** at all.
@@ -739,9 +737,6 @@ Unicode gives every character a **general category** (letter, number, punctuatio
 
 > [!card]- True or false: In Unicode, every character a reader perceives has exactly one codepoint.
 > **False.** A perceived character (grapheme) can be several codepoints, such as e plus a combining accent.
-
-> [!card]- True or false: iconv always fails when given the wrong source encoding.
-> **False.** It fails only on bytes invalid in the stated encoding; single-byte code pages convert silently.
 
 > [!card]- True or false: Whitespace tokenization works for Thai because Thai uses spaces between words.
 > **False.** Thai spaces end clauses or sentences, not words.
