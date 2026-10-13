@@ -603,9 +603,6 @@ Unicode gives every character a **general category** (letter, number, punctuatio
 > [!card]- Which normalization form should you use to compare rendered text?
 > **NFD** (non-lossy, preserves semantic and visual equivalence).
 
-> [!card]- True or false: The form to use for comparing rendered text is NFC.
-> **False.** NFD; NFKD is for search and analysis.
-
 > [!card]- Which form do you end in after canonical decomposition followed by composition?
 > **NFC** (compatibility decomposition then composition gives NFKC).
 
@@ -705,8 +702,8 @@ Unicode gives every character a **general category** (letter, number, punctuatio
 > [!card]- True or false: UTF-32 is ASCII compatible.
 > **False.** It uses exactly 4 bytes for every codepoint, ASCII included.
 
-> [!card]- True or false: UTF-16 encodes every codepoint in exactly 2 bytes.
-> **False.** 2 or 4 bytes; codepoints outside plane 0 need 4.
+> [!card]- True or false: UTF-16 encodes codepoints outside plane 0 in 4 bytes.
+> **True.** They need more than 16 bits; plane-0 codepoints take 2 bytes.
 
 > [!card]- True or false: NFKD normalization is lossless.
 > **False.** Compatibility forms are lossy (ſ becomes s); only the canonical forms NFC and NFD are lossless.
@@ -714,8 +711,11 @@ Unicode gives every character a **general category** (letter, number, punctuatio
 > [!card]- True or false: NFKD normalization makes the ligature ﬁ and the pair fi identical.
 > **True.** Compatibility decomposition splits ligatures, which is why NFKD suits search indexing.
 
-> [!card]- True or false: Code pages allow several scripts in the same document.
-> **False.** A document is read with one table, so one script per document.
+> [!card]- True or false: The form to use for comparing rendered text is NFD.
+> **True.** NFD is non-lossy and preserves semantic and visual equivalence; NFKD is for search and analysis.
+
+> [!card]- True or false: Code pages allow only one script per document.
+> **True.** A document is read with one table, so scripts cannot be mixed.
 
 > [!card]- True or false: Detecting a text's script is enough to identify its language.
 > **False.** Arabic script alone covers Arabic, Persian, Urdu, Pashto and Sorani.
@@ -726,14 +726,14 @@ Unicode gives every character a **general category** (letter, number, punctuatio
 > [!card]- True or false: Deduplicating a crawled corpus that mixes NFC and NFD raises an error on the mismatched copies.
 > **False.** It fails silently: both copies are kept and the numbers are just wrong.
 
-> [!card]- True or false: Grapheme boundaries are language-independent.
-> **False.** They are very language-specific, which makes grapheme-level breaking hard.
+> [!card]- True or false: Grapheme boundaries are language-specific.
+> **True.** They are very language-specific, which makes the ideal grapheme-level breaking hard.
 
 > [!card]- True or false: Byte-level tokenizers tend to split text more aggressively in scripts that need more UTF-8 bytes per character.
 > **True.** More bytes per character means more pieces per character.
 
-> [!card]- True or false: In UTF-8, the number of leading 1s in the first byte gives the number of continuation bytes.
-> **False.** It gives the length of the whole sequence, first byte included.
+> [!card]- True or false: In UTF-8, the number of leading 1s in the first byte gives the length of the whole sequence.
+> **True.** The first byte is included: `1110xxxx` starts a 3-byte sequence, so two bytes follow.
 
 > [!card]- True or false: In Unicode, every character a reader perceives has exactly one codepoint.
 > **False.** A perceived character (grapheme) can be several codepoints, such as e plus a combining accent.

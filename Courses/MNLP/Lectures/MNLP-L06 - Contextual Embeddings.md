@@ -872,8 +872,8 @@ Model answers are in the exam questions below.
 > [!card]- True or false: Permuting words during pre-training hurts cross-lingual transfer significantly but does not eliminate it.
 > **True.** Accuracy drops, but stays well over chance.
 
-> [!card]- True or false: In mBERT translation retrieval, accuracy increases continuously up to the top layer.
-> **False.** It follows an inverted U, peaking in layers 6 to 8.
+> [!card]- True or false: In mBERT translation retrieval, accuracy peaks in the middle layers.
+> **True.** It follows an inverted U: middle layers are the most language-neutral, top layers language-specific again.
 
 > [!card]- True or false: Freezing mBERT's lower layers during English fine-tuning helps or is neutral for zero-shot transfer.
 > **True.** Frozen lower layers keep their multilingual representation.

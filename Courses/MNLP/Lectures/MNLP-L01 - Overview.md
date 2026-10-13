@@ -267,8 +267,8 @@ Model answers are in the exam questions below.
 > [!card]- True or false: In pre-deep-learning NLP, each application required a different approach.
 > **True.** Each application combined its own ML method and features.
 
-> [!card]- True or false: Neural networks require small amounts of training data.
-> **False.** They require large amounts of training data.
+> [!card]- True or false: Neural networks require large amounts of training data.
+> **True.** Data hunger is one of their disadvantages, with hard-to-trace errors and spectacular failures.
 
 > [!card]- True or false: Sentiment analysis operates only at the document level.
 > **False.** It operates at both the sentence and the document level.
@@ -276,17 +276,20 @@ Model answers are in the exam questions below.
 > [!card]- True or false: Language-independent parsing is a crosslingual scenario.
 > **False.** It is multilingual: it looks for universal features of sentence structure.
 
+> [!card]- True or false: Sentence or document classification across languages is a multilingual scenario.
+> **True.** Its question is how to train one classifier without being language-specific; "across" does not make it crosslingual.
+
 > [!card]- True or false: Crosslingual unlearning asks how to combine information across languages.
 > **False.** Unlearning asks how to manipulate information across languages; reasoning combines it.
 
 > [!card]- True or false: Dedicated multilingual models such as Aya-Expanse outperform general LLMs such as Llama 3.1.
 > **False.** Dedicated multilingual models tend to lag behind (read as behind the general models).
 
-> [!card]- True or false: LLMs originated outside NLP and were later adopted by it.
-> **False.** They originated within NLP and now dominate its research.
+> [!card]- True or false: LLMs originated within NLP.
+> **True.** They originated within NLP and now dominate its research landscape.
 
-> [!card]- True or false: Summarization applies only to single documents.
-> **False.** It applies to single and multiple documents.
+> [!card]- True or false: Summarization works on a single document or on several.
+> **True.** It keeps the most important content of one document or several, so a reader can browse quickly.
 
 > [!card]- Multiple selection: which are crosslingual scenarios? (A) Machine translation (B) Language-independent parsing (C) Crosslingual reasoning (D) Sentence classification across languages
 > **A and C.** B and D are multilingual: their question is how to build one system that is not language-specific.
