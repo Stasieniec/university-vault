@@ -244,7 +244,7 @@ return t_1..t_n
 - **Trainable directly from any segmented corpus**, even one from a different domain.
 
 **Shortcomings:**
-- **Narrow Markov assumption.** In a first-order HMM each tag is generated from the preceding tag alone, and each character from its own tag. Higher orders are possible but more involved (outside the course material: transition parameters grow as $|T|^{k+1}$ for order $k$).
+- **Narrow Markov assumption.** In a first-order HMM each tag is generated from the preceding tag alone, and each character from its own tag. Put the other way round, as the course does: a tag depends only on the immediately preceding tag and the current character. Higher orders are possible but more involved (outside the course material: transition parameters grow as $|T|^{k+1}$ for order $k$).
 - **No longer-range context**, such as the word two positions back or a whole phrase. This motivates **conditional random fields (CRFs)**, which can condition on features of the whole input, and beyond them any neural sequence labeller (LSTM, Transformer).
 - **Unsupervised training costs quality.** HMMs *can* be trained fully unsupervised with **Baum-Welch** (an instance of EM), but quality drops.
 
@@ -304,15 +304,15 @@ All of these are **concatenative**: the word is a sequence of morphemes. **Non-c
 
 **Isolating.** Chinese 我 昨天 看 了 一 本 书, "I read a book yesterday" (*I, yesterday, read, PFV, one, CL, book*): the verb 看 (*kàn*) never changes form; pastness comes from 昨天 "yesterday" and the perfective particle 了 (PFV, completed action); 本 is a classifier (CL). Word order is plain SVO (subject, verb, object). Vietnamese *Tôi đã đi học*, "I went to study": *đi* (go) and *học* (study) do not change; *đã* is a past (completed-action) particle.
 
-**Agglutinative.** Turkish *evlerinizden*, "from your houses" = *ev-ler-iniz-den* = house + plural + your + from. Finnish *taloissamme*, "in our houses" = *talo-i-ssa-mme* = house + plural + inessive + our. The **inessive** is a locative case ("in"). Each suffix is clearly separable and **reusable across many other nouns**. A suffix may change its spelling to fit the stem, so the meanings split cleanly even when the characters at the join vary.
+**Agglutinative.** Turkish *evlerinizden*, "from your houses" = *ev-ler-iniz-den* = house + plural + your + from. Finnish *taloissamme*, "in our houses" = *talo-i-ssa-mme* = house + plural + inessive + our. The **inessive** is a locative case ("in"). Each suffix is clearly separable and **reusable across many other nouns**. A suffix may change its spelling to fit the stem, but the meanings still split cleanly even when the characters at the join vary.
 
-**Fusional.** Russian *knigami*, "with books" = *knig-ami*, glossed book + instrumental.plural.feminine: one suffix fuses **case, number and gender** into a single unsegmentable morpheme. This is the course's gloss, and exam statements follow it. (Outside the course material: *-ami* is used for all three genders, so strictly it fuses only case and number.)
+**Fusional.** Russian *knigami*, "with books" = *knig-ami*, glossed book + instrumental.plural.feminine: one suffix fuses **case, number and gender** into a single unsegmentable morpheme. This is the course's gloss; answer by it. (Outside the course material: *-ami* is used for all three genders, so strictly it fuses only case and number.)
 
 **Spanish** *hablé*, "I spoke" = *habl-é*: the single vowel *-é* fuses person (1st), number (singular), tense (preterite, past) and aspect (preterite, completed).
 
 **Arabic** *yaktubu*, "he writes": the consonant root *k-t-b* (C1 C2 C3, "write") is poured into the pattern *ya*-C1C2-*u*-C3-*u*, which fuses person (3rd), gender (masculine) and aspect (not completed). The vowels are not written in regular Arabic, so part of the grammar is missing from the string; and since root and pattern interleave, the word is non-concatenative.
 
-**Polysynthetic.** Inuktitut *Qangatasuukkuvimmuuriaqalaaqtunga*, "I will have to go to the airport" = *qangata-* (fly) + *-suukkuvik* (*-suu-* "habitually" + *-kkuvik* "place": the place of habitual flying, the airport) + *-mut* (to, allative case) + *-uq-* (go to) + *-riaqaq-* (have to) + *-laaq-* (future) + *-tunga* (1st person singular). One word holds a whole English sentence: verb, subject, destination, tense and modal meaning. The morphemes also change shape where they meet (*-k-mut-uq* becomes *-mmuu-*), so cutting the string cannot recover them; but they stay in sequence, so this is concatenative morphology with blurred joins.
+**Polysynthetic.** Inuktitut *Qangatasuukkuvimmuuriaqalaaqtunga*, "I will have to go to the airport" = *qangata-* (fly) + *-suukkuvik* (*-suu-* "habitually" + *-kkuvik* "place": the place of habitual flying, the airport) + *-mut* (to, allative case) + *-uq-* (go to) + *-riaqaq-* (have to) + *-laaq-* (future) + *-tunga* (1st person singular). One word holds a whole English sentence: verb, subject, object (here the destination), tense and modal meaning, all fused together. The morphemes also change shape where they meet (*-k-mut-uq* becomes *-mmuu-*), so cutting the string cannot recover them. (Outside the course material: they stay in sequence, so this is concatenative morphology with blurred joins.)
 
 | type | morphemes per word | one feature per affix? | examples |
 |---|---|---|---|
@@ -330,7 +330,7 @@ All of these are **concatenative**: the word is a sequence of morphemes. **Non-c
 
 **Morphology is common to most languages**, and rich morphology encodes inside one word what English spreads over separate words and word order: Turkish *evlerinizden* and "from your houses" carry the same information.
 
-**Word-level vocabularies blow up or become extremely restrictive.** A single lemma can surface as **thousands of word forms** (surface forms). Keep them all and $|V|$, with the embedding matrix and output softmax, explodes. Keep a **fixed vocabulary sized for English** and other languages get **massive out-of-vocabulary (OOV) rates**, every unknown form becoming `<unk>`. A vocabulary shared across languages makes this worse: the rich languages get most of the OOVs.
+**Word-level vocabularies blow up or become extremely restrictive.** A single lemma can surface as **thousands of word forms** (surface forms). Keep them all and $|V|$, with the embedding matrix and output softmax, explodes. Keep a **fixed vocabulary sized for English** and other languages get **massive out-of-vocabulary (OOV) rates**, every unknown form becoming `<unk>`. A vocabulary shared across languages spreads its fixed budget thinner, and the rich languages, with the most forms, suffer most.
 
 **These problems are the main motivation for morphological analysers** (tools that split words into morphemes). But morphological analysis is **highly language dependent**, so each language needs its own, built with linguistic expertise. Modern approaches **build on data-driven methods**, and the **practical compromise is subword tokenization**: statistically useful pieces learned from data, language-independently, instead of linguistically correct morphemes. Falling back to single characters leaves very few words out of vocabulary, though not zero: a character never seen in training stays unknown, and only byte-level vocabularies remove that. Rich languages still get split into many more pieces per word than English, and the pieces only sometimes line up with morphemes (they cannot capture *Bücher* or Arabic root-and-pattern words). That is [[MNLP-L04 - Subword Segmentation|L04]].
 
@@ -354,9 +354,9 @@ Model answers are in the exam questions below.
 >
 > - **Isolating** (Chinese, Vietnamese): words do not change form; grammar comes from **word order** and **particles**. Chinese 我 昨天 看 了 一 本 书 "I read a book yesterday": 看 never changes, past comes from the particle 了 (PFV) and 昨天 "yesterday".
 > - **Agglutinative** (Turkish, Finnish): morphemes strung together, **one morpheme, one meaning**, visible boundaries. Turkish *ev-ler-iniz-den* = house + plural + your + from, "from your houses".
-> - **Fusional** (Russian, Spanish, Arabic): **one affix encodes several features** that cannot be separated. Russian *knig-ami* "with books": *-ami* fuses case (instrumental), number (plural) and gender (feminine). Spanish *habl-é*: person, number, tense, aspect in one vowel.
+> - **Fusional** (Russian, Spanish, Arabic): **one affix encodes several features** that cannot be separated. Russian *knig-ami* "with books": *-ami* fuses, in the course's gloss, case (instrumental), number (plural) and gender (feminine). Spanish *habl-é*: person, number, tense, aspect in one vowel.
 > - **Polysynthetic** (Inuktitut, Mohawk): verb, subject, object (or destination) and modifiers (negation, tense, mood, instrument, location) packed into **one word**. *Qangatasuukkuvimmuuriaqalaaqtunga* "I will have to go to the airport".
-> - **The axis:** isolating and polysynthetic are the two ends of a scale of how much meaning one word carries. Agglutinative and fusional sit in the middle and differ on a separate question: can the packed meaning be cut apart?
+> - **The axis (outside the course material):** isolating and polysynthetic are the two ends of a scale of how much meaning one word carries; agglutinative and fusional differ on a separate question, whether the packed meaning can be cut apart.
 >
 > The usual mistake: defining agglutinative as "more morphemes". The definition is **separable** morphemes, one feature each; that agglutinative words end up with more morphemes per word than fusional ones is a consequence.
 
@@ -368,7 +368,7 @@ Model answers are in the exam questions below.
 > - Inflectional features multiply: forms per lemma = **product** of slot sizes. Productivity (*doomscrolling, doomscrolled, doomscrolls, doomscroller*) means no vocabulary can be closed, so OOV never goes away.
 > - **Two horns:** keep all forms and $|V|$ explodes (embedding matrix and softmax with it); or use a vocabulary sized for English and get massive OOV rates, with every rare form mapped to `<unk>` and given **equal probability**.
 > - Word indices hide relations (*move* 2863 vs *moved* 87542) and give nothing for unseen words (*hammered*). Morphology could build meaning for unseen words; context alone cannot.
-> - **Multilingual:** a word vocabulary shared across languages gives the rich languages most of the OOVs; even with subwords they get split into many more pieces per word than English.
+> - **Multilingual:** a word vocabulary shared across languages spreads its fixed budget thinner, and the rich languages suffer most; even with subwords they get split into many more pieces per word than English.
 > - Fix: morphological analysers are language dependent and need per-language expertise, so the practical compromise is **subword tokenization**: statistically useful pieces, language-agnostic, learned from data. Falling back to characters makes OOV very rare but not zero: an unseen character is still unknown (only byte-level vocabularies remove that).
 
 > [!exam]- Run Forward and Backward Maximum Matching on 研究生活 with vocabulary {研究, 研究生, 生活, 生, 活}. Why do the results differ, how does bidirectional matching resolve it, and what are the method's limits?
@@ -407,7 +407,7 @@ Model answers are in the exam questions below.
 > - **Non-concatenative:** the change happens **inside the root**. Apophony: German *Buch* → *Bücher*, *Haus* → *Häuser* (vowel change plus suffix). No cut separates "book" from "plural" in *Bücher*.
 > - **Circumfix** (related problem): German *ge-seh-en*: *ge-* and *-en* are one morpheme in two pieces, so neither stripping the prefix nor the suffix alone works.
 > - **Arabic:** consonantal root *k-t-b* "write" poured into a pattern *ya-* C1 C2 *-u-* C3 *-u* = *yaktubu* "he writes". Root and pattern are **interleaved**, and the pattern's vowels are not written in regular Arabic, so part of the information is absent from the string.
-> - **Inuktitut (a different problem):** the morphemes are still in sequence, so this is concatenative, but they change shape where they meet (*-k-mut-uq* surfaces as *-mmuu-*). The boundaries are blurred, so cutting the string cannot recover them either. Agglutinative languages show the same kind of join change.
+> - **Inuktitut (a different problem, classed outside the course material):** the morphemes are still in sequence, so this is concatenative, but they change shape where they meet (*-k-mut-uq* surfaces as *-mmuu-*). The boundaries are blurred, so cutting the string cannot recover them either. Agglutinative languages show the same kind of join change.
 > - Every segmentation method cuts a string into **contiguous pieces**, so subword segmentation can only fully capture the concatenative case.
 
 > [!exam]- Word segmentation and subword segmentation are often confused. Define each, give a language where each is needed, and say how they are solved.
@@ -543,7 +543,7 @@ Model answers are in the exam questions below.
 > With **probabilistic evidence** learned from data, instead of direction-based tie-breaking heuristics.
 
 > [!card]- What does the first-order Markov assumption restrict in an HMM segmenter?
-> Each tag is generated from the **previous tag** alone (and each character from its own tag), so no longer-range context is used.
+> Each tag is generated from the **previous tag** alone (equivalently: a tag depends only on the previous tag and the current character), so no longer-range context is used.
 
 > [!card]- Which model is motivated by the HMM's lack of longer-range context in word segmentation?
 > **Conditional random fields (CRFs)**, which can condition on features of the whole input.
@@ -599,9 +599,6 @@ Model answers are in the exam questions below.
 > [!card]- What distinguishes agglutinative from fusional morphology?
 > **Separability**: an agglutinative affix carries one feature; a fusional affix carries several fused features.
 
-> [!card]- What scale do isolating and polysynthetic languages sit at the two ends of?
-> **How much meaning** is packed into one word.
-
 > [!card]- What are the morphemes of Turkish *evlerinizden* ("from your houses")?
 > *ev-ler-iniz-den*: **house + plural + your + from**.
 
@@ -638,8 +635,8 @@ Model answers are in the exam questions below.
 > [!card]- Do subword tokens line up with morphemes?
 > **Only sometimes**; as contiguous cuts they cannot capture *Bücher* or Arabic root-and-pattern words.
 
-> [!card]- True or false: CBOW preserves the order of the context words in its projection layer.
-> **False.** It sums the context vectors, and summation is commutative, so order is lost.
+> [!card]- True or false: CBOW's projection layer loses the order of the context words.
+> **True.** It sums the vectors, and summation is commutative.
 
 > [!card]- True or false: Forward and Backward Maximum Matching always produce the same segmentation given the same vocabulary.
 > **False.** On ambiguous strings they often disagree (研究生 | 活 against 研究 | 生活).
@@ -671,8 +668,8 @@ Model answers are in the exam questions below.
 > [!card]- True or false: An HMM word segmenter needs a fixed dictionary of possible words.
 > **False.** It works over characters; maximum matching is the method that needs a dictionary.
 
-> [!card]- True or false: Inflection changes a word's part of speech.
-> **False.** Inflection retains the POS and changes features such as number and tense.
+> [!card]- True or false: Inflection keeps a word's part of speech.
+> **True.** It changes only features such as number and tense.
 
 > [!card]- True or false: Apophony is a kind of concatenative morphology.
 > **False.** It changes a vowel inside the root (*Buch* → *Bücher*), so it is non-concatenative.
@@ -683,14 +680,14 @@ Model answers are in the exam questions below.
 > [!card]- True or false: With a vocabulary short-list, rare words keep distinct probabilities in a given context.
 > **False.** They all map to `<unk>`, so all rare words receive equal probability.
 
-> [!card]- True or false: CBOW passes the summed context vectors through a non-linear hidden layer before the output.
-> **False.** The projection layer feeds the output layer directly; there is no hidden layer.
+> [!card]- True or false: In CBOW the summed context vectors go from the projection layer straight to the output layer.
+> **True.** There is no non-linear hidden layer in between.
 
 > [!card]- True or false: Subword tokenization with BPE guarantees a zero OOV rate.
 > **False.** OOV becomes very rare, but unseen characters stay unknown; only byte-level vocabularies guarantee zero.
 
-> [!card]- True or false: In a BMES HMM, B can be followed by S.
-> **False.** B can only be followed by M or E: the word it opens must continue or end.
+> [!card]- True or false: In a BMES HMM, B can only be followed by M or E.
+> **True.** The word B opens must continue (M) or close (E).
 
 > [!card]- Multiple selection: which are true of Forward Maximum Matching? (A) It takes the longest vocabulary word at each position (B) It improves as it sees more text (C) It always terminates because a single character is emitted as fallback (D) It needs no precompiled vocabulary
 > **A and C.** B: it has no mechanism to exploit data. D: it depends entirely on a precompiled vocabulary.
@@ -701,7 +698,7 @@ Model answers are in the exam questions below.
 > [!card]- Multiple selection: which are true of morphological types? (A) In Turkish, each agglutinative suffix carries one meaning (B) Russian *-ami* fuses instrumental case and plural (C) Isolating languages mark tense mainly by inflecting the verb (D) In a polysynthetic language one word can express a whole sentence
 > **A, B and D.** C: isolating verbs do not change form; tense comes from particles and adverbs.
 
-> [!card]- Multiple selection: which are true of HMM word segmentation? (A) Each tag is generated from the preceding tag alone (B) It cannot be trained without a segmented corpus (C) CRFs address its lack of longer-range context (D) It resolves ambiguity with tie-breaking heuristics
+> [!card]- Multiple selection: which are true of HMM word segmentation? (A) A tag depends only on the preceding tag and the current character (B) It cannot be trained without a segmented corpus (C) CRFs address its lack of longer-range context (D) It resolves ambiguity with tie-breaking heuristics
 > **A and C.** B: Baum-Welch trains it unsupervised, at a cost in quality. D: that is bidirectional matching; the HMM uses probabilistic evidence.
 
 > [!card]- Multiple selection: which are correct? (A) *books* is an inflection of *book* (B) *imperfect* is an inflection of *perfect*, since the POS stays (C) *Tischbein* is a compound (D) *happiness* is derived from *happy*
