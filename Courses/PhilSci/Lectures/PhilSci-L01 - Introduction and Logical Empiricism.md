@@ -22,7 +22,7 @@ topics:
 >
 > **The logical positivists of the Vienna Circle:** a statement means something only if it is true or false by logic alone (like mathematics) or could in principle be checked by observation. Everything else that pretends to describe the world, above all traditional metaphysics, is not false but literally meaningless. Science is the body of statements that pass this test, tied to observation by logic.
 >
-> The test turned out to be hard to state and too strict for real science, so the movement softened into logical empiricism. Its picture of a scientific theory, a set of sentences linked to observation by rules, was later challenged by the view that a theory is a family of models.
+> The test turned out to be hard to state and too demanding for real science, so the movement softened into logical empiricism. Its picture of a scientific theory, a set of sentences linked to observation by rules, was later challenged by the view that a theory is a family of models.
 >
 > On the mock exam this is Q1 (10 marks): the verifiability criterion of meaning and its significance for demarcation.
 
@@ -63,7 +63,7 @@ Their targets were the grand, obscure systems of German philosophy after Kant: G
 
 Science, for them, is everyday reasoning made rigorous, aimed at predicting patterns in experience; philosophy studies its logical structure and leaves its history and psychology to others. Kuhn attacks exactly this separation, turning the field from justifying science to asking how science actually works ([[PhilSci-L02 - Kuhn on Scientific Practice|L02]]).
 
-The Circle broke up in the 1930s. Schlick was murdered by a former student in 1936, and after Nazi Germany annexed Austria in 1938 most members fled, many to the United States, where the movement softened.
+The Circle broke up in the 1930s. Schlick was murdered by a former student in 1936, Carnap had already left Austria, and the annexation of Austria by Nazi Germany in 1938 scattered the rest. Many ended up in the United States, where the movement softened.
 
 ## Meaningful statements: analytic or verifiable
 
@@ -78,7 +78,7 @@ The positivists claimed that all of logic and mathematics is analytic: it record
 Two clarifications keep this from being misread:
 
 - **In principle, not in practice.** "There are mountains on the far side of the moon" (a standard example from outside the course readings) was meaningful before anyone could fly there: we knew what observation would settle it. Observation counts in a broad sense: any kind of sensory experience.
-- **Strict or weak.** Read strictly, "verifiable" means conclusively provable by observation. That would make universal laws meaningless, since no finite number of observations proves "all metals expand when heated". So the criterion was read weakly: there must be possible observations that count for or against the statement. Peter Godfrey-Smith, author of the week 1 reading "Logic Plus Empiricism", notes that "testability" would have been the better word.
+- **Strict or weak.** Read strictly, "verifiable" means conclusively provable by observation. That would make universal laws meaningless, since no finite number of observations proves "all metals expand when heated". So the criterion came to be read weakly (outside the readings: early Schlick did want conclusive verification): there must be possible observations that count for or against the statement. Peter Godfrey-Smith, author of the week 1 reading "Logic Plus Empiricism", notes that "testability" would have been the better word.
 
 > [!definition] The verifiability criterion of meaning
 > A statement is meaningful (scientific) if it is **verifiable**: its truth can in principle be determined through observation or experiment.
@@ -107,11 +107,11 @@ For Carnap these are four formulations of one question. All factual language ult
 
 Carnap's made-up word shows the other side. Someone says some things are **"teavy"** and others are not, but there are no empirical signs of teavyness; which things are teavy is an eternal secret. Then "teavy" means nothing. Images and feelings its user associates with it do not give it meaning.
 
-An obvious objection: are deduction, truth, verification and meaning really one thing? Deduction is about logical consequence, truth about how the world is, verification about evidence, meaning about what an expression says. Equating them needs strong assumptions, and Quine's holism (below) is where the equation broke.
+An obvious objection: are deduction, truth, verification and meaning really one thing? Deduction is about logical consequence, truth about how the world is, verification about evidence, meaning about what an expression says. Equating them needs strong assumptions. Carnap himself pulled meaning apart from verification after Tarski, and Quine's holism later attacked the link between meaning and testing (both below).
 
 ## The weapon at work: metaphysics as pseudo-statements
 
-The showcase is Carnap's essay "The Elimination of Metaphysics Through Logical Analysis of Language" (1932). Earlier critics had called metaphysics false or pointless. Carnap's charge is stronger: **meaningless in the strictest sense**. A pointless question or a false, even self-contradictory, statement still has meaning; only meaningful sentences can be true or false. A **pseudo-statement** is a string of words that looks like a statement but does not make one at all.
+The showcase is Carnap's essay "The Elimination of Metaphysics Through Logical Analysis of Language" (1932). Earlier critics called metaphysics false or pointless; Carnap's charge is stronger: **meaningless in the strictest sense**. A pointless question or a false, even self-contradictory, statement still has meaning; only meaningful sentences can be true or false. A **pseudo-statement** is a string of words that looks like a statement but does not make one at all.
 
 Pseudo-statements arise in two ways.
 
@@ -139,7 +139,7 @@ Every meaningful statement is analytic or verifiable, and science consists of ve
 
 So pseudo-science and metaphysics are excluded without anyone having to show them false: they never get as far as being true or false.
 
-Popper, who knew the Circle but was never a member, drew the line differently. The word "testability" turns up on both sides, but the jobs differ. For the positivists, a statement with no possible evidence for or against it is **meaningless**. Popper's falsifiability separates **science from non-science** and says nothing about meaning: for him metaphysics can be meaningful, important, and the seed of later science. The full contrast is in [[PhilSci-L01b - Popper and Lakatos|L01b]], under "Not science does not mean nonsense".
+Popper, who knew the Circle but was never a member, drew the line differently. "Testability" turns up on both sides, but the jobs differ. For the positivists, a statement with no possible evidence for or against it is **meaningless**. Popper's falsifiability separates **science from non-science** and says nothing about meaning: for him metaphysics can be meaningful, important, and the seed of later science. His further point, that no observations can ever verify a universal law, hits only the strict reading; against the weak reading the real difference is what the line separates. The full contrast is in [[PhilSci-L01b - Popper and Lakatos|L01b]], under "Not science does not mean nonsense".
 
 ## What is a scientific theory? Sentences
 
@@ -181,11 +181,11 @@ This was a **normative ideal**: a rigorous standard for evaluating scientific kn
 
 ## What went wrong with verificationism
 
-**It was hard to state.** The criterion had to be strict enough to exclude metaphysics and liberal enough to admit all of science, and every version failed one way or the other. The strict reading, conclusive verification, excludes universal laws, as we saw. That is why the criterion asked only for possible evidence for or against. But the weak version lets metaphysics in. "Metals expand when heated and the Absolute Spirit is perfect" now counts as testable: a metal that does not expand refutes the whole conjunction (if $A$ is false, $A \wedge B$ is false). Metaphysics rides in on the back of science, and each patch opened a new hole.
+**It was hard to state.** The criterion had to be demanding enough to exclude metaphysics and liberal enough to admit all of science, and every version failed one way or the other. The strict reading excludes universal laws, as we saw; the weak reading lets metaphysics in. "Metals expand when heated and the Absolute Spirit is perfect" now counts as testable: a metal that does not expand refutes the whole conjunction (if $A$ is false, $A \wedge B$ is false). Each patch opened a new hole.
 
 **It seems to undermine itself.** A standard objection, from outside the course readings: the criterion itself is neither analytic nor verifiable by observation, so by its own standard it looks meaningless. (Defenders treat it as a proposal, not a factual claim.)
 
-**Theoretical terms resisted reduction.** The first hope, translating all factual talk into talk about sensations, was soon dropped as too extreme. Even observable things were not enough for words like "electron" or "gene": their sentences cannot be turned into observation sentences one by one.
+**Theoretical terms resisted reduction.** The first hope, translating all factual talk into talk about sensations, was soon dropped as too extreme. Observation sentences came to be about ordinary observable objects instead. Even so, sentences with words like "electron" or "gene" could not be turned into observation sentences one by one.
 
 **Testing is holistic.** The American philosopher W. V. O. Quine argued in "Two Dogmas of Empiricism" that no single statement can be tested on its own. A prediction follows only from a hypothesis plus assumptions about instruments and conditions, so a failure says something in the bundle is false, not what. This is the **Duhem-Quine thesis** (the physicist Pierre Duhem had made the point earlier), covered in [[PhilSci-L03 - Under-determination|L03]]. If statements cannot be tested one at a time, and meaning is method of testing, they do not have meanings one at a time either. Quine calls this target "reductionism": the dogma that each statement has its own set of confirming experiences. The positivists had in fact accepted holism about testing, but their criterion still attached observations to each sentence separately.
 
@@ -195,15 +195,15 @@ From outside the movement, Popper offered falsifiability as a rival criterion, o
 
 ## The softening: logical empiricism
 
-Carnap changed his view. In the 1930s, after meeting the logicians Gödel and Tarski, he:
+Carnap changed his view. In the 1930s, under the influence of the logicians Gödel (a fellow Circle member) and Tarski, he:
 
-- **dropped strict verificationism:** meaning is not just verification. In logical empiricism generally, verification gave way to the weaker idea of **confirmation**: observations can support or undermine a statement to some degree without settling it.
+- **stopped identifying meaning with verification:** meaning is not just verification. In logical empiricism generally, talk of verification gave way to **confirmation**, which comes in degrees: evidence makes a statement more or less well supported, and inductive logic was meant to measure how much. The weak reading only asked whether such evidence is possible at all.
 - **accepted a full semantics,** the theory of meaning he had earlier left to psychology: theoretical terms receive an interpretation of their own, instead of being mere shorthand for observations.
 - **weakened the correspondence rules** to allow **partial interpretation**: a theoretical term gets part of its meaning from observation and the rest from its place in the theory. This is much closer to a realist view of science.
 
-This is the final version of the Received View: theories are still sets of sentences with correspondence rules, now with partially interpreted theoretical terms. ("Semantics" here means a theory of meaning; it is a different thing from the semantic conception of theories in the next section.)
+This is the final version of the Received View: still sentences plus correspondence rules, now with partially interpreted terms. ("Semantics" here means a theory of meaning; it is a different thing from the semantic conception of theories in the next section.)
 
-He **kept his rejection of metaphysics**, but it lost force: once theoretical terms are interpreted as standing for electrons and fields, he **cannot avoid ontology**, the question of what exists. As Richardson puts it, "the move to semantics blunts the force of Carnap's diagnosis of metaphysics as confusion." Carnap never gave up the demand that philosophy be logical, rigorous and close to science.
+He **kept his rejection of metaphysics**, but it lost force: once theoretical terms are interpreted as standing for electrons and fields, he **cannot avoid ontology**, the question of what exists. As Richardson puts it, "the move to semantics blunts the force of Carnap's diagnosis of metaphysics as confusion."
 
 Godfrey-Smith sums up the later movement: meaning became **holistic**, a theory connecting to observation as a whole, and the analytic-synthetic distinction was kept but treated as questionable. Whether theories describe only patterns in what we observe, or hidden structure behind it, became the question of scientific realism ([[PhilSci-L05 - Scientific Realism and its Critiques|L05]]).
 
@@ -220,7 +220,7 @@ Its slogan: **a scientific theory is a collection of models**. A model here is a
 Two senses of "model" are easily confused:
 
 - **Iconic or representational model:** a concrete representation that captures features of its target, such as a mechanical model of the solar system. It is structurally similar, ideally **isomorphic**, to what it models (there is a one-to-one mapping between parts and relations that preserves structure).
-- **Mathematical or logical model:** a structure that makes the sentences of a theory true. This is the main sense the semantic conception uses: it specifies the class of structures directly, and a model applies to a real system when it is similar to it.
+- **Mathematical or logical model:** a structure that makes the sentences of a theory true. This is the main sense the semantic conception uses: it specifies the class of structures directly, and a model applies to a real system when the system has (approximately) that structure.
 
 > [!example] Kinetic theory as models
 > A gas of $N$ molecules in a region $C \subseteq \mathbb{R}^3$ of volume $V$ is modelled by points in **phase space**:
@@ -236,7 +236,7 @@ Two senses of "model" are easily confused:
 
 ### Does the difference survive?
 
-The philosopher Hans Halvorson argued against the semantic view; his 2013 paper is titled "The Semantic View, If Plausible, Is Syntactic". The philosopher of science Lutz concludes the debate does "not capture any significant differences", and Frigg gives the balanced verdict: the syntactic view is too strict if it allows only formal sentences, since science needs models and natural language, while the semantic view still needs a language to specify its structures. On these readings the two collapse into each other, or are complementary descriptions of the same practice.
+The philosopher Hans Halvorson argued against the semantic view; his 2013 paper is titled "The Semantic View, If Plausible, Is Syntactic". The philosopher of science Lutz concludes the debate does "not capture any significant differences", and Frigg gives the balanced verdict: the syntactic view is too restrictive if it allows only formal sentences, since science needs models and natural language, while the semantic view still needs a language to specify its structures. On these readings the two collapse into each other, or are complementary descriptions of the same practice.
 
 ## What to be able to write
 
@@ -264,7 +264,7 @@ The full model answer for mock Q1 is the first exam question below.
 >
 > Contrast worth one sentence: Popper's falsifiability separates science from non-science **without** calling non-science meaningless.
 >
-> A half-page answer: The verifiability criterion of meaning, the central principle of the Vienna Circle and early Carnap, says that a statement about the world is meaningful only if it is verifiable: its truth can in principle be determined through observation or experiment. In the slogan, the meaning of a statement is its method of verification. The only other meaningful statements are analytic ones, those of logic and mathematics, which are true by their form and say nothing about the world. For Carnap a word is meaningful if the sentences it occurs in reduce to observation sentences: "$x$ is an arthropod" is fixed by "$x$ is an animal, $x$ has a segmented body, $x$ has jointed legs". Its significance for demarcation is that it turns the line between science and non-science into a line between meaningful and meaningless. Statements that are neither verifiable nor analytic are pseudo-statements: grammatical, and seeming to say something, but literally meaningless. Metaphysics is the main target: Heidegger's "The Nothing itself noths" treats "nothing" as a name and a verb, whereas logically "nothing is $P$" is just $\neg\exists x\,P(x)$, so the sentence expresses no proposition. (Verifiable is meant in principle and weakly: there must be possible evidence for or against, since conclusive proof would make universal laws meaningless.) Pseudo-science and metaphysics are thus excluded as meaningless rather than false. Popper, by contrast, demarcates science by falsifiability and allows non-science to be meaningful.
+> A half-page answer: The verifiability criterion of meaning, the central principle of the Vienna Circle and early Carnap, says that a statement about the world is meaningful only if it is verifiable: its truth can in principle be determined through observation or experiment. In the slogan, the meaning of a statement is its method of verification. (Verifiable is meant in principle and weakly: there must be possible evidence for or against, since conclusive proof would make universal laws meaningless.) The only other meaningful statements are analytic ones, those of logic and mathematics, which are true by their form and say nothing about the world. For Carnap a word is meaningful if the sentences it occurs in reduce to observation sentences: "$x$ is an arthropod" is fixed by "$x$ is an animal, $x$ has a segmented body, $x$ has jointed legs". Its significance for demarcation is that it turns the line between science and non-science into a line between meaningful and meaningless. Statements that are neither verifiable nor analytic are pseudo-statements: grammatical, and seeming to say something, but literally meaningless. Metaphysics is the main target: Heidegger's "The Nothing itself noths" treats "nothing" as a name and a verb, whereas logically "nothing is $P$" is just $\neg\exists x\,P(x)$, so the sentence expresses no proposition. Pseudo-science and metaphysics are thus excluded as meaningless rather than false. Popper, by contrast, demarcates science by falsifiability and allows non-science to be meaningful.
 
 > [!exam]- Explain Carnap's diagnosis of Heidegger's "Das Nichts selbst nichtet". What exactly is wrong with it, and what does Carnap conclude?
 > **Key points:** "Nothing" treated as a name and a verb; logically "nothing is $P$" is $\neg\exists x\,P(x)$; type confusion not translatable into logical form; meaningless pseudo-statement rather than false; metaphysics expresses an attitude to life.
@@ -274,14 +274,14 @@ The full model answer for mock Q1 is the first exam question below.
 > - Conclusion: the sentence is not false but **meaningless**, a pseudo-statement: it does not even reach the level where truth and falsity apply. Metaphysics has no theoretical content; it expresses an attitude towards life, which art does better ("musicians without musical ability").
 
 > [!exam]- How was the early logical positivist programme challenged, and how did later logical empiricism differ from it?
-> **Key points:** Verifiability hard to formulate (strict reading kills laws, weak reading lets metaphysics in); self-undermining objection; theoretical terms not reducible; Quine's holism and attack on the analytic-synthetic distinction; verification gives way to confirmation, Carnap's move to semantics and partial interpretation, rejection of metaphysics kept but weakened.
+> **Key points:** Verifiability hard to formulate (strict reading kills laws, weak reading lets metaphysics in); self-undermining objection; theoretical terms not reducible; Quine's holism and attack on the analytic-synthetic distinction; verification gives way to graded confirmation, Carnap's move to semantics and partial interpretation, rejection of metaphysics kept but weakened.
 >
 > - **Formulation:** the criterion had to exclude metaphysics and include all of science. Read strictly (conclusive verification) it makes universal laws meaningless; read weakly (possible evidence for or against) it lets in "metals expand when heated and the Absolute Spirit is perfect", testable through its first half.
 > - **Self-undermining** (standard objection from outside the readings): the criterion is neither analytic nor verifiable.
 > - **Theoretical terms** like "electron" could not be translated into observation sentences.
 > - **Quine:** statements face experience only as a whole (Duhem-Quine), so they cannot be tested or given meaning one at a time; and there is no sharp analytic-synthetic line.
 > - **External:** Popper's falsifiability, a rival criterion of science that does not judge meaning; Kuhn's history.
-> - **Later logical empiricism:** verification gave way to weaker **confirmation**. Carnap, after Gödel and Tarski, dropped strict verificationism, accepted a full semantics and partial interpretation of theoretical terms (closer to realism): the final version of the Received View. Meaning became holistic, a term's meaning coming partly from its place in the theory. He kept the rejection of metaphysics, but it lost force because a full semantics cannot avoid ontology.
+> - **Later logical empiricism:** verification gave way to **confirmation**, which comes in degrees. Carnap, under the influence of Gödel and Tarski, stopped identifying meaning with verification, accepted a full semantics and partial interpretation of theoretical terms (closer to realism): the final version of the Received View. Meaning became holistic, a term's meaning coming partly from its place in the theory. He kept the rejection of metaphysics, but it lost force because a full semantics cannot avoid ontology.
 
 > [!exam]- Describe the syntactic conception of scientific theories (the received view) and illustrate it with kinetic theory.
 > **Key points:** Theory as sentences in a formal logical language; axioms, derived sentences, correspondence rules; theoretical vs observational terms; kinetic theory: rules for $P$ and $T$ turn the derived equation into $PV = NkT$; normative ideal.
@@ -297,7 +297,7 @@ The full model answer for mock Q1 is the first exam question below.
 > - **Syntactic:** theory = set of sentences (axioms, derivations, correspondence rules), tied to observation by a vocabulary distinction.
 > - **Semantic:** theory = **a class of mathematical models** representing possible systems; the emphasis is on how the structures apply to physical systems.
 > - Motivations for the semantic view: (1) many theories are **not axiomatized**; (2) one theory has **several equivalent formulations**, so identifying it with one is wrong; (3) scientists actually work with **models**.
-> - Does it survive? **Halvorson** argues against the semantic view ("The Semantic View, If Plausible, Is Syntactic"). **Lutz**: the debate does not capture any significant differences. **Frigg**: syntactic is too strict (science needs models and natural language), semantic also needs a language to specify structures. So they collapse into each other or are complementary.
+> - Does it survive? **Halvorson** argues against the semantic view ("The Semantic View, If Plausible, Is Syntactic"). **Lutz**: the debate does not capture any significant differences. **Frigg**: syntactic is too restrictive (science needs models and natural language), semantic also needs a language to specify structures. So they collapse into each other or are complementary.
 
 ## Flashcards
 
@@ -412,8 +412,8 @@ The full model answer for mock Q1 is the first exam question below.
 > [!card]- Why does holism about testing threaten the verifiability theory of meaning?
 > If statements are tested only as a whole, they cannot each have **their own** method of verification.
 
-> [!card]- What did Carnap give up after meeting Gödel and Tarski in the 1930s?
-> **Strict verificationism**: he accepted a full semantics for theoretical terms.
+> [!card]- What did Carnap give up under the influence of Gödel and Tarski in the 1930s?
+> The **identification of meaning with verification**; he accepted a full semantics for theoretical terms.
 
 > [!card]- What did Carnap's partial interpretation of theoretical terms replace?
 > The demand that theoretical terms be **fully reduced to observations**.
@@ -422,7 +422,7 @@ The full model answer for mock Q1 is the first exam question below.
 > **Towards** realism: theoretical terms get meaning beyond observation.
 
 > [!card]- What replaced verification in later logical empiricism?
-> **Confirmation**: observations support or undermine a statement to some degree without settling it.
+> **Confirmation**: evidence supports or undermines a statement **by degrees**, rather than verifying it.
 
 > [!card]- Why did Carnap's rejection of metaphysics lose force after his move to semantics?
 > A full semantics **cannot avoid ontology**, so the line between theory and metaphysics blurs.
@@ -476,7 +476,7 @@ The full model answer for mock Q1 is the first exam question below.
 > The semantic view, **if plausible, is syntactic**.
 
 > [!card]- Why does Frigg think neither conception of theories wins outright?
-> Syntactic is **too strict** (science needs models, natural language); semantic **also needs a language** to specify structures.
+> Syntactic is **too restrictive** (science needs models, natural language); semantic **also needs a language** to specify structures.
 
 > [!card]- Does the syntactic/semantic distinction survive, on the recent debate?
 > Arguably not: the two **collapse into each other** or are complementary.

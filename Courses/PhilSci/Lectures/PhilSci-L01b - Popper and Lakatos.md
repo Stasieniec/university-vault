@@ -328,7 +328,7 @@ Full model answers for mock Q2 and Q3 are in the first two exam questions below.
 >
 > - **Verifiability (Carnap, Vienna Circle):** a statement is meaningful if its truth can in principle be determined by observation or experiment; "the meaning of a statement is its method of verification". Demarcates **meaningful from meaningless**. Metaphysics is nonsense: pseudo-statements.
 > - **Falsifiability (Popper):** a statement is scientific if capable of conflicting with possible observations. Demarcates **science from non-science**. Non-scientific statements are meaningful, sometimes important, sometimes the ancestors of science (Empedocles).
-> - **Logic:** verification wants observations to establish universal laws, which is impossible; falsification wants observations able to destroy them, which modus tollens permits.
+> - **Logic:** strict (conclusive) verification wants observations to establish universal laws, which is impossible; falsification wants observations able to destroy them, which modus tollens permits.
 
 > [!exam]- Compare Popper, Kuhn and Lakatos on the unit of appraisal, the demarcation criterion, and how theory change happens.
 > **Key points:** Unit: theory, paradigm, programme; criterion: falsifiability, puzzle-solving tradition, novel prediction; contrary evidence: refutes unless independent reasons, anomaly, absorbed by belt; theory change: reject what fails a serious test, revolution, desertion of a degenerating programme.
