@@ -156,14 +156,14 @@ Model answers are in the exam questions below.
 > [!card]- Which four aspects of human language does NLP aim to model algorithmically and formally?
 > Word formation, sentence structure (grammar), sentence meaning, document or discourse structure.
 
-> [!card]- Is written language a continuous or a discrete signal?
-> **Discrete**. Spoken language is a continuous signal.
+> [!card]- What distinguishes spoken from written language as a signal?
+> Spoken language is **continuous**; written language is **discrete**.
 
-> [!card]- Is language structured or unstructured information?
-> **Unstructured**, like images and video. Tables and databases are structured.
+> [!card]- What distinguishes structured from unstructured information?
+> Structured: tables, databases. Unstructured: **language**, images, video.
 
-> [!card]- What does a user enter in document retrieval?
-> Keywords. Even a well-formed question is chopped into words.
+> [!card]- How does document retrieval treat a well-formed question?
+> It chops it into **keywords** (after stop-word removal).
 
 > [!card]- What does a document retrieval system return?
 > A **ranked list of documents**.
@@ -210,8 +210,8 @@ Model answers are in the exam questions below.
 > [!card]- Why are most state-of-the-art LLMs English-centric?
 > They are trained predominantly on **Internet resources**, where English dominates.
 
-> [!card]- On which languages do general multilingual LLMs such as Llama 3.1 and DeepSeek perform better?
-> **High-resource** languages.
+> [!card]- How does the performance of general multilingual LLMs such as Llama 3.1 and DeepSeek vary across languages?
+> They do better on **high-resource** languages.
 
 > [!card]- How do dedicated multilingual models such as Aya-Expanse compare with large general LLMs?
 > They tend to **lag behind** (read as behind the general models; not spelled out).
@@ -249,9 +249,6 @@ Model answers are in the exam questions below.
 > [!card]- What made pre-deep-learning NLP costly to extend to a new task?
 > Each task needed its own approach and hand-built features.
 
-> [!card]- Why can NER seem easy in English yet be hard in other languages?
-> English NER seems trivial but still makes silly mistakes; other languages are much harder.
-
 > [!card]- What distinguishes how pre-deep-learning NLP and neural networks get their features?
 > Before: people hand-built features and ML weighed them. Neural networks learn their own.
 
@@ -261,7 +258,7 @@ Model answers are in the exam questions below.
 > [!card]- What distinguishes crosslingual QA from ordinary QA?
 > The answer must be extracted from resources in another language.
 
-> [!card]- Why did Mistral Small 3.2's Amharic translation show that fluency is no evidence of correctness?
+> [!card]- Why did Mistral Small 3.2's translation in the four-LLM comparison show that fluency is no evidence of correctness?
 > It was fluent English describing a different event from the source.
 
 > [!card]- True or false: Deep-learning NLP still requires hand-engineered features such as POS tags and parse trees.
