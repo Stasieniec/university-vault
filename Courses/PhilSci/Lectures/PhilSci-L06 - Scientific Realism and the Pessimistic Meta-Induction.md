@@ -41,9 +41,9 @@ topics:
 
 **Against realism:**
 
-- **Empirical under-determination** (the same evidence fits rival theories): probably a **stalemate**, with **not much force**. Real rivals with the same predictions are easy to build as toy models but rare and controversial in physics. Realists say **theoretical virtues** (simplicity, beauty, fruitfulness) break the tie, being non-empirical but **truth-conducive**; the anti-realist denies that simpler means more likely true.
+- **Empirical under-determination** (the same evidence fits rival theories): probably a **stalemate**, with **not much force**. Equivalent rivals are easy as toy models, rare in real physics. Realists say **theoretical virtues** (simplicity, beauty, fruitfulness) break the tie, being **truth-conducive**; anti-realists deny it.
 - **Constructive empiricism** (van Fraassen: science aims only at empirical adequacy): the **main contender**. It has fewer of the problems of logical empiricism and some virtues of realism, but where "observable" ends **remains a problem**.
-- **The pessimistic meta-induction**: **some force**. The rest of this note is about it.
+- **The pessimistic meta-induction**: **some force**.
 
 ## The challenge, restated
 
@@ -64,17 +64,17 @@ Keep an eye on "obviously": De Haro denies it.
 
 ### What realists actually claim
 
-Kitcher (1993) and Psillos (1999) first correct the target. Van Fraassen defined realism as: "Science aims to give us, in its theories, a **literally true** story of what the world is like; and acceptance of a scientific theory involves the belief that it is true." Realists in fact believe theories **approximately or probably true**. And a theory is **not monolithic**: it has parts (laws, mechanisms, posits), some more important than others. So "approximately true" can mean the important parts are true even if others are false, which answers Laudan's first problem part by part.
+Kitcher and Psillos first correct the target. Van Fraassen defined realism as: "Science aims to give us, in its theories, a **literally true** story of what the world is like; and acceptance of a scientific theory involves the belief that it is true." Realists in fact believe theories **approximately or probably true**. And a theory is **not monolithic**: it has parts (laws, mechanisms, posits), some more important than others. So "approximately true" can mean the important parts are true even if others are false, which answers Laudan's first problem part by part.
 
 ## First reply: only mature, genuinely successful theories count
 
-Psillos first tightens "success" to include **novel predictions**, since any theory can be made to fit known facts. Then maturity (Boyd; Hardin and Rosenberg, 1981): be a realist only about **mature** theories. A discipline is mature once past a **take-off point**, where entrenched background beliefs fix the domain and constrain new theories (for heat: no perpetual motion, heat flows from warm to cold, Newtonian mechanics). Humoral medicine and effluvial electricity drop off the list.
+Psillos first requires success to include **novel predictions**, since any theory can be made to fit known facts. Then maturity (Boyd; Hardin and Rosenberg): be a realist only about **mature** theories. A discipline is mature once past a **take-off point**, where entrenched background beliefs fix the domain and constrain new theories (for heat: no perpetual motion, heat flows from warm to cold, Newtonian mechanics). Humoral medicine and effluvial electricity drop off the list.
 
 **Kyle Stanford** (2006), the main critic here: the maturity requirement is **arbitrary and post hoc** (made up after the fact), and some listed theories surely were well confirmed: **phlogiston theory of combustion**, **caloric theory of heat**. Psillos had already conceded in 1999 that caloric theory and the optical aether theories were mature, successful and false. Maturity shrinks the list without defeating the PMI.
 
 ## Second reply: believe only what did the work
 
-**Selective confirmation:** success confirms some parts of a theory and not others. Kitcher applies this to reference (some uses of a term refer, others not); Psillos to the content of a theory.
+**Selective confirmation:** success confirms some parts of a theory and not others. Kitcher selects among uses of a term; Psillos among parts of a theory.
 
 ### Kitcher: reference is fixed case by case
 
@@ -90,14 +90,14 @@ Philip Kitcher: scientists' terms **do not automatically refer**; look at each c
 > - **Causal core:** the parts that explain the phenomena and are **responsible for the theory's success**. Typically **retained** by later theories.
 > - **Idle constituents:** parts **not causally involved** in explaining the phenomena. Typically **disappear** later.
 
-Success confirms only the core. To find it, ask which assumptions "really fuel the derivation" of a success: those it cannot be derived without, and that no independently motivated, non-ad-hoc alternative could replace.
+Success confirms only the core: the assumptions that "really fuel the derivation" of a success, which it cannot do without and no non-ad-hoc alternative could replace.
 
 > [!example] Maxwell's theory and the aether
 > The standard case is James Clerk Maxwell's electromagnetism (the nineteenth-century theory uniting electricity, magnetism and light; a different Maxwell from L05's Grover Maxwell). Its causal core is its **equations and mechanisms of explanation**, which do not require the aether. The aether as a material medium is an **idle constituent**, not retained. So the success confirms the equations, and dropping the aether shows nothing against them.
 
 Psillos' own case, the nineteenth-century optical aether, is subtler. What was dropped was mainly the mechanical **models** of the aether (an elastic solid), which scientists treated as heuristic devices; the general dynamics of the light-carrying medium, including energy conservation, carried over into electromagnetism. And Psillos argues that "luminiferous ether" plausibly **refers to the electromagnetic field**.
 
-**Compare Lakatos** ([[PhilSci-L01b - Popper and Lakatos|L01b]]): a protected **hard core** and an adjustable **protective belt**. Both split a theory into a part that carries the weight and a part that can go, on different grounds: Lakatos' hard core is what scientists decide to protect; Psillos' causal core is defined by its role in producing success.
+**Compare Lakatos** ([[PhilSci-L01b - Popper and Lakatos|L01b]]): both split a theory into a part that carries the weight and a part that can go, but Lakatos' **hard core** is what scientists decide to protect, while Psillos' causal core is defined by its role in producing success.
 
 ### Which theory of reference?
 
@@ -107,7 +107,7 @@ Psillos' own case, the nineteenth-century optical aether, is subtler. What was d
 
 ## Third reply: keep only the structure
 
-**Structural realism** (John Worrall, named in the Psillos reading) splits a theoretical claim into its **content**, which gets superseded, and its **mathematical structure**, which is retained. (Standard example, from outside the readings: Augustin Fresnel's equations for light survived into Maxwell's theory; Fresnel's elastic aether did not.) The realist gives up the lost entities but keeps a claim about the world's structure.
+**Structural realism** (John Worrall, named in the Psillos reading) splits a theoretical claim into its **content**, which gets superseded, and its **mathematical structure**, which is retained. (Standard example, from outside the readings: Augustin Fresnel's equations for light survived into Maxwell's theory; Fresnel's elastic aether did not.)
 
 **Objection:** structure may **not be enough to specify an ontology**: what kinds of things the world contains, which was the point of realism. Psillos' core keeps laws and mechanisms with their content. De Haro also wants more than structure: matching equations (formal correspondence) are not enough for him, and his extensions include entities with their properties.
 
@@ -127,7 +127,7 @@ Back to Psillos' causal core. Stanford's **historicist** critique (testing philo
 
 **Stanford's later paper**, "'Atoms exist' is probably true, and other facts that should not comfort scientific realists", moves away from reference. Grant that old terms like "atom" refer: what was believed about atoms still changed profoundly. The real question is whether science will keep showing a "broad pattern of repeated, profound, and unpredictable changes in fundamental theoretical orthodoxy". And the trouble with an abandoned term is that it is no longer part of "the most pragmatically powerful and successful conceptual apparatus" for its phenomena.
 
-His 2006 book adds the **problem of unconceived alternatives** (background, not developed in the readings): past scientists repeatedly missed equally good rival theories that were later adopted, so ours probably have rivals nobody has thought of.
+His 2006 book adds the **problem of unconceived alternatives** (background): past scientists kept missing equally good rivals later adopted, so ours probably have some too.
 
 ## De Haro's extensional scientific realism
 
@@ -158,7 +158,7 @@ De Haro's realism is cautious: approximate truth, since belief in literal truth 
 >
 > "Sense" and "reference" are Frege's terms; "intension" and "extension" are **Carnap's**.
 
-Why the two come apart: a description says what would count as the morning star in any situation, so an intension reaches every situation the words could describe. The extension is what actually fits the description in one situation, our world, under our conditions of observation (a clear dark sky, Venus on the right side of the sun). That both descriptions pick out one object is a discovery about our world. Two terms are **extensionally equivalent** when they pick out the same thing in the situations in question, even if their intensions differ. For a theory, De Haro narrows those situations to where it has been well tested: its **domain of application**.
+Why the two come apart: a description says what would count as the morning star in any situation, so an intension reaches every situation the words could describe. The extension is what actually fits the description in one situation, our world, under our conditions of observation. That both descriptions pick out one object is a discovery about our world. Two terms are **extensionally equivalent** when they pick out the same thing in the situations in question, even if their intensions differ. For a theory, De Haro narrows those situations to where it has been well tested: its **domain of application**.
 
 ### Temperature: different intensions, one extension
 
@@ -179,7 +179,7 @@ The PMI denies **continuity of reference and approximate truth** between discard
 
 **Why stop at extensions?** An intension applies wherever the words could be used, including situations where the theory was never tested and may be false. The evidence supports only the extension within the domain, and prudent scientists never claim more. So a successor that differs radically **outside** the old domain is no threat: nobody had reason to believe the old theory there. De Haro's example: for navigation and the motions of the sun and moon, at ordinary accuracy, Newton's "gravitational force" and general relativity's spacetime curvature cause the same phenomena (Newton's force can be derived from general relativity), so there they are extensionally equivalent.
 
-This answers Stanford's later test too. In its domain, Newton's gravity is still the most powerful apparatus we have (nobody navigates with full general relativity), and so is Maxwell's theory in its domain. And reference does matter: dismissing it treats an extension as a bare, "faceless" object, but extensions are partly fixed by intensions, so they carry content.
+This answers Stanford's later test too. In its domain, Newton's gravity is still the most powerful apparatus we have, and so is Maxwell's theory in its domain. And reference does matter: dismissing it treats an extension as a bare, "faceless" object, but extensions are partly fixed by intensions, so they carry content.
 
 > [!definition] What determines an extension
 > The extension is determined by the **intension** together with the **specific circumstances or context** in which a phenomenon is studied.
@@ -191,7 +191,7 @@ As "morning star" and "evening star" coincide only given how our world is and ho
 - **extra-theoretical facts** (experimental error, other influences, weather);
 - **approximations and idealisations**: $v \ll c$ (speeds far below light speed $c$, where relativity reduces to Newton), $\hbar \to 0$ (Planck's constant to zero, quantum effects vanish), $G \to 0$ (gravitational constant to zero, gravity off).
 
-So "domain of application" is no fudge letting the realist retreat wherever a theory fails: scientists already state these conditions. And an intension can be wrong in general yet, in the right circumstances, pick out the right thing. This makes De Haro's account a mixed theory of reference, like Psillos': descriptions (intensions) and practical contact (experiments, samples, measurements) together fix reference.
+So the domain is no fudge: scientists already state these conditions. And an intension can be wrong in general yet, in the right circumstances, pick out the right thing. This makes De Haro's account a mixed theory of reference, like Psillos': descriptions (intensions) and practical contact (experiments, samples, measurements) together fix reference.
 
 ### How to show two theories share an extension
 
@@ -210,14 +210,14 @@ In general all three are needed: two descriptions of one sample that ascribed co
 
 ### The aether exists
 
-The pessimist's strongest case: **"aether" does not refer**, so how can the old electromagnetic theory be even approximately true? Stanford calls its ontology "radically misguided". Old and new theories are in predictive and material correspondence, but conceptual correspondence seems to fail: a material medium filling space has no counterpart in modern theory.
+The pessimist: **"aether" does not refer**, so how can the old theory be even approximately true? Stanford calls its ontology "radically misguided". Old and new theories are in predictive and material correspondence, but conceptual correspondence seems to fail: a material medium filling space has no counterpart in modern theory.
 
 De Haro: **"aether" does refer. The aether does exist.**
 
 > [!definition] What "aether" refers to
 > What Maxwell called the "aether" is **extensionally equivalent** to what we now call **"the electromagnetic field", together with a fixed frame of reference**, for speeds far below light ($v \ll c$). "Aether" and "electromagnetic field" are, of course, **intensionally distinct**.
 
-(A frame of reference is a standpoint from which positions and speeds are measured.) De Haro thinks **Maxwell's argument for the aether was very good**: electromagnetic energy does not vanish at the sender and pop up at the receiver elsewhere (**conservation of energy**), so something in between carries it. That "medium" is the field together with a fixed frame. On a natural reading, the missing conceptual correspondence is then there: in the domain, Maxwell's medium and our field play the same role, carrying the energy. Why a fixed frame? (Background physics, not from the readings:) a medium has a state of rest, so it singles out one frame, while the modern field singles out none; in one frame at low speeds the two descriptions predict the same.
+(A frame of reference is a standpoint from which positions and speeds are measured.) De Haro thinks **Maxwell's argument for the aether was very good**: electromagnetic energy does not vanish at the sender and pop up at the receiver elsewhere (**conservation of energy**), so something in between carries it. That "medium" is the field together with a fixed frame. On a natural reading, the missing conceptual correspondence is then there: in the domain, Maxwell's medium and our field play the same role, carrying the energy. Why a fixed frame? (Background physics:) a medium has a state of rest, singling out one frame; the field singles out none; in that frame at low speeds they predict the same.
 
 **How this differs from Psillos.** Psillos also lets "aether" refer to the field. The difference is the route: Psillos sorts the theory into core and idle parts and anchors reference in what did the work, the sorting Stanford attacks. De Haro sorts nothing: he takes Maxwell's argument at face value, treats the aether as real, and says only that what the argument established is, extensionally, the field.
 
@@ -252,8 +252,8 @@ The PMI assumes our situation is like that of past scientists.
 
 - **Laudan**, with the philosopher Mary Hesse's "principle of no privilege": yes, our theories are as liable to radical conceptual change.
 - **Psillos:** not quite. Scientists learn from failures and improve their methods, and many posits survived several revolutions: gene, atom, chemical bond, electromagnetic field. This works only against Saatsi's first reading; the second needs no analogy, since past successful but false theories already show success is no reliable sign of truth.
-- **Stanford:** yes. Future scientists will judge ours with hindsight, and we have probably not conceived of the alternatives.
-- **De Haro:** past scientists were justified only within their domains, and there their beliefs mostly survived. What changed were intensions, and claims about untested domains, which nobody was justified in believing.
+- **Stanford:** yes. Future scientists will judge ours with hindsight.
+- **De Haro:** past scientists were justified only within their domains, and there their beliefs mostly survived. What changed were intensions and claims about untested domains.
 
 ## The replies side by side
 
@@ -267,17 +267,13 @@ The PMI assumes our situation is like that of past scientists.
 
 ## What to be able to write
 
-- The PMI; the "obviously non-referring" premise De Haro attacks.
-- Mature theories and Stanford's objection; Kitcher and Stanford's reply.
-- Causal core versus idle constituents with Maxwell's aether; structural realism.
-- Stanford's four points, why the victory is Pyrrhic, and the "'Atoms exist'" point.
+- The replies to the PMI and their objections, ending in Stanford's Pyrrhic victory.
+- Causal core versus idle constituents, with Maxwell's aether.
 - Intension and extension (Venus, temperature); the slogan; why belief stops at the domain.
 - The three correspondences, one example each.
-- The aether as field plus fixed frame; how De Haro's route differs from Psillos'.
+- The aether as field plus fixed frame, and how this differs from Psillos.
 - Why extensional realism escapes the dilemma; its parallel with van Fraassen.
-- Approximate truth as extensional truth on a larger, more significant domain.
-
-Model answers are in the exam questions below.
+- Approximate truth as extensional truth on a larger domain.
 
 ## Exam questions
 
