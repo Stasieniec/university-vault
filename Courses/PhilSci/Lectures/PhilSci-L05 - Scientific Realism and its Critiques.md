@@ -27,15 +27,15 @@ topics:
 # PhilSci-L05: Scientific Realism and its Critiques
 
 > [!abstract] In short
-> Physics says electrons exist. Nobody has ever seen one. Should you believe in them, or only that the theory gets every meter reading right? This is the scientific realism debate, arguably the central debate in philosophy of science today.
+> Physics says electrons exist, though nobody has ever seen one. Should you believe in them, or only that the theory gets every observation right?
 >
-> **Scientific realists:** believe it. Our best theories are true or approximately true, including what they say about things nobody can observe, because otherwise their success at predicting brand-new results would be a miracle.
+> **Scientific realists:** believe in them. Our best theories are true or approximately true, unobservables included, or their success at predicting brand-new results would be a miracle.
 >
-> **Van Fraassen:** accepting a theory only commits you to believing it gets the observable world right. Whether you also believe in its electrons is up to you.
+> **Van Fraassen:** accepting a theory commits you only to believing it gets the observable world right. Belief in its electrons is up to you.
 >
-> **Laudan:** history is full of successful theories built on things that turned out not to exist (the aether, phlogiston), so success is no sign of truth.
+> **Laudan:** history is full of successful theories built on things that do not exist (the aether, phlogiston), so success is no sign of truth.
 >
-> On the mock exam this is Q8 (10 marks): van Fraassen's attack on the realist's demand for explanation, and Musgrave's reply. It has its own section below, under van Fraassen.
+> On the mock exam this is Q8 (10 marks): Musgrave's reply to van Fraassen's attack on the realist's demand for explanation, covered under van Fraassen below.
 
 ## Where the word "realism" comes from
 
@@ -85,7 +85,7 @@ Later **logical empiricists** drifted towards realism: they **accepted semantics
 > [!definition] Maxwell's objection (Grover Maxwell, 1962)
 > The **theory-observation distinction cannot be sharply drawn.**
 
-This was the first realist attack, and an effective one. The positivist's position rests on a line it cannot draw: if meaning (or existence) depends on that line, there is no saying which claims are meaningful. Van Fraassen's reply comes below.
+This was the first realist attack, and an effective one: if meaning depends on a line nobody can draw, there is no saying which claims are meaningful. Van Fraassen's reply comes below.
 
 ## What scientific realism claims
 
@@ -99,7 +99,7 @@ This was the first realist attack, and an effective one. The positivist's positi
 
 Realism goes beyond empirical adequacy: the realist also believes the unobservable parts.
 
-Van Fraassen's (1980) precise version: a theory is empirically adequate "**if and only if it has at least one model such that all appearances are isomorphic to empirical substructures of that model**". Treat a theory as a family of mathematical models. The **empirical substructures** are the parts meant to represent observable things; the **appearances** are what measurements report; **isomorphic** means they match one-to-one, structure preserved. What the rest of the model says about unobservables does not matter.
+Van Fraassen's (1980) precise version: a theory is empirically adequate "**if and only if it has at least one model such that all appearances are isomorphic to empirical substructures of that model**". In plain words: some model of the theory has parts (**empirical substructures**) that match every measurement result (**appearances**) one-to-one, structure preserved (**isomorphic**). What the rest of the model says about unobservables does not matter.
 
 ### Three theses in one
 
@@ -147,7 +147,7 @@ The no-miracles argument is an **inference to the best explanation (IBE)**, also
 
 where $E$ is the evidence (for the realist: the success of science), $H_1, \dots, H_n$ are rival hypotheses that would each explain it, and $H_i$ is the best of them (the theory is approximately true).
 
-Like induction, IBE is **ampliative** (the conclusion goes beyond what is logically contained in the premises) and **fallible** (true premises can still give a false conclusion). Deduction is neither. Induction appeals to observed frequencies and statistics; IBE also appeals to **explanatory considerations**: this is the best explanation available, so it is true.
+Like induction, IBE is **ampliative** (the conclusion goes beyond what is logically contained in the premises) and **fallible** (true premises can still give a false conclusion). Deduction is neither: it only draws out what the premises already contain, so true premises guarantee a true conclusion. Induction appeals to observed frequencies and statistics; IBE also appeals to **explanatory considerations**: this is the best explanation available, so it is true.
 
 That is where the anti-realist pushes back: **many anti-realists do not accept explanation as an aim of science.** If explaining is something we do *with* science, for our own purposes, "best explanation" gives no reason to believe a theory true. That is van Fraassen's view from [[PhilSci-L04 - Scientific Explanation and Understanding|L04]], and mock Q8 is about it.
 
@@ -179,7 +179,7 @@ Maxwell's argument was deadly for the positivists because they hung **meaning** 
 2. **The theory-observation distinction is a category mistake** (treating a thing as the wrong kind of thing). It runs together a distinction in **language**, theoretical versus non-theoretical **terms**, and one in **objects**, observable versus unobservable **entities**.
 3. **"Observable" is a vague but usable predicate.** Like "bald": no one hair makes the difference, yet there are clear cases on each side. We all understand that glasses do not change whether something counts as observed, and that a microscope does.
 
-Why it works: van Fraassen hangs only **what we are obliged to believe** on the line, and neither meaning nor existence. A vague boundary for belief is harmless, because there are clear cases on both sides (a table, an electron), and the clear cases are all he needs. Maxwell refutes the positivist and misses van Fraassen.
+Why it works: van Fraassen hangs only **what we are obliged to believe** on the line, and neither meaning nor existence. For belief a vague boundary is harmless: clear cases on both sides (a table, an electron) are all he needs. Maxwell refutes the positivist and misses van Fraassen.
 
 ### Reply to IBE: a rival hypothesis
 
@@ -192,24 +192,24 @@ Realists want observed regularities explained, by unobservable structure if need
 The realist Alan Musgrave replies that van Fraassen "tacitly conflates 'realism with essentialism, ... the demand for explanation with the demand for ultimate explanation'". The reply rests on one distinction:
 
 - An **ultimate explanation** explains something in terms that need no further explanation. It **removes puzzlement**: nothing is left to ask. **Essentialism** is the view that science seeks this kind of explanation, bottoming out in the essences of things.
-- A **non-ultimate explanation** explains one thing by another that itself still needs explaining. It **relocates** puzzlement (the puzzle is now about the molecules) and even **enhances** it (the new puzzle is deeper). It is still a **real explanation**.
+- A **non-ultimate explanation** explains one thing by another that itself still needs explaining. It does not remove puzzlement: it **relocates** it (the puzzle is now about the molecules) and can even **enhance** it (the molecules raise more questions than the gas did). It is still a **real explanation**.
 
 So van Fraassen's argument works against essentialism and does not touch realism. A realist can say that science aims at explanation, and at ever better and deeper explanations, while admitting that every explanation leaves something unexplained.
 
 > [!definition] Musgrave's reply, in the official key's words
 > Ultimate scientific explanations serve to remove puzzlement. Non-ultimate scientific explanations do not serve this pragmatic function of removing puzzlement (they relocate it and enhance it), yet they are real explanations. In other words, there can always be better or deeper explanations, and scientific theories certainly do aim to give explanations, but there is no unlimited demand for explanations.
 
-Note "pragmatic": settling our puzzlement is the job van Fraassen's pragmatic account gives explanation. Non-ultimate explanations do not do that job, and are explanations anyway.
+One way to read the word "pragmatic" in the key: settling our puzzlement is the kind of job van Fraassen's pragmatic account gives explanation, and non-ultimate explanations do not do that job, yet are explanations anyway.
 
 **Why this is a reply.** Van Fraassen's case that explanation is not an aim of science works only if "explanation" means ultimate explanation. Once non-ultimate explanations count as genuine, science can aim at explanation after all, and the realist's appeal to the best explanation, IBE, regains its force.
 
 Musgrave's paper is not in the vault, so the account of van Fraassen's argument at the start of this section is reconstructed from the mock question and its key. An answer must contain the key's wording.
 
-Background from outside the course material: Musgrave was a student of Karl Popper ([[PhilSci-L01b - Popper and Lakatos|L01b]]), and "essentialism" in this sense is Popper's term. Popper rejected ultimate explanation by essences while holding that science aims at ever deeper explanations, the position Musgrave defends here.
+Background from outside the course material: Musgrave was a student of Karl Popper ([[PhilSci-L01b - Popper and Lakatos|L01b]]), and this sense of "essentialism" comes from Popper, who rejected ultimate explanation by essences while holding that science aims at ever deeper explanations: the position Musgrave defends here.
 
 ### Reply to the no-miracles argument: survival of the fittest
 
-From van Fraassen's reading, which the lecture did not go through: the success of science is no miracle, because theories compete and only the successful ones survive, "the ones which in fact latched on to actual regularities in nature". As in Darwin, selection explains why the survivors fit. Success needs no truth behind it, only a tough selection process.
+Outside the lecture material, from van Fraassen's reading for the week: the success of science is no miracle, because theories compete and only the successful ones survive, "the ones which in fact latched on to actual regularities in nature". As in Darwin, selection explains why the survivors fit. Success needs no truth behind it, only a tough selection process.
 
 ## The case against: Laudan's pessimistic meta-induction
 
@@ -277,9 +277,9 @@ The philosopher Juha Saatsi (2005) points out that the PMI's conclusion can be r
 1. **An induction on the past:** past successful theories were false, so **current theories are likely to be false too**. A strong prediction about today's science.
 2. **A timeless argument that undermines the no-miracles argument:** the past cases show that **success is not a reliable indicator of truth**. This attacks the realist's reason for optimism, and predicts nothing about which current theories will fall.
 
-Reading 2 goes straight for the no-miracles argument (the best explanation of our current theories' success is that they are true). The realist says: an incredible string of successes, so science must be tracking the truth. Laudan replies: there was also a string of successful theories whose posits turned out not to be there. So the "miracles" look less miraculous, and even great success may not be enough to infer truth.
+Reading 2 goes straight for the no-miracles argument (the best explanation of our current theories' success is that they are true). The realist sees a string of successes and infers truth. Laudan points to an earlier string of successful theories whose posits turned out not to be there. So the "miracles" look less miraculous, and even great success may not be enough to infer truth.
 
-Reading 2 is more modest, and harder to resist. Against reading 1 a realist can argue that today's science is better placed than that of 1800. That does nothing against reading 2: the cases still show success and truth coming apart. The realist replies are [[PhilSci-L06 - Scientific Realism and the Pessimistic Meta-Induction|L06]].
+Reading 2 is more modest, and harder to resist. Against reading 1 a realist can argue that today's science is better placed than that of 1800. That does nothing against reading 2: the cases still show success and truth coming apart. The realist's replies are in [[PhilSci-L06 - Scientific Realism and the Pessimistic Meta-Induction|L06]].
 
 ## What to be able to write
 
