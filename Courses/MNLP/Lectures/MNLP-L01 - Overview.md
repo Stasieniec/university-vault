@@ -27,7 +27,7 @@ topics:
 
 ## What NLP models, and why it is hard
 
-Information can be sorted in two ways, and every form of it falls somewhere on both:
+Information can be sorted in two ways:
 
 - **Structured** (tables, databases) against **unstructured** (language, images and video).
 - **Continuous signals** (spoken language and audio, images and video) against **discrete signals** (written language).
@@ -126,9 +126,9 @@ Model answers are in the exam questions below.
 > [!exam]- Distinguish multilingual from crosslingual NLP, give examples of each, and say what the English-centric training of LLMs means for both.
 > **Key points:** multilingual means one system for many languages without being language-specific; crosslingual means information or knowledge crossing between languages; multilingual examples: NER, parsing, classification across languages; crosslingual examples: MT, crosslingual QA, crosslingual unlearning, crosslingual reasoning; LLMs are trained mostly on English web text and fragile elsewhere.
 >
-> - **Multilingual:** one system that works for **multiple languages**, each input handled in its own language. Examples: NER for multiple languages (can it be trained without being language-specific?), language-independent parsing (are there universal features?), sentence or document classification across languages (again, trained without being language-specific).
+> - **Multilingual:** one system that works for **multiple languages**, without being language-specific. Examples: NER for multiple languages (can it be trained without being language-specific?), language-independent parsing (are there universal features?), sentence or document classification across languages (again, trained without being language-specific).
 > - **Crosslingual:** information or **knowledge crosses from one language to another**. Examples: machine translation (make information understandable across languages), crosslingual QA (extract information from resources in other languages), crosslingual unlearning (manipulate information across languages), crosslingual reasoning (combine information across languages).
-> - **LLMs:** trained predominantly on Internet resources, about half of which are English, so most state-of-the-art models are **English-centric**. General multilingual models such as Llama 3.1 and DeepSeek do better on **high-resource languages**; dedicated multilingual models such as Aya-Expanse tend to **lag behind** (behind what is not stated; read as behind the general models). Translation can still go badly wrong: asked to translate a sentence in Amharic (identified from its script; the course does not name the language), one of four models produced a fluent translation of a different event.
+> - **LLMs:** trained predominantly on Internet resources, about half of which are English, so most state-of-the-art models are **English-centric**. General multilingual models such as Llama 3.1 and DeepSeek do better on **high-resource languages**; dedicated multilingual models such as Aya-Expanse tend to **lag behind** (behind what is not stated; read as behind the general models). Translation can still go badly wrong: asked to translate a sentence in Amharic (identified from its script and grammar; the course does not name the language), one of four models produced a fluent translation of a different event.
 >
 > Losing marks: treating the two terms as synonyms, or calling classification across languages crosslingual because of the word "across".
 
@@ -146,7 +146,7 @@ Model answers are in the exam questions below.
 > - LLMs originated within NLP and now dominate research.
 > - **Uses:** traditional NLP tasks end to end (QA, summarization, MT); substituting or supplementing humans in data annotation, evaluation (**LLM as a judge**) and dialog.
 > - **Limit:** trained mostly on English Internet text, so weaker on other languages, especially low-resource ones.
-> - **Evidence:** asked to translate a sentence in Amharic (identified from its script; the course does not name the language), GPT-5.6 Terra, Gemini 3.6 Flash and Claude Sonnet 4.6 all render it as the embassy in South Sudan calling for an investigation into an attack that killed Ethiopian peacekeepers, differing only in wording. **Mistral Small 3.2** produced "The Ethiopian embassy in Khartoum, where the Ethiopian peacekeepers were detained, is closed": fluent, and about a different event.
+> - **Evidence:** asked to translate a sentence in Amharic (identified from its script and grammar; the course does not name the language), GPT-5.6 Terra, Gemini 3.6 Flash and Claude Sonnet 4.6 all render it as the embassy in South Sudan calling for an investigation into an attack that killed Ethiopian peacekeepers, differing only in wording. **Mistral Small 3.2** produced "The Ethiopian embassy in Khartoum, where the Ethiopian peacekeepers were detained, is closed": fluent, and about a different event.
 
 ## Flashcards
 
