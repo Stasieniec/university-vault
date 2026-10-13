@@ -43,49 +43,53 @@ topics:
 
 The oldest form of the question is about what exists (the **ontological question**): does the external world exist independently of us, of our thoughts and perceptions?
 
-- **Metaphysical realism** says yes: objects exist independently of the mind. Most philosophers from Plato to the present hold some version of it.
+- **Metaphysical realism** says yes: objects exist independently of the mind. Many philosophers, from Plato on, hold some version of it.
 - **Idealism** says no: the world depends on the mind. George Berkeley (18th-century Irish philosopher) put it as *esse est percipi*, "to be is to be perceived": what nobody perceives does not exist.
 
-Idealism is less silly than it sounds. Our only access to anything outside ourselves is perception, so we can never check whether anything exists beyond it. If you accept only what you can perceive and check, you end up here: idealism is "the maximally empiricist possible answer" (empiricism: all knowledge comes from experience).
+Idealism is less silly than it sounds. Perception is our only access to anything outside ourselves, so we can never check whether anything exists beyond it: idealism is "the maximally empiricist possible answer" (empiricism: all knowledge comes from experience).
 
 ### Kant: the world exists, but we only know how it appears
 
-Immanuel Kant (18th-century German philosopher) found a middle ground by switching to a question about knowledge (the **epistemological question**): what can we know of the external world?
+Immanuel Kant (18th-century German philosopher) found a middle ground between realism and idealism by switching to a question about knowledge (the **epistemological question**): what can we know of the external world?
 
-There is an external reality, the **things-in-themselves** or **noumena** (the chair as it is, independent of anyone perceiving it), but we cannot know it. We can only know **appearances**, the **phenomena** (the chair as it appears to me). Phenomena are shaped by structures the mind brings to every experience: **space and time**, Kant's "forms of intuition" (conditions for perceiving anything at all), and **categories** such as causality and possibility. The structures are in us, but the input comes from the world, so knowing phenomena is still knowing the world, through the mind's filter.
+There is an external reality, the **things-in-themselves** or **noumena** (the chair as it is in itself), but we cannot know it. We can only know **appearances**, the **phenomena** (the chair as it appears to me).
+
+Phenomena are shaped by structures the mind brings to every experience: **space and time** (Kant's "forms of intuition") and **categories** such as causality and possibility. Since the input still comes from the world, knowing phenomena is knowing the world, through the mind's filter.
 
 ### Eddington's two tables: science sharpens the worry
 
-In 1927 the physicist Arthur Eddington (who led the 1919 eclipse expedition in [[PhilSci-L01b - Popper and Lakatos|L01b]]) described his two tables. The everyday one is coloured, permanent, "above all it is substantial". His scientific table is "mostly emptiness", with electric charges rushing about whose combined bulk is "less than a billionth of the bulk of the table itself".
+Science asks the same question one level down, because it describes things nobody can perceive at all. In 1927 the physicist Arthur Eddington (who led the 1919 eclipse expedition in [[PhilSci-L01b - Popper and Lakatos|L01b]]) described his two tables. The everyday one is coloured, permanent, "above all it is substantial". The scientific one is "mostly emptiness", sparsely scattered with electric charges rushing about.
 
 **Which table is real?** The solid one, the nearly empty one, or both, and how are they related? This is the realism debate in its modern form: which of the things science describes are we committed to?
 
 ### Mach and the positivists: only the observable counts
 
-Ernst Mach (Austrian physicist, 1838-1916) took the extreme empiricist line, **radical empiricism**:
+Ernst Mach (Austrian physicist and philosopher) took the extreme empiricist line, **radical empiricism**:
 
 - Claims about **unobservable reality are metaphysical** and **cannot have a truth-value**: if your senses cannot check a claim, there is no deciding it.
 - Theories are **merely economical descriptions of our sensory experiences**, tools for ordering past experiences and predicting new ones. Treating theories as tools in this way is **instrumentalism**.
 
-The early **logical positivists**, Carnap and Neurath in particular (see [[PhilSci-L01 - Introduction and Logical Empiricism|L01]]), went one step further and tied **meaning**, as well as truth, to observation:
+The early **logical positivists**, Carnap and Neurath in particular (see [[PhilSci-L01 - Introduction and Logical Empiricism|L01]]), went one step further and tied **meaning**, as well as truth, to observation. Their picture: a theoretical sentence is shorthand for observational ones. "There are electrons in this tube" means only something like "the meter will read this, the screen will glow there". Read literally, as a claim that unobservable things exist, it says nothing. Hence:
 
-- **Verifiability theory of meaning:** claims about unobservable entities cannot be verified, so they are **meaningless**. Not false: they fail to say anything.
-- A **sharp theory-observation distinction**.
+- **Verifiability theory of meaning:** claims about the existence of unobservable entities cannot be verified, so they are **meaningless**.
+- A **sharp theory-observation distinction**: an exact line between observational terms and sentences (about what we can see) and theoretical ones (about what we cannot).
 - **Theoretical sentences are introduced through observational sentences**, and get whatever meaning they have from those links.
 
 The line has to be sharp because meaning does not come in degrees. A sentence cannot be "almost meaningful", so if meaning stops where observation stops, there must be an exact place where observation stops.
 
-Later **logical empiricists** drifted towards realism: they **accepted semantics** (theoretical sentences can be true or false) and **replaced verification with confirmation** (a claim counts if evidence can support it, a much weaker demand).
+Later members of the movement, usually called **logical empiricists**, drifted towards realism: they **accepted semantics** (theoretical sentences can be true or false) and **replaced verification with confirmation** (a claim counts if evidence can support it, a much weaker demand).
 
 ### Maxwell: the line cannot be drawn
+
+In 1962 Grover Maxwell, an American philosopher of science, attacked the line itself.
 
 > [!example] From glasses to microscopes
 > Looking through glasses is plainly observing: putting them on does not move you into the theoretical realm. Looking through a window is observing too. But glasses are not different in principle from a microscope or a telescope, which are only more elaborate arrangements of lenses. Yet a microscope image does not seem to count as observation the way glasses do. In between lies a continuum of possible instruments, and no principled point where observation stops.
 
-> [!definition] Maxwell's objection (Grover Maxwell, 1962)
+> [!definition] Maxwell's objection (1962)
 > The **theory-observation distinction cannot be sharply drawn.**
 
-This was the first realist attack, and an effective one: if meaning depends on a line nobody can draw, there is no saying which claims are meaningful. Van Fraassen's reply comes below.
+This was the first realist attack on the positivists, and an effective one: if meaning depends on a line nobody can draw, there is no saying which claims are meaningful. With the positivists' line in trouble, scientific realism became the position to beat.
 
 ## What scientific realism claims
 
@@ -97,15 +101,15 @@ This was the first realist attack, and an effective one: if meaning depends on a
 > [!definition] Empirical adequacy
 > A theory is empirically adequate when it represents, describes and predicts the **observable phenomena** well: **what it says about the observable is true**.
 
-Realism goes beyond empirical adequacy: the realist also believes the unobservable parts.
+That covers all observable phenomena, including ones nobody has observed yet. Realism goes further: the realist also believes the unobservable parts.
 
-Van Fraassen's (1980) precise version: a theory is empirically adequate "**if and only if it has at least one model such that all appearances are isomorphic to empirical substructures of that model**". In plain words: some model of the theory has parts (**empirical substructures**) that match every measurement result (**appearances**) one-to-one, structure preserved (**isomorphic**). What the rest of the model says about unobservables does not matter.
+Bas van Fraassen, the leading modern anti-realist (his view comes below), gave the precise version in 1980: a theory is empirically adequate "**if and only if it has at least one model such that all appearances are isomorphic to empirical substructures of that model**". In plain words: part of some model of the theory (the **empirical substructures**) lines up exactly with every observable phenomenon (the **appearances**), structure preserved (**isomorphic**). The rest of the model, about unobservables, does not matter.
 
-### Three theses in one
+### Language, knowledge, existence: the parts of realism
 
-The definition of scientific realism packs in three claims. A scientific realist accepts all three. An **anti-realist** is anyone who rejects at least one.
+The definition packs in three claims: read the theory as talking about electrons, think we are entitled to believe it, and hold that it is true. A scientific realist accepts all three. An **anti-realist** is anyone who rejects at least one.
 
-> [!definition] The three kinds of scientific realism
+> [!definition] The kinds of scientific realism
 > - **Semantic realism** (about language): interpret scientific theories **literally**. Theories aim to tell a "literal story" about how the world works. The contrast is the logical empiricists' construal of theoretical terms as shorthand for observations.
 > - **Epistemic realism** (about knowledge): one is **justified in accepting** scientific theories as true.
 > - **Metaphysical realism** (about what there is): the theory **is true** or approximately true. **The world is like the theory says it is**, and its entities exist.
@@ -115,48 +119,46 @@ Semantic and metaphysical realism are easy to blur. Semantic realism says "there
 > [!warning] Two meanings of "metaphysical realism"
 > Against Berkeley, it means **an external world exists** independently of the mind. Inside scientific realism, it means **the theory is (approximately) true and its entities exist**. Everyone in the scientific realism debate accepts (or sets aside) the first. The fight is over the second.
 
-| | Semantic | Epistemic | Metaphysical |
-|---|---|---|---|
-| Scientific realist | Yes | Yes | Yes |
-| Mach, early positivists | No | No | No |
-| Van Fraassen | Yes | No | No (agnostic) |
-
 ## The case for realism: success would otherwise be a miracle
 
 ### The no-miracles argument
 
-Particle physics predicted the **top quark** and the **Higgs boson** from theoretical considerations, before any experiment on them had been done. Both are unobservable: nobody sees a Higgs boson, only traces in a detector. When the experiments came, both were found. If the theories were false, this would be an incredible coincidence, and science pulls it off again and again.
+Particle physics predicted the **top quark** and the **Higgs boson** from theory, before any experiment on them. Both are unobservable, and both were then found. If the theories were false, this would be an incredible coincidence, and science pulls it off again and again.
 
-> [!definition] No-miracles argument (Hilary Putnam)
+> [!definition] No-miracles argument (NMA), from the American philosopher Hilary Putnam
 > "Realism is the only philosophy that does not make the success of science a **miracle**."
 >
-> If scientific theories were not **truth-tracking**, it is hard to see how they could make successful predictions of **experiments never performed before**.
+> If scientific theories were not **truth-tracking** (reliably latching on to how the world is), it is hard to see how they could make successful predictions of **experiments never performed before**.
 
-The weight rests on **novel** predictions. A theory built to fit the observations so far is empirically adequate for those, by construction. That does not explain why it should also get right observations nobody had made yet. If it keeps doing so, the natural explanation is that it has latched on to how the world is.
+The weight rests on **novel** predictions. A theory built to fit the observations made so far is bound to fit those. Nothing about that explains why it should also get right observations nobody had made yet. If it keeps doing so, the natural explanation is that it has latched on to how the world is. Put as a question to the anti-realist: why would a theory be empirically adequate, future observations included, unless it were true?
 
-### The argument's form: inference to the best explanation
+### Inference to the best explanation
 
 The no-miracles argument is an **inference to the best explanation (IBE)**, also called **abduction**:
 
-- **What needs explaining:** theories successfully predict the outcomes of experiments never performed before.
+- **What needs explaining** (the explanandum): theories successfully predict the outcomes of experiments never performed before.
 - **Best explanation:** the theories are approximately true.
 - **Conclusion:** theories that reach a certain level of success in prediction and testing are (probably) approximately true.
+
+IBE is also the realist's second argument in its own right. If believing the best explanation is a good general rule of reasoning, then we should believe the theories that best explain the phenomena, unobservables included. The no-miracles argument applies the same rule to the success of science as a whole.
 
 > [!definition] Inference to the best explanation
 > Given evidence $E$ and candidate explanations $H_1, \dots, H_n$ of $E$, infer the truth of that $H_i$ which **best explains** $E$.
 
-where $E$ is the evidence (for the realist: the success of science), $H_1, \dots, H_n$ are rival hypotheses that would each explain it, and $H_i$ is the best of them (the theory is approximately true).
+Here $E$ is the evidence (for the realist: the success of science), $H_1, \dots, H_n$ are rival hypotheses that would each explain it, and $H_i$ is the best of them (the theory is approximately true).
 
-Like induction, IBE is **ampliative** (the conclusion goes beyond what is logically contained in the premises) and **fallible** (true premises can still give a false conclusion). Deduction is neither: it only draws out what the premises already contain, so true premises guarantee a true conclusion. Induction appeals to observed frequencies and statistics; IBE also appeals to **explanatory considerations**: this is the best explanation available, so it is true.
+Like induction, IBE is **ampliative** (the conclusion goes beyond what is logically contained in the premises) and **fallible** (true premises can still give a false conclusion). Deduction is neither: it only draws out what the premises already contain, and is **truth-preserving** (true premises guarantee a true conclusion). Induction appeals to observed frequencies and statistics; IBE also appeals to **explanatory considerations**: this is the best explanation available, so it is true.
 
-That is where the anti-realist pushes back: **many anti-realists do not accept explanation as an aim of science.** If explaining is something we do *with* science, for our own purposes, "best explanation" gives no reason to believe a theory true. That is van Fraassen's view from [[PhilSci-L04 - Scientific Explanation and Understanding|L04]], and mock Q8 is about it.
+That is where the anti-realist pushes back: **many anti-realists do not accept explanation as an aim of science.** On van Fraassen's view from [[PhilSci-L04 - Scientific Explanation and Understanding|L04]], an explanation is an answer to a why-question, and what counts as a good answer depends on the context of who asks and why. Explaining is a use of science for our own purposes, so "best explanation" gives no reason to believe a theory true. Musgrave's reply to this comes below.
 
 ## Van Fraassen's alternative: constructive empiricism
 
-Bas van Fraassen, the realist's main modern opponent, built the most developed alternative, **constructive empiricism**. He states both positions in the same two-part form.
+Van Fraassen built the most developed alternative to realism, **constructive empiricism**. He states both positions in the same two-part form.
 
 > [!definition] Scientific realism, in van Fraassen's statement
 > "Science aims to give us, in its theories, a **literally true** story of what the world is like; and **acceptance** of a scientific theory involves the **belief** that it is true."
+
+Note "literally true": most realists claim only approximate truth, a point they press in [[PhilSci-L06 - Scientific Realism and the Pessimistic Meta-Induction|L06]].
 
 > [!definition] Constructive empiricism
 > "Science aims to give us theories which are **empirically adequate**; and **acceptance** of a theory involves as **belief** only that it is empirically adequate."
@@ -169,51 +171,53 @@ Where he stands on the three theses:
 - **Epistemic and metaphysical anti-realist.** Success does not oblige you to believe what a theory says about unobservables.
 - **Agnostic.** "Whether we believe what science says about unobservable entities is up to us." He does not say electrons do not exist; he says the evidence does not force you to believe they do.
 
-So the disagreement with the realist is only about **unobservable** entities. He then attacks the realist's arguments one by one: Maxwell's attack on the theory-observation distinction, IBE, the demand for explanation, and what he calls **the Ultimate Argument**, his name for the no-miracles argument.
+Side by side:
+
+| | Semantic | Epistemic | Metaphysical |
+|---|---|---|---|
+| Scientific realist | Yes | Yes | Yes |
+| Mach, early positivists | No | No | No |
+| Van Fraassen | Yes | No | No (agnostic) |
+
+So the disagreement with the realist is only about **unobservable** entities. He then answers the realist's arguments in turn: Maxwell's case against the theory-observation distinction, IBE, the demand for explanation, and the no-miracles argument, which he calls **the Ultimate Argument** (unrelated to Musgrave's "ultimate explanation" below).
 
 ### Reply to Maxwell: the line can be vague
 
-Maxwell's argument was deadly for the positivists because they hung **meaning** on the line, and meaning is all-or-nothing. (So is existence, so an anti-realist who says only observables exist has the same problem.) Van Fraassen escapes in three moves.
+Maxwell's argument was deadly for the positivists because they hung **meaning** on the line, and meaning is all-or-nothing. Existence is all-or-nothing too, which is one reason van Fraassen never says "only observable things exist". He escapes in three moves.
 
 1. **Take theories literally in all respects.** Drop the verifiability theory of meaning. "Electrons exist" is meaningful, true or false. Whether we are justified in believing it is a separate question.
-2. **The theory-observation distinction is a category mistake** (treating a thing as the wrong kind of thing). It runs together a distinction in **language**, theoretical versus non-theoretical **terms**, and one in **objects**, observable versus unobservable **entities**.
-3. **"Observable" is a vague but usable predicate.** Like "bald": no one hair makes the difference, yet there are clear cases on each side. We all understand that glasses do not change whether something counts as observed, and that a microscope does.
+2. **The theory-observation distinction is a category mistake** (treating a thing as the wrong kind of thing). It runs together a distinction in **language**, theoretical versus non-theoretical **terms**, and one in **objects**, observable versus unobservable **entities**. Once they are separated, the observable/unobservable line is about which things we can see. It says nothing about which words are meaningful, and a theoretical term can describe an observable thing.
+3. **"Observable" is a vague but usable predicate.** Like "bald": no one hair makes the difference, yet there are clear cases on each side.
 
-Why it works: van Fraassen hangs only **what we are obliged to believe** on the line, and neither meaning nor existence. For belief a vague boundary is harmless: clear cases on both sides (a table, an electron) are all he needs. Maxwell refutes the positivist and misses van Fraassen.
+Why it works: van Fraassen hangs neither meaning nor existence on the line. Only **what we are obliged to believe** (our epistemic commitment) depends on it. For belief a vague boundary is harmless: clear cases on both sides (a table, an electron) are all he needs. So Maxwell's objection refutes the positivist and misses van Fraassen. Whether a vague line is good enough is still disputed: where "observable" ends counts as an open problem for constructive empiricism in [[PhilSci-L06 - Scientific Realism and the Pessimistic Meta-Induction|L06]].
 
 ### Reply to IBE: a rival hypothesis
 
 The realist says we follow a rule: believe the best explanation is true. Van Fraassen calls this a **psychological hypothesis** about how we reason, and offers a **rival hypothesis** that fits our practice equally well: we are always willing to believe that the theory which best explains the evidence is **empirically adequate**. Only the realist's version adds belief in unobservables. So our practice does not force realism, and constructive empiricism is a **viable alternative**.
 
-### The demand for explanation: Musgrave's reply (mock Q8)
+### The demand for explanation: Musgrave's reply
 
-Realists want observed regularities explained, by unobservable structure if need be: gases behave as they do because of molecules. Van Fraassen attacks this **realist demand for explanation** and argues that explanation is not one of the aims of science. His attack, as Musgrave's reply reads it, treats the demand as unlimited: every explanation leaves something unexplained (why do the molecules behave as they do?), so a demand to explain everything can never be met, and science does not insist on it.
+Realists want observed regularities explained, by unobservable structure if need be: gases behave as they do because of molecules. Besides calling explanation pragmatic, van Fraassen attacks this **realist demand for explanation** and argues that explanation is not one of the aims of science. His attack, as Musgrave's reply reads it, treats the demand as unlimited: every explanation leaves something unexplained (why do the molecules behave as they do?), so a demand to explain everything can never be met, and science does not insist on it.
 
 The realist Alan Musgrave replies that van Fraassen "tacitly conflates 'realism with essentialism, ... the demand for explanation with the demand for ultimate explanation'". The reply rests on one distinction:
 
 - An **ultimate explanation** explains something in terms that need no further explanation. It **removes puzzlement**: nothing is left to ask. **Essentialism** is the view that science seeks this kind of explanation, bottoming out in the essences of things.
 - A **non-ultimate explanation** explains one thing by another that itself still needs explaining. It does not remove puzzlement: it **relocates** it (the puzzle is now about the molecules) and can even **enhance** it (the molecules raise more questions than the gas did). It is still a **real explanation**.
 
-So van Fraassen's argument works against essentialism and does not touch realism. A realist can say that science aims at explanation, and at ever better and deeper explanations, while admitting that every explanation leaves something unexplained.
+So van Fraassen's argument works against essentialism and does not touch realism.
 
 > [!definition] Musgrave's reply, in the official key's words
 > Ultimate scientific explanations serve to remove puzzlement. Non-ultimate scientific explanations do not serve this pragmatic function of removing puzzlement (they relocate it and enhance it), yet they are real explanations. In other words, there can always be better or deeper explanations, and scientific theories certainly do aim to give explanations, but there is no unlimited demand for explanations.
 
-One way to read the word "pragmatic" in the key: settling our puzzlement is the kind of job van Fraassen's pragmatic account gives explanation, and non-ultimate explanations do not do that job, yet are explanations anyway.
-
-**Why this is a reply.** Van Fraassen's case that explanation is not an aim of science works only if "explanation" means ultimate explanation. Once non-ultimate explanations count as genuine, science can aim at explanation after all, and the realist's appeal to the best explanation, IBE, regains its force.
-
-Musgrave's paper is not in the vault, so the account of van Fraassen's argument at the start of this section is reconstructed from the mock question and its key. An answer must contain the key's wording.
-
-Background from outside the course material: Musgrave was a student of Karl Popper ([[PhilSci-L01b - Popper and Lakatos|L01b]]), and this sense of "essentialism" comes from Popper, who rejected ultimate explanation by essences while holding that science aims at ever deeper explanations: the position Musgrave defends here.
+**Why this is a reply.** Van Fraassen's case that explanation is not an aim of science works only if "explanation" means ultimate explanation. Once non-ultimate explanations count as genuine, science can aim at explanation after all, at ever better and deeper explanations, without an unlimited demand. That removes one of van Fraassen's reasons for setting aside the realist's appeal to the best explanation. His rival hypothesis about IBE is a separate objection, and Musgrave's distinction does not touch it.
 
 ### Reply to the no-miracles argument: survival of the fittest
 
-Outside the lecture material, from van Fraassen's reading for the week: the success of science is no miracle, because theories compete and only the successful ones survive, "the ones which in fact latched on to actual regularities in nature". As in Darwin, selection explains why the survivors fit. Success needs no truth behind it, only a tough selection process.
+This reply is in van Fraassen's reading for the week, though the lecture did not cover it. It answers the realist's question of why a theory would be empirically adequate unless true: theories compete and only the successful ones survive, "the ones which in fact latched on to actual regularities in nature". As in Darwin, selection explains the fit. Success needs no truth behind it.
 
 ## The case against: Laudan's pessimistic meta-induction
 
-The most influential argument against realism is Larry Laudan's (American philosopher of science; his work on under-determination is in [[PhilSci-L03 - Under-determination|L03]]), from "A Confutation of Convergent Realism" (1981). It is a historical argument.
+The most influential argument against realism is historical: Larry Laudan's (American philosopher of science, met in [[PhilSci-L03 - Under-determination|L03]]), from "A Confutation of Convergent Realism" (1981). Its target is **convergent realism**, the view that science gets closer and closer to the truth.
 
 ### The argument
 
@@ -223,8 +227,11 @@ The **aether** was the medium light waves supposedly travelled through; optics a
 > 1. **History of science:** many theories that we now consider **false** were once **empirically successful**.
 > 2. These theories assumed that terms like **"aether"** and **"phlogiston"** referred to entities.
 > 3. We now take those terms **not to refer**: nothing in the world corresponds to them.
-> 4. **Induction:** presently successful theories will (may well) turn out to be false too. **We are not justified in believing that theories are true.**
-> 5. So there is no reason to suppose that the entities, properties and processes postulated by **our best theories** are real.
+> 4. A theory whose central terms do not refer cannot be true, or even approximately true. So these successful theories were false.
+> 5. **Induction:** presently successful theories will (may well) turn out to be false too. **We are not justified in believing that theories are true.**
+> 6. So there is no reason to suppose that the entities, properties and processes postulated by **our best theories** are real.
+
+Step 4 is where reference matters: there is no aether, so the aether theory was not approximately true, yet it was successful.
 
 It is a **meta**-induction because it generalises over **theories**, one level up from induction over observations.
 
@@ -232,20 +239,7 @@ The assumption doing the work: our situation is no different from that of scient
 
 ### Laudan's list
 
-Laudan backs the first premise with a list he calls "the historical gambit":
-
-- crystalline spheres of ancient and medieval astronomy
-- humoral theory of medicine
-- effluvial theory of static electricity
-- catastrophist geology, with its commitment to a universal deluge
-- phlogiston theory of chemistry
-- caloric theory of heat
-- vibratory theory of heat
-- vital force theories of physiology
-- electromagnetic aether
-- optical aether
-- theory of circular inertia
-- theories of spontaneous generation
+Laudan backs the first premise with a list he calls "the historical gambit": the crystalline spheres of ancient and medieval astronomy, the humoral theory of medicine, the effluvial theory of static electricity, catastrophist geology (with its universal deluge), the phlogiston theory of chemistry, the caloric and the vibratory theories of heat, vital force theories of physiology, the electromagnetic aether, the optical aether, the theory of circular inertia, and theories of spontaneous generation.
 
 "This list, which could be extended *ad nauseam*, involves in every case a theory which was once successful and well confirmed, but which contained central terms which (we now believe) were non-referring." The pattern matters more than the details of each case.
 
@@ -254,21 +248,23 @@ Laudan backs the first premise with a list he calls "the historical gambit":
 > [!definition] Convergent realism
 > Theories are approximately true, and successive theories get **closer and closer to the truth**: they **converge** on it.
 
-It has three elements:
+Roughly, a theory is **approximately true** when it gets the world's most central features right while being wrong in details (Psillos's informal gloss, from the week 6 reading). Laudan's complaint is that nobody has made this precise.
+
+Convergent realism has three elements:
 
 1. **Approximate truth:** mature theories are close to the truth, and the more mature, the closer.
 2. **Reference:** mature theories **refer**, and **preserve reference** across theory change. Otherwise successive theories would be about different things, with nothing to converge on.
 3. **Empirical success:** new theories explain why the old ones were successful.
 
-Laudan's verdict on the links: between approximate truth and reference, **vague**; between approximate truth and success, **no guarantee**, so the realist's link is false; between reference and success, **false** both ways.
+Laudan attacks the links between these three elements, in three related problems.
 
-### Three related problems
+### Laudan's problems with approximate truth
 
 1. **There is no good definition of "approximate truth".** "Few of the writers of whom I am aware have defined what it means for a statement or theory to be 'approximately true'." And truth, like meaning, seems all-or-nothing, so it is hard to say what being true "to a degree" could mean.
-2. **Nothing justifies the link between empirical success and reference that realism assumes.** The realist's route runs **success → approximate truth → reference**: success is the reason to think a theory approximately true, and a theory can only be approximately true if its central terms refer. (A claim is true, roughly, when its terms refer and it says true things about what they refer to.) Since approximate truth is vague, all we really have is reference, and its only contact with success runs through approximate truth. So the link is **extremely tenuous**. It fails in practice too: the old theory of tectonic plates had a referring central term and was unsuccessful.
+2. **Nothing justifies the link between empirical success and reference that realism assumes.** The realist's route runs **success → approximate truth → reference**: success is the reason to think a theory approximately true, and a theory can only be approximately true if its central terms refer. Approximate truth is too vague to work with, so the realist is left with reference. But reference touches success only through that vague middle step, so the link is **extremely tenuous**. It fails in both directions in practice. A theory can refer and still be unsuccessful: in the old theory of tectonic plates, "tectonic plates" referred, yet the theory was unsuccessful (probably the early theory of drifting continents, rejected for decades: an identification from outside the course material). And a theory can succeed without referring, as aether theories did.
 3. **Central terms of once-successful theories do not refer, so those theories were not approximately true.** Aether and phlogiston theories were successful anyway. So success does not indicate approximate truth.
 
-All three come back to **approximate truth**: the realist needs it to carry the weight, and it is extremely hard to make sense of, if the historical cases do not refute it outright.
+All three come back to **approximate truth**. The realist needs it to carry the argument. It is extremely hard to make sense of, and the historical cases may refute it outright.
 
 ### Saatsi: two ways to read the PMI
 
@@ -277,18 +273,18 @@ The philosopher Juha Saatsi (2005) points out that the PMI's conclusion can be r
 1. **An induction on the past:** past successful theories were false, so **current theories are likely to be false too**. A strong prediction about today's science.
 2. **A timeless argument that undermines the no-miracles argument:** the past cases show that **success is not a reliable indicator of truth**. This attacks the realist's reason for optimism, and predicts nothing about which current theories will fall.
 
-Reading 2 goes straight for the no-miracles argument (the best explanation of our current theories' success is that they are true). The realist sees a string of successes and infers truth. Laudan points to an earlier string of successful theories whose posits turned out not to be there. So the "miracles" look less miraculous, and even great success may not be enough to infer truth.
+Reading 2 goes straight for the no-miracles argument (the best explanation of our current theories' success is that they are true). The realist sees a string of successes and infers truth; Laudan points to earlier successful theories whose posits were not there. So the "miracles" look less miraculous, and even great success may not be enough to infer truth.
 
-Reading 2 is more modest, and harder to resist. Against reading 1 a realist can argue that today's science is better placed than that of 1800. That does nothing against reading 2: the cases still show success and truth coming apart. The realist's replies are in [[PhilSci-L06 - Scientific Realism and the Pessimistic Meta-Induction|L06]].
+Reading 2 is more modest, and harder to resist. A realist can argue that today's science is better placed than that of 1800, which weakens reading 1 but does nothing against reading 2. The realist's replies are in [[PhilSci-L06 - Scientific Realism and the Pessimistic Meta-Induction|L06]].
 
 ## What to be able to write
 
-- Scientific realism as the conjunction of semantic, epistemic and metaphysical realism (language, knowledge, what exists); empirical adequacy.
-- The no-miracles argument in Putnam's words, with the Higgs boson and top quark, as an IBE; IBE against deduction and induction.
-- Van Fraassen's two-part statements of realism and constructive empiricism; semantic realist, agnostic about unobservables; his three moves against Maxwell.
-- **Mock Q8:** ultimate explanations remove puzzlement; non-ultimate ones relocate and enhance it, yet are real explanations; science aims at explanation without an unlimited demand, so van Fraassen's attack hits essentialism and misses realism.
-- The PMI with aether and phlogiston, Laudan's list, convergent realism and Laudan's three problems; Saatsi's two readings.
-- The week's discussion questions: realism for and against (no-miracles and IBE against the PMI and constructive empiricism); whether scientists aim at truth or empirical adequacy (the rival hypothesis means practice alone does not settle it); whether we can know more than empirical adequacy (novel predictions, Musgrave's reply); whether our predicament is like the past (Saatsi: reading 2 stands even if reading 1 is weakened).
+- Realism as semantic plus epistemic plus metaphysical realism; empirical adequacy (all observable phenomena, future ones included).
+- The two arguments for realism: the NMA (Putnam, Higgs and top quark) and IBE; IBE against deduction and induction.
+- Constructive empiricism in van Fraassen's two-part form; his three moves against Maxwell, and why "observable" stays disputed.
+- **Mock Q8:** ultimate explanations remove puzzlement; non-ultimate ones relocate and enhance it, yet are real; science aims at explanation without an unlimited demand, so the attack hits essentialism and misses realism.
+- The PMI (no reference, so not approximately true, yet successful), Laudan's list, convergent realism, the three problems, Saatsi's two readings.
+- The discussion questions: the aim of science (the rival hypothesis); why a theory would be empirically adequate unless true (against the selection answer); whether our predicament is like the past (Saatsi).
 
 The full model answer for mock Q8 is the first exam question below.
 
