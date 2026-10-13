@@ -100,7 +100,7 @@ exam_date: 2026-10-19
 
 | Session | Material | Notes |
 |---------|----------|-------|
-| Lecture 3 | [[PhilSci-L03 - Under-determination]] | Complete, and checked against the revised deck on 2026-09-16. The two appended slides (Laudan's two UD theses; Quine on the common core) are in sections 4 and 5 |
+| Lecture 3 | [[PhilSci-L03 - Under-determination]] | Rewritten for reading 2026-10-13 and reviewed. Covers Laudan's two theses and Quine on the common core |
 | Lecture 3b | [[PhilSci-L03b - GenAI, Writing and Philosophical Learning]] | Second half of the same session. **Course policy on AI use**, which governs the paper and the presentation |
 
 | Reading | Pages | Source |
