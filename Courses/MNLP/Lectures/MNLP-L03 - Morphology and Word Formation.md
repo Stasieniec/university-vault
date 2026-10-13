@@ -99,7 +99,7 @@ Only a few are valid, and checking all $2^{n-1}$ is out of the question. Approac
 
 ## Rule-based segmentation: maximum matching
 
-Assume a pre-compiled vocabulary $V$ of known words. Walk through the string and at each position take the **longest known word**. Greedy, simple, and a surprisingly strong baseline, still used for preprocessing or as a fast fallback in production. It runs in either direction, **Forward Maximum Matching** (FMM, left to right) or **Backward Maximum Matching** (BMM, right to left), and the two often disagree on ambiguous strings.
+Given a pre-compiled vocabulary $V$ of known words, walk through the string and at each position take the **longest known word**. Greedy, simple and a surprisingly strong baseline, still used for preprocessing or as a fast fallback. It runs in either direction, **Forward Maximum Matching** (FMM, left to right) or **Backward Maximum Matching** (BMM, right to left), and the two often disagree on ambiguous strings.
 
 ```pseudo
 Forward Maximum Matching (FMM)
@@ -154,7 +154,7 @@ BMM mirrors FMM: start at the end, take the substring **ending** at $i$, **prepe
 >
 > Same string, same dictionary, different answers: the string is ambiguous, and each greedy scan commits to one reading.
 
-**Bidirectional matching** runs both and compares. If the two segmentations **agree**, accept the result with high confidence. If they **disagree**, apply a tie-breaking heuristic. Two common choices, each used on its own: prefer the segmentation with **fewer total words**, or the one with **fewer single-character words** (both are proxies for less fragmentation). On the example, the fewer-words rule cannot decide (two words each); the fewer-single-characters rule picks BMM's 研究 | 生活, which has none, over FMM's 研究生 | 活, which has one.
+**Bidirectional matching** runs both. If they **agree**, accept the result with high confidence. If they **disagree**, apply a tie-breaking heuristic; two common choices, each used on its own, are **fewer total words** and **fewer single-character words** (proxies for less fragmentation). On the example the fewer-words rule cannot decide (two words each); the fewer-single-characters rule picks BMM's 研究 | 生活 (none) over FMM's 研究生 | 活 (one).
 
 > [!warning] Limits of maximum matching (bidirectional included)
 > - **It assumes a precompiled vocabulary**, which is labour-intensive to compile with good coverage. **Genuinely new words** (names, typos) cannot be matched at all, and they **break silently**: chopped into single characters or greedily mismatched, with nothing in the output to flag it.
@@ -173,7 +173,7 @@ The statistical move: instead of asking where to cut, ask what role each charact
 >
 > Once every character has a label, the segmentation falls out: insert a word boundary **after every E and every S**.
 
-For illustration, the labelling 研/B 究/E 生/S 活/S gives **研究 | 生 | 活**, and 研/B 究/E 生/B 活/E gives BMM's 研究 | 生活. Segmentation is now ordinary **sequence labelling**, which any sequence labelling method can solve.
+For illustration, 研/B 究/E 生/S 活/S gives **研究 | 生 | 活**, and 研/B 究/E 生/B 活/E gives BMM's 研究 | 生活. Segmentation is now ordinary **sequence labelling**, solvable by any sequence labelling method.
 
 ### The HMM
 
@@ -198,11 +198,11 @@ where $C(\cdot)$ counts occurrences in the tagged corpus. **Inference**: given a
 
 ### Viterbi decoding
 
-Scoring every possible labelling is intractable: with $|T| = 4$ tags there are $4^n$ tag sequences. The **Viterbi algorithm** uses [[Dynamic Programming|dynamic programming]] (storing intermediate results instead of recomputing them). Cell $\text{score}[i][t]$ holds the probability of the **best path that ends at position $i$ with tag $t$**:
+Scoring every labelling is intractable: with $|T| = 4$ tags there are $4^n$ sequences. The **Viterbi algorithm** uses [[Dynamic Programming|dynamic programming]] (storing intermediate results instead of recomputing them). Cell $\text{score}[i][t]$ holds the probability of the **best path that ends at position $i$ with tag $t$**:
 
 $$\text{score}[i][t] = \max_{t'} \; \text{score}[i-1][t'] \cdot P(t \mid t') \cdot P(c_i \mid t)$$
 
-where $t'$ ranges over the tags at position $i-1$. The best path to $(i, t)$ passes through some tag at $i-1$, and only the best path into that tag can be part of it, so each cell compares just four candidates. **Backpointers** record which $t'$ won, so the full path is recovered at the end without recomputing it.
+where $t'$ ranges over the tags at position $i-1$. The best path to $(i, t)$ passes through some tag at $i-1$, and only the best path into that tag can be part of it, so each cell compares just four candidates. **Backpointers** record which $t'$ won, so the path is recovered at the end without recomputing it.
 
 ```pseudo
 Viterbi decoding for BMES tags
@@ -232,7 +232,7 @@ for i ← n down to 2:
 return t_1..t_n
 ```
 
-(Restricting the final tag to E or S is a detail from outside the course material: without it, the best path could end inside an unfinished word.)
+(Restricting the final tag to E or S is from outside the course material; without it the path could end mid-word.)
 
 **Complexity: $O(n \times |T|^2)$**: at each of $n$ positions, each of $|T|$ tags compares $|T|$ predecessors. With four tags that is 16 per character, linear in sentence length, against $|T|^n$ for brute force.
 
@@ -283,20 +283,18 @@ By what the affix does:
 >
 > *disproportionally* = *dis* + *proportion* + *al* + *ly* = prefix + stem + suffix + suffix
 
-- A **root** is a **free** morpheme (it can stand alone as a word) that determines the basic meaning of a word: *proportion*. That is the course's definition and it fits English; the Arabic root *k-t-b* below is a root that never stands alone.
+- A **root** is a **free** morpheme (it can stand alone as a word) that determines the basic meaning of a word: *proportion*. (The course's definition; it fits English, but the Arabic root *k-t-b* below never stands alone.)
 - An **affix** is a **bound** morpheme (it cannot stand alone) attached to change meaning or grammatical function: *dis-*, *-al*, *-ly*.
 
 Affixes by position:
 - **Prefix:** attaches to the front. English words mostly have only one.
 - **Suffix:** attaches to the end. There can be more than one (*-al*, *-ly*).
-- **Infix:** inserted in the middle of a word: *passerby* → *passersby*, with *-s-* inside. More common in other languages.
-- **Circumfix:** attaches to the front and back **simultaneously**: German *ge-seh-en* (past participle of *sehen*, "to see"). *ge-* and *-en* together are one morpheme, so neither half can be stripped on its own.
+- **Infix:** inserted in the middle: *passerby* → *passersby*. More common in other languages.
+- **Circumfix:** attaches to front and back **simultaneously**: German *ge-seh-en* (past participle of *sehen*, "see"). *ge-* and *-en* are one morpheme, so neither half can be stripped on its own.
 
-All of these are **concatenative**: the word is a sequence of morphemes. **Non-concatenative** morphology changes the root itself. The example is **apophony**, a vowel change in the stem: German *Buch* → *Bücher* (book, books) and *Haus* → *Häuser* (house, houses). The plural is the vowel change plus a suffix, and no cut in *Bücher* separates "book" from "plural". Any method that cuts strings into contiguous pieces, from maximum matching to subword tokenization, can only fully capture the concatenative case.
+All of these are **concatenative**: the word is a sequence of morphemes. **Non-concatenative** morphology changes the root itself, as in **apophony**, a vowel change in the stem: German *Buch* → *Bücher* (book, books), *Haus* → *Häuser*. No cut in *Bücher* separates "book" from "plural". Any method that cuts strings into contiguous pieces, from maximum matching to subword tokenization, can only fully capture the concatenative case.
 
 ## Morphological types: how languages package morphemes
-
-Languages can be grouped by how they realize morphological processes.
 
 > [!definition] Morphological typology
 > - **Isolating** (Chinese, Vietnamese): words tend not to change form at all; grammatical relations come from **word order**; **particles** express additional modification.
@@ -304,17 +302,17 @@ Languages can be grouped by how they realize morphological processes.
 > - **Fusional** (Russian, Spanish, Arabic): **a single suffix simultaneously encodes several grammatical features** that often cannot be cleanly separated.
 > - **Polysynthetic** (Inuktitut, Mohawk): multiple grammatical roles (verb, subject, object) and various modifiers (negation, tense, mood, instrument, location) are **fused or agglutinated into a single word**.
 
-**Isolating.** Chinese 我 昨天 看 了 一 本 书, "I read a book yesterday" (*I, yesterday, read, PFV, one, CL, book*). The verb 看 (*kàn*) never changes form: pastness comes from 昨天 "yesterday" and the perfective particle 了 (PFV, completed action); 本 is a classifier (CL), required between a number and a noun. Word order is plain SVO (subject, verb, object). Vietnamese *Tôi đã đi học*, "I went to study" (*I, PST, go, study*): neither *đi* nor *học* changes form; *đã* is a past (completed-action) particle.
+**Isolating.** Chinese 我 昨天 看 了 一 本 书, "I read a book yesterday" (*I, yesterday, read, PFV, one, CL, book*): the verb 看 (*kàn*) never changes form; pastness comes from 昨天 "yesterday" and the perfective particle 了 (PFV, completed action); 本 is a classifier (CL). Word order is plain SVO (subject, verb, object). Vietnamese *Tôi đã đi học*, "I went to study": *đi* (go) and *học* (study) do not change; *đã* is a past (completed-action) particle.
 
-**Agglutinative.** Turkish *evlerinizden*, "from your houses" = *ev-ler-iniz-den* = house + plural + your + from: one Turkish word for a four-word English phrase. Finnish *taloissamme*, "in our houses" = *talo-i-ssa-mme* = house + plural + inessive + our. The **inessive** is a locative case ("in"). Each suffix is clearly separable and **reusable across many other nouns**. A suffix may change its spelling to fit the stem, so the meanings split cleanly even when the characters at the join vary.
+**Agglutinative.** Turkish *evlerinizden*, "from your houses" = *ev-ler-iniz-den* = house + plural + your + from. Finnish *taloissamme*, "in our houses" = *talo-i-ssa-mme* = house + plural + inessive + our. The **inessive** is a locative case ("in"). Each suffix is clearly separable and **reusable across many other nouns**. A suffix may change its spelling to fit the stem, so the meanings split cleanly even when the characters at the join vary.
 
 **Fusional.** Russian *knigami*, "with books" = *knig-ami*, glossed book + instrumental.plural.feminine: one suffix fuses **case, number and gender** into a single unsegmentable morpheme. This is the course's gloss, and exam statements follow it. (Outside the course material: *-ami* is used for all three genders, so strictly it fuses only case and number.)
 
 **Spanish** *hablé*, "I spoke" = *habl-é*: the single vowel *-é* fuses person (1st), number (singular), tense (preterite, past) and aspect (preterite, completed).
 
-**Arabic** *yaktubu*, "he writes": the consonant root *k-t-b* (C1 C2 C3, "write") is poured into the pattern *ya*-C1C2-*u*-C3-*u*, which fuses person (3rd), gender (masculine) and aspect (not completed). The pattern's vowels are not written in regular Arabic, so part of the grammar is missing from the written string, and since root and pattern interleave, the word is also non-concatenative.
+**Arabic** *yaktubu*, "he writes": the consonant root *k-t-b* (C1 C2 C3, "write") is poured into the pattern *ya*-C1C2-*u*-C3-*u*, which fuses person (3rd), gender (masculine) and aspect (not completed). The vowels are not written in regular Arabic, so part of the grammar is missing from the string; and since root and pattern interleave, the word is non-concatenative.
 
-**Polysynthetic.** Inuktitut *Qangatasuukkuvimmuuriaqalaaqtunga*, "I will have to go to the airport" = *qangata-* (fly) + *-suukkuvik* (*-suu-* "habitually" + *-kkuvik* "place": the place of habitual flying, the airport) + *-mut* (to, allative case) + *-uq-* (go to) + *-riaqaq-* (have to) + *-laaq-* (future) + *-tunga* (1st person singular). One word corresponds to a whole English sentence: a verb, its subject, its destination, tense and modal meaning, all in one word. The morphemes also change shape where they meet (*-k-mut-uq* becomes *-mmuu-*), so cutting the string cannot recover them. They are still in sequence, so this is concatenative morphology with blurred joins, as in agglutinative languages.
+**Polysynthetic.** Inuktitut *Qangatasuukkuvimmuuriaqalaaqtunga*, "I will have to go to the airport" = *qangata-* (fly) + *-suukkuvik* (*-suu-* "habitually" + *-kkuvik* "place": the place of habitual flying, the airport) + *-mut* (to, allative case) + *-uq-* (go to) + *-riaqaq-* (have to) + *-laaq-* (future) + *-tunga* (1st person singular). One word holds a whole English sentence: verb, subject, destination, tense and modal meaning. The morphemes also change shape where they meet (*-k-mut-uq* becomes *-mmuu-*), so cutting the string cannot recover them; but they stay in sequence, so this is concatenative morphology with blurred joins.
 
 | type | morphemes per word | one feature per affix? | examples |
 |---|---|---|---|
@@ -323,10 +321,10 @@ Languages can be grouped by how they realize morphological processes.
 | Fusional | few | no, fused | Russian, Spanish, Arabic |
 | Polysynthetic | very many | fused or agglutinated | Inuktitut, Mohawk |
 
-Read outside the course material, the table is a scale from isolating to polysynthetic of how much meaning one word carries; agglutinative and fusional sit between and differ on a separate question.
+(Outside the course material: isolating and polysynthetic are the two ends of a scale of how much meaning one word carries.)
 
 > [!warning] Agglutinative against fusional
-> Both put several features into one word through affixes. The **defining** difference is **separability**: Turkish *-ler* is plural and nothing else; Spanish *-é* is person, number, tense and aspect at once, with no part meaning any one of them. Agglutinative words do tend to have **more morphemes per word** (*ev-ler-iniz-den* has four, *knig-ami* two), because each feature gets its own morpheme, but that is a consequence of separability and not the definition.
+> Both put several features into one word through affixes. The **defining** difference is **separability**: Turkish *-ler* is plural and nothing else; Spanish *-é* is person, number, tense and aspect at once, with no part meaning any one of them. Agglutinative words do tend to have **more morphemes per word** (*ev-ler-iniz-den* has four, *knig-ami* two), because each feature gets its own morpheme; that follows from separability, which is the definition.
 
 ## Why word-level vocabularies break
 
@@ -449,7 +447,7 @@ Model answers are in the exam questions below.
 > Weight matrices are **fixed size**, and the output layer has one row per vocabulary word plus a **softmax over $|V|$** at every position.
 
 > [!card]- What is a vocabulary short-list?
-> Keeping only the **$n$ most frequent** words and mapping every rare word to a single `<unk>` token.
+> Keeping only the **most frequent** words and mapping every rare word to a single `<unk>` token.
 
 > [!card]- What is the main disadvantage of a short-list with `<unk>`?
 > All rare words get **equal probability** in a given context, because they are literally the same token.
