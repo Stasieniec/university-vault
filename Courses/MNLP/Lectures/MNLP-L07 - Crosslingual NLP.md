@@ -44,7 +44,7 @@ topics:
 >
 > **Second half:** machine translation. Neural MT is conditional language modelling with an encoder and a decoder, and it needs a lot of parallel data. Three ways around the shortage: parent-child transfer (train on a big pair, continue on the small one, keep the target embeddings frozen), multilingual NMT (one model for all directions, with a trade-off between transfer and interference and a sampling temperature to balance it), and pretraining the encoder-decoder on monolingual text (BART, and its multilingual version mBART).
 >
-> On the exam: example question 3.1 (fine-tuning a general-domain NMT system on a small in-domain set) is parent-child transfer. The multilingual NMT choices (many-to-one against one-to-many, which temperature) suit one-word-wrong statements. Where Christof Monz's slides (the lecturer's) and the papers behind them disagree, the note says which way to answer.
+> On the exam: example question 3.1 (fine-tuning a general-domain NMT system on a small in-domain set) is parent-child transfer. The multilingual NMT choices (many-to-one against one-to-many, which temperature) suit one-word-wrong statements. Where Christof Monz's lecture and the papers behind it disagree (decoder freezing, MMLM), a box says which way to answer.
 
 ## Multilingual models never see two languages at once
 
@@ -98,7 +98,7 @@ LASER is an encoder-decoder **trained to translate, on parallel data**. Only the
 
 ## XLM: predict a word from its translation
 
-mBERT **never sees an explicit translation pair during pretraining**, so any crosslingual alignment it has is an **emergent side effect**: no objective trains it. Yet for many language pairs at least some parallel text exists (OPUS, crawled corpora). **XLM** (Conneau and Lample, 2019) **uses parallel data for an explicit crosslingual loss**.
+mBERT **never sees an explicit translation pair during pretraining**, so any crosslingual alignment it has is an **emergent side effect**: no objective trains it. Yet for many language pairs at least some parallel text exists (OPUS, crawled corpora). **XLM** (Lample and Conneau, 2019) **uses parallel data for an explicit crosslingual loss**.
 
 XLM has three pretraining objectives:
 
@@ -156,7 +156,7 @@ Two details matter. **Position embeddings restart at 0** in the second sentence,
 The results for XLM (exact accuracies are on the cheat sheet):
 
 - **Adding TLM to MLM helps every language**, by a few points on average. The gains are largest for languages far from English in script or structure (Vietnamese, Turkish, Arabic, Chinese) and smallest for English itself.
-- **On average over the 15 languages, zero-shot XLM (MLM+TLM) slightly beats translate-test with the same XLM model**, although it never saw non-English NLI data. Not in every language: translate-test still wins for most European languages, Turkish and Arabic; zero-shot wins for languages far from English or with little data (Vietnamese, Thai, Chinese, Hindi, Swahili, Urdu).
+- **On average over the 15 languages, zero-shot XLM (MLM+TLM) slightly beats translate-test with the same XLM model**, although it never saw non-English NLI data. Not in every language: translate-test still wins for every European language except English (a tie), and for Turkish and Arabic; zero-shot wins for languages far from English or with little data (Vietnamese, Thai, Chinese, Hindi, Swahili, Urdu).
 - **Translate-train is still best on average** (Urdu is the exception), but it needs an MT system and a translated training set for every language.
 - Zero-shot XLM with MLM+TLM beats both mBERT and LASER in every language where they are reported.
 
@@ -197,11 +197,11 @@ $$\mathcal{L}_{\text{InfoXLM}} = \mathcal{L}_{\text{MMLM}} + \mathcal{L}_{\text{
 **How InfoXLM differs from XLM:**
 
 - **Starting point:** XLM is trained from scratch; InfoXLM is **initialised from XLM-R** and then pretrained further.
-- **Monolingual data:** Wikipedia for XLM; for InfoXLM, a version of CC-100 web text rebuilt by its authors, covering 94 languages.
+- **Monolingual data:** Wikipedia for XLM; for InfoXLM, a version of CC-100 web text rebuilt by the InfoXLM authors, covering 94 languages.
 - **Vocabulary:** shared BPE for XLM; XLM-R's SentencePiece vocabulary (another subword vocabulary, from L04) for InfoXLM.
 - **Language embeddings:** XLM has them; InfoXLM does not, because it keeps XLM-R's architecture in order to keep its weights. Its TLM has to tell the two halves apart from the tokens alone.
 
-**Parallel data is the same shape in both.** Monz's comparison lists "15 XNLI languages" for XLM and "14 English-centric pairs" for InfoXLM, but in the XLM paper each of the 14 other XNLI languages is paired with English too. Both are English-centric (English on one side of every pair, no French-German data); InfoXLM just has more of it.
+**Parallel data is the same shape in both.** Monz gives "15 XNLI languages" for XLM and "14 English-centric pairs" for InfoXLM, but in the XLM paper each of the 14 other XNLI languages is paired with English too. Both are English-centric (English on one side of every pair, no French-German data); InfoXLM just has more of it.
 
 ## The harder test: two languages in one input
 
@@ -219,7 +219,7 @@ Standard zero-shot benchmarks keep every part of an input in one language, so a 
 **What the three models show** (mBERT, XLM-R, InfoXLM; exact scores on the cheat sheet):
 
 - **Every model drops from within to across.**
-- **XLM-R is much better than mBERT within languages, on both tasks. Across languages it is better on XNLI, but worse than mBERT on QA.** Being better at each language separately did not make it better at relating two languages to each other.
+- **XLM-R is much better than mBERT within languages, on both tasks. Across languages it is better on XNLI, but worse than mBERT on QA on average.** Being better at each language separately did not make it better at relating two languages to each other.
 - **InfoXLM is only slightly better than XLM-R within a language, but much better across languages**: a moderate gain on XNLI and a very large one on QA. Its within-across gap is the smallest of the three on both tasks; on QA it shrinks to about a quarter of XLM-R's.
 
 The full grids of language pairs add detail:
@@ -508,7 +508,7 @@ foreign tokens
 English
 ```
 
-On Romanian→English, **Fixed BART** (pretrained BART parameters frozen) is slightly worse than a baseline MT system without BART; **Tuned BART** (BART parameters updated as well) beats the baseline by about one BLEU. Pretraining helps translation here only when the pretrained parameters may adapt. Since BART saw only English in pretraining, the new encoder has to do all the Romanian-specific work.
+On Romanian→English, **Fixed BART** (pretrained BART frozen, only the new encoder trained) is slightly worse than a baseline MT system without BART; **Tuned BART** (BART parameters updated as well) beats the baseline by about one BLEU. Pretraining helps translation here only when the pretrained parameters may adapt. Since BART saw only English in pretraining, the new encoder has to do all the Romanian-specific work.
 
 ## mBART: BART in many languages
 
@@ -582,7 +582,7 @@ Full model answers are in the exam questions below.
 > 1. **The mechanism.** Multilingual models train jointly on many languages with one model and one subword vocabulary, but MLM predicts a word only from **same-language context**. When predicting word $W$ in language $L$, unrelated context in $L'$ is of no use, so nothing in the objective links languages. Any alignment is an **emergent side effect**.
 > 2. **Why it looked fine.** Standard zero-shot benchmarks (fine-tune on English, test on another language) keep all parts of the input in one language, and mBERT does reasonably there.
 > 3. **The harder test.** Put premise and hypothesis (XNLI) or context and question (XSQuAD) in **different languages**, and compare **within** (both parts in one language) with **across** (mixed, with the language in either position).
-> 4. **The result.** Every model drops from within to across. XLM-R is much better than mBERT within languages, but **worse than mBERT across languages on QA**: being good at each language separately does not make a model good at relating two of them. On QA it works across languages mainly when the question is in English.
+> 4. **The result.** Every model drops from within to across. XLM-R is much better than mBERT within languages, but **worse than mBERT across languages on QA** on average: being good at each language separately does not make a model good at relating two of them. On QA it works across languages mainly when the question is in English.
 > 5. **The fix.** InfoXLM adds TLM and XLCo on parallel data. Within a language it is only slightly better than XLM-R; across languages it is much better, most of all on QA, where the within-across gap shrinks to about a quarter.
 >
 > Losing marks: treating "multilingual" and "crosslingual" as the same thing, or citing only standard zero-shot scores as proof of crosslingual ability.
@@ -593,7 +593,7 @@ Full model answers are in the exam questions below.
 > - **Translate-train:** machine-translate the English training set into each language and fine-tune on the translation. The best of the three for XLM on average (Urdu is the exception), but it needs an MT system and a translated training set for every language.
 > - **Translate-test:** machine-translate each test example into English and apply the same XLM model fine-tuned on English.
 > - **Zero-shot crosslingual transfer:** fine-tune on English only and test directly on each language.
-> - On average over the 15 languages, zero-shot XLM with MLM+TLM **slightly beats translate-test**, although it never saw non-English NLI data. Per language it does not always win: translate-test is better for most European languages, Turkish and Arabic; zero-shot wins for Vietnamese, Thai, Chinese, Hindi, Swahili and Urdu. TLM is what gets it there: XLM with MLM alone is a few points lower on average, and the TLM gain is largest for languages far from English (Vietnamese, Turkish, Arabic, Chinese).
+> - On average over the 15 languages, zero-shot XLM with MLM+TLM **slightly beats translate-test**, although it never saw non-English NLI data. Per language it does not always win: translate-test is better for every European language except English (a tie), and for Turkish and Arabic; zero-shot wins for Vietnamese, Thai, Chinese, Hindi, Swahili and Urdu. TLM is what gets it there: XLM with MLM alone is a few points lower on average, and the TLM gain is largest for languages far from English (Vietnamese, Turkish, Arabic, Chinese).
 > - Zero-shot XLM (MLM+TLM) also beats mBERT and LASER in every language where they are reported.
 >
 > Losing marks: mixing up which side gets translated (training set into the target language, or test set into English).
@@ -601,7 +601,7 @@ Full model answers are in the exam questions below.
 > [!exam]- Explain translation language modelling (TLM): its input, its loss, why it forces crosslingual alignment, and how it differs from MLM and CLM.
 > **Key points:** TLM is MLM over a sentence concatenated with its translation; same loss, different input; a masked word is predictable from its translation, which forces alignment; positions restart at 0 and language embeddings mark the halves; CLM predicts the next word, MLM uses monolingual context.
 >
-> - **XLM** (Conneau and Lample, 2019) has three objectives: **CLM** (predict the next word from a prefix), **MLM** (predict masked words from monolingual context, as in BERT), **TLM** (predict masked words in a **sentence concatenated with its translation**). TLM is always paired with MLM or CLM; NSP is dropped; the parallel data comes from OPUS.
+> - **XLM** (Lample and Conneau, 2019) has three objectives: **CLM** (predict the next word from a prefix), **MLM** (predict masked words from monolingual context, as in BERT), **TLM** (predict masked words in a **sentence concatenated with its translation**). TLM is always paired with MLM or CLM; NSP is dropped; the parallel data comes from OPUS.
 > - **Loss:** TLM is MLM applied to $[\mathbf{x}; \mathbf{y}]$:
 > $$\mathcal{L}_{\text{TLM}} = -\sum_{i \in M_x} \log p_\theta(x_i \mid \mathbf{x}_{\setminus M_x}, \mathbf{y}_{\setminus M_y}) - \sum_{j \in M_y} \log p_\theta(y_j \mid \mathbf{x}_{\setminus M_x}, \mathbf{y}_{\setminus M_y})$$
 > The loss is the same as MLM's; only the input changes.
@@ -614,9 +614,9 @@ Full model answers are in the exam questions below.
 >
 > - **Sources first:** natural by-products (multilingual news such as Xinhua, the UN and EU, websites of multilingual countries such as Canada and Belgium) and **OPUS**, a large research collection of parallel corpora.
 > - **Crawl pipeline:** (1) document alignment (find parallel documents), (2) sentence alignment inside them. Or mine sentences directly from raw crawls such as **Common Crawl**.
-> - **Why sentence alignment is a separate step:** translations do not keep paragraph boundaries (in the NHK swine fever story, two English paragraphs map into one Chinese paragraph, which must be split at a sentence boundary).
+> - **Why sentence alignment is a separate step:** translations do not keep paragraph boundaries (in one English-Chinese news story, two English paragraphs map into one Chinese paragraph, which must be split at a sentence boundary).
 > - **Measuring equivalence:** old methods use dictionary overlap and relative length; the modern method compares **LASER** sentence embeddings (Artetxe and Schwenk, 2019).
-> - **LASER:** an encoder-decoder trained to translate on parallel data. BPE embeddings, stacked BiLSTM encoder, max pooling into one sentence vector; the encoder is never told the input language. An LSTM decoder translates from that vector alone and is told the output language by a language ID embedding. So the vector must encode meaning and has no reason to encode the input language. Translations end up as near neighbours.
+> - **LASER:** an encoder-decoder trained to translate on parallel data. BPE embeddings, stacked BiLSTM encoder, max pooling into one sentence vector; the encoder is never told the input language. An LSTM decoder knows the source only through that vector, and is told the output language by a language ID embedding. So the vector must encode meaning and has no reason to encode the input language. Translations end up as near neighbours.
 > - **vecalign** uses LASER similarities to match sentences, with an efficient search that scales to massive data sets.
 
 > [!exam]- Explain neural machine translation as conditional language modelling, from the RNN encoder-decoder to the Transformer encoder-decoder.
@@ -629,7 +629,7 @@ Full model answers are in the exam questions below.
 > - **Transformer:** each decoder layer has a target context layer (masked self-attention over the target prefix), a **source-target context layer** (attention over all top-layer encoder outputs) and a feed-forward layer, each with a residual connection. Every decoder position in every layer can read every source position, which removes the bottleneck.
 
 > [!exam]- Describe parent-child transfer learning for low-resource NMT. What should be frozen, and which factors decide whether transfer pays off?
-> **Key points:** train a parent on a high-resource pair, continue on the child with the same target language; freeze only the target embeddings, train the rest; related parents help, but structure transfers too (French'); with a shared vocabulary unrelated parents help; transfer must flow from the larger corpus to the smaller; inner layers carry most of the benefit.
+> **Key points:** train a parent on a high-resource pair, continue on the child with the same target language; freeze the decoder (Monz's condition), which the experiment narrows to the target embeddings; related parents help, but structure transfers too (French'); with a shared vocabulary unrelated parents help; transfer must flow from the larger corpus to the smaller; inner layers carry most of the benefit.
 >
 > 1. **Procedure** (Zoph et al., 2016): train a parent on a high-resource pair (French→English); copy all parameters into the child (Uzbek→English, far less data); child source words take over rows of the parent's source embedding matrix; freeze the English embeddings; continue training with strong regularisation (dropout 0.5).
 > 2. **Gains:** every child improves; the smallest corpus (Urdu) gains most.
@@ -663,7 +663,7 @@ Full model answers are in the exam questions below.
 >
 > - **Language relatedness:** for Nepali language modelling, Hindi data helps far more than English data; a Spanish NMT child gains more from a French parent than from a German one; zero-shot Belarusian→Russian is good, Hindi→Finnish poor.
 > - **Pairing with English:** English dominates pretraining and fine-tuning data, so an English hypothesis gives the best mixed-language pairs in every XNLI model, and MT directions involving English are by far the best.
-> - **How well the model represents the language:** with a Swahili hypothesis mBERT is barely above chance; mBERT is weak on Thai even within Thai, and XLM-R fixes that within Thai but not across languages.
+> - **How well the model represents the language:** with a Swahili hypothesis mBERT is barely above chance; mBERT is weak on Thai even within Thai; XLM-R fixes Thai within Thai, but on QA a Thai question about a context in another language still fails.
 > - **An explicit crosslingual training signal:** TLM and XLCo on parallel data close most of the within-across gap (InfoXLM).
 > - **Amount and direction of data in NMT transfer:** transfer helps when it flows from a large parent to a small child; reversed it helps little or hurts. With a shared vocabulary and a large parent, relatedness matters less (Kocmi and Bojar).
 > - **Which parameters transfer:** inner layers carry most of the benefit (Aji et al.).
@@ -763,7 +763,7 @@ Full model answers are in the exam questions below.
 > Within: both input parts in language $\ell$. Across: mean over **mixed-language** combinations with $\ell$ in **either** part.
 
 > [!card]- What is paradoxical about XLM-R against mBERT in mixed-language evaluation?
-> XLM-R is much better **within** languages but **worse across** languages on QA.
+> XLM-R is much better **within** languages but **worse across** languages on QA, on average.
 
 > [!card]- How does InfoXLM compare with XLM-R on within and across scores?
 > Only **slightly better within**, **much better across**: the within-across gap shrinks sharply.
@@ -1003,7 +1003,7 @@ Full model answers are in the exam questions below.
 > **True.** $1/T$ is near 0, so all languages are sampled about equally.
 
 > [!card]- True or false: XLM-R is better than mBERT across languages on mixed-language QA.
-> **False.** It is better within languages but **worse** across them on QA.
+> **False.** It is better within languages but, on average, **worse** across them on QA.
 
 > [!card]- True or false: BART's decoder is bidirectional.
 > **False.** The encoder is bidirectional; the decoder is **autoregressive**.
@@ -1012,16 +1012,16 @@ Full model answers are in the exam questions below.
 > **False.** Denoising is always within the **same** language.
 
 > [!card]- True or false: Transfer learning for NMT works best if decoder parameters are frozen.
-> **True** in Monz's list of conditions; the freezing experiment narrows it to the target embeddings.
+> **True.** It is in Monz's list of conditions; the freezing experiment narrows it to the target embeddings.
 
 > [!card]- True or false: InfoXLM's MMLM uses negative sampling.
-> **True** in Monz's description (the paper reads the vocabulary softmax as contrastive).
+> **True.** That is Monz's description; the InfoXLM paper reads the vocabulary softmax as contrastive.
 
 > [!card]- True or false: On average over the 15 XNLI languages, zero-shot XLM (MLM+TLM) beats translate-test.
 > **True.** Slightly, although it never saw non-English NLI data.
 
 > [!card]- True or false: Zero-shot XLM (MLM+TLM) beats translate-test on XNLI for every language.
-> **False.** Only on average; translate-test wins for most European languages, Turkish and Arabic.
+> **False.** Only on average; translate-test wins for the other European languages, Turkish and Arabic.
 
 > [!card]- True or false: mBART is fine-tuned for translation as a whole, with no new source encoder.
 > **True.** It saw every language in pretraining; English-only BART needs the new encoder.
@@ -1060,5 +1060,5 @@ Full model answers are in the exam questions below.
 - **Related concepts:** [[Transformers]] · [[Self-Attention]] · [[Contrastive Learning]] · [[Word Embeddings]] · [[Tokenization]] · [[Large Language Models (LLM)]] · [[Supervised Fine-Tuning (SFT)]]
 - **Project:** [[MNLP - Mini Project]]
 - **Numbers:** exact results for every comparison in this note are in `docs/mnlp-cheat-sheet-numbers/L07.md`, for the cheat sheet.
-- **Primary references:** Artetxe and Schwenk (2019), LASER · Conneau and Lample (2019), XLM · Chi et al. (2021), InfoXLM · Sutskever et al. (2014) · Zoph et al. (2016), transfer learning for low-resource NMT · Koehn and Knowles (2017), six challenges for NMT · Schwenk et al. (2019), WikiMatrix · Kocmi and Bojar (2018) · Aji et al. (2020), on what transfer actually transfers · Lewis et al. (2020), BART · Johnson et al. (2017), multilingual NMT with target language tags · Arivazhagan et al. (2019), 103-language NMT, transfer against interference and temperature sampling · Liu et al. (2020), mBART
+- **Primary references:** Artetxe and Schwenk (2019), LASER · Lample and Conneau (2019), XLM · Chi et al. (2021), InfoXLM · Sutskever et al. (2014) · Zoph et al. (2016), transfer learning for low-resource NMT · Koehn and Knowles (2017), six challenges for NMT · Schwenk et al. (2019), WikiMatrix · Kocmi and Bojar (2018) · Aji et al. (2020), on what transfer actually transfers · Lewis et al. (2020), BART · Johnson et al. (2017), multilingual NMT with target language tags · Arivazhagan et al. (2019), 103-language NMT, transfer against interference and temperature sampling · Liu et al. (2020), mBART
 - **Source:** `cross-lingual-nlp.pdf`, Christof Monz, MNLP: Cross-Lingual NLP, slides 1 to 56 (deck as re-uploaded 2026-10-07), taught Mon 28 Sep to Wed 7 Oct
