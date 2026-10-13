@@ -9,7 +9,7 @@ status: complete
 
 # PhilSci - Exam Questions
 
-All 49 exam-style questions for Philosophy of Science, one set per note. Each answer opens with the key points a grader looks for, then a full model answer. Write or say your answer before revealing. The short drilling cards are on the [[PhilSci - Flashcards|flashcards]] page.
+All 46 exam-style questions for Philosophy of Science, one set per note. Each answer opens with the key points a grader looks for, then a full model answer. Write or say your answer before revealing. The short drilling cards are on the [[PhilSci - Flashcards|flashcards]] page.
 
 Back to the [[Courses/PhilSci/index|Philosophy of Science home]].
 
@@ -28,10 +28,6 @@ Back to the [[Courses/PhilSci/index|Philosophy of Science home]].
 ## L03 Under-determination
 
 ![[PhilSci-L03 - Under-determination#Exam questions]]
-
-## L03b GenAI, Writing and Philosophical Learning
-
-![[PhilSci-L03b - GenAI, Writing and Philosophical Learning#Exam questions]]
 
 ## L04 Scientific Explanation and Understanding
 
