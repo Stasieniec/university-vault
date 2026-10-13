@@ -29,3 +29,41 @@ Covered by kept cards: theory-ladenness by the Gestalt-switch and incommensurabi
 
 > [!card]- What is the difference between a Kuhnian paradigm and a theory?
 > A paradigm is **wider**: besides theory it includes methods, tools, standards, exemplars and metaphysical assumptions.
+
+## Second pass, too specific for an essay answer
+
+> [!card]- Name an exemplar of the Newtonian paradigm.
+> The **harmonic oscillator** (mass on a spring), or the **Earth-Sun system**.
+
+> [!card]- What is Kuhn's own criterion of demarcation?
+> A **puzzle-solving tradition**: a community doing normal science.
+
+> [!card]- What distinguishes a Kuhnian anomaly from an ordinary failed experiment?
+> An ordinary failure is blamed on **error or poor technique**. An anomaly **persists** and threatens the paradigm itself.
+
+> [!card]- What are Kuhn's three stages in the history of chemistry?
+> **Alchemy** (preparadigmatic), **phlogiston** paradigm (Priestley), **oxygen** paradigm (Lavoisier).
+
+> [!card]- Of Kuhn's three kinds of phenomena, which one gives rise to new theories?
+> **Recognised anomalies** that refuse to be assimilated to the existing paradigm.
+
+> [!card]- What, for Kuhn, is the highest standard in paradigm choice?
+> The **assent of the relevant community**.
+
+> [!card]- In Bruner and Postman's playing-cards experiment, what did subjects do with anomalous cards at short exposures?
+> They **identified them as normal cards**, without any sense of trouble.
+
+> [!card]- What does the side-and-diagonal analogy imply about comparing incommensurable paradigms?
+> They lack a **common measure** but can still be **related and compared**.
+
+> [!card]- Why did Newton's critics reject his gravity as an occult quality?
+> It was **attraction at a distance with no mechanism**, which failed their standard of explanation.
+
+> [!card]- Which of Kuhn's values requires consequences beyond the observations a theory was designed for?
+> **Broad scope**.
+
+> [!card]- Which of Kuhn's values asks that a theory lead to new research findings?
+> **Fruitfulness**.
+
+> [!card]- What does Heather Douglas call the triptych model of values in science?
+> The **externality model**, because values are kept outside the middle panel, scientific research.
