@@ -284,8 +284,8 @@ Full model answers for mock Q6 and Q3 are the first two exam questions below.
 
 ## Exam questions
 
-> [!exam]- Mock exam Q6 (half a page): The under-determination thesis was first formulated by Pierre Duhem, and it was later on strengthened by W.V.O. Quine. State this thesis in Duhem's own version, and explain it with an example.
-> **Key points:** premises entail $O$, experiment gives $O'$ incompatible with $O$; only the conjunction is false, and no particular premise follows as false; no crucial experiment; hypotheses tested together with auxiliary assumptions, including the apparatus; an example (telescope or Poincaré's sphere).
+> [!exam]- Mock exam Q6 (10 points, half a page): The under-determination thesis was first formulated by Pierre Duhem, and it was later on strengthened by W.V.O. Quine. State this thesis in Duhem's own version, and explain it with an example.
+> **Key points:** premises entail $O$, experiment gives $O'$ incompatible with $O$; the conjunction is false, and no particular premise follows as false; no crucial experiment; hypotheses tested together with auxiliary assumptions, including the apparatus; an example (telescope or Poincaré's sphere).
 >
 > Follow the official key: the formal version, plus no crucial experiment because hypotheses are only tested with auxiliary assumptions.
 > 1. **The formal version.** If premises $\{P_1, \dots, P_n\}$ deductively entail a statement $O$ describing a possible observation, and experiment establishes $O'$, where $O'$ entails that $O$ is false, then the **conjunction** of the premises is false. It does **not** follow that any particular premise is false: falsification is ambiguous.
@@ -295,7 +295,7 @@ Full model answers for mock Q6 and Q3 are the first two exam questions below.
 >
 > Losing marks: stating the slogan ("theory is under-determined by data") instead of the premises-and-conjunction version, or giving no example.
 
-> [!exam]- Mock exam Q3 (10 points): Popper praised Albert Einstein's theory of general relativity as a truly scientific theory, citing the example of Eddington's expedition. This expedition set out to measure the shift of a distant star during a solar eclipse. Einstein's theory states that large masses, like the sun, curve space-time. Thus, incoming light rays will follow a curved path around the sun and will appear in a different spot as seen from the earth. The theory makes a very precise prediction about this shift. In 1953, however, Einstein was asked how he would have responded to a measurement outcome that did not show this shift: "Then I am very sorry for the dear Lord [Eddington], for the theory is correct." Would, and-or could, this be acceptable for Popper? Explain your answer.
+> [!exam]- Mock exam Q3 (10 points, half a page): Popper praised Albert Einstein's theory of general relativity as a truly scientific theory, citing the example of Eddington's expedition. This expedition set out to measure the shift of a distant star during a solar eclipse. Einstein's theory states that large masses, like the sun, curve space-time. Thus, incoming light rays will follow a curved path around the sun and will appear in a different spot as seen from the earth. The theory makes a very precise prediction about this shift. In 1953, however, Einstein was asked how he would have responded to a measurement outcome that did *not* show this shift: "Then I am very sorry for the dear Lord [Eddington], for the theory is correct." Would, and-or could, this be acceptable for Popper? Explain your answer.
 > **Key points:** No, if the measurement was correct: theory falsified, Einstein dogmatic; perhaps the measurement was wrong; Duhem-Quine: blame can always go elsewhere; acceptable only with independent reasons for rejecting the measurement (no ad hoc hypothesis).
 >
 > Follow the official key:
