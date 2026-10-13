@@ -187,7 +187,7 @@ There are two fixes. One splits words into subword segments (e.g. with BPE) and 
 
 **The evidence** (Bojanowski et al.), against Word2Vec Skip-gram and CBOW:
 
-- **Word similarity:** fastText is best or tied best on almost every dataset, with the **largest gains in morphologically rich languages** (German, Russian) and a gain on **English rare words**. Its one loss is English WS-353, frequent words whose whole-word vectors are already good. Building unseen words from n-grams, rather than giving them a null vector, adds further.
+- **Word similarity:** fastText is best or tied best on almost every dataset, with the **largest gains in morphologically rich languages** (German, Russian) and a gain on **English rare words**. Its one loss is English WS-353 (a likely reason, outside the lecture: its words are frequent, so their whole-word vectors are already good). Building unseen words from n-grams, rather than giving them a null vector, adds further.
 - **Analogies:** the gains are on **syntactic** analogies (largest for Czech), which are about morphology. **Semantic analogies barely change, and for German get worse.** A likely reason (outside the lecture): a country and its capital share nothing in spelling, and tying words with shared n-grams together adds noise.
 
 ## Crosslingual embeddings: one space for two languages
@@ -248,20 +248,20 @@ Stack the dictionary pairs as columns of $X$ ($d_1 \times n$) and $Y$ ($d_2 \tim
 > $$W^* = \arg\min_W \sum_i \lVert W x_i - y_i \rVert^2 \quad \text{subject to} \quad W^\top W = I$$
 > with all embeddings **normalised to unit length**.
 >
-> An orthogonal $W$ is square, so both spaces need the same dimension $d$. It **only allows rotations and reflections, no scaling or shearing**, so it preserves angles and distances. $W^*$ can be **solved exactly using SVD**.
+> A strictly orthogonal $W$ is square, which needs both spaces to have the same dimension $d$; Xing et al. also report a run with 800 English and 200 Spanish dimensions, where $W$ is non-square and can be orthogonal in one direction only. It **only allows rotations and reflections, no scaling or shearing**, so it preserves angles and distances. $W^*$ can be **solved exactly using SVD**.
 
 Orthogonality is an extra constraint added by Xing et al.; the shared space hypothesis itself asks only for a linear map. The constraint fixes both problems:
 
-1. **Geometry is preserved**: $\lVert Wx \rVert^2 = x^\top W^\top W x = \lVert x \rVert^2$, so the source space moves rigidly and cannot be warped to fit the seed pairs. Once every vector has unit length, scaling is no longer needed, so a rotation can carry the shared shape across.
+1. **Geometry is preserved**: $\lVert Wx \rVert^2 = x^\top W^\top W x = \lVert x \rVert^2$, so the source space moves rigidly and cannot be warped to fit the seed pairs. With every vector at unit length, a uniform difference in scale between the two clouds disappears, so a rotation (or reflection) can carry the shared shape across.
 2. **Training and retrieval agree**: for unit vectors and orthogonal $W$, $\lVert W x - y \rVert^2 = 1 + 1 - 2\,(Wx) \cdot y = 2 - 2 \cos(Wx, y)$, so minimising distance is maximising cosine.
 
 > [!formula] Orthogonal Procrustes solution
 > $$U \Sigma V^\top = \operatorname{SVD}(Y X^\top), \qquad W^* = U V^\top$$
 > One SVD of a $d \times d$ matrix: exact, no iterations, no learning rate.
 
-**The name "Procrustes" is used two ways.** Monz uses it for the general least-squares problem above, so a statement such as "the Procrustes algorithm minimises $\sum_i \lVert Wx_i - y_i \rVert^2$" is true in the lecture's sense. In the literature and in Conneau et al.'s results tables, "Procrustes" means the orthogonal version solved by SVD.
+**The name "Procrustes" is used two ways.** Monz uses it for the general least-squares problem above, so a statement such as "the Procrustes algorithm finds the $W$ minimising $\sum_i \lVert Wx_i - y_i \rVert^2$", with no constraint on $W$, is true in the lecture's sense. In the literature and in Conneau et al.'s results tables, "Procrustes" means the orthogonal version solved by SVD.
 
-**The evidence** (English to Spanish): the **unconstrained map gets worse as the embedding dimension grows** (a likely reason, not given in the lecture: more free parameters, $d^2$, to overfit the same dictionary). The **orthogonal map is better at every dimension and improves slightly** with it; its runs also normalise the vectors, so both changes contribute. One setting gives the two languages different dimensions, where a non-square $W$ cannot be orthogonal in both directions.
+**The evidence** (English to Spanish): the **unconstrained map gets worse as the embedding dimension grows** (a likely reason, not given in the lecture: more free parameters, $d^2$, to overfit the same dictionary). The **orthogonal map is better at every dimension and improves slightly** with it; its runs also normalise the vectors, so both changes contribute. One setting gives the two languages different dimensions (800 English, 200 Spanish), where a non-square $W$ can be orthogonal in one direction only.
 
 ## Hubs, and how CSLS discounts them
 
@@ -347,7 +347,7 @@ Søgaard, Ruder and Vulić (2018) questioned Conneau et al.'s assumptions and re
 >
 > In a possessive phrase the head is the possessed noun and the dependent the possessor; in a clause the head is the verb, the dependents subject and object.
 
-German *der Mann sieht den Hund* (the man sees the dog) puts case (an ending showing a noun's role) on subject and object, the dependents; the verb also agrees with its subject, so there is some head-marking, but dependent marking predominates. English uses word order instead. The morphological types come from [[MNLP-L03 - Morphology and Word Formation]]: **fusional** languages pack several meanings into one affix, **agglutinative** ones chain many affixes, one per meaning.
+German *der Mann sieht den Hund* (the man sees the dog) puts case (marking of a noun's role in the sentence, here on the articles: *der* nominative, *den* accusative) on subject and object, the dependents; the verb also agrees with its subject, so there is some head-marking, but dependent marking predominates. English uses word order instead. The morphological types come from [[MNLP-L03 - Morphology and Word Formation]]: **fusional** languages pack several meanings into one affix, **agglutinative** ones string together separable affixes, one meaning each.
 
 **The choice of languages.** Conneau et al.'s languages (Spanish, French, German, Russian, Chinese) are mostly dependent-marking and none is agglutinative. Spanish, French and Chinese have no cases, German has 4 and Russian 6 to 7, but none has 10 or more. Søgaard et al. added **Estonian and Finnish** (mixed marking, agglutinative, 10+ cases), **Greek** (double marking, fusional, 3 cases), and Hungarian, Polish and Turkish (dependent marking, 6 or more cases).
 
@@ -357,7 +357,7 @@ German *der Mann sieht den Hund* (the man sees the dog) puts case (an ending sho
 - **Identical-word supervision beats adversarial training on every pair involving English**, from a small margin (English-Spanish) to working against not working (English-Estonian).
 - **Estonian-Finnish**, two structurally similar languages, **aligns adversarially** though neither aligns with English: the one pair where adversarial beats identical.
 
-The lecture sums this up as "languages with mixed or double dependent marking perform poorly", but **marking type alone does not decide it**: French is mixed-marking and aligns well with English. The failing languages combine mixed or double marking with case-rich morphology, and Hungarian (dependent-marking, agglutinative, 10+ cases) lands in between.
+The lecture sums this up as "languages with mixed or double dependent marking perform poorly", but **marking type alone does not decide it**: French is mixed-marking and aligns well with English. The failing languages combine mixed or double marking with rich morphology (Estonian and Finnish are agglutinative with 10+ cases; Greek is fusional with 3), and Hungarian (dependent-marking, agglutinative, 10+ cases) lands in between.
 
 **Why it hurts.** In mixed- or double-marking languages grammatical information is **distributed across more word forms**: a lemma is realised in many more distinct surface forms, **each with its own embedding and each of lower frequency**. That makes the mapping between a language that marks relations by word order and one that marks them by morphology more complex: **non-isomorphic**. English `house` faces Finnish `talo`, `talon`, `taloa`, `talossa`, ... (an illustration from outside the lecture), and no rotation maps one point onto a dozen.
 
@@ -417,11 +417,11 @@ Model answers are in the exam questions below.
 ## Exam questions
 
 > [!exam]- Does unsupervised bilingual lexicon induction work? Answer with the mechanism, how it compares with supervised alignment, and the conditions under which it fails.
-> **Key points:** shared space hypothesis and the MUSE pipeline (adversarial, CSLS checkpoint selection, Procrustes refinement); matches supervised on close pairs, falls short on distant ones; collapses for case-rich mixed- and double-marking languages, across domains and across base models, and data size does not explain it; the free identical-word baseline beats it.
+> **Key points:** shared space hypothesis and the MUSE pipeline (adversarial, CSLS checkpoint selection, Procrustes refinement); matches supervised on close pairs, falls short on distant ones; collapses for mixed- and double-marking languages (Estonian, Finnish, Greek), across domains and across base models, and data size does not explain it; the free identical-word baseline beats it.
 >
 > 1. **Mechanism.** The shared space hypothesis says separately trained spaces are approximately isomorphic, so a single linear map should align them. MUSE (Conneau et al., 2018) bootstraps a rough $W$ adversarially (a linear generator against an MLP discriminator, kept near-orthogonal), picks the checkpoint by the unsupervised CSLS criterion, then refines with Procrustes ($W = UV^\top$) on a synthetic dictionary of mutual CSLS nearest neighbours, repeated.
 > 2. **Against supervised alignment.** Fully unsupervised MUSE matches or slightly beats supervised Procrustes with CSLS on close, well-resourced pairs (English with Spanish, French, German), and falls well short on distant ones (English with Russian, Chinese).
-> 3. **Where it collapses (Søgaard et al., 2018).** English-Estonian, English-Finnish and English-Greek give essentially zero: case-rich languages with mixed or double marking. Marking type alone does not decide it, since French is mixed-marking and aligns well. English-Finnish stays at zero with a much larger Finnish corpus (1.7 billion words), so data size is not the whole story; Estonian-Finnish, structurally similar, does align. Mismatched domains give essentially zero even for English-Spanish, and so does Spanish fastText CBOW against English fastText Skip-gram.
+> 3. **Where it collapses (Søgaard et al., 2018).** English-Estonian, English-Finnish and English-Greek give essentially zero: the mixed- and double-marking languages. Marking type alone does not decide it, since French is mixed-marking and aligns well. English-Finnish stays at zero with a much larger Finnish corpus (1.7 billion words), so data size is not the whole story; Estonian-Finnish, structurally similar, does align. Mismatched domains give essentially zero even for English-Spanish, and so does Spanish fastText CBOW against English fastText Skip-gram.
 > 4. **A free baseline beats it.** A seed dictionary of identically spelled words beats adversarial training on every pair involving English, from a small margin (English-Spanish) to working against not working (English-Estonian).
 > 5. **Verdict.** It works when the languages are typologically similar, the corpora share a domain and both sides use the same base model: the conditions it was evaluated under, and the opposite of the low-resource setting that motivates it.
 
@@ -447,7 +447,7 @@ Model answers are in the exam questions below.
 > [!exam]- Why does constraining a crosslingual mapping to be orthogonal help? Give the objective, the two problems it fixes with a derivation for each, its solution, and the evidence.
 > **Key points:** $W^\top W = I$ with unit vectors, an added constraint beyond the shared space hypothesis; a rigid map cannot overfit the seed pairs; $\lVert Wx - y \rVert^2 = 2 - 2\cos$ aligns training with retrieval; $W = UV^\top$ by SVD; unconstrained degrades with dimension, orthogonal better everywhere.
 >
-> 1. **Objective (Xing et al., 2015).** $\arg\min_W \sum_i \lVert W x_i - y_i \rVert^2$ subject to $W^\top W = I$, all embeddings unit length. Orthogonal $W$ is square and only rotates and reflects. The shared space hypothesis itself asks only for a linear map.
+> 1. **Objective (Xing et al., 2015).** $\arg\min_W \sum_i \lVert W x_i - y_i \rVert^2$ subject to $W^\top W = I$, all embeddings unit length. A strictly orthogonal $W$ is square and only rotates and reflects. The shared space hypothesis itself asks only for a linear map.
 > 2. **Overfitting.** An unconstrained $W$ can stretch and shear to fit the seed pairs and fail on the words outside the dictionary. Orthogonal $W$ preserves geometry, $\lVert Wx \rVert^2 = x^\top W^\top W x = \lVert x \rVert^2$, so the space moves rigidly.
 > 3. **Objective mismatch.** Training uses Euclidean distance, retrieval cosine. For unit vectors and orthogonal $W$: $\lVert Wx - y \rVert^2 = 2 - 2\cos(Wx, y)$, so they coincide.
 > 4. **Solution.** $U\Sigma V^\top = \operatorname{SVD}(YX^\top)$, $W^* = UV^\top$: exact, one SVD.
@@ -680,9 +680,6 @@ Model answers are in the exam questions below.
 > [!card]- What constraint and normalisation define Xing et al.'s orthogonal mapping?
 > **$W^\top W = I$**, with all embeddings normalised to **unit length**.
 
-> [!card]- Can an orthogonal mapping connect spaces of different dimensions?
-> **No.** An orthogonal $W$ is square, so both spaces need the same dimension.
-
 > [!card]- How is the orthogonal Procrustes mapping solved?
 > **Exactly by SVD**: $U \Sigma V^\top = \operatorname{SVD}(Y X^\top)$, $W = U V^\top$.
 
@@ -741,7 +738,7 @@ Model answers are in the exam questions below.
 > **Unsupervised** as a whole; its refinement step is called semi-supervised.
 
 > [!card]- Why is MUSE's refinement step called semi-supervised?
-> It runs **supervised Procrustes on a dictionary the system built itself**.
+> It runs **supervised orthogonal Procrustes (SVD) on a dictionary the system built itself**.
 
 > [!card]- How does fully unsupervised MUSE compare with supervised alignment for distant pairs (English with Russian, Chinese)?
 > It **falls well short**.
@@ -756,10 +753,10 @@ Model answers are in the exam questions below.
 > Head: the **verb**. Dependents: **subject and object**.
 
 > [!card]- Which language pairs did adversarial alignment fail on completely in Søgaard et al. (2018)?
-> **English with Estonian, Finnish and Greek**: case-rich languages with mixed or double marking.
+> **English with Estonian, Finnish and Greek**: the mixed- and double-marking languages.
 
 > [!card]- Why does marking type alone not explain where unsupervised alignment fails?
-> **French is mixed-marking** yet aligns well with English; the failing languages are also case-rich.
+> **French is mixed-marking** yet aligns well with English; Estonian and Finnish are also agglutinative with 10+ cases.
 
 > [!card]- What is identical-word supervision for crosslingual alignment?
 > A seed dictionary of **words spelled identically in both languages**. No human dictionary needed.
@@ -856,6 +853,9 @@ Model answers are in the exam questions below.
 
 > [!card]- True or false: Estonian-Finnish aligns adversarially although neither language aligns with English.
 > **True.** Structurally similar languages can align.
+
+> [!card]- True or false: Søgaard et al. found that adversarial alignment fails for mixed- and double-marking languages (Estonian, Finnish, Greek).
+> **True.** English-Estonian, -Finnish and -Greek give essentially zero.
 
 > [!card]- True or false: Unsupervised alignment fails when Spanish uses fastText CBOW and English fastText Skip-gram, even with otherwise identical settings.
 > **True.** Different base models give about zero.
