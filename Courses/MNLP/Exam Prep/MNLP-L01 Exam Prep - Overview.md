@@ -17,7 +17,7 @@ status: complete
 - NER for **multiple languages** is a multilingual scenario.
 - **Language-independent parsing** is multilingual: how to identify language-independent or **universal** features.
 - Sentence or document classification **across languages** is listed as **multilingual**.
-- Crosslingual scenarios ask how information or knowledge **transfers across** languages.
+- Crosslinguality asks how **knowledge transfers across** languages.
 - **Machine translation** is crosslingual: how to make information **understandable** across languages.
 - Crosslingual **question answering**: how to **extract** information from resources in other languages.
 - Crosslingual **unlearning**: how to **manipulate** information across languages.
@@ -41,7 +41,7 @@ status: complete
 
 ## What each task takes in and gives back
 
-- In document retrieval, even a well-formed question is **chopped into keywords** (after stop word removal).
+- In document retrieval, users enter **keywords or key-phrases**; even a well-formed question is **chopped into words** (after stop word removal).
 - An IR system returns a **ranked list of documents**.
 - In QA the user enters a **well-formed question** and gets **the actual answer** (or a list of answers).
 - NER: names are **important indicators of content**; entities are often persons, organisations, dates, locations.
@@ -101,7 +101,7 @@ status: complete
 - LLMs are trained **predominantly on Internet resources**, where English dominates, so most state-of-the-art models are **English-centric**.
 - Multilingual models (Llama 3.1, DeepSeek) perform **better for high-resource** languages.
 - **Dedicated** multilingual models (Aya-Expanse) **tend to lag behind**. The slide does not say behind what.
-- In the slide's translation example, three LLMs translate the sentence correctly and Mistral Small 3.2 produces a fluent sentence about a different event.
+- In the slide's translation example, three LLMs give near-identical translations and Mistral Small 3.2 gives a fluent sentence that says something different.
 
 > [!warning] Traps
 > - *"LLMs originated outside NLP and were later adopted by it."* False: they originated within NLP.
@@ -117,6 +117,7 @@ status: complete
 - Continuous signals: **spoken language**, audio, images and videos. Discrete signals: **written language**.
 - A **limited** repertoire of words expresses an **almost infinite** amount of information.
 - Every child learns a language, yet after decades of research it is **not easy to model formally**.
+- NLP techniques address **concrete end-user tasks**: text categorization, document summarization, MT, QA.
 
 > [!warning] Traps
 > - *"Written language is a continuous signal."* False: discrete; spoken language is continuous.
@@ -137,7 +138,7 @@ status: complete
 - [A] Neural approaches achieve state-of-the-art performance for all NLP applications
 - [B] Because no feature engineering is needed, neural approaches require little training data
 - [C] Insights transfer between NLP and computer vision because the network types are uniform
-- [D] Errors of neural approaches are easier to trace than those of feature-based approaches
+- [D] Errors of neural approaches are easy to trace
 
 > [!example]- Answer
 > **A and C.** B: they require large amounts of training data. D: errors are difficult to trace.
@@ -152,7 +153,7 @@ status: complete
 > **A and C.** B: it operates on the sentence and document level. D: it can be fine-grained.
 
 **4.** Which of the following statements are true? (multiple answers possible)
-- [A] In document retrieval, a well-formed question is chopped into keywords
+- [A] In document retrieval, even a well-formed question is chopped into words
 - [B] A question answering system returns a ranked list of documents
 - [C] Machine translation typically translates individual sentences
 - [D] Summarization can only be applied to single documents
