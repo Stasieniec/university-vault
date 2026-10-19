@@ -8,17 +8,18 @@ status: complete
 # MNLP-L05 Exam Prep - Static Embeddings
 
 > [!abstract] What the exam can ask here
-> The lecture has two halves, learning embeddings and then aligning two languages' spaces, and both are full of methods that differ in one detail. Expect statements on what each method predicts or fits, what is shared or constrained, which signal it uses, and which way a result goes. The traps are swapped pairs (CBOW and Skip-gram, WS-353 and SimLex-999, supervised and semi-supervised, $r_T$ and $r_S$), absolute words ("every", "always", "continuously") on findings that have an exception, and the conditions under which unsupervised alignment fails (morphology, domain, embedding algorithm; data size is the red herring).
+> Two halves: learning embeddings, then aligning two languages' spaces. Statements will turn on what each method predicts or fits, what is shared or constrained, and which way a result goes. Traps: swapped pairs (CBOW and Skip-gram, WS-353 and SimLex-999, supervised and semi-supervised, $r_T$ and $r_S$), absolute words ("every", "always", "continuously") on findings with an exception, and the conditions under which unsupervised alignment fails (language structure, domain, embedding model; data size alone does not explain it).
 > Explanations in the [[MNLP-L05 - Static Embeddings|lecture note]], numbers on the [[MNLP - Cheat Sheet|cheat sheet]].
 
 ## Count vectors and prediction-based embeddings
 
-- Two types of approach: **count-based** (distributional semantics) and **prediction-based** (neural embeddings). Both rest on Firth's "the company it keeps".
-- Count model: context vocabulary $V_c$, target vocabulary $V_t$ (**can be the same** as $V_c$), and a window of $n$ words to the **left or right** (sliding, but **can also be a sentence or document**).
+- Two types of approach: **count-based** (distributional semantics) and **prediction-based** (neural embeddings), both built on the contexts a word occurs in (Firth).
+- Count model: context vocabulary $V_c$, target vocabulary $V_t$ (**can be the same** as $V_c$), counts within $n$ words to the **left or right**; the window is sliding but **can also be a sentence or document**.
 - Count vectors are **high-dimensional, discrete and sparse**. Similarity is **cosine** in the context vector space.
 - Advantages: an **unsupervised** way to induce similarity; dimensions are **interpretable** ($c_w[i]$ counts an actual word).
 - Disadvantages: vectors stay relatively sparse **despite** stemming; **no explicit criterion** to tell signal from noise (chance co-occurrences, which context words discriminate meaning). idf, $\log \frac{N}{n_w}$, is offered as one way to weight context words.
 - Embeddings are **low-dimensional** (e.g. 100 against $|V_c|$), **dense**, **continuous** and **learned by performing a task** (prediction).
+- Good embeddings: $C(w) \approx C(w')$ iff $w$ and $w'$ **mean the same** and show the **same syntactic behaviour**.
 - In most models embeddings are **by-products** of the task objective. **Representation learning** is when learning good embeddings is the main objective.
 
 > [!warning] Traps
@@ -69,7 +70,6 @@ status: complete
 > - *"Negative samples are drawn uniformly from the vocabulary."* False: from the unigram distribution raised to 0.75.
 > - *"The 0.75 exponent makes frequent words more likely as negatives."* False: it biases towards rarer words.
 > - *"The more training data, the more negative samples per pair are needed."* False: more data, fewer negatives and a smaller context.
-> - *"Each observed pair is paired with one negative and $k$ positives."* False: one positive, $k$ negatives.
 > - *"Negative sampling scores a pair with a softmax over the vocabulary."* False: a sigmoid of the dot product; avoiding the full output layer is the point.
 
 ## GloVe and Word2Vec
@@ -80,7 +80,7 @@ status: complete
 - $J = \sum_{(i,j)} f(X_{ij}) \cdot (w_i \cdot \tilde{w}_j + b_i + \tilde{b}_j - \log X_{ij})^2$: **weighted least-squares regression on log counts**, with a word vector $w_i$, a separate **context** vector $\tilde{w}_j$, and **bias terms**. $X_{ij}$ counts word $j$ in the context of word $i$.
 - $f(x) = (x/x_{max})^\alpha$ if $x < x_{max}$, else 1; typically $x_{max} = 100$, $\alpha = 0.75$.
 - $f$ **de-emphasises very rare (noisy) and very frequent (uninformative)** co-occurrences: it rises smoothly **from zero** and **caps at 1**, so frequent pairs cannot take over.
-- The co-occurrence matrix is built in **a single pass** over the corpus, each count often weighted by **1/distance** (nearer words matter more). Vectors start **random**; pairs are visited shuffled for several epochs and updated with **AdaGrad**.
+- Co-occurrence matrix built in **a single pass**, counts often weighted by **1/distance**. Vectors start **random**; shuffled pairs over several epochs, updated with **AdaGrad**.
 - Final embedding: **$w_i + \tilde{w}_i$** (sum of the two vector sets).
 
 | | Word2Vec | GloVe |
@@ -95,17 +95,16 @@ status: complete
 > - *"Count-based methods tend to outperform prediction-based ones."* False: the reverse.
 > - *"GloVe's weighting gives the most frequent pairs the lowest weight."* False: the weight never falls; it caps at 1.
 > - *"GloVe handles frequency imbalance by subsampling frequent words."* False: that is Word2Vec; GloVe uses $f(X_{ij})$.
-> - *"GloVe minimises cross entropy over predicted context words."* False: weighted least squares on log counts.
 > - *"GloVe's final embedding is the word vector $w_i$ alone."* False: $w_i + \tilde{w}_i$.
 
 ## Evaluating embeddings
 
 - **Intrinsic**: how good the embeddings are by themselves. **Extrinsic**: how useful they are downstream (summarisation, MT, IR).
-- **Qualitative**: examine selected examples. **Quantitative**: an overall, task-dependent score. The two pairs are separate axes.
+- **Qualitative**: examine selected examples. **Quantitative**: an overall, task-dependent score.
 - Word similarity: rank word pairs by similarity and compare with human judgements by **Spearman** correlation.
 - **WS-353 annotates relatedness**; **SimLex-999 annotates similarity**. The pair lists mix all kinds of similarity (synonyms, topical, unrelated).
 - Analogies (Paris : France :: Berlin : X) are scored by **accuracy**; $X = v_{king} - v_{man} + v_{woman}$; the set also includes **syntactic** analogies (acquired : acquire :: tried : X).
-- Visualising needs a 2D projection, **t-SNE or PCA**. Word-pair differences can be compared by orientation.
+- Visualising needs a 2D projection, **t-SNE or PCA**.
 - 2D plots should not be taken at face value: projections can be **non-linear**, and **t-SNE hyperparameters have a substantial impact**. They **complement, but do not substitute**, quantitative and extrinsic evaluation.
 
 > [!warning] Traps
@@ -113,7 +112,7 @@ status: complete
 > - *"Word similarity is scored by accuracy."* False: Spearman correlation; accuracy is for analogies.
 > - *"Analogy benchmarks test only semantic relations."* False: they include syntactic analogies.
 > - *"Measuring how much embeddings improve MT is an intrinsic evaluation."* False: extrinsic.
-> - *"A t-SNE plot can replace quantitative evaluation."* False: it complements, does not substitute.
+> - *"A t-SNE plot can replace quantitative evaluation."* False: it complements and does not substitute.
 
 ## fastText
 
@@ -124,8 +123,8 @@ status: complete
 - **Context vectors stay one per word**; only the centre word is decomposed.
 - Every n-gram of the word gets **the same gradient**.
 - fastText **returns the n-gram vectors**, so any word, **seen or unseen**, gets a vector as a sum of n-grams.
-- Word similarity against Skip-gram and CBOW: best or tied on almost every set, with gains in rich-morphology languages (German, Russian) and on English **rare words**. The exception is **English WS-353**. Building OOV vectors from n-grams beats giving them null vectors.
-- Analogies: gains on **syntactic** analogies; **semantic** analogies barely change and **drop for German**.
+- Word similarity against Skip-gram and CBOW: best or tied on every set except **English WS-353** (CBOW wins there); gains in rich-morphology languages (German, Russian) and on English **rare words**.
+- Analogies: clear gains on **syntactic** analogies; **semantic** analogies barely change and **drop for German**.
 
 > [!warning] Traps
 > - *"fastText also builds the context word vectors from character n-grams."* False: only the centre word.
@@ -149,18 +148,18 @@ status: complete
 > - *"The shared space hypothesis says the spaces differ only by a rotation."* False: a general linear map; orientation and scale can differ.
 > - *"The shared space hypothesis is an established property of embedding spaces."* False: the slides stress it is a hypothesis.
 > - *"Semi-supervised alignment starts from thousands of seed translations."* False: hundreds; thousands is supervised.
-> - *"Training all languages together removes the need for alignment."* False: some alignment is always needed.
+> - *"Training all languages together removes the need for alignment."* False: either way some alignment has to take place.
 > - *"Seed dictionaries can anchor multi-word phrases."* False: limited to words.
 
 ## Supervised mapping: unconstrained against orthogonal
 
-- $W^* = \arg\min_W \sum_i \lVert Wx_i - y_i \rVert^2$ over dictionary pairs. The slides call this **the Procrustes algorithm**. The paper behind the CSLS and MUSE results (Conneau et al.) uses "Procrustes" for the orthogonal map solved by SVD.
+- $W^* = \arg\min_W \sum_i \lVert Wx_i - y_i \rVert^2$ over dictionary pairs. The slides call this **the Procrustes algorithm** (Conneau et al.'s paper reserves "Procrustes" for the orthogonal map solved by SVD).
 - Closed form: $W^* = YX^\top(XX^\top)^{-1}$, **exact**. **Mikolov et al. (2013) used SGD**: scales better with large dimensions and dictionaries, approximate but **memory-friendlier**.
-- Mikolov's translation matrix **beats edit distance and word co-occurrence** baselines, and **combined with edit distance** does better still. Accuracy **rises with monolingual training data** (levelling off) and **falls for rarer words**. Wrong answers are often related words (`imperio` gives `dictatorship`).
+- Mikolov's translation matrix **beats edit distance and word co-occurrence** baselines, and **combined with edit distance** does better still. Accuracy **rises with the number of training words** (levelling off) and **falls for less frequent words**.
 - An unconstrained $W$ can **stretch, shear and rotate**; nothing preserves distances and angles, so it **overfits the seed dictionary** and does not generalise to the words outside it (the majority).
 - **Mismatch**: training minimises **Euclidean** distance, retrieval uses **cosine**; **not equivalent unless vectors are unit-normalised**.
 - **Xing et al. (2015)**: add $W^\top W = I$ (**orthogonal**) and normalise embeddings to **unit length**. Only **rotations and reflections**, **no scaling or shearing**: angles and distances are preserved. Solved **exactly with SVD**.
-- English-Spanish results: as the dimension grows (300, 500, 700), the unconstrained map **gets worse** and the orthogonal map **improves slightly**; the orthogonal map is **better in every setting**, including different English and Spanish dimensionalities.
+- English-Spanish results: as the dimension grows (300, 500, 700), the unconstrained map **gets worse** and the orthogonal map's P@1 **improves slightly**; the orthogonal map is **better in every setting**, including different English and Spanish dimensionalities.
 
 | | Mikolov et al. (2013) | Xing et al. (2015) |
 |---|---|---|
@@ -186,7 +185,7 @@ status: complete
 - **CSLS** (Conneau et al., 2018): $2\cos(x,y) - r_T(x) - r_S(y)$. $r_T(x)$ is the average cosine between $x$ and its $K$ nearest neighbours **in the target space**; $r_S(y)$ is the average cosine between $y$ and its $K$ nearest neighbours **in the source space**.
 - Subtracting them **penalises a candidate that is close to lots of things** (a hub).
 - CSLS **significantly increases** translation retrieval accuracy **without parameter tuning**.
-- Results: CSLS beats plain nearest neighbour on **every** pair; inverted softmax (ISF) is about level and wins a few pairs.
+- Results (supervised Procrustes, fastText embeddings): CSLS beats plain nearest neighbour on **every** pair; ISF is about level with CSLS and wins two pairs (Chinese-English, Esperanto-English).
 
 > [!warning] Traps
 > - *"Hubness is specific to crosslingual embeddings."* False: a general high-dimensional phenomenon.
@@ -194,7 +193,7 @@ status: complete
 > - *"CSLS boosts candidates that are close to many points."* False: it penalises them.
 > - *"$r_T(x)$ averages $x$'s similarity to its neighbours in the source space."* False: target space; $r_S(y)$ uses the source space.
 > - *"CSLS needs extensive hyperparameter tuning."* False: no parameter tuning.
-> - *"CSLS beats inverted softmax on every language pair."* False: it beats plain nearest neighbour on every pair; inverted softmax wins some.
+> - *"CSLS beats ISF on every language pair."* False: it beats plain nearest neighbour on every pair; ISF wins two.
 
 ## Adversarial alignment (MUSE)
 
@@ -207,7 +206,7 @@ status: complete
 - Algorithm: $W$ starts as the **identity** (or a random orthogonal matrix). A discriminator step with **$W$ frozen** alternates with a generator step with the **discriminator frozen**, which uses **flipped labels**. After each update, **re-orthogonalise**: $W \leftarrow (1+\beta)W - \beta(WW^\top)W$, $\beta = 0.01$.
 - Model selection: the **adversarial loss is not a reliable indicator**; the discriminator loss can look fine while the mapping is poor, and there is no validation dictionary. Proxy: take the **10k most frequent** source words, find each one's **CSLS nearest neighbour** with the current $W$, and use the **average cosine**.
 - **Refinement** (titled "semi-supervised" on the slides): the adversarial $W$ is rough (global orientation roughly right). Then build a **synthetic dictionary** of high-confidence **mutual** CSLS nearest neighbours among **frequent** words, **re-solve $W$ exactly by SVD**, and **repeat** (self-learning). No human dictionary is involved.
-- Results: each component adds (CSLS and refinement both help; adversarial with refinement and CSLS is best). Unsupervised **matches or beats** supervised Procrustes-CSLS for English with Spanish, French and German, and **falls well short** for English with Russian and Chinese.
+- Results: CSLS and refinement each help; adversarial with refinement and CSLS is the best unsupervised setting. It is **on par with or better than** supervised Procrustes-CSLS for English with Spanish, French and German, and **falls well short** for English with Russian and Chinese.
 
 > [!warning] Traps
 > - *"MUSE's generator is a deep non-linear network, as in standard GANs."* False: a single linear matrix, deliberately.
@@ -216,20 +215,20 @@ status: complete
 > - *"Label smoothing makes the discriminator more confident."* False: it prevents overconfidence.
 > - *"The discriminator sees the whole vocabulary, rare words included."* False: the 50k most frequent words.
 > - *"The refinement step needs a small human seed dictionary."* False: it induces its own from mutual nearest neighbours.
-> - *"Unsupervised MUSE is always worse than supervised alignment."* False: it matches or beats it on close pairs.
+> - *"Unsupervised MUSE is always worse than supervised alignment."* False: on par or better on close pairs.
 
 ## Where unsupervised alignment breaks
 
 - Søgaard et al. (2018) criticise Conneau et al.'s assumptions and results.
 - Marking: **dependent-marking** puts the marker on the dependent, **head-marking** on the head, **double-marking** on both, **zero-marking** on neither. Possessive: head = possessed noun, dependent = possessor. Clause: head = verb, dependents = subject, object. German is mainly dependent-marking (verb agreement adds some head-marking).
-- Conneau et al.'s languages are mostly dependent-marking and none is agglutinative. Søgaard et al. add Estonian and Finnish (mixed, agglutinative, 10+ cases), Greek (double, fusional), Hungarian, Polish, Turkish.
-- **Identity** baseline: a seed dictionary of identically spelled words, then supervised alignment.
+- Conneau et al.'s languages are mostly dependent-marking and none is agglutinative. Søgaard et al. add Estonian and Finnish (mixed-marking, agglutinative), Greek (double-marking), Hungarian, Polish and Turkish.
+- **Identity** baseline: supervised alignment from a seed dictionary of identically spelled words.
 - MUSE **fails dramatically** (P@1 about zero) for **English-Estonian, English-Finnish, English-Greek**: the mixed- and double-marking languages.
 - Identity **outperforms** adversarial on **every pair with English**. **Estonian-Finnish** is the exception: adversarial aligns them and beats identity.
-- Why: in mixed- or double-marking languages grammatical information is spread over **more word forms**; a lemma has many more surface forms, each with its own embedding and **lower frequency**, so mapping to a word-order language becomes **non-isomorphic**.
+- Why: in mixed- or double-marking languages grammatical information is spread over **more word forms**; a lemma has many more surface forms, each with its own embedding and **lower frequency**, so mapping to a language that marks by word order becomes **non-isomorphic**.
 - **Not only data size**: retraining Finnish on a 1.7-billion-word corpus left English-Finnish at **0.0**. Estonian and Finnish (both mixed-marking, agglutinative) align: **pairing structurally dissimilar languages** is the problem.
 - Results differ **per part of speech** (English-Hungarian: nouns and verbs worst; English-Finnish zero for all).
-- **Domain** (EuroParl, Wikipedia, EMEA, 1.1M sentences each): same domain, both methods work. **Across domains adversarial induction does not work at all**, even for English-Spanish; identity degrades but still works.
+- **Domain** (English-Spanish; EuroParl, Wikipedia, EMEA, 1.1M sentences each): within one domain both methods work. **Across domains adversarial induction does not work at all**; identity drops sharply but stays above zero.
 - **Embedding model** (both fastText): **variations within a model** (window, n-gram range) **do not matter much**; **different base models** (Skip-gram against CBOW) **do not work at all**.
 
 > [!warning] Traps
@@ -244,13 +243,13 @@ status: complete
 ## Eigenvector similarity
 
 - Isomorphism is a **strict true/false** criterion; eigenvector similarity measures **degrees** of it.
-- Build each language's **nearest-neighbour graph** (adjacency matrix $A$), form the **Laplacian** with the diagonal neighbour-count matrix $D$, and keep the **largest $n\%$** of its eigenvalues. The slides form it by subtracting $D$ from $A$; the standard definition is $L = D - A$.
+- Build each language's **nearest-neighbour graph** (adjacency matrix $A$), form the **Laplacian** $L$ by subtracting the diagonal neighbour-count matrix $D$ from $A$ (slide wording; Søgaard et al. write $L = D - A$), and keep the **largest $n\%$** of its eigenvalues.
 - Laplacian eigenvalues show **how connected** nodes are: bigger values, denser connectivity.
 - $\Delta$ = **sum of squared differences** between the two languages' Laplacian eigenvalues. **Bigger $\Delta$**, more structurally different, further from isomorphism.
 - It **does not require knowing the alignment** between the languages.
 - High $\Delta$: words cluster differently in the two languages, **no rotation can fix this**, and the isomorphism assumption does not hold. Finnish: one lemma's many inflected forms cluster tightly; English gives a flatter, more evenly connected graph.
 - **One direction only**: (near-)isomorphic graphs have a low $\Delta$, but a low $\Delta$ does **not** mean near-isomorphic.
-- Eigenvector similarity is **poor for most languages**; English-Spanish has the lowest $\Delta$, the three failing English pairs the highest.
+- "Eigenvector similarity is **poor for most languages**"; English-Spanish has the lowest $\Delta$, the three failing English pairs the highest.
 
 > [!warning] Traps
 > - *"A low $\Delta$ shows that two spaces are near-isomorphic."* False: the inference only works the other way.
@@ -261,7 +260,7 @@ status: complete
 ## Practice questions
 
 **Q1.** Which of the following statements about Word2Vec are true? (multiple answers possible)
-- [A] In CBOW, the hidden layer averages the embeddings of the context words and applies no non-linearity.
+- [A] In CBOW, the hidden layer combines the embeddings of the context words and applies no non-linearity.
 - [B] Skip-gram has one output layer per context position, all using the same output matrix $W'$.
 - [C] Word2Vec requires $W' = W^\top$, so that each word has exactly one embedding.
 - [D] Skip-gram treats the context words as independent given the input word.
@@ -280,7 +279,7 @@ status: complete
 
 **Q3.** GloVe combines count-based and prediction-based ideas. Which of the following statements are true? (multiple answers possible)
 - [A] Like Word2Vec, GloVe treats each context window as an independent training event.
-- [B] GloVe's weighting function increases with the co-occurrence count up to $x_{max}$ and is 1 above it.
+- [B] GloVe's weighting function increases with the co-occurrence count up to $x_{max}$ and is 1 from there on.
 - [C] GloVe fits the dot product of a word vector and a context vector, plus biases, to the log co-occurrence count.
 - [D] GloVe handles frequency imbalance by subsampling frequent words.
 
@@ -300,7 +299,7 @@ status: complete
 - [A] The shared space hypothesis assumes that the two spaces differ only by a rotation.
 - [B] Constraining the mapping to be orthogonal preserves distances and angles of the source space.
 - [C] The unconstrained least-squares mapping continuously improves as the embedding dimensionality grows.
-- [D] CSLS lowers the score of target words that are close to many mapped source words.
+- [D] CSLS lowers the score of a candidate target word that is, on average, close to many source vectors.
 
 > [!example]- Answer
 > **B and D.** A: the hypothesis asks for a general linear mapping; orientation and scale may differ, and orthogonality is Xing et al.'s added constraint. C: its accuracy drops as the dimensionality grows.
