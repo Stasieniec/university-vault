@@ -28,7 +28,7 @@ status: complete
 
 ## Maximum matching: forward, backward, bidirectional
 
-- Requires a **pre-compiled vocabulary** of known words.
+- Requires a **pre-compiled vocabulary** of known words; the algorithm also takes a **maximum word length** $L$.
 - At each position it takes the **longest** known word: **greedy**.
 - **Simple and surprisingly strong** as a baseline, still used as preprocessing or a **fast fallback** in production pipelines.
 - **Forward** Maximum Matching scans **left to right**; **Backward** scans **right to left** and **prepends** each word.
@@ -155,9 +155,9 @@ status: complete
 
 | type | how | languages |
 |---|---|---|
-| isolating | no form change; **word order**, particles | Chinese, Vietnamese |
+| isolating | words **tend not** to change form; **word order**, particles | Chinese, Vietnamese |
 | agglutinative | morphemes strung together, **one meaning each** | Turkish, Finnish |
-| fusional | **one suffix, several features**, not separable | Russian, Spanish, Arabic |
+| fusional | **one suffix, several features**, **often** not separable | Russian, Spanish, Arabic |
 | polysynthetic | verb, subject, object, modifiers in **one word** | Inuktitut, Mohawk |
 
 - **Isolating**: words tend **not to change form**; grammatical relations come from **word order**; **particles** add modification.
@@ -210,7 +210,7 @@ status: complete
 - **Word2Vec** has two approaches: **CBOW** and **Skip-Gram**.
 - CBOW predicts the word at position $t$ from the $n$ words to its **left** and the $m$ words to its **right**.
 - It looks like n-gram language modelling with $m = 0$.
-- A **simple feed-forward** network: the projection layer **sums** the context embeddings, and the embedding layer sits **closer to the output**.
+- A **simple feed-forward** network that **focuses on learning the embeddings themselves**: the projection layer **sums** the context embeddings, and the embedding layer sits **closer to the output**.
 - Typically $n = m$, with $n \in \{2, 5, 10\}$.
 
 > [!warning] Traps
