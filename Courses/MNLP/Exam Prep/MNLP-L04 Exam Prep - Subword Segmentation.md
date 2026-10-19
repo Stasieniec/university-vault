@@ -8,7 +8,7 @@ status: complete
 # MNLP-L04 Exam Prep - Subword Segmentation
 
 > [!abstract] What the exam can ask here
-> A block on this lecture most likely contrasts BPE with Unigram LM (bottom-up or top-down, greedy or global, one segmentation or several), tests what SentencePiece and byte-level BPE add, and asks which way the Bostrom and Durrett comparison and fertility go. The traps: which tokens Unigram LM prunes, OOV "very low" against "zero", whether the Unigram LM gain is bigger in English or Japanese, whether SentencePiece is an algorithm, and how BPE is applied at inference time.
+> A block on this lecture most likely contrasts BPE with Unigram LM (bottom-up or top-down, greedy or global, one segmentation or several), tests what SentencePiece and byte-level BPE add, and asks which way the Bostrom and Durrett comparison and fertility go. The traps: which tokens Unigram LM prunes, OOV "very low" against "zero", which language shows the bigger Unigram LM advantage (English against gold segmentations, Japanese downstream), whether SentencePiece is an algorithm, and how BPE is applied at inference time.
 > Lecture: [[MNLP-L04 - Subword Segmentation|lecture note]]. Numbers: [[MNLP - Cheat Sheet|cheat sheet]].
 
 ## Why subwords
@@ -40,7 +40,7 @@ status: complete
 > - *"FSTs handle exceptions poorly."* False: they handle cases and exceptions with great accuracy; their problems are effort and language dependence.
 > - *"FSTs rank the analyses of an ambiguous word."* False: no preference, though probabilistic FSTs exist.
 > - *"Current data-driven segmenters label each segment with its grammatical function."* False: they do not label the data.
-> - *"Data-driven segmenters account for character substitutions such as city/cities."* False: strictly concatenative.
+> - *"Data-driven segmenters account for character substitutions and deletions."* False: they do not; they are strictly concatenative.
 > - *"MDL minimises only the size of the model."* False: model cost plus the cost of generating the data.
 
 ## BPE: training and inference
@@ -63,7 +63,7 @@ status: complete
 
 ## BPE in translation
 
-- Three advantages: **smaller vocabulary** (less memory, better speed), **better translation quality**, **far fewer** OOV items.
+- Three advantages: **significantly reduces** the vocabulary size (less memory, better speed), **better translation quality**, **significantly reduces** the number of OOV items.
 - These benefits apply to **both** high- and low-resource language pairs.
 - In the BPE translation results, the subword and character-bigram systems use **far smaller** vocabularies than the word-level ones.
 - **Joint** BPE (one merge set for both languages) beats **separate** BPE.
@@ -130,7 +130,7 @@ status: complete
 > - *"DP saves both time and memory."* False: it spends memory to save time.
 > - *"The Viterbi segmentation returns an n-best list."* False: only the best; n-best needs Yen's or Eppstein's algorithm.
 > - *"A string of n characters has $n^2$ possible segmentations."* False: $2^{n-1}$.
-> - *"In the DP, sub-segmentation scores are added."* False: they are multiplied.
+> - *"In the DP segmentation algorithm, the probabilities of two sub-segments are added."* False: they are multiplied. (In the sequence-cutting example, segment values are added.)
 
 ## SentencePiece and lossless segmentation
 
@@ -138,7 +138,7 @@ status: complete
 - SentencePiece treats the input as a **raw stream of Unicode characters, including spaces**.
 - The space character is **escaped as a visible symbol** (▁).
 - Without it, `[Hello] [world] [.]` cannot be desegmented unambiguously (*Hello world .*, *Helloworld.*, *Hello world.*).
-- The problem is worse for languages **without clear word boundaries** (Japanese).
+- The same question arises for languages **without clear word boundaries** (Japanese).
 - With the space symbol, `Hello▁world.` becomes `[Hello] [▁wor] [ld] [.]` and desegments **losslessly**.
 
 > [!warning] Traps
@@ -156,13 +156,17 @@ status: complete
 - Against gold segmentations (CELEX2 English, MeCab Japanese), Unigram LM has higher precision, recall **and** F1 in **both** languages; the gap is **much larger in English**.
 - English recall is **low** for both tokenizers.
 - Downstream, Unigram LM is ahead on **every** task: **slightly** in English (SQuAD, MNLI, CoNLL NER), by **a large margin** on Japanese TyDi QA.
+- So the direction flips: the gold-segmentation gap is larger in **English**, the downstream gap larger in **Japanese**.
+- Neither of the authors' models beats BERT-base everywhere: **both** are below it on MNLI and CoNLL NER.
 
 > [!warning] Traps
 > - *"BPE produces longer segments on average than Unigram LM."* False: Unigram LM does, in both languages.
 > - *"Unigram LM's longer segments appear in English only."* False: in Japanese too.
 > - *"BPE has higher precision against CELEX2 than Unigram LM."* False: Unigram LM wins precision, recall and F1.
 > - *"Unigram LM's downstream gain is large in English and small in Japanese."* False: the reverse.
-> - *"Unigram LM over-produces word-initial capitals."* False: BPE does; Unigram LM over-produces suffixes and punctuation.
+> - *"Against gold segmentations, Unigram LM's advantage is larger in Japanese than in English."* False: much larger in English.
+> - *"The Unigram LM model outperforms BERT-base on every English task."* False: below it on MNLI and CoNLL NER.
+> - *"Word-initial capitals are more frequent in Unigram LM output."* False: in BPE output; suffixes and punctuation are more frequent in Unigram LM output.
 > - *"Unigram LM uses more tokens per word than BPE."* False: fewer.
 
 ## OOV and byte-level BPE
@@ -208,7 +212,16 @@ status: complete
 > [!example]- Answer
 > **A and B.** C: BPE is deterministic, one segmentation per word. D: the benefits apply to both high- and low-resource pairs.
 
-**2.** Which of the following statements about the SentencePiece Unigram LM are true? (multiple answers possible)
+**2.** Which of the following statements about the translation results comparing word-level, character-bigram and BPE systems are true? (multiple answers possible)
+- [A] The character-bigram model ties joint BPE for the best single-model score.
+- [B] Joint BPE gives the best ensemble score.
+- [C] A single model with separate BPE scores below the best word-level single model.
+- [D] A single joint-BPE model outperforms the syntax-based system.
+
+> [!example]- Answer
+> **A and C.** B: the character-bigram ensemble is best. D: no single neural model beats the syntax-based system; only ensembles of subword or character-bigram models do.
+
+**3.** Which of the following statements about the SentencePiece Unigram LM are true? (multiple answers possible)
 - [A] It starts from a large vocabulary and shrinks it to the desired size.
 - [B] Its initial vocabulary contains all substrings occurring more than once, including ones that cross word boundaries.
 - [C] In the algorithm as presented, each round removes the tokens with the highest loss $L_t$.
@@ -217,7 +230,7 @@ status: complete
 > [!example]- Answer
 > **A and C.** B: the substrings do not cross words. C follows the slide (Kudo's paper removes the lowest). D: Unigram LM optimises the best global segmentation; greediness is BPE's limitation.
 
-**3.** Which of the following statements about finding the best segmentation are true? (multiple answers possible)
+**4.** Which of the following statements about finding the best segmentation are true? (multiple answers possible)
 - [A] A string of $n$ characters has $2^{n-1}$ possible segmentations.
 - [B] Bottom-up dynamic programming has a better asymptotic run time than top-down dynamic programming with memoization.
 - [C] Dynamic programming spends extra memory to save computation time.
@@ -226,7 +239,7 @@ status: complete
 > [!example]- Answer
 > **A and C.** B: both strategies have the same asymptotic run time. D: Viterbi returns only the most probable segmentation; Yen's or Eppstein's algorithms give n-best.
 
-**4.** Which of the following statements about SentencePiece are true? (multiple answers possible)
+**5.** Which of the following statements about SentencePiece are true? (multiple answers possible)
 - [A] Standard BPE implementations assume that word boundaries have already been detected.
 - [B] SentencePiece treats its input as a raw stream of Unicode characters, including spaces.
 - [C] SentencePiece removes spaces and restores them with language-specific rules.
@@ -235,7 +248,7 @@ status: complete
 > [!example]- Answer
 > **A and B.** C: the space is escaped as a visible symbol, so desegmentation is lossless. D: BPE is the other part of SentencePiece.
 
-**5.** Bostrom and Durrett (2020) compare BPE and Unigram LM. Which of the following statements are true? (multiple answers possible)
+**6.** Bostrom and Durrett (2020) compare BPE and Unigram LM. Which of the following statements are true? (multiple answers possible)
 - [A] Unigram LM produces longer segments on average in both English and Japanese.
 - [B] Against gold-standard segmentations, BPE has the higher precision in English.
 - [C] The downstream advantage of Unigram LM is larger on Japanese than on English tasks.
@@ -244,7 +257,7 @@ status: complete
 > [!example]- Answer
 > **A and C.** B: Unigram LM wins precision, recall and F1 in both languages. D: suffixes and punctuation are more frequent in Unigram LM; BPE over-produces word-initial capitals.
 
-**6.** Which of the following statements about out-of-vocabulary items and fertility are true? (multiple answers possible)
+**7.** Which of the following statements about out-of-vocabulary items and fertility are true? (multiple answers possible)
 - [A] BPE and Unigram LM guarantee a zero OOV rate.
 - [B] Byte-level BPE has a base alphabet fixed at 256 symbols.
 - [C] Under byte-level BPE, non-ASCII scripts end up with shorter subsegments.
