@@ -179,7 +179,7 @@ status: complete
 ## Transfer against interference, and sampling
 
 - Arivazhagan et al. (2019): 103 languages, grouped into high-, medium- and low-resource.
-- **Low-resource**: multilingual beats bilingual, **far more into English** than out of English (transfer).
+- **Low-resource**: multilingual beats bilingual (with balanced sampling), **far more into English** than out of English (transfer).
 - **High-resource**: **every** multilingual model is **below** the bilingual baseline (interference).
 - All→All (one model for both directions) is below the dedicated Any→En or En→Any model in every group.
 - Sample **proportionally**: high-resource languages **dominate**, low-resource ones perform **poorly**. Sample **uniformly**: high-resource languages **suffer**, low-resource ones can do **well**. Best compromise: **over-sample** low-resource, **under-sample** high-resource.
@@ -205,7 +205,7 @@ status: complete
 - Zero-shot translation is **still lagging behind**.
 
 > [!warning] Traps
-> - *"Adding training languages always improves zero-shot translation."* False: most directions, not every one.
+> - *"Adding training languages always improves zero-shot translation."* False: most directions improve, but French→Chinese gets worse.
 > - *"Zero-shot translation matches supervised directions."* False: it lags behind.
 
 ## BART
@@ -242,7 +242,7 @@ status: complete
 - Liu et al. (2020): **one** model trained on a **concatenation of monolingual** data in multiple languages. The BART objective is **always applied within the same language**: **no** crosslingual signal.
 - A **language ID** token (`<En>`, `<Ja>`) **ends the encoder input** and **starts the decoder input**. The pretraining example masks spans and swaps sentence order (text infilling plus sentence permutation).
 - Fine-tuning on MT at **sentence** or **document** level: the **target** language token starts the decoder. No extra encoder is added.
-- mBART25 against random initialisation: **better** on **every** pair in **both** directions. With almost no data (English-Gujarati, 10K pairs) BLEU stays **near zero**. Gains are biggest in the low-to-medium range and smaller at millions of pairs.
+- mBART25 against random initialisation: **better** on **every** pair in **both** directions. With almost no data (English-Gujarati, 10K pairs) BLEU stays **near zero**. Gains are biggest in the low-to-medium range and mostly smaller at millions of pairs.
 
 > [!warning] Traps
 > - *"mBART is pretrained on parallel data."* False: concatenated monolingual data.
