@@ -8,7 +8,7 @@ status: complete
 # MNLP-L07 Exam Prep - Crosslingual NLP
 
 > [!abstract] What the exam can ask here
-> Expect two kinds of block: crosslingual pretraining (which model sees parallel data, and what each objective does) and low-resource MT (parent-child transfer, multilingual NMT, sampling, BART and mBART). The sample exam's question 3.1 comes from this lecture. Statements turn on the data a model sees (monolingual or parallel), what is shared or frozen, which side gains (into or out of English, high- or low-resource) and quantifiers like "every", "always" and "only". In two places the slides and the papers disagree (freezing the decoder, MMLM): answer with the slide.
+> Expect two kinds of block: crosslingual pretraining (which model sees parallel data, and what each objective does) and low-resource MT (parent-child transfer, multilingual NMT, sampling, BART and mBART). The sample exam's question 3.1 comes from this lecture. Statements turn on the data a model sees (monolingual or parallel), what is shared or frozen, which side gains (into or out of English, high- or low-resource) and quantifiers like "every", "always" and "only". Two places need care: the slide's "decoder parameters are frozen" against its own freezing experiment, and MMLM, where the slide and the InfoXLM paper differ. Answer with the slide's wording.
 > [[MNLP-L07 - Crosslingual NLP|lecture note]] · [[MNLP - Cheat Sheet|cheat sheet]] for numbers.
 
 ## Multilingual models get no crosslingual signal
@@ -36,10 +36,10 @@ status: complete
 
 - **Parallel** data: sentence pairs in different languages that are **meaning equivalent**. Data-driven MT has used it for decades.
 - **Comparable** data: sentence or document pairs on the **same topic**, **not fully** parallel. The degree of parallelism is a **sliding scale** (news on the same event, Wikipedia).
-- Natural by-products: multilingual news (Xinhua), the UN and EU, sites of countries with two or more official languages (Canada, Belgium, the US). **OPUS** collects parallel corpora for research.
-- Crawling your own corpus: **document** alignment first, then **sentence** alignment. Or align sentences **directly** from raw web crawls such as Common Crawl.
+- Parallel data is sometimes a **natural by-product**: multilingual news, the UN and EU, countries with two or more official languages. **OPUS** collects parallel corpora for research.
+- Or crawl your own: find parallel **documents** (document alignment) and parallel **sentences** (sentence alignment), or align sentences **directly** from raw web crawls such as Common Crawl.
 - Measuring meaning equivalence: old-fashioned **dictionary overlap** and **relative length** distribution; more recent **sentence embeddings** (LASER, Artetxe and Schwenk 2019).
-- LASER encoder: BPE embeddings **shared by all languages**, a stack of **BiLSTMs**, **max pooling** into one sentence embedding. The LSTM decoder gets the sentence embedding plus a **language ID** $L_{id}$ for the output. The encoder gets **no** language ID.
+- LASER encoder: BPE embeddings, a stack of **BiLSTMs**, **max pooling** into one sentence embedding. The LSTM decoder gets the sentence embedding plus a **language ID** $L_{id}$ for the output. The encoder gets **no** language ID.
 - **vecalign**: sentence alignment that **uses LASER** to match sentences, with an efficient search that **scales to massive** data sets.
 
 > [!warning] Traps
@@ -56,9 +56,9 @@ status: complete
 - **Next sentence prediction is dropped.**
 - TLM input: the pair concatenated, with words masked in **both** halves. **Position embeddings restart at 0** in the second sentence; **language embeddings** (en, fr) mark each half.
 - A masked English word can be read off its unmasked French translation, so the model learns to attend across languages.
-- Parallel data comes from **OPUS** (MultiUN, OpenSubtitles, EUbookshop).
-- XNLI settings: translate-train (the English training set machine-translated into each language), translate-test (each test set translated into English), zero-shot (cross-lingual sentence encoder trained on English only).
-- XNLI: MLM + TLM beats MLM alone in **every** language. Zero-shot MLM + TLM beats translate-test **on average**, but translate-test still wins most European languages. Translate-train is best **on average**. Zero-shot XLM beats LASER in **every** language.
+- Parallel data comes from **OPUS**.
+- XNLI settings: translate-train, translate-test and zero-shot. The slide only names them. Per the lecture note, translate-train machine-translates the English **training** set into each language; translate-test translates each **test** set into English.
+- XNLI: MLM + TLM beats MLM alone in **every** language. Zero-shot MLM + TLM beats translate-test **on average**, but translate-test still wins most European languages. Translate-train is best **on average**. Zero-shot XLM (MLM + TLM) beats LASER in **every** language.
 - Nepali language model: adding a second language lowers perplexity. **Hindi** (related) helps **more** than English; both together is best.
 - Word alignment: XLM's embeddings beat the fastText baselines MUSE and Concat (Concat = joint fastText training over all languages).
 
@@ -98,9 +98,9 @@ status: complete
 ## Within a language against across languages
 
 - The test: fine-tune on English, then evaluate with the two parts of an input in **different** languages. XNLI: premise and hypothesis. XSQuAD (QA): context and question.
-- **within**: both parts in the same language. **across**: averaged over the mixed-language combinations that include the language.
+- **within**: both parts in the same language. **across**: the two parts in different languages.
 - **Every** model (mBERT, XLM-R, InfoXLM) scores **lower across** than within, on both tasks.
-- XLM-R beats mBERT **within** on both tasks. **Across**, XLM-R is better on **XNLI** but **worse** than mBERT on **QA**.
+- XLM-R beats mBERT **within** on both tasks (on average). **Across**, XLM-R is better on **XNLI** but **worse** than mBERT on **QA**.
 - InfoXLM is **slightly** better than XLM-R within and **much** better across, with the **smallest** within-across gap on both tasks. Its biggest gain is on **QA**.
 - The grids are **not symmetric**: swapping which language takes which part changes the score.
 - XLM-R on cross-lingual QA works mainly when the **question** is in English.
@@ -118,7 +118,6 @@ status: complete
 - Data: source as one vector $z$; target as **two** vectors: $x$ = `<s>` + sentence (what the decoder reads), $y$ = sentence + `</s>` (what it predicts), so $y_i = x_{i+1}$.
 - Sutskever et al. (2014): encoder **and** decoder are LSTMs. The decoder is initialised with the encoder's **last** state, $h^{dec}_0 = h^{enc}_n$: an **information bottleneck**.
 - Transformer decoder layer: **target context** layer, **source-target context** layer (attends to the encoder output), **feed-forward** layer, each with a residual connection.
-- MT paradigms: rule-based (1950s to 1990s), statistical (1990s to 2016), neural (2014 onwards).
 
 > [!warning] Traps
 > - *"Seq2seq models assume input and output sequences have equal length."* False.
@@ -141,11 +140,12 @@ status: complete
 - Transfer learning is **basically the same as fine-tuning**: train on a high-resource pair (**parent**), then **continue training** the same model on the low-resource pair (**child**). Reason: learning tens of millions of parameters from small data is hard.
 - The slides list when it works best: **identical target** language; **related source** languages; **decoder parameters frozen**; parent and child **share the same vocabulary**.
 - Zoph et al. setup: **not shared**: source vocabulary and source embeddings. **Shared**: target language and all other parameters (target embeddings, attention). **Freeze target-specific** parameters.
-- Freezing experiment (Uzbek→English): everything frozen gives **zero** BLEU; unfreezing the **source embeddings** gives the **biggest** jump; unfreezing up to and including **attention** keeps helping; then unfreezing the **target embeddings lowers** BLEU.
-- The experiment only needs the **target embeddings** frozen, while the slide's list says "decoder parameters are frozen". A statement in the list's wording is most likely true; a statement about what the experiment shows is about the target embeddings.
-- Transfer helps **all four** children (Hausa, Turkish, Uzbek, Urdu); Urdu, with the **least** data, gains most.
-- Relatedness (Zoph): a Spanish child gains more from a **French** parent than from a German one. **French'** (French with its vocabulary randomly reshuffled) still gains a lot from a French parent, so structure transfers.
-- Kocmi and Bojar (2018), **shared** vocabulary: **unrelated** parents (English→Czech, English→Russian for an English→Estonian child) help as much as the related English→Finnish one, even with a different target language. With parent and child swapped (the table's bottom rows), transfer helps little or **hurts**.
+- The flow: copy every parent parameter; the child's (Uzbek) words take over the parent's (French) **source-embedding rows**; freeze the **English (target) embeddings**; continue training on the child.
+- Freezing experiment (Uzbek→English): everything frozen gives **zero** BLEU; unfreezing the **source embeddings** gives the **biggest** jump; unfreezing the source RNN, the **target RNN** and **attention** keeps helping; then unfreezing the **target embeddings lowers** BLEU.
+- The list says "decoder parameters are frozen", but the experiment only needs the **target embeddings** frozen (training the target RNN helps). A statement in the list's wording is most likely true; one about the experiment is about the target embeddings.
+- Transfer helps **all four** children (Hausa, Turkish, Uzbek, Urdu); Urdu, with the **least** data, gains most. Syntax-based SMT stays **ahead** of the transfer model in all four; the final system beats it only for Hausa.
+- Relatedness (Zoph): a Spanish child gains more from a **French** parent than from a German one. **French'** (French with its vocabulary randomly reshuffled) still gains a lot from a French parent, so the gain does not come only from shared words.
+- Kocmi and Bojar (2018), **shared** vocabulary: **unrelated** parents (English→Czech, English→Russian for an English→Estonian child) help as much as the related English→Finnish one, even with a different target language.
 - Aji et al. (2020): transferring embeddings **and** inner layers is best; inner layers alone carry **most** of the gain; embeddings alone are **worse** than random initialisation on average. An English→German parent transfers about as well into X→English as a German→English parent.
 
 > [!warning] Traps
@@ -154,7 +154,9 @@ status: complete
 > - *"The source embeddings should stay frozen during child training."* False: retraining them gives the biggest jump.
 > - *"Transferring only the parent's embeddings beats training the child from scratch."* False: worse on average.
 > - *"With a shared vocabulary, only a related parent helps."* False: unrelated parents help as much.
-> - Sample exam 3.1 (see [[MNLP - Exam Analysis|exam analysis]]): *"Fine-tuning continuously improves with the number of in-domain updates."* False: adapting more to small data first helps, then hurts. *"Fine-tuning does not suffer from catastrophic forgetting"* is false as well, by standard knowledge beyond the slides.
+> - *"With transfer learning, NMT beats syntax-based SMT for every child language."* False: the transfer model stays below it for all four.
+> - Sample exam 3.1 (see [[MNLP - Exam Analysis|exam analysis]]), where fine-tuning means parent-child transfer: *"Fine-tuning continuously improves with the number of in-domain updates."* False. The slides show the parameter version (letting more parameters adapt to the small child data helps, then hurts); that quality also peaks and then drops with more updates is standard knowledge beyond the slides.
+> - Sample exam 3.1: *"Fine-tuning does not suffer from catastrophic forgetting."* False, by standard knowledge beyond the slides (the Canvas sample question asks it): training only on in-domain data overwrites what the model knew about the general domain.
 
 ## Multilingual NMT
 
@@ -201,7 +203,7 @@ status: complete
 
 - With no data for the pair, translation relies **entirely** on transfer.
 - From 10 to 102 training languages: **decent improvement in most** cases, **not all** (French→Chinese gets worse).
-- Probably depends on **which** languages are included (Belarusian→Russian high, Hindi→Finnish low).
+- Probably also depends on the **actual languages** included; scores vary widely by pair (Belarusian→Russian high, Hindi→Finnish low).
 - Zero-shot translation is **still lagging behind**.
 
 > [!warning] Traps
@@ -223,7 +225,7 @@ status: complete
 | document rotation | starts at a random token | find the real start |
 
 - Document rotation is called "document permutation" in the slide text.
-- Comparison: **text infilling** is the best single noise function; **token deletion** beats token masking on the generation tasks; **document rotation** and **sentence shuffling** alone are poor; infilling plus sentence shuffling gives the best CNN/DM perplexity; a left-to-right language model is **worst** on SQuAD.
+- Comparison: **text infilling** is the best single noise function on almost every task; **token deletion** beats token masking on the generation tasks; **document rotation** and **sentence shuffling** alone are poor; infilling plus sentence shuffling gives the best CNN/DM perplexity; a left-to-right language model is **worst** on SQuAD.
 - BART **matches RoBERTa** on SQuAD 1.1 F1 and is **best** on summarisation (CNN/DailyMail and XSum).
 - Fine-tuning for classification: the label comes from the **last hidden time step**. Span prediction (SQuAD): each token is labelled; the model predicts **begin and end**.
 - Fine-tuning for MT: a **randomly initialised source-language encoder** replaces the **embedding layer** of BART's encoder. BART's encoder parameters can be **frozen or updated**. The source vocabulary **can differ** from BART's.
