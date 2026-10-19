@@ -60,10 +60,10 @@ status: complete
 
 | assumption | broken by |
 |---|---|
-| whitespace | zh, ja, th, lo, km, my |
-| word order | case-marking ru, fi, ko |
-| one word, one meaning | agglutinative fi, tr, hu; compounding de, nl, sv |
-| left to right | ar, he, ur, fa |
+| whitespace | Chinese, Japanese, Thai, Lao, Khmer, Burmese |
+| word order | case marking: Russian, Finnish, Korean |
+| one word, one meaning | agglutinative: Finnish, Turkish, Hungarian; compounding: German, Dutch, Swedish |
+| left to right | Arabic, Hebrew, Urdu, Persian |
 
 > [!warning] Traps
 > - *"Thai uses spaces to separate words."* False: to end clauses or sentences.
@@ -81,7 +81,6 @@ status: complete
 - Devanagari is **alphasyllabic**: consonant **plus inherent vowel**.
 - Arabic writes the **root only**; **vowels are omitted**.
 - Korean letter shapes **encode articulatory features**.
-- One Japanese sentence can mix Katakana, Kanji and Hiragana.
 
 | system | symbol stands for | examples |
 |---|---|---|
@@ -115,11 +114,11 @@ status: complete
 - Disadvantage: text encoded in one script and decoded in another **leads to gibberish**.
 - Disadvantage: **cannot use multiple scripts** in the same document.
 - Unicode removes the need for writing-system-specific code pages.
-- Converting a code page to UTF-8 with `iconv -f GB2312 -t UTF-8` **fails if the source encoding is not correct** (the slide's claim).
+- Converting a code page to UTF-8 with `iconv -f GB2312 -t UTF-8` **fails if the source encoding is not correct**.
 
 > [!warning] Traps
 > - *"Code pages extend ASCII by using more than 256 codes per byte."* False: same 128 or 256 codes, interpreted differently.
-> - *"Code pages allow several scripts in one document."* False.
+> - *"Code pages allow several scripts in one document."* False: one document cannot use multiple scripts.
 
 ## Unicode and codepoints
 
@@ -129,15 +128,16 @@ status: complete
 - Unicode is a **superset of ASCII**: U+0000 to U+007F are identical to ASCII.
 - That is why **English-only** Latin-1 documents are Unicode compatible.
 - The code space runs U+0000 to U+10FFFF, organised into **17 planes**. The slide's "65,356 codepoints per plane" is a typo for 65,536.
-- Plane 0, the **Basic Multilingual Plane**: most modern languages, including the most common CJK ideographs.
-- Plane 1 (Supplementary Multilingual Plane): historic scripts, some modern scripts, symbols such as musical notation, **emoji**.
-- Planes 2 and 3: more CJK ideographs, mostly historical, uncommon or variants. Planes 15 and 16: private use.
+- Plane 0, the **Basic Multilingual Plane**: most modern languages, including the most common CJK ideographs; symbols such as currency; **a Private Use Area**.
+- Plane 1 (Supplementary Multilingual Plane): **non-CJK** historic scripts, modern scripts, symbols such as musical notation, **emoji**.
+- Planes 2 and 3: more CJK ideographs, mostly historical, uncommon or variants. Planes 4 to 13: **unassigned**. Plane 14: tags and variation selectors. Planes 15 and 16: private use.
 
 > [!warning] Traps
 > - *"Unicode specifies how each codepoint is stored as bytes."* False: that is the encoding's job (UTF-8, UTF-16, UTF-32).
 > - *"Unicode and ASCII assign different codes to English letters."* False: U+0000 to U+007F are identical.
 > - *"All CJK ideographs are in the Basic Multilingual Plane."* False: the most common are; more sit in planes 2 and 3.
 > - *"Emoji are in the Basic Multilingual Plane."* False: plane 1.
+> - *"Private use codepoints exist only in planes 15 and 16."* False: the Basic Multilingual Plane also has a Private Use Area.
 
 ## Codepoint, character, glyph
 
@@ -146,12 +146,14 @@ status: complete
 - **Glyph**: a **stylistic rendering** of a character.
 - The same rendered word can have **different codepoint sequences**: café as U+0063 U+0061 U+0066 U+00E9 (**NFC**), or with U+0065 U+0301 (**NFD**).
 - A **naive string similarity check will not match** both sequences.
+- Same for ã: NFC is one codepoint (U+00E3), NFD is a + combining tilde (U+0061 U+0303). In JavaScript the two compare **unequal** (`===` gives false) and have **length 1 against 2**.
 - A reader sees a **grapheme**, represented by **one or more** codepoints, each encoded in **1 to 4 bytes**.
 
 > [!warning] Traps
 > - *"Every character a reader perceives corresponds to exactly one codepoint."* False: it may be several.
 > - *"A glyph is Unicode's unit of identity."* False: the codepoint is; a glyph is a rendering.
 > - *"The NFC and NFD forms of café are equal under a naive string comparison."* False: different codepoint sequences.
+> - *"The NFC and NFD forms of ã have the same string length."* False: 1 codepoint against 2.
 
 ## Normalization forms
 
@@ -160,6 +162,7 @@ status: complete
 - NFKD (compatibility decomposition) breaks characters into their **most basic parts**, **including splitting ligatures**.
 - NFD is **non-lossy**: decompose and compose again without losing styling or formatting details.
 - NFKD is **lossy**: it normalizes visual styling to the base form, which **cannot be reconstructed** during composition.
+- Example: the long s ſ with a dot above and below keeps its ſ under NFC and NFD; NFKC and NFKD turn it into a **plain s** with the dots.
 - Use **NFD** to **compare rendered text**.
 - Use **NFKD** for **search indexing or NLP analysis**, **but not necessarily generation**.
 - Crawled resources can **mix forms even when all in Unicode** (some NFC, some NFD).
@@ -284,7 +287,7 @@ status: complete
 > **B, C and D.** A: Kanji is logographic; Hiragana and Katakana are syllabic.
 
 **5.** Which of the following statements about bytes, codepoints and breaking are true? (multiple answers possible)
-- [A] Byte-level tokenizers split text more aggressively the more bytes a character needs
+- [A] Byte-level tokenizers tend to split text more aggressively the more bytes a character needs
 - [B] Codepoint-level breaking keeps a base letter and its diacritic together
 - [C] Grapheme-level breaking is ideal but very language-specific
 - [D] Mixing breaking strategies can misalign span annotations in SQuAD-style QA
