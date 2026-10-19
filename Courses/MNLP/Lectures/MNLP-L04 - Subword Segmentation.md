@@ -311,7 +311,7 @@ How the two vocabularies differ at the same size:
 
 **Against gold-standard segmentations** (CELEX2 for English morpheme boundaries, MeCab for Japanese word boundaries), Unigram LM beats BPE on precision, recall and F1 in both languages, by far more in English. English recall is low for both, probably because frequent words stay whole (`walked` misses `walk|ed`).
 
-**Downstream**, with only the tokenizer changed, Unigram LM is ahead on every task, but on English only slightly: a bit over a point (1.2 to 1.4) on SQuAD (question answering) and MNLI matched (inference), and only a few tenths of a point on MNLI mismatched and CoNLL named-entity recognition. On **Japanese TyDi QA** (question answering) it is ahead by more than ten points. So the larger gold-standard gap (English) did not predict the larger downstream gap (Japanese).
+**Downstream**, with only the tokenizer changed, Unigram LM is ahead on every task, but on English only slightly: a bit over a point (1.1 to 1.4) on SQuAD (question answering) and MNLI matched (inference), and only a few tenths of a point on MNLI mismatched and CoNLL named-entity recognition. On **Japanese TyDi QA** (question answering) it is ahead by more than ten points. So the larger gold-standard gap (English) did not predict the larger downstream gap (Japanese).
 
 ## The unknown words that remain: byte-level BPE
 
