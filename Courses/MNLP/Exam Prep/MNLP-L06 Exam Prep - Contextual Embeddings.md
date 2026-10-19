@@ -51,7 +51,6 @@ status: complete
 - Pre-training on missing-word prediction is **self-supervised**: large amounts of data can be used, and task relevance is **not required**.
 - Fine-tuning on the actual task is **supervised**, and possible even for **small** amounts of task data.
 - Two prediction tasks: predict **masked tokens** (MLM), and predict whether sentence B is the **next sentence** (NSP).
-- The input vector at each position is the **sum** of token, sentence (segment, $E_A$ or $E_B$) and position embeddings.
 - Tokens are **selected** with probability $p_{mask} = 0.15$. A selected token becomes `[MASK]` **80%** of the time, a **random word** 10%, and stays **the original word** 10%.
 - The loss is computed **only** for the selected positions, **regardless** of whether they show `[MASK]`, a random word or the original word.
 - `[CLS]` is **not tied** to a specific word and is **not masked**.
@@ -186,7 +185,7 @@ status: complete
 - mBERT **generalises well across scripts** (Hindi and Urdu both ways, English to Bulgarian).
 - Pairs involving **Japanese** drop, which **may** be due to larger **typological** differences.
 - Vocabulary overlap is measured as **Jaccard** similarity over wordpieces occurring in **named entities** only: $|E_{l,t} \cap E_{l',e}| / |E_{l,t} \cup E_{l',e}|$.
-- **mBERT**'s zero-shot NER F1 is high and roughly **flat** across overlap; **English BERT** starts near zero and **rises** with overlap.
+- **mBERT**'s zero-shot NER F1 is high **even at low** overlap and depends far less on it; **English BERT** starts near zero and **rises** with overlap.
 - Word order: from an **SVO** language, SVO targets transfer far better than SOV targets; from an **SOV** language the two are about **equal**.
 - Adjective-noun order: same-order transfer is better, with a **smaller** effect.
 - Zero-shot POS accuracy **rises** with the number of shared WALS features, for **both** mBERT and English BERT, with mBERT **higher** throughout.
@@ -194,7 +193,7 @@ status: complete
 > [!warning] Traps
 > - *"mBERT transfers poorly between languages written in different scripts."* False: it generalises well across scripts.
 > - *"The Japanese drop is explained by Japanese's script."* False: the slide suggests typological differences.
-> - *"Like English BERT, mBERT's zero-shot NER rises steeply with entity wordpiece overlap."* False: mBERT is roughly flat.
+> - *"Like English BERT, mBERT's zero-shot NER depends strongly on entity wordpiece overlap."* False: mBERT scores high even at low overlap.
 > - *"Pires et al.'s overlap counts all wordpieces in the training and test sets."* False: only wordpieces in named entities.
 > - *"Zero-shot transfer between two languages is symmetric."* False.
 
@@ -217,7 +216,7 @@ status: complete
 - For each layer, a sentence is the **average of all hidden activations, excluding `[CLS]` and `[SEP]`**.
 - **One average** layer-wise difference vector per language pair: $\bar v^{(l)}_{EN\to DE} = \frac{1}{M}\sum_i \big(v^{(l)}_{DE_i} - v^{(l)}_{EN_i}\big)$.
 - Each sentence is "translated" by **adding** that vector, then matched to its **nearest neighbour** by **$\ell_2$ distance**, not cosine similarity.
-- Accuracy rises from the low layers, **peaks in the middle layers** (around 6 to 8 of 12), and **falls** towards the top, for EN-DE, EN-RU and UR-HI alike.
+- Accuracy rises from the low layers, **peaks in the middle layers** (around layers 7 to 8 of 12), and **falls** towards the top, for EN-DE, EN-RU and UR-HI alike.
 
 > [!warning] Traps
 > - *"Each sentence is represented by its `[CLS]` vector."* False: the mean of the token states, excluding `[CLS]` and `[SEP]`.
@@ -228,18 +227,17 @@ status: complete
 ## mBERT against other systems (Wu and Dredze)
 
 - Wu and Dredze (2019) test zero-shot transfer from **English** on five tasks: MLDoc document classification, NLI (XNLI), NER, POS tagging, dependency parsing.
-- MLDoc has **four** classes (corporate/industrial, economics, government/social, markets), and only the **first two sentences** of each document are used, because of **memory** constraints.
+- MLDoc is document classification with **four** classes; only the **first two sentences** of each document are used, because of **memory** constraints.
 - MLDoc: zero-shot mBERT comes a **close second** to Artetxe and Schwenk, a model pre-trained with **bitext**; in-language training is far higher.
 - XNLI: **translate-train** (machine-translated training data, pseudo-supervision) **beats** zero-shot mBERT.
 - XNLI zero-shot: mBERT narrowly **beats** X-LSTM, but **loses** to Artetxe and Schwenk, to XLM with MLM+TLM, and **even to XLM with MLM only**, which uses no cross-lingual signal.
-- The X-LSTM and XLM results chose models with the **target-language dev set**, which mBERT did not.
-- NER: zero-shot mBERT **beats** the dedicated cross-lingual system of Xie et al.; Chinese is its weakest language.
+- NER: zero-shot mBERT **beats** the dedicated cross-lingual system of Xie et al.
 - POS: zero-shot mBERT does **not** match Kim et al., who use **small amounts** of target-language training data.
 
 > [!warning] Traps
 > - *"Zero-shot mBERT outperforms translate-train on XNLI."* False: translate-train is better.
 > - *"On XNLI, zero-shot mBERT beats every model pre-trained with cross-lingual signal."* False: it beats only X-LSTM.
-> - *"Zero-shot mBERT beats a POS tagger given a few hundred target-language sentences."* False: Kim et al. win.
+> - *"Zero-shot mBERT beats a POS tagger trained with a small amount of target-language data."* False: Kim et al. win.
 > - *"MLDoc classifies complete documents."* False: only the first two sentences.
 
 ## Freezing layers during English fine-tuning
@@ -270,7 +268,7 @@ status: complete
 
 - K et al. (2020) pre-train **bilingual** BERT (B-BERT) on (fake) English plus one other language, and test on XNLI.
 - **Fake English** shifts every English UTF-8 codepoint by a **large constant**, so it shares **no** characters with any other language; everything else about English stays the same.
-- Removing **all** subword overlap costs **little** zero-shot accuracy: wordpiece overlap is **not** what makes transfer work.
+- Removing **all** subword overlap costs **little** zero-shot accuracy: (sub)word overlap does **not** affect transfer much.
 - Word order: words are randomly **permuted during pre-training** only, with **no** permutation during fine-tuning.
 - More permutation gives a **significant** drop, but still **reasonable** transfer; Hindi drops most.
 - Of the architecture variants, **depth** has the **largest** impact; the parameter count is kept roughly **constant**.
@@ -320,7 +318,7 @@ status: complete
 - **Within** a language, XLM-R beats mBERT on both XNLI and QA (XSQuAD), on average and in nearly every language; English QA is about **equal**.
 - **Across** languages on XNLI, XLM-R also beats mBERT.
 - **Across** languages on QA, XLM-R is **worse** than mBERT on average, with a much larger within-across gap.
-- XLM-R's cross-lingual QA works mainly when the question is in **English**.
+- XLM-R's cross-lingual QA is strongest when the question is in **English**.
 
 > [!warning] Traps
 > - *"XLM-R covers more languages than mBERT."* False: 100 against 104.
@@ -370,7 +368,7 @@ status: complete
 > **B and C.** A: NSP pairs are always within the same language. D: same architecture; the extra parameters come from the larger vocabulary.
 
 **4.** Which of the following statements about what drives mBERT-style cross-lingual transfer are true? (multiple answers possible)
-- [A] A bilingual BERT trained on fake English and Spanish still transfers well from English to Spanish, although the two share no wordpieces.
+- [A] A bilingual BERT trained on fake English and Spanish still transfers well from fake English to Spanish, although the two share no wordpieces.
 - [B] In K et al.'s word-order experiment, words are permuted during both pre-training and fine-tuning.
 - [C] With the parameter count held roughly constant, adding layers raises zero-shot accuracy more than in-language accuracy.
 - [D] English BERT's zero-shot NER F1 stays roughly constant as entity wordpiece overlap grows.
