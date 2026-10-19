@@ -43,4 +43,5 @@ Schedule, assessment and deadlines live in the [[MNLP - Overview|course overview
 
 ## Exam Prep
 
+- [[MNLP - Cheat Sheet|MNLP: Cheat Sheet]]
 - [[MNLP - Exam Analysis|MNLP: Exam Analysis]]
