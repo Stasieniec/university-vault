@@ -13,12 +13,12 @@ The two-sided sheet for the exam (Thu 2026-10-22, 09:00, see [[MNLP - Exam Analy
 ### Scenarios, tasks, deep learning, LLMs
 - **Multilingual** (training not language-specific): NER for many languages, parsing (universal features), classification across languages.
 - **Crosslingual** (knowledge transfer): MT (make understandable), QA (extract), unlearning (manipulate), reasoning (combine).
-- **Tasks**: QA returns the answer (IR: ranked documents); **sentiment** needs NER, sentence and document level; **MT** typically per sentence; **NER** much harder outside English.
-- **Before deep learning**: one approach per application; hand-built features (parse trees syntactic, named entities semantic) that ML only weighs.
-- **Neural**: state of the art for all NLP. **+** strong performance, little or no feature engineering, few network types. **−** needs large data, errors hard to trace, can fail spectacularly.
-- **LLMs**: do tasks end to end, substitute or supplement humans (annotation, LLM as a judge). mostly English-centric (Internet data); Llama 3.1, DeepSeek better on high-resource languages; dedicated multilingual (Aya-Expanse) tend to lag behind.
+- **Tasks**: QA returns the answer (IR: ranked documents, even a whole question chopped into keywords); **sentiment** pos/neg or fine-grained (X likes Y about Z), needs NER, sentence and document level; **MT** typically per sentence; **summarisation** one or several documents; **NER** much harder outside English.
+- **Before deep learning**: one approach per application; ML generative (Bayesian) and discriminative; hand-built features (parse trees syntactic, named entities semantic) that ML only weighs.
+- **Neural**: state of the art for all NLP. **+** strong performance, little or no feature engineering, few network types, so insights transfer to vision, speech. **−** needs large data, errors hard to trace, can fail spectacularly.
+- **LLMs**: originated in NLP; do tasks end to end, substitute or supplement humans (annotation, LLM as a judge). Most are English-centric (Internet data); Llama 3.1, DeepSeek better on high-resource languages; dedicated multilingual (Aya-Expanse) tend to lag behind.
 
-!! **Traps:** "classification across languages is crosslingual" (false: multilingual). "unlearning combines information" (false: manipulates). "ML discovered the features" (false: hand-built, ML weighed them). "sentiment only at document level" (false: sentence too). "Aya-Expanse outperforms Llama 3.1" (false: tends to lag behind).
+!! **Traps:** "unlearning combines information" (false: manipulates).
 
 ## L02 Multilinguality and writing systems
 
@@ -53,9 +53,9 @@ The two-sided sheet for the exam (Thu 2026-10-22, 09:00, see [[MNLP - Exam Analy
 | logographic | word or morpheme; little sound | Hanzi, Kanji |
 | alphasyllabic | consonant + inherent vowel | Devanagari |
 
-- **Arabic**: root only, vowels omitted. **Hangul**: letter shapes encode articulatory features. **Script is not language**: Arabic script also Persian, Urdu; Serbian, Kurdish, Uzbek, Punjabi use two scripts.
+- **Arabic**: root only, vowels omitted. **Hangul**: letter shapes encode articulatory features. **Script is not language**: Arabic script also Persian, Urdu; Serbian, Kurdish, Uzbek, Punjabi use two scripts. Own script: Armenian, Georgian, Greek.
 
-!! **Traps:** "Kanji is syllabic" (false: logographic). "Hangul is syllabic" (false: alphabetic). "logographs carry much sound information" (false: little).
+!! **Traps:** "Kanji is syllabic" (false: logographic). "logographs carry much sound information" (false: little).
 
 ### Code pages and Unicode
 - **Code pages** (Latin-1, Shift-JIS, GBK, KOI8-R): ASCII's 128 (or 256) byte codes read per script. **−** wrong decoding: gibberish; one script per document.
@@ -79,7 +79,7 @@ The two-sided sheet for the exam (Thu 2026-10-22, 09:00, see [[MNLP - Exam Analy
 
 ### Bytes, breaking and other pitfalls
 - **Byte inflation** (bytes/char): hello 1.0, café 1.25, 中文 3.0. Byte-level tokenisers: more bytes, splitting tends to be more aggressive; can create non-existing characters.
-- **Breaking**: bytes can split a codepoint; codepoints can split base from diacritic; graphemes ideal but very language-specific. Mixed strategies misalign spans (SQuAD-style QA) and cross-corpus counts. **Turkish** lowercase(I) = ı. Codepoint order not necessarily alphabetical; Swedish å, ä, ö after z; German ä → ae.
+- **Breaking**: bytes can split a codepoint; codepoints can split base from diacritic; graphemes ideal but very language-specific. Mixed strategies misalign spans (SQuAD-style QA) and cross-corpus counts. **Turkish** lowercase(I) = ı. Codepoints not always alphabetical; Swedish å, ä, ö after z; German ä → ae. Punctuation (“” «») hand-mapped.
 
 !! **Traps:** "more bytes, less splitting" (false). "codepoint breaking keeps base and diacritic together" (false). "grapheme breaking is language-independent" (false).
 
@@ -141,17 +141,18 @@ The two-sided sheet for the exam (Thu 2026-10-22, 09:00, see [[MNLP - Exam Analy
 !! **Traps:** "FSTs handle exceptions poorly" (false: great accuracy). "MDL minimises model size" (false: model plus data cost). "data-driven segmenters handle character deletions" (false: strictly concatenative).
 
 ### BPE and WordPiece
-- **BPE training**: characters, word boundaries kept (`</w>`); merge the **most frequent** adjacent pair until a **maximum number of merges** (30K to 128K, high end multilingual). **Greedy** (once merged, stays merged), **deterministic** (one segmentation per word).
+- **BPE training**: characters, word boundaries kept (`</w>`); merge the **most frequent** adjacent pair until a **maximum number of merges** (the only hyperparameter; 30K to 128K, high end multilingual). **Greedy** (once merged, stays merged), **deterministic** (one segmentation per word).
 - **BPE inference**: characters, then the learned merges **in learned order**. **+** much smaller vocabulary (memory, speed), better translation, far fewer OOVs, for **both** high- and low-resource pairs.
+- **Sennrich EN→DE**: best single: char-bigram **ties** joint BPE; best ensemble: char-bigram; per-language BPE single **below** best word-level; syntax-based beats **every** single model, only subword ensembles beat it.
 - **WordPiece** (Schuster and Nakajima 2012): **bottom-up** like BPE, and **predates** it. Non-initial characters prefixed `##`; merge the pair with highest $\text{count}(a,b)/(\text{count}(a)\,\text{count}(b))$ until the target vocabulary size. **Inference**: left to right **greedy longest match** (no merge replay); no match at a position: `[UNK]` (L06 table: whole word).
 
-!! **Traps:** "at inference BPE merges the input's most frequent pair" (false: replays learned merges). "BPE gives n-best lists" (false: deterministic). "benefits only for low-resource pairs" (false: both). "WordPiece merges the most frequent pair" (false: count ratio). "WordPiece prunes top-down" (false: bottom-up).
+!! **Traps:** "at inference BPE merges the input's most frequent pair" (false: replays learned merges). "WordPiece merges the most frequent pair" (false: count ratio).
 
 ### Unigram LM and DP segmentation
 - **Unigram LM** (Kudo 2018, in SentencePiece): considers **all** segmentations, best **global** one, **multiple** (sampling, n-best), **top-down** (large vocabulary shrunk to target).
 - **Pruning**: start $V$ = substrings occurring more than once, **not crossing words**. While $|V|>k$: fit $\theta$; $L_t = p_\theta(D) - p_{\theta'}(D)$ ($\theta'$ without $t$); remove $\min(|V|-k, \lfloor\alpha|V|\rfloor)$ tokens with **highest** $L_t$ (exam answer: slide; Kudo's paper: lowest); $\alpha\in[0,1]$ hyperparameter.
 - **Unigram inference**: **Viterbi** gives only the best; n-best via **Yen's/Eppstein's** algorithms or disallowing sub-solutions.
-- **Brute force**: $2^{n-1}$ segmentations, each scored. **DP**: solve each sub-problem once, store it: **extra memory to save time**. Top-down memoization and bottom-up: **same asymptotic** run time. $m[i,j]$ = $p$(whole span), replaced by $m[i,k]\cdot m[k+1,j]$ (**product**) if larger.
+- **Brute force**: $2^{n-1}$ segmentations, each scored. **DP**: solve each sub-problem once, store it: **extra memory to save time**. Top-down memoization and bottom-up: **same asymptotic** run time. $m[i,j]$ = $p$(whole span), replaced by $m[i,k]\cdot m[k+1,j]$ (**product**; segments independent) if larger.
 
 !! **Traps:** "starts from single characters" (false: substrings occurring more than once). "all surplus tokens removed at once" (false: at most $\lfloor\alpha|V|\rfloor$ per round, refit between). "Viterbi returns n-best" (false). "bottom-up DP is asymptotically faster" (false: same). "DP saves time and memory" (false: spends memory).
 
@@ -178,8 +179,6 @@ The two-sided sheet for the exam (Thu 2026-10-22, 09:00, see [[MNLP - Exam Analy
 - **Segments**: Unigram LM closer to morphemes, **longer** (English **and** Japanese), more moderate-frequency tokens (English); BPE more word-initial capitals (`▁H`), Unigram LM more suffixes (*s, ing, ed*); in Japanese BPE attaches particles to words.
 - **Results**: vs gold segmentations Unigram LM wins precision, recall **and** F1 in **both**, gap **much larger in English**. Downstream ahead on **every** task: **slightly** in English, **a lot** in Japanese.
 
-!! **Traps:** "BPE gives longer segments" (false). "downstream gain larger in English" (false: Japanese). "gold gap larger in Japanese" (false: English).
-
 ### Fertility
 - **Fertility**: average segments per word; depends on merges (BPE) or vocabulary size (Unigram LM), word length, morphological richness. Isolating, Latin-script: **typically close to 1** for common words. No scheme dominates across all languages and scripts. **High fertility −** harder to reassemble meaning, **pays more** under per-token pricing, context fills **faster**.
 
@@ -194,7 +193,7 @@ The two-sided sheet for the exam (Thu 2026-10-22, 09:00, see [[MNLP - Exam Analy
 !! **Traps:** "embeddings are high-dimensional and sparse" (false: count vectors).
 
 ### Word2Vec: CBOW and skip-gram
-- **CBOW**: centre word from context; $h = \frac{1}{2n} W w_C$ (average; figure says SUM); one hidden layer, **no non-linearities**; $n \in \{2,5,10\}$.
+- **CBOW**: centre word from context; $h = \frac{1}{2n} W w_C$ (average; figure says SUM); one hidden layer, **no non-linearities**, simpler than PNLM; $n \in \{2,5,10\}$.
 - **Both**: $\text{softmax}(W'h)$. $W'$ **not necessarily** $W^\top$. Embedding: typically $W$, or $W^\top + W'$.
 
 | | CBOW | skip-gram |
@@ -214,7 +213,7 @@ The two-sided sheet for the exam (Thu 2026-10-22, 09:00, see [[MNLP - Exam Analy
 
 ### GloVe
 - **GloVe**: combines global co-occurrence statistics (count-based, tends to do worse) with local prediction-based updating (each window an independent event, still tends to win).
-- **Objective**: $\sum f(X_{ij})(w_i\cdot\tilde w_j + b_i + \tilde b_j - \log X_{ij})^2$, weighted least squares on log counts. **Final vector $w_i + \tilde w_i$.**
+- **Objective**: $\sum f(X_{ij})(w_i\cdot\tilde w_j + b_i + \tilde b_j - \log X_{ij})^2$, weighted least squares on log counts. $X$ built in **one pass**; training sees only $X$. **Final vector $w_i + \tilde w_i$.**
 - **$f$**: $(x/x_{max})^\alpha$ below $x_{max}$, else 1; $x_{max} = 100$, $\alpha = 0.75$. De-emphasises very rare (noisy) **and** very frequent pairs: rises from zero, **caps at 1**.
 
 !! **Traps:** "GloVe treats windows as independent events" (false: Word2Vec). "count-based outperforms prediction-based" (false). "$f$ gives frequent pairs the lowest weight" (false: capped at 1). "GloVe subsamples frequent words" (false: Word2Vec; GloVe uses $f$).
@@ -229,7 +228,7 @@ The two-sided sheet for the exam (Thu 2026-10-22, 09:00, see [[MNLP - Exam Analy
 ## L05 Static embeddings (cont.)
 
 ### fastText
-- **fastText**: fixes one opaque vector per word type (morphologically rich languages suffer most, no OOV fallback): skip-gram with negative sampling; **centre word = sum of character n-gram vectors** (n default **3 to 6**, `<` `>` boundaries) **plus whole word** `<w>`. **Context vectors stay per word.** Same gradient to every n-gram. **OOV words get vectors.**
+- **fastText**: remedies one opaque vector per word type (morphologically rich languages suffer most, no OOV fallback): skip-gram with negative sampling; **centre word = sum of character n-gram vectors** (n default **3 to 6**, `<` `>` boundaries) **plus whole word** `<w>`. **Context vectors stay per word.** Same gradient to every n-gram. **Returns the n-gram vectors**; **OOV words get vectors.**
 - **Results**: similarity best or tied except **English WS-353** (CBOW wins); gains in morphologically rich languages and English rare words. Analogies: gains on **syntactic**; **semantic** barely change, drop for German.
 
 !! **Traps:** "context words also built from n-grams" (false). "cannot represent unseen words" (false). "largest gains on semantic analogies" (false: syntactic).
@@ -241,7 +240,7 @@ The two-sided sheet for the exam (Thu 2026-10-22, 09:00, see [[MNLP - Exam Analy
 !! **Traps:** "spaces differ only by a rotation" (false: general linear map). "semi-supervised uses thousands" (false: hundreds).
 
 ### Supervised mapping: Procrustes, orthogonal
-- **Mikolov et al. (2013)**: $\min_W \sum_i \lVert Wx_i - y_i\rVert^2$, **Procrustes** (exam answer: slide; Conneau: only the orthogonal SVD one); exact closed form exists, used **SGD** (scales better, memory-friendlier). Beats edit distance; worse for rarer words. **−** stretches, shears; overfits the seed dictionary; Euclidean training vs cosine retrieval (equal only for unit vectors).
+- **Mikolov et al. (2013)**: $\min_W \sum_i \lVert Wx_i - y_i\rVert^2$, **Procrustes** (exam answer: slide; Conneau: only the orthogonal SVD one); exact closed form exists, used **SGD** (scales better, memory-friendlier). Worse for rarer words. **−** stretches, shears; overfits the seed dictionary; Euclidean training vs cosine retrieval (equal only for unit vectors).
 - **Xing et al. (2015)**: **orthogonal** $W^\top W = I$, unit vectors; rotations and reflections only, preserves distances and angles; exact by **SVD**. Better at every dimension; unconstrained **worsens 300 to 700 dims** (equal dims), orthogonal slightly improves.
 
 !! **Traps:** "orthogonal maps can rescale" (false). "unconstrained improves with dimension" (false, equal dims). "orthogonal needs gradient descent" (false: SVD).
@@ -253,8 +252,8 @@ The two-sided sheet for the exam (Thu 2026-10-22, 09:00, see [[MNLP - Exam Analy
 !! **Traps:** "CSLS boosts candidates near many points" (false). "$r_T$ uses the source space" (false).
 
 ### Unsupervised alignment: MUSE
-- **Generator**: $W$, one $d \times d$ **linear** matrix, deliberately (a deep one could scramble which word maps where); starts as identity (or random orthogonal); **re-orthogonalised** after each update ($\beta = 0.01$).
-- **Discriminator**: MLP 2×2048, label smoothing 0.2 (against overconfidence); **50k most frequent** words; alternating steps, other side frozen; generator uses **flipped labels**.
+- **Generator**: $W$, one $d \times d$ **linear** matrix, deliberately (a deep one could scramble which word maps where); starts as identity (or random orthogonal); **re-orthogonalised** after each update.
+- **Discriminator**: MLP, label smoothing; **50k most frequent** words; alternating steps, other side frozen; generator uses **flipped labels**.
 - **Model selection**: not adversarial loss; mean cosine of CSLS NN of **10k most frequent** source words. **Refinement** ("semi-supervised" on slide, no human dictionary): **mutual** CSLS NN among frequent words, SVD, repeat.
 - **Results**: on par or better than supervised for English-Spanish, -French, -German; well short for -Russian, -Chinese.
 
@@ -291,16 +290,16 @@ The two-sided sheet for the exam (Thu 2026-10-22, 09:00, see [[MNLP - Exam Analy
 !! **Traps:** "15% of tokens are replaced by `[MASK]`" (false: 80% of the 15%). "loss only at `[MASK]` positions" (false: all selected). "`[CLS]` is masked like other tokens" (false). "NSP negatives use the preceding sentence" (false: random).
 
 ### BERT fine-tuning and whole-word masking
-- **Fine-tuning head**: small-ish, **randomly initialised**; word tasks on **top encoder layers**, classification on the **`[CLS]` top layer**; BERT updated or not. Batch 16 or 32, **2 to 4 epochs**.
+- **Fine-tuning head**: small-ish, **randomly initialised**; word tasks on **top encoder layers**, classification on the **`[CLS]` top layer**; BERT updated or not. **2 to 4 epochs**.
 - **NLI**: entails / contradicts / no relationship, 3-way. **XNLI**: crowd-sourced test/dev pairs **translated** into 14 languages. **SQuAD**: **start/end span**; **one** start vector $S$, **one** end $E$, span maximises $T_i\cdot S+T_j\cdot E$, $i\le j$.
 - **Whole-word masking**: mask all pieces of a word; **rate unchanged**. Pieces carrying **morphology** (tense, number, case) are **easier** to predict than stems. Helps BERT-Large, cased and uncased.
 
 !! **Traps:** "head initialised from the pre-trained model" (false: random). "whole-word masking raises the masking rate" (false). "a start/end vector per position" (false: one shared). "suffix pieces are harder than stems" (false: easier).
 
 ### mBERT and language sampling
-- **mBERT**: GitHub 2018, **no paper**. **Same architecture and loss** as BERT (MLM + NSP), 104 concatenated Wikipedias. NSP pairs **within one language**, no mixing in a sequence; a **batch can** mix languages. **Lacks**: crosslingual loss, parallel data (not intentionally), language-ID embedding, language-specific parameters (adapters), alignment loss.
+- **mBERT**: **Same architecture and loss** as BERT (MLM + NSP), 104 concatenated Wikipedias. NSP pairs **within one language**, no mixing in a sequence; a **batch can** mix languages. **Lacks**: crosslingual loss, parallel data (none intentionally), language-ID embedding, language-specific parameters (adapters), alignment loss.
 - **Shared vocabulary**: WordPiece (L04) **~120k** (English BERT 30k); BPE or Unigram LM work **similarly well**. ~178M vs 110M parameters: **only the vocabulary**. Chinese, kanji, **hanja** split into characters first. The $\alpha$ smoothing (below) also applies to subword frequencies; still favours **high-resource and Latin script**; low-resource, morphologically rich: **higher fertility**. **Uncased** variant lowercases and **strips accents** (hurts diacritic languages).
-- **Sampling** $p_l=n_l^\alpha/\sum_{l'}n_{l'}^\alpha$, $n_l$ = resource size, $\alpha$ = smoothing exponent ($=1/T$ in L07).
+- **Sampling** $p_l=n_l^\alpha/\sum_{l'}n_{l'}^\alpha$, $n_l$ = resource size, $\alpha$ = importance (smoothing; $1/T$ in L07).
 
 | $\alpha$ | effect |
 |---|---|
@@ -312,9 +311,9 @@ The two-sided sheet for the exam (Thu 2026-10-22, 09:00, see [[MNLP - Exam Analy
 
 ### Zero-shot crosslingual transfer findings
 - **Zero-shot**: task data in A improves the task in B with **no** task data in B.
-- **Pires 2019** (NER, POS, 16 languages): zero-shot decent, below in-language, **asymmetric** (en→nl beats nl→en). **Cross-script works**; English→Japanese drops (maybe typology). Jaccard overlap of **named-entity** wordpieces: English BERT rises with it, **mBERT high even at low overlap**. From SVO, SVO targets beat SOV; more shared WALS features, better POS. **Translation retrieval**: **peaks in middle layers**.
-- **Wu and Dredze 2019** (from English): XNLI translate-train **beats** zero-shot mBERT, which loses even to XLM MLM-only; NER **beats** Xie et al.; POS **below** Kim et al. **Freezing** lowest $k$ layers ($k$ = 0 is embeddings): $k\le6$ neutral or **helps**; $k=9$ hurts NLI, NER, POS (MLDoc gains); no fine-tuning (Feat) below best fine-tuned. **Overlap vs zero-shot** per task: NER near-perfect correlation, XNLI **none**, others positive.
-- **K et al. 2020** (bilingual BERT, XNLI): **fake English** (zero overlap) costs **little**: overlap not the main cause. **Permuting words** in pre-training only: significant drop, transfer **not eliminated**. **Depth** has the largest architecture impact (parameters ~constant): in-language saturates, zero-shot keeps rising.
+- **Pires 2019** (NER, POS, 16 languages): zero-shot decent, below in-language, **asymmetric** (en→nl beats nl→en). **Cross-script works**; pairs with Japanese drop (maybe typology). Jaccard overlap of **named-entity** wordpieces: English BERT rises with it, **mBERT high even at low overlap**. From SVO, SVO targets beat SOV; more shared WALS features, better POS. **Translation retrieval**: **peaks in middle layers**.
+- **Wu and Dredze 2019** (from English): XNLI translate-train **beats** zero-shot mBERT, which loses even to XLM MLM-only; NER **beats** Xie et al.; POS **below** Kim et al. **Freezing** lowest $k$ layers ($k$ = 0 is embeddings): $k\le6$ mostly neutral or **helps**; $k=9$ hurts NLI, NER, POS (MLDoc gains); no fine-tuning (Feat) below best fine-tuned. **Overlap vs zero-shot** per task: NER near-perfect correlation, XNLI **none**, others positive.
+- **K et al. 2020** (bilingual BERT, XNLI): **fake English** (zero overlap) costs **little**: overlap not the main cause. **Permuting words** in pre-training only: significant drop, transfer **not eliminated**. **Depth** has the largest architecture impact (parameters ~constant): in-language saturates, zero-shot keeps rising. **Mixed-language** premise/hypothesis: below **both** monolingual pairs.
 - **Rajaee and Monz 2024** (mBERT, XNLI 15×15): **across < within on average for every language** (single English-hypothesis cells can beat within); same-language premise best per hypothesis language; foreign premise + **English hypothesis** beats the reverse. **Hypothesis**: transfer of **heuristics can contribute**.
 - **What drives transfer**: shared vocabulary **plays a role, not the main cause**; structure matters (permutation hurts, does not eliminate); deeper = **more language-independent**; **no single factor**.
 
@@ -348,13 +347,15 @@ The two-sided sheet for the exam (Thu 2026-10-22, 09:00, see [[MNLP - Exam Analy
 | BART | English | denoising | |
 | mBART | monolingual, many | denoising | ID token `<En>` |
 
-- **Bold** = crosslingual signal; no language ID unless listed. InfoXLM: 14 English-centric pairs; XLM from scratch.
+- **Bold** = crosslingual signal; no language ID unless listed. XLM from scratch; InfoXLM from XLM-R.
 
 ### LASER
 - **LASER**: encoder-decoder trained to translate on parallel data. **Encoder**: shared BPE embeddings, **BiLSTM** stack, **max pooling** into one sentence embedding; never told the input language. **Decoder** (LSTM): sentence embedding + previous token + **language ID $L_{id}$** of the output; later **discarded**.
 
+!! **Traps:** "LASER's encoder gets the input language ID" (false: decoder, output language). "LASER uses `[CLS]`" (false: max pooling).
+
 ### XLM: CLM, MLM, TLM
-- **CLM**: next word from prefix. **MLM**: masked word from context (BERT). **TLM**: sentence + translation concatenated, masks in **both** halves, so a masked word can be read off its translation. **Positions restart at 0** in the second sentence; **language embeddings** mark each half.
+- **CLM**: next word from prefix. **MLM**: masked word from context (BERT). **TLM**: MLM's loss on sentence + translation concatenated, masks in **both** halves, so a masked word can be read off its translation. **Positions restart at 0** in the second sentence; **language embeddings** mark each half.
 - **TLM is the crosslingual objective**, always paired: **MLM + TLM** or **CLM + TLM**. **NSP dropped**.
 - **XNLI**: **translate-train** (MT training set), **translate-test** (MT test into English), **zero-shot** (English only). MLM + TLM beats MLM in **every** language (least for English). Zero-shot beats translate-test **on average only** (translate-test wins every European language, tr, ar). **Translate-train best on average**.
 - **Nepali LM** gains more from **Hindi** (related) than English; Hindi + English together best.
@@ -380,10 +381,10 @@ The two-sided sheet for the exam (Thu 2026-10-22, 09:00, see [[MNLP - Exam Analy
 !! **Traps:** "seq2seq assumes equal lengths" (false). "Sutskever's decoder attends to every encoder state" (false: last state).
 
 ### Parent-child transfer
-- **Transfer learning** = basically **fine-tuning**: big pair (**parent**), then continue on low-resource pair (**child**). **Works best if** (slide): **identical target**; **related source**. Recipe: **decoder frozen**; shared vocabulary.
+- **Transfer learning** = basically **fine-tuning**: big pair (**parent**), then continue on low-resource pair (**child**). **Works best if**: **identical target**, **related source**, **decoder frozen**, shared vocabulary.
 - **Zoph**: **not shared**: source vocabulary, source embeddings; **shared**: target language, all else; freeze target-specific.
 - **Freezing**: all frozen = zero; **source embeddings** biggest jump; source RNN, target RNN, attention keep helping; unfreezing **target embeddings hurts** (slide's "decoder frozen").
-- **Relatedness**: French parent beats German for a Spanish child; reshuffled-vocabulary French still gains: **structure transfers**. **Kocmi and Bojar**: shared vocabulary, **unrelated** parent helps as much, even with a different target. **Aji**: **inner layers** carry most; **embeddings alone worse than random init** on average.
+- **Relatedness**: French parent beats German for a Spanish child; reshuffled-vocabulary French still gains: **structure transfers**. **Kocmi and Bojar**: shared vocabulary, **unrelated** parent helps as much, even with a different target. Reversed (small parent): little or **hurts**. **Aji**: **inner layers** carry most; **embeddings alone worse than random init** on average.
 - **Fine-tuning** (sample exam, no official key): starts from general-domain parameters; more in-domain updates help, then hurt; suffers catastrophic forgetting.
 
 !! **Traps:** "Zoph's parent and child share source embeddings" (false). "unfreezing target embeddings helps" (false). "with a shared vocabulary only a related parent helps" (false).
