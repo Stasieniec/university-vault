@@ -1,0 +1,269 @@
+# Starter questions for week 5: telemetry (logs, metrics, dashboards, alerts, what to
+# monitor) and CI/CD.
+# Source: the week 5 deck (5-telemetry-cicd.pptx) on Canvas, including the Python logging
+# levels table and the Prometheus metric types it shows.
+course: EPRM
+lecture: EPRM-starter-telemetry-cicd
+title: "W5 Telemetry and CI/CD"
+sort: 5
+questions:
+
+  - id: eprm-jcw3fv
+    type: truefalse
+    difficulty: easy
+    level: understand
+    topics: [Telemetry, Reactive and Proactive Monitoring]
+    statement: Reactive monitoring relies on user complaints or occasional manual checks to find problems.
+    answer: true
+    why: >-
+      Reactive monitoring treats no complaints as no problem. Proactive monitoring
+      captures errors and abnormal activity and alerts engineers immediately.
+
+  - id: eprm-nv6cwb
+    type: single
+    difficulty: medium
+    level: apply
+    topics: [Telemetry, Prometheus Metric Types]
+    prompt: >-
+      You want to see how request latency is spread, for example its 95th
+      percentile. Which Prometheus metric type fits?
+    options:
+      - id: a
+        text: A gauge
+        why: A gauge holds one current value that moves up and down. It does not keep the spread of many observations.
+      - id: b
+        text: A histogram
+        correct: true
+      - id: c
+        text: A counter
+        why: A counter only increases, like the number of requests served.
+    why: >-
+      A histogram puts observed values into bins, so you can read the
+      distribution and its percentiles. Latency and predicted probabilities are
+      typical uses.
+
+  - id: eprm-t8v5et
+    type: multi
+    difficulty: medium
+    level: apply
+    topics: [Telemetry, Prometheus Metric Types]
+    prompt: Which of these measurements are gauges in Prometheus terms?
+    options:
+      - id: a
+        text: CPU utilisation
+        correct: true
+      - id: b
+        text: Population stability index (PSI) of a feature
+        correct: true
+      - id: c
+        text: Predicted probabilities, binned into ranges
+        why: Many observed values sorted into bins make a histogram.
+      - id: d
+        text: Requests served since the service started
+        why: This number only goes up, so it is a counter.
+      - id: e
+        text: Rows processed so far
+        why: A running total only increases, so it is a counter.
+    why: >-
+      A gauge is a number that can go up or down. Counters increase
+      monotonically, and histograms bin many observed values.
+
+  - id: eprm-ssy8ag
+    type: single
+    difficulty: easy
+    level: apply
+    topics: [Logging, Log Levels]
+    prompt: The service still works as expected, but disk space is running low. Which log level fits?
+    options:
+      - id: a
+        text: ERROR
+        why: ERROR means the software could not perform some function. Here it still works.
+      - id: b
+        text: INFO
+        why: INFO confirms that things work as expected. Low disk space is unexpected and may become a problem.
+      - id: c
+        text: WARNING
+        correct: true
+      - id: d
+        text: CRITICAL
+        why: CRITICAL means the program itself may be unable to keep running.
+    why: >-
+      WARNING marks something unexpected, or a problem that may come soon, while
+      the software still works. Python's logging docs use low disk space as
+      their example.
+
+  - id: eprm-pma7p3
+    type: single
+    code: python
+    difficulty: hard
+    level: analyze
+    topics: [Logging]
+    prompt: Which code follows good logging practice for a batch scoring job?
+    options:
+      - id: a
+        text: |
+          print(f"Scored batch {batch_id}")
+        why: Do not use print for logging. It has no level, so it cannot be filtered or routed like a log record.
+      - id: b
+        text: |
+          log.info("Scored %s, card %s",
+                   user_email, card_number)
+        why: It writes personal and payment data into the logs. Sensitive information stays out of logs.
+      - id: c
+        text: |
+          for row in rows:
+              log.info("Scored row %s", row)
+        why: It logs every single row instead of the operation, which floods the logs and may leak row contents.
+      - id: d
+        text: |
+          log.info("Scored batch %s: %d rows",
+                   batch_id, n_rows)
+        correct: true
+    why: >-
+      Log operations through a logger, at a fitting level, with useful metadata
+      such as the batch id and row count. No print, no sensitive data, and no
+      line-by-line logging.
+
+  - id: eprm-b8d7qx
+    type: single
+    difficulty: hard
+    level: apply
+    topics: [Data Monitoring, Telemetry]
+    prompt: >-
+      CPU, latency and error codes all look normal, yet the share of predictions
+      above 0.9 has doubled since last week. Which monitoring category is built
+      to catch this?
+    options:
+      - id: a
+        text: System monitoring
+        why: System monitoring watches infrastructure and the application, with no data logic, and those signals are normal.
+      - id: b
+        text: Data monitoring
+        correct: true
+      - id: c
+        text: Business monitoring
+        why: Business monitoring tracks KPIs, model performance and A/B results. A shift in predicted probabilities is an output-data signal.
+    why: >-
+      Data monitoring watches input data, features and outputs, including shifts
+      in predicted probabilities. Silent failures such as drift show up there,
+      because nothing crashes.
+
+  - id: eprm-qbpqsx
+    type: single
+    difficulty: medium
+    level: understand
+    topics: [System Monitoring, Telemetry]
+    prompt: Which monitoring category does the course put the deployed model version under?
+    options:
+      - id: a
+        text: Data monitoring
+        why: Data monitoring watches input, feature and output distributions. The version is configuration.
+      - id: b
+        text: Business monitoring
+        why: Business monitoring covers KPIs, predictive performance and A/B test results.
+      - id: c
+        text: System monitoring
+        correct: true
+    why: >-
+      System monitoring covers infrastructure, the application and configuration,
+      which includes the model version and environment settings. It has no data logic.
+
+  - id: eprm-gy7rs7
+    type: truefalse
+    difficulty: medium
+    level: understand
+    topics: [Alerts, Alert Fatigue]
+    statement: Alert fatigue sets in when too few alerts fire, so real problems go unnoticed.
+    answer: false
+    why: >-
+      Alert fatigue comes from too many alerts, which people then ignore. Too few
+      alerts is the opposite failure, where issues go uncaptured.
+
+  - id: eprm-4nvkg8
+    type: multi
+    difficulty: medium
+    level: understand
+    topics: [Telemetry]
+    prompt: Why do ML systems need telemetry beyond noticing crashes?
+    options:
+      - id: a
+        text: Drift can degrade a model without any crash
+        correct: true
+      - id: b
+        text: The world changes, and the data with it
+        correct: true
+      - id: c
+        text: Teams need to deploy and move on until an alert comes
+        correct: true
+      - id: d
+        text: Users can be relied on to report issues quickly
+        why: Learning about failures from users is the reactive approach, and it comes too late.
+      - id: e
+        text: Deployed models keep improving on their own
+        why: A deployed model does not improve by itself. As the data changes, its performance can decay.
+    why: >-
+      ML can fail silently through drift, and the world and its data keep
+      changing. Teams also need to deploy and forget until an alert arrives.
+
+  - id: eprm-s526qx
+    type: single
+    difficulty: easy
+    level: apply
+    topics: [CI/CD, Continuous Integration]
+    prompt: >-
+      On every pull request, a pipeline runs the test suite, formatting checks and
+      security checks, and rejects the change if any fail. What is this?
+    options:
+      - id: a
+        text: Continuous deployment
+        why: CD deploys code after it is merged, with a passing CI as its prerequisite.
+      - id: b
+        text: GitFlow
+        why: GitFlow is a branching model. It defines branches, and the checks run in CI.
+      - id: c
+        text: Continuous integration
+        correct: true
+      - id: d
+        text: An alert manager
+        why: Alert managers handle alerts from live systems.
+    why: >-
+      CI checks whether a change integrates with the existing code: conflicts,
+      the full test suite, builds and quality checks. A change that fails CI is
+      rejected.
+
+  - id: eprm-p9vg2j
+    type: truefalse
+    difficulty: medium
+    level: understand
+    topics: [CI/CD, Continuous Deployment]
+    statement: >-
+      Continuous deployment starts automatically when code is merged into a
+      long-living branch, and needs CI to pass first.
+    answer: true
+    why: >-
+      Each long-living branch targets an environment, so a merge to develop
+      deploys to acceptance and a merge to main to production. A CD pipeline
+      typically builds the Docker image and deploys it.
+
+  - id: eprm-83u6t9
+    type: cloze
+    difficulty: easy
+    level: remember
+    topics: [Metrics, Telemetry]
+    prompt: Metrics are usually collected in ___, whose query language is built for time-relative data.
+    options:
+      - id: a
+        text: a log aggregator
+        why: Log aggregators collect logs from applications. Metrics go to a time-series database.
+      - id: b
+        text: a relational database
+        why: A relational database is general purpose and not designed around time-relative queries.
+      - id: c
+        text: a document store
+        why: Document stores hold semi-structured records. They are not built for querying values over time.
+      - id: d
+        text: a time-series database
+        correct: true
+    why: >-
+      A time-series database stores values against time, and its query language
+      and data handling are designed for that, which fits metrics.

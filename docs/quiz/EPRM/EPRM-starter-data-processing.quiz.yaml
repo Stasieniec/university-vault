@@ -1,0 +1,297 @@
+# Starter questions for week 2: distributed data processing.
+# Source: the week 2 deck (2-distributed-data-processing.pptx) on Canvas, including the
+# Kleppmann OLTP/OLAP table and the Spark physical plan it shows.
+course: EPRM
+lecture: EPRM-starter-data-processing
+title: "W2 Distributed data processing"
+sort: 2
+questions:
+
+  - id: eprm-vyfpr8
+    type: single
+    difficulty: medium
+    level: apply
+    topics: [Essential and Accidental Complexity]
+    prompt: >-
+      A daily job aggregates a 2 GB CSV with Pandas on one machine and finishes
+      in three minutes, well within its deadline. A teammate wants to move it to
+      Spark to be ready for scale. What does the course advise?
+    options:
+      - id: a
+        text: Move to Spark now, since the data will grow
+        why: That adds accidental complexity for a need that does not exist yet. Distributed computing is to be avoided as long as you can.
+      - id: b
+        text: Keep the current job, the simplest tool that works
+        correct: true
+      - id: c
+        text: Parallelise it with multiprocessing first
+        why: Concurrency is also on the avoid-as-long-as-you-can list, and the job already meets its deadline.
+      - id: d
+        text: Move it to a GPU to cut the runtime
+        why: GPU computing is the third thing to avoid while a simpler tool does the job.
+    why: >-
+      A solution should be only as complex as the problem requires. Concurrency,
+      distributed computing and GPU computing add accidental complexity, so use
+      them when data size and latency needs force you to.
+
+  - id: eprm-nnxa3v
+    type: truefalse
+    difficulty: easy
+    level: understand
+    topics: [Essential and Accidental Complexity]
+    statement: >-
+      Essential complexity is the complexity added by the tools and design you
+      choose, beyond what the problem demands.
+    answer: false
+    why: >-
+      That describes accidental complexity. Essential complexity is what the
+      problem itself requires; picking the simplest solution keeps the accidental
+      part small.
+
+  - id: eprm-2ppfkd
+    type: multi
+    difficulty: medium
+    level: understand
+    topics: [OLTP and OLAP]
+    prompt: Which of these describe OLAP (analytics) workloads?
+    options:
+      - id: a
+        text: Queries aggregate over a large number of records
+        correct: true
+      - id: b
+        text: Data is written mainly by bulk import or ETL
+        correct: true
+      - id: c
+        text: Data sizes from terabytes to petabytes
+        correct: true
+      - id: d
+        text: Queries fetch a few records by key
+        why: That is the OLTP read pattern, such as loading one user's profile.
+      - id: e
+        text: Low-latency writes come from user input
+        why: That is OLTP, where the app's back end writes small transactions.
+    why: >-
+      OLAP serves analytics: big aggregations, bulk loads and very large data.
+      OLTP serves the app's back end with small, fast reads and writes by key,
+      and its stores are not built for big analytical queries.
+
+  - id: eprm-ht3mhw
+    type: single
+    difficulty: medium
+    level: understand
+    topics: [Columnar Storage, Parquet]
+    prompt: >-
+      A query averages one column of a table with 80 columns and a billion rows.
+      Why is Parquet much faster here than a row-based CSV?
+    options:
+      - id: a
+        text: It keeps rows sorted, so the average needs fewer reads
+        why: Sort order is not the gain. The gain is skipping the other 79 columns.
+      - id: b
+        text: It stores each column uncompressed for fast parsing
+        why: The opposite holds. Columnar files encode and compress each column chunk, which cuts disk reads further.
+      - id: c
+        text: It reads just the column it needs
+        correct: true
+      - id: d
+        text: It indexes every row by key for fast lookups
+        why: Fetching rows by key is the OLTP pattern. This query scans many rows of one column.
+    why: >-
+      Columnar storage keeps each column's values together, so a query that
+      touches one column reads just that column. A row layout interleaves all
+      columns, so every row is read in full.
+
+  - id: eprm-jghtyv
+    type: truefalse
+    difficulty: easy
+    level: remember
+    topics: [Columnar Storage]
+    statement: >-
+      In a columnar layout, the values of one column are stored next to each
+      other, so they can be encoded and compressed together.
+    answer: true
+    why: >-
+      Each column's values sit contiguously and are encoded as a chunk. Similar
+      values side by side compress well, and queries read only the columns they need.
+
+  - id: eprm-4mcjdp
+    type: multi
+    difficulty: easy
+    level: remember
+    topics: [Apache Spark, Narrow and Wide Operations]
+    prompt: Which Spark operations are wide, needing data from other partitions?
+    options:
+      - id: a
+        text: A groupBy with an aggregation
+        correct: true
+      - id: b
+        text: A join of two DataFrames
+        correct: true
+      - id: c
+        text: A filter on one column
+        why: Each partition is filtered on its own, so no data moves between partitions.
+      - id: d
+        text: A new column computed by arithmetic
+        why: It is computed row by row inside each partition.
+      - id: e
+        text: Taking a random sample
+        why: Each partition samples its own rows.
+    why: >-
+      Wide operations need all rows with the same key together, so Spark
+      shuffles data between partitions. Narrow operations work on each
+      partition independently.
+
+  - id: eprm-cju6c6
+    type: single
+    code: python
+    difficulty: medium
+    level: apply
+    topics: [Apache Spark, Lazy Evaluation]
+    prompt: |
+      At which line does Spark actually run the filter?
+      ```python
+      df = spark.read.parquet("trx")
+      big = df.filter(df.amount > 100)
+      out = big.withColumn("x2", big.amount * 2)
+      out.show(4)
+      ```
+    options:
+      - id: a
+        text: Line 2, filter
+        why: filter is a transformation. Spark records it in the plan and runs nothing yet.
+      - id: b
+        text: Line 3, withColumn
+        why: withColumn is also a transformation, so it is recorded and not run.
+      - id: c
+        text: No line, since nothing is written to storage
+        why: Writing is one action among several. show, collect and head also trigger execution.
+      - id: d
+        text: Line 4, show
+        correct: true
+    why: >-
+      Spark evaluates lazily: transformations build a plan, and an action such as
+      show, collect, head or write makes it run. Waiting lets Spark optimise the
+      whole plan first.
+
+  - id: eprm-cuv797
+    type: single
+    difficulty: medium
+    level: understand
+    topics: [Apache Spark, Lazy Evaluation]
+    prompt: >-
+      A Spark job reads a Parquet table and then filters on `amount > 100`.
+      Because evaluation is lazy, what can Spark's optimiser do?
+    options:
+      - id: a
+        text: Push the filter into the scan, so less data is read
+        correct: true
+      - id: b
+        text: Run each line as soon as it is called, so errors show early
+        why: That is eager evaluation, the opposite of lazy.
+      - id: c
+        text: Keep every intermediate DataFrame cached in memory
+        why: Caching is something you request explicitly. Lazy evaluation does not cache intermediate results.
+      - id: d
+        text: Run the filter on the driver before the read starts
+        why: The driver plans and schedules the job. Executors do the reading and filtering.
+    why: >-
+      Seeing the whole plan before running it lets Spark reorder work, for
+      example filtering while it scans the Parquet file. The physical plan then
+      lists the condition under PushedFilters.
+
+  - id: eprm-48hy3g
+    type: single
+    difficulty: hard
+    level: apply
+    topics: [Fault Tolerance, Batch Processing]
+    prompt: >-
+      A daily scoring job should process each day's new data. Over the holidays
+      its trigger did not fire for four days. Which design handles this best?
+    options:
+      - id: a
+        text: Replay the four missed triggers in the scheduler
+        why: This works most of the time, but it depends on the scheduler, misses historic data at cold start, and makes migrations hard.
+      - id: b
+        text: Read the source-sink delta using a stored timestamp
+        correct: true
+      - id: c
+        text: Read the previous day's data on each run
+        why: The missed days are skipped, and someone has to change the code and run it by hand.
+      - id: d
+        text: Read the last seven days on every run
+        why: It still assumes when triggers fire. A longer outage loses data, and overlapping days are processed twice.
+    why: >-
+      Keeping the latest processed timestamp and reading everything after it
+      makes the job independent of when it starts. Some runs take longer, but
+      nothing is skipped.
+
+  - id: eprm-ad869j
+    type: multi
+    difficulty: hard
+    level: apply
+    topics: [Fault Tolerance, ACID]
+    prompt: >-
+      A batch run finished green, but the connection broke mid-write and some
+      predictions never reached the database. Which changes make a green run
+      mean the results arrived?
+    options:
+      - id: a
+        text: Write to a database with ACID transactions
+        correct: true
+      - id: b
+        text: Base the run's success on write acknowledgements
+        correct: true
+      - id: c
+        text: Switch to a connectionless write method for speed
+        why: Connectionless writes are fast but can be inconsistent, which is how this happened.
+      - id: d
+        text: Checkpoint intermediate results between tasks
+        why: Checkpoints let you rerun a failed processing step. The failure here is in the write.
+      - id: e
+        text: Replay the trigger whenever a run fails
+        why: The run did not fail. It was green, so nothing would replay.
+    why: >-
+      ACID transactions make a write land fully or not at all, and basing
+      success on ACK or NACK means green really means delivered. For batch jobs
+      the extra latency rarely matters.
+
+  - id: eprm-n2rqq5
+    type: truefalse
+    difficulty: hard
+    level: apply
+    topics: [Fault Tolerance, Checkpointing]
+    statement: >-
+      When a long job is split into tasks that save intermediate results, the
+      worker's local disk is a good place to keep those results.
+    answer: false
+    why: >-
+      Intermediate results need storage that outlives the worker. A rerun of the
+      failed task may land on another machine, or the failed machine and its
+      disk may be gone.
+
+  - id: eprm-xpehp3
+    type: single
+    difficulty: medium
+    level: understand
+    topics: [Distributed Data Processing]
+    prompt: >-
+      Each worker computes a partial result on its chunk of a huge list of
+      numbers. What must each worker send back so the exact overall mean can be
+      computed?
+    options:
+      - id: a
+        text: Its chunk's mean
+        why: Chunks can differ in size. Averaging the means weights a small chunk as much as a large one.
+      - id: b
+        text: Its chunk's median and row count
+        why: Medians cannot be combined into the overall mean.
+      - id: c
+        text: Its chunk's mean and row count
+        correct: true
+      - id: d
+        text: Its chunk's minimum and maximum
+        why: They bound the values but say nothing about the average.
+    why: >-
+      Mean times count gives each chunk's sum. Adding the sums and dividing by the
+      total count gives the exact mean, the split-and-combine work that tools such
+      as Spark automate.

@@ -1,0 +1,291 @@
+# Starter questions for week 3: containerization, integration testing, environments,
+# GitFlow, pull requests, technical debt.
+# Source: the week 3 deck (3-containerization.pptx) on Canvas, plus its Docker Compose and
+# Atlassian GitFlow readings for the Compose host-name item and the GitFlow branch types.
+course: EPRM
+lecture: EPRM-starter-containers-processes
+title: "W3 Containers and engineering processes"
+sort: 3
+questions:
+
+  - id: eprm-svft58
+    type: single
+    difficulty: easy
+    level: understand
+    topics: [Containers, Virtual Machines]
+    prompt: What is the main reason containers are lighter than virtual machines?
+    options:
+      - id: a
+        text: Containers are not isolated from the host
+        why: They are isolated. A container cannot access or interfere with the host machine.
+      - id: b
+        text: Containers share the host's operating system
+        correct: true
+      - id: c
+        text: Containers leave out the app's dependencies
+        why: A container image still holds the app's dependencies. What it leaves out is a whole operating system.
+      - id: d
+        text: Containers do not use the host's CPU or memory
+        why: Containers use the host's resources. Sharing them is part of why they are light.
+    why: >-
+      A VM brings an entire operating system with it, which costs resources.
+      Containers run on the host's existing OS and use its resources while
+      staying isolated from it.
+
+  - id: eprm-z3amym
+    type: multi
+    difficulty: medium
+    level: remember
+    topics: [MLflow]
+    prompt: What is MLflow used for?
+    options:
+      - id: a
+        text: Experiment tracking
+        correct: true
+      - id: b
+        text: A model registry and model management
+        correct: true
+      - id: c
+        text: Running scheduled batch workflows
+        why: Scheduling workflows of tasks is the job of an orchestrator such as Airflow.
+      - id: d
+        text: Orchestrating containers across servers
+        why: That is an orchestrator's job, such as Kubernetes.
+      - id: e
+        text: Running CI checks on pull requests
+        why: CI pipelines run on a CI service such as GitHub Actions.
+    why: >-
+      MLflow tracks experiments, keeps a model registry and can serve models. It
+      logs models, artifacts and metrics. The course calls it popular but
+      optional for most projects.
+
+  - id: eprm-njj27m
+    type: single
+    difficulty: hard
+    level: apply
+    topics: [Integration Testing, Testing Pyramid]
+    prompt: >-
+      A function builds a SQL query and runs it against a database. A typo,
+      `FR0M` instead of `FROM`, slips into the query. What is the lowest test
+      level that catches it?
+    options:
+      - id: a
+        text: A unit test with the database mocked
+        why: The mock never runs the SQL, so the typo passes unnoticed.
+      - id: b
+        text: An end-to-end test that simulates a user
+        why: It would catch it, but higher in the pyramid, where tests are harder to write and the root cause is harder to find.
+      - id: c
+        text: An integration test against a database container
+        correct: true
+    why: >-
+      Integration tests check how your code interacts with other systems, such as
+      whether the database accepts your SQL. A database container keeps that
+      test automated and isolated.
+
+  - id: eprm-dqpt3j
+    type: multi
+    difficulty: easy
+    level: understand
+    topics: [Testing Pyramid, End-to-End Testing]
+    prompt: Compared with unit tests, what is true of end-to-end tests?
+    options:
+      - id: a
+        text: They simulate how a user interacts with the system
+        correct: true
+      - id: b
+        text: They are harder to implement
+        correct: true
+      - id: c
+        text: A failure is harder to trace to its root cause
+        correct: true
+      - id: d
+        text: There should be more of them than unit tests
+        why: The pyramid has many unit tests at the base and few end-to-end tests at the top.
+      - id: e
+        text: They can stay manual, since there are few of them
+        why: The course requires unit, integration and end-to-end tests to be automated.
+    why: >-
+      Moving up the pyramid, tests cover more of the system but get harder to
+      write and harder to debug. Every level is still automated.
+
+  - id: eprm-9xf85g
+    type: single
+    difficulty: medium
+    level: apply
+    topics: [Environments]
+    prompt: >-
+      You want to test the whole product with every system deployed and
+      integrated, at low scale and without production data. Which environment
+      is meant for this?
+    options:
+      - id: a
+        text: Development
+        why: Dev is a free-for-all sandbox with access to just your own systems and no guarantees.
+      - id: b
+        text: Production
+        why: Production is live and protected. Mistakes there reach users.
+      - id: c
+        text: Your local machine
+        why: Local is the easiest place to develop and debug, but the other systems are not deployed there.
+      - id: d
+        text: Acceptance
+        correct: true
+    why: >-
+      Acceptance, or staging, is a replica of production with all systems
+      deployed and integrated. It differs from production in scale and data.
+
+  - id: eprm-ba5e5p
+    type: cloze
+    difficulty: easy
+    level: remember
+    topics: [GitFlow]
+    prompt: In GitFlow, new work such as a refactoring is done on ___ branch, then merged into develop.
+    options:
+      - id: a
+        text: a feature
+        correct: true
+      - id: b
+        text: the main
+        why: main is long-living and protected, and points to production. Work reaches it by merging.
+      - id: c
+        text: a release
+        why: A release branch prepares a release from develop once the work for it is done.
+      - id: d
+        text: a hotfix
+        why: A hotfix branch starts from main to patch production quickly.
+    why: >-
+      Feature branches carry new features, refactoring and bug fixes. The
+      long-living branches, main and develop, are protected and change only
+      through merges.
+
+  - id: eprm-67hywj
+    type: truefalse
+    difficulty: medium
+    level: remember
+    topics: [GitFlow, Environments]
+    statement: In GitFlow, the state of the develop branch matches the production environment.
+    answer: false
+    why: >-
+      develop points to acceptance and main points to production. A merge into
+      either is protected and triggers continuous deployment to its environment.
+
+  - id: eprm-jye2sb
+    type: single
+    code: yaml
+    difficulty: hard
+    level: apply
+    topics: [Docker Compose, Integration Testing]
+    prompt: |
+      Integration tests run inside `app`. Which host name connects them to the database?
+      ```yaml
+      services:
+        app:
+          build: .
+          depends_on: [db]
+        db:
+          image: postgres:16
+      ```
+    options:
+      - id: a
+        text: localhost
+        why: Inside the app container, localhost is the app container itself.
+      - id: b
+        text: postgres
+        why: That is the image name. Compose makes each service reachable under its service name.
+      - id: c
+        text: db
+        correct: true
+    why: >-
+      Compose puts the services on a shared network where each one is reachable
+      by its service name. Running the database as its own container keeps the
+      integration test automated and isolated.
+
+  - id: eprm-u8qbsm
+    type: single
+    difficulty: medium
+    level: apply
+    topics: [Technical Debt]
+    prompt: >-
+      To hit a deadline, you hard-code a threshold that should come from
+      configuration. What does the course advise about this technical debt?
+    options:
+      - id: a
+        text: Refuse the shortcut and let the deadline slip
+        why: The advice is to avoid debt you don't have to take. When you must, take it knowingly.
+      - id: b
+        text: Leave it, since a quick fix costs nothing later
+        why: Technical debt is exactly the future cost of choosing the quick solution now.
+      - id: c
+        text: Make it explicit and record it
+        correct: true
+      - id: d
+        text: Clean it up quietly when you next touch the file
+        why: Unrecorded debt is easy to forget. The advice is to make it explicit.
+    why: >-
+      Treat it like a loan: don't take it if you don't have to, record it when you
+      must, and don't go too deep into debt.
+
+  - id: eprm-4ndybp
+    type: multi
+    difficulty: medium
+    level: understand
+    topics: [Pull Requests]
+    prompt: Which statements match how pull requests should work?
+    options:
+      - id: a
+        text: Author and reviewers share responsibility for the change
+        correct: true
+      - id: b
+        text: Anyone can review, whatever their seniority
+        correct: true
+      - id: c
+        text: An unapproved pull request cannot be merged
+        correct: true
+      - id: d
+        text: Approval is reserved for senior engineers
+        why: Seniority plays no role in who can review and approve.
+      - id: e
+        text: Once merged, bugs are the author's responsibility
+        why: Responsibility is shared with the reviewers who approved the change.
+    why: >-
+      A pull request opens a change for review, and teammates approve or reject
+      it. It raises quality and spreads knowledge, though ego on either side can
+      get in the way.
+
+  - id: eprm-p8cu8t
+    type: truefalse
+    difficulty: medium
+    level: understand
+    topics: [Environments, Engineering Processes]
+    statement: >-
+      When an intern accidentally breaks production, the course places the root
+      fault with the engineering processes.
+    answer: true
+    why: >-
+      Mistakes happen, and processes must keep them out of live systems. Layered
+      environments, protected branches and reviews are how.
+
+  - id: eprm-9es27m
+    type: single
+    difficulty: medium
+    level: understand
+    topics: [Integration Testing, Containers]
+    prompt: Why run a test database in its own container for integration tests?
+    options:
+      - id: a
+        text: Integration tests then run as fast as unit tests
+        why: Starting and querying a real database is still slower than calling a mocked function.
+      - id: b
+        text: Tests can then use production data safely
+        why: A test container holds data you set up yourself. Production data stays in production.
+      - id: c
+        text: It makes unit tests for that code unnecessary
+        why: The pyramid keeps many unit tests at the base. Integration tests add to them.
+      - id: d
+        text: Each test run starts from a known, isolated state
+        correct: true
+    why: >-
+      FIRST asks for isolated tests. A container started for the test and set up
+      the way you expect gives that, even for dependencies you could not control
+      or reach otherwise.

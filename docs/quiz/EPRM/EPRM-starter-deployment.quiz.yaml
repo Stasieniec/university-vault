@@ -1,0 +1,293 @@
+# Starter questions for week 4: deployment patterns, batch workflows as DAGs, HTTP APIs.
+# Source: the week 4 deck (4-deployment.pptx) on Canvas, its Airflow DAG example, and the
+# Flask quickstart reading for the route and method items.
+course: EPRM
+lecture: EPRM-starter-deployment
+title: "W4 Deployment patterns"
+sort: 4
+questions:
+
+  - id: eprm-ht349a
+    type: cloze
+    difficulty: easy
+    level: remember
+    topics: [Deployment Patterns, Edge Deployment]
+    prompt: Running the model directly on the device that uses it, such as a phone, is ___ deployment.
+    options:
+      - id: a
+        text: streaming
+        why: Streaming systems listen to message streams on a server and act on each message.
+      - id: b
+        text: batch
+        why: Batch is a workflow that starts on a trigger, runs and exits.
+      - id: c
+        text: API
+        why: An API is an always-up service that other systems call over the network.
+      - id: d
+        text: edge
+        correct: true
+    why: >-
+      The four ways to serve a model are batch, API, streaming and edge. Edge puts
+      the model on the device itself.
+
+  - id: eprm-suyn3x
+    type: single
+    difficulty: medium
+    level: apply
+    topics: [Deployment Patterns, Streaming]
+    prompt: >-
+      Payment events arrive on a message bus, and a fraud model must score each
+      one as it comes in. Which deployment pattern fits?
+    options:
+      - id: a
+        text: Streaming deployment
+        correct: true
+      - id: b
+        text: Batch deployment
+        why: Batch runs when its trigger fires and then exits, so events wait for the next run.
+      - id: c
+        text: API deployment
+        why: An API waits for clients to send requests. Here the events arrive on a bus the system listens to.
+      - id: d
+        text: Edge deployment
+        why: Edge means the model runs on a device, which is not the case here.
+    why: >-
+      A streaming system listens to one or more message streams and acts on each
+      message. Batch starts and stops, an API waits for requests, and edge runs
+      on the device.
+
+  - id: eprm-v3xf87
+    type: multi
+    difficulty: medium
+    level: understand
+    topics: [Batch Processing]
+    prompt: Which of these describe a batch workflow?
+    options:
+      - id: a
+        text: It starts on a trigger and stops when done
+        correct: true
+      - id: b
+        text: It is made of tasks, its units of execution
+        correct: true
+      - id: c
+        text: It can define an action to take when it fails
+        correct: true
+      - id: d
+        text: It stays up, waiting for requests
+        why: That describes an API, which is always up and ready to receive requests.
+      - id: e
+        text: It listens continuously to a message bus
+        why: That describes streaming.
+    why: >-
+      A batch workflow is a pipeline of tasks that starts on a trigger, runs and
+      exits. Triggers include a schedule, a file arriving and change data
+      capture, and a failure can trigger a defined action.
+
+  - id: eprm-cad3bq
+    type: cloze
+    difficulty: easy
+    level: remember
+    topics: [Batch Processing, DAG]
+    prompt: The tasks of a batch workflow are arranged as a directed ___ graph.
+    options:
+      - id: a
+        text: cyclic
+        why: A cycle would make a task wait, directly or indirectly, on itself, so the workflow could never finish.
+      - id: b
+        text: acyclic
+        correct: true
+      - id: c
+        text: weighted
+        why: Edges in a workflow say which task runs after which. They carry no weights.
+      - id: d
+        text: bipartite
+        why: Tasks are not split into two groups. Any task can depend on any earlier task.
+    why: >-
+      The task structure is a DAG, a directed acyclic graph. Edges point from a
+      task to the tasks that run after it, and there are no loops.
+
+  - id: eprm-42ca5b
+    type: truefalse
+    difficulty: easy
+    level: understand
+    topics: [Deployment Patterns, Batch Processing]
+    statement: An API is a service that is always up, while a batch process starts, runs and exits.
+    answer: true
+    why: >-
+      An API waits for requests and runs an endpoint's process on each one. A
+      batch workflow runs when its trigger fires and then stops.
+
+  - id: eprm-cftvkk
+    type: single
+    code: python
+    difficulty: hard
+    level: analyze
+    topics: [Batch Processing, DAG, Airflow]
+    prompt: |
+      In this Airflow DAG, which task can run at the same time as `train`?
+      ```python
+      start >> prep >> [feats, stats]
+      feats >> train
+      [train, stats] >> report
+      ```
+    options:
+      - id: a
+        text: feats
+        why: train starts only after feats has finished.
+      - id: b
+        text: prep
+        why: prep must finish before feats, and so before train.
+      - id: c
+        text: stats
+        correct: true
+      - id: d
+        text: report
+        why: report waits for both train and stats to finish.
+    why: >-
+      a >> b means b runs after a. Both feats and stats start once prep is done,
+      and train needs feats alone, so stats can still be running while train runs.
+
+  - id: eprm-cwfd87
+    type: single
+    difficulty: easy
+    level: apply
+    topics: [HTTP APIs]
+    prompt: >-
+      A client sends a JSON body with a feature vector to get a prediction.
+      Which HTTP method is the usual choice?
+    options:
+      - id: a
+        text: GET
+        why: GET passes its inputs as parameters in the URL, such as ?x=1. A JSON payload goes in a POST body.
+      - id: b
+        text: PUT
+        why: PUT stores or replaces a resource at a given URL.
+      - id: c
+        text: DELETE
+        why: DELETE removes a resource.
+      - id: d
+        text: POST
+        correct: true
+    why: >-
+      A POST request carries a payload in its body, which suits sending features
+      for a prediction. GET is for fetching, with parameters in the URL.
+
+  - id: eprm-kfcrqy
+    type: single
+    difficulty: medium
+    level: apply
+    topics: [HTTP APIs, Status Codes]
+    prompt: >-
+      The /predict handler hits an unhandled exception inside the model code.
+      Which status code should the client get?
+    options:
+      - id: a
+        text: "500"
+        correct: true
+      - id: b
+        text: "200"
+        why: 200 means success. Returning it would hide the failure from the client.
+      - id: c
+        text: "404"
+        why: 404 means the endpoint or resource was not found, but /predict exists.
+      - id: d
+        text: "400"
+        why: 400 says the client sent a bad request. This failure is in the server's code.
+    why: >-
+      500 is Internal Server Error: the server failed while handling the request.
+      Codes in the 5xx range are server errors, 4xx are client errors.
+
+  - id: eprm-cb5sr4
+    type: truefalse
+    difficulty: medium
+    level: understand
+    topics: [HTTP APIs, Status Codes]
+    statement: A status code in the 4xx range means the server failed while handling a valid request.
+    answer: false
+    why: >-
+      4xx codes mean the client made an error, such as 404 for an unknown
+      endpoint. A server-side failure gets a 5xx code, such as 500.
+
+  - id: eprm-nckk6t
+    type: single
+    code: python
+    difficulty: hard
+    level: analyze
+    topics: [HTTP APIs, Flask]
+    prompt: |
+      A client calls `GET /predict?x=3` on this Flask app. Why does it fail?
+      ```python
+      @app.route("/predict", methods=["POST"])
+      def predict():
+          x = request.get_json()["x"]
+          return {"y": model.predict(x)}
+      ```
+    options:
+      - id: a
+        text: The route accepts POST requests and no others
+        correct: true
+      - id: b
+        text: GET requests cannot carry any parameters
+        why: GET carries parameters in the URL, as in ?x=3. The method is what this route refuses.
+      - id: c
+        text: The handler cannot return a dict
+        why: Flask turns a returned dict into a JSON response, so the return value is fine.
+    why: >-
+      methods=["POST"] limits the route to POST, so a GET is refused before
+      predict runs. Even a POST would need the input in a JSON body, since the
+      handler reads request.get_json().
+
+  - id: eprm-q4pa9j
+    type: single
+    difficulty: hard
+    level: apply
+    topics: [Batch Processing, Deployment Patterns]
+    prompt: >-
+      A recommender scores every user in a batch job on a nightly schedule and
+      stores the results. A new user signs up at noon. What happens?
+    options:
+      - id: a
+        text: The batch job starts at once to score them
+        why: This job's trigger is a schedule. A sign-up does not start it.
+      - id: b
+        text: Stored predictions are recomputed on each request
+        why: Stored batch predictions are served as they are. Nothing is computed at request time.
+      - id: c
+        text: They get no recommendations until the next run
+        correct: true
+      - id: d
+        text: They get yesterday's predictions for a similar user
+        why: Nothing in this design maps new users to others. Batch has predictions only for users that existed at run time.
+    why: >-
+      Batch predictions are computed ahead of time for the inputs that exist at
+      run time. New inputs wait for the next run; reacting at once needs an API
+      or streaming.
+
+  - id: eprm-vzw4ms
+    type: multi
+    difficulty: medium
+    level: understand
+    topics: [HTTP APIs]
+    prompt: Which of these does the client send to the server in an HTTP request?
+    options:
+      - id: a
+        text: The HTTP method, such as GET or POST
+        correct: true
+      - id: b
+        text: The URL, or endpoint
+        correct: true
+      - id: c
+        text: Query parameters, when needed
+        correct: true
+      - id: d
+        text: A body or payload, when needed
+        correct: true
+      - id: e
+        text: The status code
+        why: The server sends the status code back in its response.
+      - id: f
+        text: The response data, such as JSON
+        why: Response data comes back from the server along with the status code.
+    why: >-
+      The client sends a method, an endpoint and optional parameters and body.
+      The server answers with a status code and response data, such as JSON or HTML.

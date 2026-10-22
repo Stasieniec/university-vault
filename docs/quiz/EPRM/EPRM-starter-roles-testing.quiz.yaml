@@ -1,0 +1,315 @@
+# Starter questions for week 1: data-driven roles, clean code, unit testing.
+# Source: the week 1 deck (1-roles-coding-testing.pptx) on Canvas, including its speaker notes.
+course: EPRM
+lecture: EPRM-starter-roles-testing
+title: "W1 Roles, clean code and unit tests"
+sort: 1
+questions:
+
+  - id: eprm-vqxsff
+    type: multi
+    difficulty: easy
+    level: remember
+    topics: [Data Engineer, Data-Driven Roles]
+    prompt: Which of these does a data engineer make sure the data is?
+    options:
+      - id: a
+        text: High quality, meaning accurate, complete and reliable
+        correct: true
+      - id: b
+        text: In the right format for its purpose
+        correct: true
+      - id: c
+        text: Available and arriving on time
+        correct: true
+      - id: d
+        text: Turned into insights for decision makers
+        why: Turning data into information for decisions is the data analyst's core task.
+      - id: e
+        text: Shaped into features with high predictive power
+        why: Feature engineering is part of the data scientist's work.
+    why: >-
+      Data engineers make data high quality, in the right format, available and
+      useful for its purpose. They turn raw backend events, such as ride start and
+      end codes, into data many roles can consume.
+
+  - id: eprm-z7trh3
+    type: single
+    difficulty: medium
+    level: understand
+    topics: [Data Analyst, Data-Driven Roles]
+    prompt: In this course's description of data roles, what is the core task of a data analyst?
+    options:
+      - id: a
+        text: Turning data into information decision makers can act on
+        correct: true
+      - id: b
+        text: Building dashboards for the business teams
+        why: Analysts build dashboards well, but the course does not count that as their core task. The information behind the dashboard is.
+      - id: c
+        text: Building pipelines that clean and reshape raw events
+        why: That is data engineering, which makes data usable before analysts work with it.
+      - id: d
+        text: Training models that solve a business problem
+        why: Solving a business problem with a model is the data scientist's focus.
+    why: >-
+      Analysts understand the business, the question and the data, and produce
+      information from it. A car's battery percentage is data; the kilometres
+      it can still drive is the information a driver needs.
+
+  - id: eprm-beq658
+    type: cloze
+    difficulty: easy
+    level: remember
+    topics: [ML Engineer, Data-Driven Roles]
+    prompt: An ML engineer focuses on two things, productionisation of ML solutions and ___ of ML systems.
+    options:
+      - id: a
+        text: experiment design
+        why: Designing experiments for model training is listed among the data scientist's tasks.
+      - id: b
+        text: operations
+        correct: true
+      - id: c
+        text: feature engineering
+        why: Designing predictive features is also a data scientist task.
+      - id: d
+        text: governance
+        why: Governance, access and backups are what infrastructure and platform teams take off application teams.
+    why: >-
+      Operations means keeping the live ML system working as expected:
+      maintenance, monitoring and firefighting. Productionisation turns a
+      prototype into a system running in a live environment.
+
+  - id: eprm-zjqdqh
+    type: single
+    difficulty: medium
+    level: apply
+    topics: [Platform Teams, Data-Driven Roles]
+    prompt: >-
+      Five product teams each run their own database. Backups, access rights and
+      GDPR deletions are handled differently everywhere, and every team loses
+      time on them. Who should take this over?
+    options:
+      - id: a
+        text: The data analysts, who know the business best
+        why: Analysts turn data into information. Running shared infrastructure is outside their role.
+      - id: b
+        text: An ML engineer inside each product team
+        why: That keeps the burden inside the application teams, which is the problem in the first place.
+      - id: c
+        text: An infrastructure or platform team
+        correct: true
+      - id: d
+        text: The data scientists who use the data most
+        why: Data scientists focus on solving the problem with models; infrastructure work would pull them away from it.
+    why: >-
+      Platform teams take work such as scaling, security, backups and data access
+      away from application teams. The application teams get faster, and the
+      infrastructure gets more reliable because it is the platform team's expertise.
+
+  - id: eprm-pkqt4y
+    type: truefalse
+    difficulty: medium
+    level: understand
+    topics: [Full-Stack ML Engineer, Data-Driven Roles]
+    statement: >-
+      The course argues that hand-overs between data scientists and engineers were
+      a frequent cause of failed ML projects.
+    answer: true
+    why: >-
+      Passing a model to a software engineer who did not know ML caused many
+      failures. That is why the course favours a full-stack ML engineer who can
+      own the problem and the solution end to end.
+
+  - id: eprm-kqdzgc
+    type: single
+    code: python
+    difficulty: hard
+    level: analyze
+    topics: [Clean Code]
+    prompt: Which function best follows the clean-code rules for functions and names?
+    options:
+      - id: a
+        text: |
+          def process(d):
+              t = sum(x.m for x in d)
+              return t / len(d)
+        why: Same logic, but process, d and m force the reader to map names in their head. Names should reveal intent.
+      - id: b
+        text: |
+          def mean_ride_minutes(rides):
+              total = sum(r.minutes for r in rides)
+              db.save("mean", total / len(rides))
+              return total / len(rides)
+        why: It also writes to a database, a hidden side effect, so it does two things and repeats the division.
+      - id: c
+        text: |
+          def mean_ride_minutes(rides, unit="min",
+                                plugins=None):
+              total = sum(r.minutes for r in rides)
+              return total / len(rides)
+        why: The unused parameters are written for what might be needed later. Keep it simple and write for today.
+      - id: d
+        text: |
+          def mean_ride_minutes(rides):
+              total = sum(r.minutes for r in rides)
+              return total / len(rides)
+        correct: true
+    why: >-
+      The clean version is small, does one thing, has no side effects and uses
+      names that reveal intent. Each other version breaks one of those rules.
+
+  - id: eprm-nppxyv
+    type: single
+    difficulty: easy
+    level: apply
+    topics: [Clean Code, Comments]
+    prompt: Which comment follows the clean-code advice on comments?
+    options:
+      - id: a
+        text: "# Retry: the API drops the first call"
+        correct: true
+      - id: b
+        text: "# Add 1 to the counter"
+        why: It repeats what the code already says. Comments should explain why.
+      - id: c
+        text: "# old_score = legacy_score(x)"
+        why: No commented-out code is one of the comment rules.
+      - id: d
+        text: "# s holds the score of the current user"
+        why: A name such as user_score would say this. Do not use a comment when a variable name can do the job.
+    why: >-
+      Comments explain why, or warn of consequences. They do not make up for bad
+      code, and a good name beats a comment.
+
+  - id: eprm-gwjh9m
+    type: cloze
+    difficulty: easy
+    level: remember
+    topics: [Unit Testing, FIRST]
+    prompt: In the FIRST properties of a good unit test, the I stands for ___.
+    options:
+      - id: a
+        text: Integrated
+        why: Interaction with other systems is what integration tests check. Unit tests keep such dependencies out.
+      - id: b
+        text: Isolated
+        correct: true
+      - id: c
+        text: Idempotent
+        why: Idempotent is not in FIRST. The nearest property, giving the same result on every run, is the R, Repeatable.
+      - id: d
+        text: Incremental
+        why: Incremental is not one of the FIRST properties.
+    why: >-
+      FIRST is Fast, Isolated (independent), Repeatable, Self-validating and
+      Thorough. An isolated test depends on no other test and no external system,
+      which is what mocks are for.
+
+  - id: eprm-6b3cqv
+    type: single
+    difficulty: hard
+    level: apply
+    topics: [Unit Testing, FIRST]
+    prompt: >-
+      A test trains a tiny model without fixing the random seed and asserts its
+      accuracy is above 0.9. With no code change, it fails on about one run in
+      ten. Which FIRST property does it break?
+    options:
+      - id: a
+        text: Isolated
+        why: It shares no state with other tests and calls no outside system. The randomness is inside the test itself.
+      - id: b
+        text: Self-validating
+        why: It has an assertion that decides pass or fail on its own, so it is self-validating.
+      - id: c
+        text: Repeatable
+        correct: true
+      - id: d
+        text: Thorough
+        why: Thorough is about covering happy flows and edge cases. Here the same test gives different results.
+    why: >-
+      A repeatable test gives the same result every time it runs on the same
+      code. Unseeded randomness changes the outcome between runs, so fix the seed.
+
+  - id: eprm-a8zbhk
+    type: single
+    code: python
+    difficulty: hard
+    level: apply
+    topics: [Unit Testing, Mocking]
+    prompt: >-
+      In module `alerts`, `notify(phone)` builds a message and calls
+      `send_sms(phone, text)`, which uses a paid SMS service. Which is a proper
+      unit test of `notify`?
+    options:
+      - id: a
+        text: |
+          def test_notify(monkeypatch):
+              monkeypatch.setattr(alerts, "send_sms",
+                  lambda p, t: None)
+              alerts.notify("+31600000000")
+        why: The dependency is mocked, but nothing is asserted, so the test passes whatever notify does.
+      - id: b
+        text: |
+          def test_notify(monkeypatch):
+              sent = []
+              monkeypatch.setattr(alerts, "send_sms",
+                  lambda p, t: sent.append(p))
+              alerts.notify("+31600000000")
+              assert sent == ["+31600000000"]
+        correct: true
+      - id: c
+        text: |
+          def test_notify():
+              alerts.notify("+31600000000")
+              print("check your phone")
+        why: It sends a real SMS and a person has to check the result, so it is neither isolated nor self-validating.
+    why: >-
+      Replacing send_sms with a fake keeps the test fast, isolated and free.
+      Recording the call lets the test check the action: a message went to the
+      right number.
+
+  - id: eprm-hr8f26
+    type: multi
+    difficulty: medium
+    level: remember
+    topics: [Clean Code, Functions]
+    prompt: Which of these are clean-code rules for functions?
+    options:
+      - id: a
+        text: Keep them small
+        correct: true
+      - id: b
+        text: Do one thing
+        correct: true
+      - id: c
+        text: Have no side effects
+        correct: true
+      - id: d
+        text: Don't repeat yourself
+        correct: true
+      - id: e
+        text: Explain each step with a comment
+        why: Comments explain why, and they do not make up for unclear code.
+      - id: f
+        text: Accept extra parameters for future needs
+        why: Write for today. Parameters for what you may need later add complexity now.
+    why: >-
+      Functions should be small, do one thing, have no side effects and follow
+      DRY (don't repeat yourself).
+
+  - id: eprm-yp88y2
+    type: truefalse
+    difficulty: medium
+    level: understand
+    topics: [Unit Testing]
+    statement: >-
+      Unit tests should cover the happy flow, while edge cases such as an input of
+      the wrong type are left to integration tests.
+    answer: false
+    why: >-
+      Unit tests check a unit's output or action for given parameters, edge cases
+      included. Next to sum(1, 2) == 3, the course's example checks that
+      sum("a", 2) raises an error.
