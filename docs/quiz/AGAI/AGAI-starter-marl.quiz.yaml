@@ -1,0 +1,286 @@
+# Starter questions: multi-agent reinforcement learning.
+# Sources: Albrecht, Christianos and Schafer, Multi-Agent Reinforcement Learning
+# (2024), sections 3.4, 5.3 to 5.5, 9.1, 9.3, 9.4.4, 9.5 and 9.8.
+course: AGAI
+lecture: AGAI-starter-marl
+title: "Starter: multi-agent RL"
+sort: 94
+questions:
+
+  - id: agai-d5cwps
+    type: cloze
+    difficulty: easy
+    level: remember
+    topics: [Centralised Training with Decentralised Execution]
+    prompt: Under centralised training with decentralised execution, each agent's ___ uses only local information, while training may use information from all agents.
+    options:
+      - id: a
+        text: centralised critic
+        why: The centralised critic is the part that uses joint information during training. It is not needed once agents act.
+      - id: b
+        text: policy
+        correct: true
+      - id: c
+        text: replay buffer
+        why: A replay buffer stores training experience. It plays no role in choosing actions at execution.
+      - id: d
+        text: reward function
+        why: Rewards come from the environment. CTDE is about what information the policies condition on.
+    why: >-
+      CTDE may train with privileged information, such as a critic that sees the
+      joint observation history. Each policy conditions on its own observation
+      history, so the agents can be deployed fully decentralised.
+
+  - id: agai-u9d5cx
+    type: single
+    difficulty: easy
+    level: remember
+    topics: [Independent Learning]
+    prompt: How does an independent learner treat the other agents?
+    options:
+      - id: a
+        text: As copies of itself that share one policy
+        why: That describes parameter sharing or policy self-play.
+      - id: b
+        text: Through an explicit model of their policies
+        why: That is agent modelling, which independent learners do without.
+      - id: c
+        text: Through a central controller that picks joint actions
+        why: That is central learning, the other single-agent reduction.
+      - id: d
+        text: As part of the environment it learns in
+        correct: true
+    why: >-
+      Independent learning applies single-agent RL to each agent separately. The
+      other agents become part of the environment's dynamics from each learner's
+      point of view.
+
+  - id: agai-3t7r2t
+    type: single
+    difficulty: easy
+    level: understand
+    topics: [Non-Stationarity, Independent Learning]
+    prompt: Why does the environment look non-stationary to an independent Q-learner in a multi-agent system?
+    options:
+      - id: a
+        text: The other agents keep changing their policies as they learn
+        correct: true
+      - id: b
+        text: The game's transition function drifts randomly over time
+        why: The game's dynamics are fixed. What shifts is the other agents' behaviour, which the learner sees as part of the dynamics.
+      - id: c
+        text: Future rewards are discounted by a factor γ
+        why: Discounting weights rewards by time. It does not change the dynamics the agent faces.
+      - id: d
+        text: The other agents' observations are hidden from it
+        why: Partial observability alone does not make the environment change over time. Learning by the others does.
+    why: >-
+      From one agent's view, the others' policies are folded into the transition
+      dynamics. As those policies change through learning, the dynamics it faces
+      change too, so value targets keep moving.
+
+  - id: agai-kr42pn
+    type: truefalse
+    difficulty: easy
+    level: remember
+    topics: [Partially Observable Stochastic Games]
+    statement: A Dec-POMDP is a partially observable stochastic game in which all agents share a common reward.
+    answer: true
+    why: >-
+      POSGs with common rewards are known as decentralised POMDPs (Dec-POMDPs),
+      widely studied in multi-agent planning.
+
+  - id: agai-ruxfpv
+    type: single
+    difficulty: medium
+    level: apply
+    topics: [Credit Assignment]
+    prompt: >-
+      Three agents all receive a shared reward of +1 after two of them collect an
+      item. The third tried to collect too but contributed nothing. Which MARL
+      challenge does this illustrate?
+    options:
+      - id: a
+        text: Temporal credit assignment
+        why: Temporal credit assignment asks which earlier actions led to a reward. Here the question is whose actions did.
+      - id: b
+        text: Non-stationarity
+        why: Non-stationarity comes from other agents' learning changing the dynamics. The issue here is who earned the reward.
+      - id: c
+        text: Multi-agent credit assignment
+        correct: true
+      - id: d
+        text: Equilibrium selection
+        why: Equilibrium selection is about choosing among several equilibria with different payoffs.
+    why: >-
+      With a common reward, the third agent's useless action is reinforced just
+      like the others'. Disentangling each agent's contribution to a joint reward
+      is the multi-agent credit assignment problem.
+
+  - id: agai-uzx2ka
+    type: multi
+    difficulty: medium
+    level: understand
+    topics: [Centralised Training with Decentralised Execution]
+    prompt: Which statements about centralised training with decentralised execution are true?
+    options:
+      - id: a
+        text: A centralised critic may condition on the joint observation history during training.
+        correct: true
+      - id: b
+        text: At execution, each policy conditions on its own agent's observation history.
+        correct: true
+      - id: c
+        text: The centralised critic has to run whenever the deployed agents act.
+        why: The critic is used for training. Action selection uses the policy, which runs on local information.
+      - id: d
+        text: Independent learning is an example of a CTDE method.
+        why: Independent learning is decentralised in training as well as execution.
+    why: >-
+      CTDE combines the benefits of both modes: training can use privileged joint
+      information, while each deployed policy acts on local observations alone.
+      Multi-agent actor-critic methods with a centralised critic are typical.
+
+  - id: agai-56qhna
+    type: single
+    difficulty: medium
+    level: understand
+    topics: [Value Decomposition, QMIX, VDN]
+    prompt: How does QMIX extend VDN?
+    options:
+      - id: a
+        text: It lets each agent see the full state when it acts
+        why: Both methods execute from local observations. The change is in how the utilities are combined during training.
+      - id: b
+        text: It drops per-agent utilities and learns one joint Q-function
+        why: Both keep per-agent utilities, so each agent can act greedily on its own.
+      - id: c
+        text: It mixes agent utilities with a monotonic network instead of summing
+        correct: true
+      - id: d
+        text: It allows any mixing function, monotonic or not
+        why: QMIX restricts the mixing to be monotonic in each utility. That keeps greedy local actions consistent with the greedy joint action.
+    why: >-
+      VDN approximates the joint action value as the sum of agent utilities. QMIX
+      allows non-linear combinations through a mixing network, kept monotonic so
+      each agent's greedy action still yields the greedy joint action.
+
+  - id: agai-ue2vxa
+    type: multi
+    difficulty: medium
+    level: understand
+    topics: [Independent Learning]
+    prompt: Which are drawbacks of independent learning?
+    options:
+      - id: a
+        text: Training suffers from non-stationarity, since every agent learns at the same time.
+        correct: true
+      - id: b
+        text: An agent cannot tell environment randomness apart from changes in other agents' policies.
+        correct: true
+      - id: c
+        text: The agents' policies cannot use information about the other agents.
+        correct: true
+      - id: d
+        text: The action space grows exponentially with the number of agents.
+        why: That is a problem of central learning. Each independent learner uses its own action set.
+      - id: e
+        text: A central controller must be able to reach every agent.
+        why: That is central learning. Independent learning suits distributed agents that cannot communicate.
+    why: >-
+      Independent learners scale well and need no communication, but they ignore
+      the other agents, face non-stationarity, and confuse the others' learning
+      with environment noise. Still, they are often competitive in practice.
+
+  - id: agai-gegxcm
+    type: truefalse
+    difficulty: medium
+    level: understand
+    topics: [Independent Learning]
+    statement: Independent learning algorithms are weak baselines that are rarely competitive with state-of-the-art MARL algorithms.
+    answer: false
+    why: >-
+      Despite non-stationarity, independent learning often performs well and can
+      be competitive with state-of-the-art MARL algorithms, which is why it remains
+      an important baseline.
+
+  - id: agai-b35u9q
+    type: single
+    difficulty: hard
+    level: apply
+    topics: [Equilibrium Selection, Independent Learning]
+    prompt: >-
+      Two independent Q-learners play stag hunt. Hunting stag pays most if both do
+      it but nothing if alone; hunting hare pays less but is safe. Both start by
+      exploring randomly. Where do they tend to end up?
+    options:
+      - id: a
+        text: Mutual hare hunting, the risk-dominant equilibrium
+        correct: true
+      - id: b
+        text: Mutual stag hunting, because it is Pareto optimal
+        why: Pareto optimality does not guide independent learners. Early random play makes stag look risky, so hare gains probability.
+      - id: c
+        text: Nowhere, since independent learners cannot converge in any game
+        why: Independent Q-learning converges in many games. Here the danger is converging to the worse equilibrium.
+      - id: d
+        text: One hunting stag and one hunting hare
+        why: That profile is no equilibrium. The stag hunter gets nothing and would switch to hare.
+    why: >-
+      While the partner acts randomly, stag often pays nothing and hare pays
+      reliably. Learners shift towards hare, which makes stag even worse for the
+      other, a feedback loop into the risk-dominant equilibrium.
+
+  - id: agai-nd3auq
+    type: single
+    difficulty: hard
+    level: analyze
+    topics: [Independent Learning, Experience Replay, Non-Stationarity]
+    prompt: >-
+      In independent DQN, agent 1 learned a chess opening that beat agent 2 early
+      on. Agent 2 has since learned to counter it, yet agent 1 keeps favouring the
+      opening. What is the most likely cause?
+    options:
+      - id: a
+        text: Its target network is updated too often
+        why: Target update frequency affects stability. The symptom here points to old experience that no longer reflects the opponent.
+      - id: b
+        text: Its exploration rate is set too high
+        why: More exploration would push it towards other moves. Clinging to one opening points to stale data.
+      - id: c
+        text: Independent learning cannot be applied to zero-sum games
+        why: Independent learning applies to any game type. The problem is outdated experience.
+      - id: d
+        text: Its replay buffer still holds transitions from its past successes
+        correct: true
+    why: >-
+      A replay buffer assumes stored experience stays relevant. When other agents
+      learn, old transitions describe opponents that no longer exist, so the agent
+      keeps learning from outdated successes.
+
+  - id: agai-5w5kvc
+    type: multi
+    difficulty: hard
+    level: apply
+    topics: [Self-Play]
+    prompt: In which of these games could a single shared policy be trained by policy self-play, the agent playing against itself?
+    options:
+      - id: a
+        text: A duel between two identical robots, each observing from its own viewpoint
+        correct: true
+      - id: b
+        text: Rock-paper-scissors between two agents
+        correct: true
+      - id: c
+        text: A pursuit game between a predator and a prey with different action sets
+        why: The two roles have different actions, so one policy cannot act for both. Algorithm self-play would still work.
+      - id: d
+        text: A negotiation between a buyer and a seller with different payoffs
+        why: Buyer and seller have different roles and rewards, so one shared policy does not fit both.
+      - id: e
+        text: A team of a scouting drone and a delivery truck
+        why: Different bodies, actions and observations rule out one shared policy.
+    why: >-
+      Policy self-play needs symmetric roles and egocentric observations, so the
+      same policy can act from each agent's perspective. Algorithm self-play, where
+      all agents use the same learning algorithm, has no such restriction.

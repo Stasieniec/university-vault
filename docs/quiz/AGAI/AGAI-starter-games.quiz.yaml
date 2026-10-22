@@ -1,0 +1,321 @@
+# Starter questions: normal-form games and solution concepts.
+# Sources: Shoham and Leyton-Brown, Multiagent Systems (2009), chapter 3;
+# Albrecht, Christianos and Schafer, Multi-Agent Reinforcement Learning (2024),
+# chapters 3 and 4. 2x2 payoff-matrix items live in AGAI-starter-matrix.
+course: AGAI
+lecture: AGAI-starter-games
+title: "Starter: normal-form games"
+sort: 92
+questions:
+
+  - id: agai-xfkja8
+    type: single
+    difficulty: easy
+    level: remember
+    topics: [Nash Equilibrium, Best Response]
+    prompt: What makes a strategy profile a Nash equilibrium?
+    options:
+      - id: a
+        text: No other profile helps one player without hurting another
+        why: That is Pareto optimality, a property judged from outside the game.
+      - id: b
+        text: Each player's strategy is a best response to the others' strategies
+        correct: true
+      - id: c
+        text: Every player plays a strictly dominant strategy
+        why: That is an equilibrium in dominant strategies, a special case. Most equilibria involve no dominant strategy.
+      - id: d
+        text: The sum of the players' payoffs is as large as possible
+        why: That is welfare optimality. Equilibria can have a low total, as mutual defection in the prisoner's dilemma shows.
+    why: >-
+      In a Nash equilibrium no player can gain by changing its own strategy while
+      the others keep theirs. Equivalently, every strategy is a best response to
+      the rest of the profile.
+
+  - id: agai-vjhvvh
+    type: cloze
+    difficulty: easy
+    level: remember
+    topics: [Dominant Strategy]
+    prompt: Strategy s strictly dominates s′ when s pays strictly more than s′ against ___ of the other players.
+    options:
+      - id: a
+        text: at least one strategy profile
+        why: One better case is far from enough. Strict dominance needs a higher payoff against every profile.
+      - id: b
+        text: the most likely strategy profile
+        why: Dominance makes no assumption about what the others will play, so no profile is singled out.
+      - id: c
+        text: the equilibrium strategies
+        why: Dominance is checked without assuming the others play an equilibrium.
+      - id: d
+        text: every strategy profile
+        correct: true
+    why: >-
+      Strict dominance compares two strategies against each possible choice of the
+      other players. A strictly dominated strategy is never a best response, so it
+      can be removed from consideration.
+
+  - id: agai-h6akgq
+    type: single
+    difficulty: easy
+    level: understand
+    topics: [Prisoner's Dilemma, Pareto Optimality]
+    prompt: What makes the one-shot prisoner's dilemma a dilemma?
+    options:
+      - id: a
+        text: Its single equilibrium leaves both players worse off than mutual cooperation
+        correct: true
+      - id: b
+        text: It has no Nash equilibrium in pure strategies
+        why: Mutual defection is a pure equilibrium, in strictly dominant strategies.
+      - id: c
+        text: Each player's best action depends on what the other one does
+        why: Defecting is best whatever the other player does, which is exactly why it is dominant.
+      - id: d
+        text: It has several equilibria and the players cannot agree on one
+        why: That is equilibrium selection, as in coordination games. The prisoner's dilemma has a single equilibrium.
+    why: >-
+      Defect strictly dominates cooperate, so (D, D) is the unique Nash
+      equilibrium. Yet both players prefer (C, C), and (D, D) is the only outcome
+      of the game that is not Pareto optimal.
+
+  - id: agai-k479np
+    type: truefalse
+    difficulty: easy
+    level: remember
+    topics: [Nash Equilibrium, Mixed Strategy]
+    statement: Every finite normal-form game has at least one Nash equilibrium in pure strategies.
+    answer: false
+    why: >-
+      Nash's theorem guarantees an equilibrium in every finite game, but it may be
+      mixed. Matching pennies and rock-paper-scissors have no pure equilibrium at
+      all.
+
+  - id: agai-wv7zut
+    type: single
+    difficulty: medium
+    level: understand
+    topics: [Pareto Optimality, Utility Theory]
+    prompt: Why does game theory compare outcomes by Pareto dominance instead of by the sum of the players' utilities?
+    options:
+      - id: a
+        text: The outcome with the largest sum is a Nash equilibrium anyway
+        why: In the prisoner's dilemma, (C, C) has the largest sum and is no equilibrium.
+      - id: b
+        text: Pareto dominance picks out a single best outcome in every game
+        why: Pareto dominance is a partial order, so a game usually has several Pareto optima that cannot be compared.
+      - id: c
+        text: Each utility can be rescaled, changing which outcome has the largest sum
+        correct: true
+      - id: d
+        text: Sums cannot be formed for games with more than two players
+        why: Sums work for any number of players. The trouble is what rescaling does to them.
+    why: >-
+      Multiplying one player's utilities by 1,000 is still a valid utility function
+      but can change which outcome maximises the sum. Pareto dominance survives such
+      rescaling because it compares each player's utility separately.
+
+  - id: agai-kn9nep
+    type: multi
+    difficulty: medium
+    level: understand
+    topics: [Pareto Optimality]
+    prompt: Which statements about Pareto optimality are true?
+    options:
+      - id: a
+        text: In a zero-sum game, every strategy profile is Pareto optimal.
+        correct: true
+      - id: b
+        text: Every game has at least one Pareto-optimal outcome.
+        correct: true
+      - id: c
+        text: A Pareto-optimal profile is a Nash equilibrium.
+        why: In the prisoner's dilemma, (C, C) is Pareto optimal, but each player gains by defecting.
+      - id: d
+        text: In the prisoner's dilemma, mutual defection is Pareto optimal.
+        why: Mutual cooperation makes both players better off, so (D, D) is Pareto dominated.
+      - id: e
+        text: In a common-payoff game, any two Pareto-optimal profiles give the same payoffs.
+        correct: true
+    why: >-
+      A profile is Pareto optimal when no other profile helps someone without
+      hurting anyone. In zero-sum games any gain is someone else's loss. Pareto
+      optimality and equilibrium are separate properties.
+
+  - id: agai-abbj42
+    type: single
+    difficulty: medium
+    level: understand
+    topics: [Mixed Strategy, Nash Equilibrium]
+    prompt: In a mixed-strategy Nash equilibrium, player 1 plays its actions Up and Down with positive probability. What must hold?
+    options:
+      - id: a
+        text: Player 1 plays Up and Down with equal probabilities, one half each
+        why: The probabilities can be unequal. What must be equal is the expected payoff of the actions in the support.
+      - id: b
+        text: For player 1, Up strictly dominates Down in this game
+        why: Then putting weight on Down would lower player 1's payoff, so Down could not be part of a best response.
+      - id: c
+        text: Up and Down earn player 1 equal expected payoffs against player 2's mix
+        correct: true
+      - id: d
+        text: Player 1 could gain by shifting its weight towards Up
+        why: Then the mix would not be a best response, and the profile would not be an equilibrium.
+    why: >-
+      If one action in the support paid more, the player would shift weight to it.
+      So every action played with positive probability yields the same expected
+      payoff, and each player's mix leaves the other indifferent.
+
+  - id: agai-g7nqv9
+    type: single
+    difficulty: hard
+    level: analyze
+    topics: [Dominant Strategy, Iterated Elimination]
+    prompt: >-
+      Two analysts reduce the same game by iterated removal of weakly dominated
+      strategies, in different orders, and end up with different reduced games.
+      What explains this?
+    options:
+      - id: a
+        text: Under weak dominance, the result can depend on the elimination order
+        correct: true
+      - id: b
+        text: One analyst erred, because elimination order does not affect the result
+        why: Order-independence holds for strictly dominated strategies. With weak dominance the order can matter.
+      - id: c
+        text: A weakly dominated strategy cannot be part of a Nash equilibrium
+        why: It can be. Removing weakly dominated strategies can even delete equilibria of the original game.
+      - id: d
+        text: Iterated elimination is a procedure for two-player games
+        why: It applies to games with any number of players. The difference comes from using weak dominance.
+    why: >-
+      Removing strictly dominated strategies gives the same reduced game in any
+      order and preserves all Nash equilibria. Weak and very weak dominance can
+      shrink the game further, at the price of order-dependence.
+
+  - id: agai-mrnbrr
+    type: truefalse
+    difficulty: medium
+    level: understand
+    topics: [Dominant Strategy, Mixed Strategy]
+    statement: A pure strategy that no other pure strategy strictly dominates can still be strictly dominated by a mixed strategy.
+    answer: true
+    why: >-
+      A mix of two pure strategies can beat a third one against every opponent
+      profile. This holds even when neither pure strategy beats it everywhere on
+      its own.
+
+  - id: agai-rx7723
+    type: truefalse
+    difficulty: medium
+    level: remember
+    topics: [Mixed Strategy, Nash Equilibrium]
+    statement: In matching pennies, the only Nash equilibrium has each player choose heads and tails with probability 1/2.
+    answer: true
+    why: >-
+      From any pure profile the losing player gains by switching, so no pure
+      equilibrium exists. Only the 50-50 mix leaves the opponent indifferent, so
+      neither player can exploit the other.
+
+  - id: agai-t653fd
+    type: multi
+    difficulty: medium
+    level: understand
+    topics: [Zero-Sum Games, Maxmin Strategy]
+    prompt: Which statements about finite two-player zero-sum games are true?
+    options:
+      - id: a
+        text: Maxmin strategy profiles and Nash equilibria coincide.
+        correct: true
+      - id: b
+        text: A Nash equilibrium in pure strategies exists.
+        why: Matching pennies is zero-sum and has a mixed equilibrium only.
+      - id: c
+        text: Different equilibria can give player 1 different payoffs.
+        why: All equilibria of a two-player zero-sum game give the same value to each player.
+      - id: d
+        text: Some strategy profile is Pareto dominated by another.
+        why: Any gain for one player is a loss for the other, so every profile is Pareto optimal.
+    why: >-
+      By the minimax theorem, in two-player zero-sum games every maxmin profile is
+      a Nash equilibrium and each player's equilibrium payoff equals its maxmin
+      value. Equilibria may still need mixed strategies.
+
+  - id: agai-ajpj6z
+    type: multi
+    difficulty: hard
+    level: analyze
+    topics: [Nash Equilibrium, Pareto Optimality]
+    prompt: A game has a unique Nash equilibrium e, and another profile s Pareto-dominates e. Which statements follow?
+    options:
+      - id: a
+        text: From s, some player gains by deviating unilaterally.
+        correct: true
+      - id: b
+        text: The equilibrium e is not Pareto optimal.
+        correct: true
+      - id: c
+        text: The profile s is a Nash equilibrium as well.
+        why: The equilibrium is unique and s differs from e, so s cannot be one.
+      - id: d
+        text: Rational players will settle on s instead of e.
+        why: Equilibrium reasoning predicts e. Profile s is unstable because some player wants to leave it.
+      - id: e
+        text: The profile s maximises the sum of the payoffs.
+        why: Dominating one profile says nothing about having the largest total among all profiles.
+    why: >-
+      Since s is not the unique equilibrium, some player has a profitable deviation
+      from it. And since s Pareto-dominates e, e is not Pareto optimal. The
+      prisoner's dilemma, with s = (C, C), is the standard case.
+
+  - id: agai-nhjk32
+    type: single
+    difficulty: hard
+    level: apply
+    topics: [Dominant Strategy, Nash Equilibrium]
+    prompt: In some game every player has a strictly dominant strategy. What can you conclude about the profile of those strategies?
+    options:
+      - id: a
+        text: It is an equilibrium, but mixed equilibria may exist too
+        why: Strictly dominated actions are never best responses, so no mix that uses one can be in equilibrium.
+      - id: b
+        text: It is an equilibrium and is also Pareto optimal
+        why: The prisoner's dilemma is the counterexample. Its dominant-strategy equilibrium is Pareto dominated.
+      - id: c
+        text: It is no equilibrium unless the players randomise
+        why: Each player's dominant strategy is pure, and together they form a pure equilibrium.
+      - id: d
+        text: It is the unique Nash equilibrium of the game
+        correct: true
+    why: >-
+      An equilibrium in strictly dominant strategies is necessarily the unique Nash
+      equilibrium, because every other action is strictly dominated. Uniqueness
+      says nothing about efficiency.
+
+  - id: agai-v8zdtu
+    type: single
+    difficulty: hard
+    level: apply
+    topics: [Prisoner's Dilemma, Normal-Form Games]
+    prompt: >-
+      Two firms each set a high or a low price. Whatever the rival does, a low
+      price earns a firm more, but both earn more when both set a high price.
+      Which classic game has this structure?
+    options:
+      - id: a
+        text: The stag hunt
+        why: In the stag hunt, joint cooperation is itself an equilibrium and no action dominates. Here low pricing dominates.
+      - id: b
+        text: The prisoner's dilemma
+        correct: true
+      - id: c
+        text: Matching pennies
+        why: Matching pennies is zero-sum, so both players can never gain together as they do here.
+      - id: d
+        text: A pure coordination game
+        why: In a coordination game players want to match each other, and no action is dominant.
+    why: >-
+      Low price plays the role of defect: it strictly dominates, so (low, low) is
+      the unique equilibrium, while (high, high) is better for both. That is the
+      prisoner's dilemma.

@@ -1,0 +1,231 @@
+# Starter questions: repeated games, tit-for-tat, the folk theorem, stochastic games.
+# Sources: Shoham and Leyton-Brown, Multiagent Systems (2009), sections 6.1
+# and 6.2; Albrecht, Christianos and Schafer, Multi-Agent Reinforcement
+# Learning (2024), sections 3.2, 3.3 and 4.4.
+course: AGAI
+lecture: AGAI-starter-repeated
+title: "Starter: repeated and stochastic games"
+sort: 93
+questions:
+
+  - id: agai-hpwzh7
+    type: cloze
+    difficulty: easy
+    level: remember
+    topics: [Tit-for-Tat, Repeated Games]
+    prompt: Tit-for-tat cooperates in the first round and afterwards ___.
+    options:
+      - id: a
+        text: defects forever once the other player defects
+        why: That is the trigger strategy, a harsher relative of tit-for-tat that never forgives.
+      - id: b
+        text: copies the other player's previous action
+        correct: true
+      - id: c
+        text: repeats whichever of its actions has paid most so far
+        why: Tit-for-tat ignores its own payoffs and reacts to the other player's last move.
+      - id: d
+        text: alternates between cooperating and defecting
+        why: Alternating ignores the opponent entirely. Tit-for-tat mirrors what the opponent just did.
+    why: >-
+      Tit-for-tat starts by cooperating and then plays whatever the other player
+      played in the previous round. It is simple, hard to beat, and won several
+      repeated prisoner's dilemma tournaments for computer programs.
+
+  - id: agai-rw8buh
+    type: single
+    difficulty: easy
+    level: remember
+    topics: [Repeated Games]
+    prompt: In a repeated game, what is the stage game?
+    options:
+      - id: a
+        text: The final round, where end-game effects appear
+        why: Every round plays the same stage game. End-game effects concern how players behave near a known last round.
+      - id: b
+        text: The equilibrium the players reach once they stop learning
+        why: An equilibrium is a solution concept. The stage game is the game being repeated.
+      - id: c
+        text: The history of joint actions played so far
+        why: Strategies in the repeated game condition on this history, but the history is not the stage game.
+      - id: d
+        text: The normal-form game that is played in every round
+        correct: true
+    why: >-
+      A repeated game plays the same stage game many times with the same players.
+      Strategies can depend on the history of play, so the repeated game has a far
+      richer strategy space than its stage game.
+
+  - id: agai-wjxb9g
+    type: truefalse
+    difficulty: easy
+    level: understand
+    topics: [Repeated Games, Discounted Return]
+    statement: In an infinitely repeated game, a discount factor β can be read as the game continuing to the next round with probability β.
+    answer: true
+    why: >-
+      One reading of discounting is impatience. The other is that after each round
+      the game stops with probability 1 - β, so it continues with probability β.
+      The analysis is the same either way.
+
+  - id: agai-ah99wb
+    type: single
+    difficulty: medium
+    level: understand
+    topics: [Repeated Games, Prisoner's Dilemma, Backward Induction]
+    prompt: Two players know they will play the prisoner's dilemma exactly 100 times. What does backward induction predict?
+    options:
+      - id: a
+        text: Defection in every round
+        correct: true
+      - id: b
+        text: Cooperation until round 100, then defection
+        why: Once round 100 is settled as defection, round 99 has nothing left to protect, and the argument unravels back to round 1.
+      - id: c
+        text: Tit-for-tat for both players
+        why: Tit-for-tat can sustain cooperation when the end is unknown. With a known last round, cooperation unravels.
+      - id: d
+        text: Any average payoff at least equal to the minmax value
+        why: That is the folk theorem for infinitely repeated games. A known finite horizon leaves defection as the only equilibrium play.
+    why: >-
+      In the last round defecting is dominant, since nothing follows. Knowing that,
+      the second-to-last round has no future to protect either, and by induction
+      always defecting is the only equilibrium.
+
+  - id: agai-2k3zjg
+    type: multi
+    difficulty: medium
+    level: understand
+    topics: [Folk Theorem]
+    prompt: Which statements about the folk theorem for infinitely repeated games with average rewards are true?
+    options:
+      - id: a
+        text: It describes the payoff profiles that Nash equilibria can reach.
+        correct: true
+      - id: b
+        text: In any Nash equilibrium, each player gets at least its minmax value.
+        correct: true
+      - id: c
+        text: Every feasible payoff profile is reached by some Nash equilibrium.
+        why: Feasibility is not enough. The profile must also be enforceable, giving each player at least its minmax value.
+      - id: d
+        text: It shows that the repeated game has a unique equilibrium payoff.
+        why: The point is the opposite. A huge set of payoff profiles is reachable in equilibrium.
+    why: >-
+      The folk theorem says the equilibrium payoffs are exactly the feasible
+      profiles in which each player gets at least its minmax value. It describes
+      payoffs and leaves open which strategy profiles produce them.
+
+  - id: agai-3t5d5h
+    type: single
+    difficulty: hard
+    level: analyze
+    topics: [Folk Theorem, Maxmin Strategy]
+    prompt: >-
+      In the folk theorem's construction, if a player deviates, the others play
+      their minmax strategy against it forever. Why does this make deviating
+      unprofitable?
+    options:
+      - id: a
+        text: It drives the deviator's payoff to zero in every later round
+        why: The minmax value need not be zero. It is the least the others can force on the deviator while it best responds.
+      - id: b
+        text: Punishing raises the punishers' own payoffs in later rounds
+        why: Punishment can cost the punishers too. In a Nash equilibrium the threat deters, so it is never carried out on the equilibrium path.
+      - id: c
+        text: The deviator is held to its minmax value, no more than complying pays
+        correct: true
+      - id: d
+        text: Minmax strategies are dominant strategies in the stage game
+        why: Minmax strategies are chosen to push one player down. They need not be dominant for the punishers.
+    why: >-
+      The construction uses payoff profiles that give each player at least its
+      minmax value. A deviator is held to exactly its minmax value forever after,
+      so its average reward cannot rise by deviating.
+
+  - id: agai-uzpf3c
+    type: multi
+    difficulty: medium
+    level: understand
+    topics: [Stochastic Games, Markov Decision Process, Repeated Games]
+    prompt: Which statements about stochastic games are true?
+    options:
+      - id: a
+        text: A stochastic game with one player is a Markov decision process.
+        correct: true
+      - id: b
+        text: A stochastic game with a single state is a repeated game.
+        correct: true
+      - id: c
+        text: The next state depends on the current state and the joint action.
+        correct: true
+      - id: d
+        text: Each agent observes a noisy part of the state.
+        why: That describes a partially observable stochastic game. In a stochastic game every agent sees the state and the joint actions.
+    why: >-
+      A stochastic game is a collection of normal-form games, one per state, where
+      the joint action and chance decide which game is played next. It generalises
+      MDPs (one player) and repeated games (one state).
+
+  - id: agai-br8v5h
+    type: truefalse
+    difficulty: medium
+    level: understand
+    topics: [Stochastic Games]
+    statement: In a stochastic game, a Markov strategy may depend on the whole history of states and actions.
+    answer: false
+    why: >-
+      A Markov strategy depends on the current state (and possibly the time step).
+      Behavioral strategies are the ones that may use the full history; a
+      stationary strategy also drops the time dependence.
+
+  - id: agai-g836tn
+    type: single
+    difficulty: hard
+    level: analyze
+    topics: [Repeated Games, Tit-for-Tat, Nash Equilibrium]
+    prompt: In the infinitely repeated prisoner's dilemma with a discount factor close enough to 1, which pairing is a Nash equilibrium?
+    options:
+      - id: a
+        text: Unconditional cooperation against tit-for-tat
+        why: Against an unconditional cooperator, the tit-for-tat player gains by defecting every round, so tit-for-tat is no best response.
+      - id: b
+        text: Unconditional cooperation on both sides
+        why: Either player gains by defecting every round, since the other never retaliates.
+      - id: c
+        text: Trigger strategy against tit-for-tat
+        correct: true
+      - id: d
+        text: Tit-for-tat against unconditional defection
+        why: Against tit-for-tat, a patient player earns more by cooperating than by defecting every round.
+    why: >-
+      Trigger and tit-for-tat both cooperate on the path of play and punish
+      defection, so with enough patience neither player gains by deviating. A
+      strategy that never retaliates invites exploitation.
+
+  - id: agai-mkkch3
+    type: single
+    difficulty: hard
+    level: apply
+    topics: [Repeated Games, Folk Theorem]
+    prompt: >-
+      Two firms compete in the same market every week, with no known end date.
+      Each week either firm can undercut the other. Which condition best
+      supports sustained cooperation between them?
+    options:
+      - id: a
+        text: Each firm cares enough about future weeks
+        correct: true
+      - id: b
+        text: Each firm knows exactly which week will be the last
+        why: A known last week lets backward induction unravel cooperation from the end.
+      - id: c
+        text: Each firm stays unaware of what the other did
+        why: Without seeing past play, a firm cannot punish undercutting, so threats lose their force.
+      - id: d
+        text: Each firm plays the same action every week, whatever happened
+        why: That is a stationary strategy. It cannot punish deviations, so it cannot enforce cooperation.
+    why: >-
+      Cooperation in repeated play rests on the threat of future punishment. That
+      threat works when the end is uncertain, play is observed, and players weigh
+      the future heavily (a discount factor close to 1).

@@ -1,0 +1,237 @@
+# Starter questions: agents, environments, utility, bounded rationality.
+# Sources: Albrecht, Christianos and Schafer, Multi-Agent Reinforcement Learning
+# (2024), chapters 1 to 3; Shoham and Leyton-Brown, Multiagent Systems (2009),
+# sections 3.1 and 6.1.3.
+course: AGAI
+lecture: AGAI-starter-agents
+title: "Starter: agents and utility"
+sort: 91
+questions:
+
+  - id: agai-rydub5
+    type: single
+    difficulty: easy
+    level: remember
+    topics: [Rational Agents, Reward Signal]
+    prompt: In multi-agent reinforcement learning, how is an agent's goal specified?
+    options:
+      - id: a
+        text: By a fixed list of actions it has to execute
+        why: A fixed action list is a plan. Agents are goal-directed and pick their own actions to collect reward.
+      - id: b
+        text: By a reward function that gives scalar rewards
+        correct: true
+      - id: c
+        text: By the observation function of the environment
+        why: The observation function says what the agent perceives about the state. It carries no goal.
+      - id: d
+        text: By the transition function of the environment
+        why: Transitions describe how the state changes after actions. Goals come from rewards.
+    why: >-
+      Goals are defined by reward functions that give scalar rewards after actions
+      in states. The agent's policy then chooses actions to maximise its expected
+      return.
+
+  - id: agai-fcmdv7
+    type: truefalse
+    difficulty: medium
+    level: understand
+    topics: [Markov Decision Process]
+    statement: In a Markov decision process, the current state is enough information to choose optimal actions.
+    answer: true
+    why: >-
+      The Markov property makes the next state and reward depend on the current
+      state and action alone. Earlier states and actions add nothing, so an
+      optimal policy can condition on the current state.
+
+  - id: agai-p2xzkm
+    type: cloze
+    difficulty: easy
+    level: remember
+    topics: [Partial Observability]
+    prompt: An agent that cannot see the full environment state receives ___ instead, and its policy may depend on their history.
+    options:
+      - id: a
+        text: rewards
+        why: Rewards say how well the agent is doing. Partial information about the state arrives as observations.
+      - id: b
+        text: transitions
+        why: The transition function is the environment's dynamics, which the agent usually does not know.
+      - id: c
+        text: belief states
+        why: A belief state is something the agent computes from its observations. The environment does not provide it.
+      - id: d
+        text: observations
+        correct: true
+    why: >-
+      Under partial observability each agent gets observations that carry
+      incomplete or noisy information about the state, so its policy conditions on
+      its observation history.
+
+  - id: agai-qdcg6c
+    type: multi
+    difficulty: medium
+    level: understand
+    topics: [Utility Theory]
+    prompt: Alice's von Neumann-Morgenstern utility function is u. Which functions represent exactly the same preferences, over sure outcomes and lotteries?
+    options:
+      - id: a
+        text: 3u + 7
+        correct: true
+      - id: b
+        text: u - 100
+        correct: true
+      - id: c
+        text: 0.5u
+        correct: true
+      - id: d
+        text: -u + 10
+        why: A negative scale factor reverses every preference.
+      - id: e
+        text: ln(u), for positive u
+        why: The logarithm keeps the order of sure outcomes but changes expected values, so preferences over lotteries can change.
+    why: >-
+      A utility function is fixed only up to a positive affine transformation
+      au + b with a > 0. Any such transformation ranks every outcome and every
+      lottery the same way; other monotone maps can reorder lotteries.
+
+  - id: agai-e7c4sj
+    type: single
+    difficulty: medium
+    level: understand
+    topics: [Utility Theory, Rational Agents]
+    prompt: Why does utility theory require an agent's preferences to be transitive?
+    options:
+      - id: a
+        text: Cyclic preferences let others charge it for trades that end where it started
+        correct: true
+      - id: b
+        text: Without transitivity, expected utility cannot be computed in finite time
+        why: Computation time is not the argument. The problem is that cyclic preferences can be exploited.
+      - id: c
+        text: Transitivity is needed so that utility can be measured in money
+        why: Utility and money are often not linearly related. Transitivity is about ranking outcomes consistently.
+      - id: d
+        text: Transitive preferences make the agent indifferent between any two lotteries
+        why: That would make preferences trivial. Transitivity only requires that rankings chain together consistently.
+    why: >-
+      With cyclic preferences the agent pays for every swap and ends up holding
+      what it started with. This money pump shows that intransitive preferences
+      are exploitable.
+
+  - id: agai-5y8bt9
+    type: multi
+    difficulty: medium
+    level: understand
+    topics: [Multi-Agent Systems, Partial Observability]
+    prompt: Which statements about agents and environments in multi-agent systems are true?
+    options:
+      - id: a
+        text: Different agents may receive different observations of the same state.
+        correct: true
+      - id: b
+        text: States and actions may be discrete, continuous, or a mix of the two.
+        correct: true
+      - id: c
+        text: An agent has to know the environment's transition function before it can act.
+        why: Agents may have different prior knowledge, and in reinforcement learning the dynamics are usually unknown.
+      - id: d
+        text: An agent's reward is determined by its own action alone.
+        why: Rewards depend on the joint action, so the other agents' choices matter.
+    why: >-
+      Multi-agent environments are often partially observed, with each agent
+      getting its own observations, and can mix discrete and continuous variables.
+      Agents usually learn without knowing the dynamics, and their rewards depend
+      on what everyone does.
+
+  - id: agai-gypqud
+    type: truefalse
+    difficulty: easy
+    level: understand
+    topics: [Discounted Return]
+    statement: A discount factor close to 1 makes an agent myopic, caring mostly about immediate rewards.
+    answer: false
+    why: >-
+      A discount factor close to 0 makes an agent myopic. Close to 1, distant
+      rewards keep most of their weight, so the agent is far-sighted.
+
+  - id: agai-exxwy5
+    type: single
+    difficulty: medium
+    level: apply
+    topics: [Partial Observability, Belief State]
+    prompt: >-
+      A foraging robot saw an apple to its left three steps ago. The apple is now
+      outside its vision field. What should its policy condition on so it can
+      still head for the apple?
+    options:
+      - id: a
+        text: Its current observation, which is the latest information
+        why: The apple is out of view, so the current observation does not contain it.
+      - id: b
+        text: The full environment state, read while it acts
+        why: Under partial observability the agent cannot read the full state at execution time.
+      - id: c
+        text: Its observation history, or a belief over states built from it
+        correct: true
+      - id: d
+        text: The reward it received on the previous step
+        why: A reward says how well the last step went. It says nothing about where the apple is.
+    why: >-
+      When the environment is partially observed, the current observation is not
+      enough. The agent keeps information from past observations, either as an
+      explicit belief state or through a recurrent network over its history.
+
+  - id: agai-q8dnxs
+    type: single
+    difficulty: hard
+    level: analyze
+    topics: [Bounded Rationality, Prisoner's Dilemma]
+    prompt: >-
+      In the finitely repeated prisoner's dilemma, theory predicts defection in
+      every round, yet people cooperate a lot in early rounds. Which
+      bounded-rationality idea predicts more cooperation as the number of rounds
+      grows?
+    options:
+      - id: a
+        text: Players discount future rounds with a discount factor of exactly 1
+        why: With a known last round, backward induction unravels cooperation whatever the discount factor.
+      - id: b
+        text: Players hold intransitive preferences over the outcomes
+        why: Intransitive preferences make an agent exploitable. They are no model of cooperation in repeated games.
+      - id: c
+        text: Players accept an ε-equilibrium, settling for slightly less than a best response
+        correct: true
+      - id: d
+        text: Players randomise uniformly between cooperating and defecting
+        why: Uniform randomising is no account of bounded rationality, and it would cooperate equally often in every round.
+    why: >-
+      In an ε-equilibrium no player can gain more than ε by deviating. As the
+      number of repetitions grows, the ε-equilibria of the finitely repeated
+      prisoner's dilemma include longer and longer runs of cooperation.
+
+  - id: agai-6cdybc
+    type: single
+    difficulty: hard
+    level: analyze
+    topics: [Utility Theory]
+    prompt: >-
+      Most people prefer a sure 999,999 euros to a coin flip between 2,000,000
+      euros and nothing. What does utility theory conclude from this?
+    options:
+      - id: a
+        text: Their utility is not linear in money, so expected money and expected utility differ
+        correct: true
+      - id: b
+        text: They are not expected-utility maximisers, so the theory fails for them
+        why: The choice fits expected-utility maximisation as soon as utility grows more slowly than money.
+      - id: c
+        text: Their preferences violate transitivity, so a money pump exists
+        why: Only two options are compared, so there is no cycle of preferences.
+      - id: d
+        text: Utility theory requires payoffs to be measured in money, so it does not apply
+        why: The theory is stated in utility units. Money is one kind of outcome that utility is attached to.
+    why: >-
+      Measured in utility units, an expected-utility maximiser would take the
+      gamble. Measured in money, most people do not, which shows that utility and
+      money are often not linearly related.

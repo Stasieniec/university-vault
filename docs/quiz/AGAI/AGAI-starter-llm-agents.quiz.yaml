@@ -1,0 +1,321 @@
+# Starter questions: LLM agents, memory and planning, multi-agent frameworks, deployment risks.
+# Sources: Yao et al., ReAct (ICLR 2023, arXiv 2210.03629); Park et al.,
+# Generative Agents (UIST 2023, arXiv 2304.03442); Wu et al., AutoGen
+# (arXiv 2308.08155); Schroeder et al., "How malicious AI swarms can threaten
+# democracy" (Science 2026, arXiv 2506.06299).
+# LangGraph and interaction protocols are left out: no named reading covers them.
+course: AGAI
+lecture: AGAI-starter-llm-agents
+title: "Starter: LLM agents"
+sort: 95
+questions:
+
+  - id: agai-m8ynfr
+    type: cloze
+    difficulty: easy
+    level: remember
+    topics: [ReAct]
+    prompt: A ReAct agent interleaves thoughts and actions, and after each action the environment's ___ is added to its context.
+    options:
+      - id: a
+        text: reward signal
+        why: ReAct prompts a frozen model. No reward signal is involved.
+      - id: b
+        text: observation
+        correct: true
+      - id: c
+        text: gradient update
+        why: Nothing is trained while a prompted ReAct agent runs.
+      - id: d
+        text: updated plan
+        why: Plans are written by the model itself, in its thoughts. The environment returns observations.
+    why: >-
+      ReAct runs a loop of thought, action and observation. The observation from
+      each action, such as a Wikipedia search result, grounds the next thought in
+      outside information.
+
+  - id: agai-8mbsac
+    type: truefalse
+    difficulty: easy
+    level: understand
+    topics: [ReAct]
+    statement: In ReAct, a thought changes the external environment just as an action does.
+    answer: false
+    why: >-
+      Thoughts live in language space. They update the model's context and help it
+      plan, but they produce no observation. Only actions affect the environment.
+
+  - id: agai-27scs6
+    type: cloze
+    difficulty: easy
+    level: understand
+    topics: [Tool Calling]
+    prompt: When an LLM agent calls a tool, the model proposes the call with its arguments, and ___ executes it.
+    options:
+      - id: a
+        text: the surrounding application
+        correct: true
+      - id: b
+        text: the model's own weights
+        why: The model only produces text describing the call. Running the tool happens outside the model.
+      - id: c
+        text: the tokenizer
+        why: The tokenizer turns text into tokens. It executes nothing.
+    why: >-
+      The model never runs a tool itself. It proposes a call, the application (in
+      AutoGen, for example, a user proxy agent) executes it, and the result goes
+      back into the conversation.
+
+  - id: agai-upydan
+    type: single
+    difficulty: easy
+    level: remember
+    topics: [AutoGen, Multi-Agent Frameworks]
+    prompt: In AutoGen, which built-in agent executes code and can ask a human for input?
+    options:
+      - id: a
+        text: UserProxyAgent
+        correct: true
+      - id: b
+        text: AssistantAgent
+        why: AssistantAgent is backed by an LLM. It writes code and solutions but does not run them.
+      - id: c
+        text: GroupChatManager
+        why: GroupChatManager picks the next speaker in a group chat and broadcasts messages.
+    why: >-
+      AssistantAgent and UserProxyAgent are the two preconfigured conversable
+      agents. The assistant writes solutions with an LLM; the user proxy solicits
+      human input and executes LLM-suggested code or function calls.
+
+  - id: agai-syapny
+    type: single
+    difficulty: medium
+    level: understand
+    topics: [ReAct, Chain-of-Thought Prompting]
+    prompt: Which weakness of chain-of-thought prompting does ReAct target on knowledge-heavy tasks such as HotpotQA?
+    options:
+      - id: a
+        text: Its need for fine-tuning on human-annotated rationales
+        why: Chain-of-thought works with few-shot prompting. No fine-tuning is required.
+      - id: b
+        text: Too few reasoning steps for questions that need several hops
+        why: Chain-of-thought can write many steps. The problem is that the facts in those steps are not grounded.
+      - id: c
+        text: Hallucinated facts from reasoning without outside information
+        correct: true
+      - id: d
+        text: The cost of sampling many reasoning chains and voting
+        why: That describes self-consistency, a decoding method built on chain-of-thought.
+    why: >-
+      Chain-of-thought reasons from the model's internal knowledge alone, so it can
+      invent facts and carry errors forward. ReAct grounds reasoning in search
+      results retrieved through actions.
+
+  - id: agai-ja783p
+    type: multi
+    difficulty: medium
+    level: understand
+    topics: [ReAct, Chain-of-Thought Prompting]
+    prompt: Which findings does the ReAct paper report for prompting PaLM-540B?
+    options:
+      - id: a
+        text: On HotpotQA, hallucination was a far bigger problem for chain-of-thought than for ReAct.
+        correct: true
+      - id: b
+        text: A frequent ReAct error was repeating earlier thoughts and actions in a loop.
+        correct: true
+      - id: c
+        text: Combining ReAct with self-consistency chain-of-thought gave the best prompting results.
+        correct: true
+      - id: d
+        text: ReAct alone scored higher than chain-of-thought on HotpotQA.
+        why: On HotpotQA, ReAct alone came out slightly behind chain-of-thought. It led on FEVER, and the combination did best.
+      - id: e
+        text: ReAct needed fine-tuning before it beat acting-only prompting.
+        why: ReAct beat the acting-only baseline with few-shot prompting alone.
+    why: >-
+      ReAct trades some reasoning flexibility for grounding: fewer hallucinations,
+      more reasoning errors such as loops. That trade-off is why switching between
+      ReAct and self-consistency did best.
+
+  - id: agai-qga678
+    type: multi
+    difficulty: medium
+    level: remember
+    topics: [Generative Agents, Agent Memory]
+    prompt: Which signals does the Generative Agents retrieval function combine to score a memory?
+    options:
+      - id: a
+        text: Recency, decaying since the memory was last accessed
+        correct: true
+      - id: b
+        text: Importance, rated by the language model
+        correct: true
+      - id: c
+        text: Relevance to the current situation, via embedding similarity
+        correct: true
+      - id: d
+        text: How many other agents took part in the event
+        why: Participant count plays no part. Social context enters only through the three scores.
+      - id: e
+        text: Whether the memory came from an observation or a reflection
+        why: Reflections are stored as memories and retrieved alongside observations, scored the same way.
+    why: >-
+      Each memory is scored on recency (exponential decay), importance and
+      relevance. The model rates importance from 1 to 10, relevance is cosine
+      similarity to the query, and the normalised scores are added up.
+
+  - id: agai-d9ngtc
+    type: single
+    difficulty: medium
+    level: apply
+    topics: [Generative Agents, Planning]
+    prompt: >-
+      A simulated character prompted moment by moment eats lunch at 12:00, then
+      again at 12:30 and at 13:00. Which Generative Agents component prevents
+      this?
+    options:
+      - id: a
+        text: Reflection, which turns memories into higher-level inferences
+        why: Reflection helps an agent generalise, such as knowing what it cares about. It does not keep a schedule consistent.
+      - id: b
+        text: Importance scoring, which marks meals as mundane
+        why: Importance ranks memories for retrieval. It does not decide what to do next.
+      - id: c
+        text: Planning, which lays out the day top-down and stores it in memory
+        correct: true
+      - id: d
+        text: Recency, which favours what happened most recently
+        why: Recency only weights retrieval. Without a plan the agent still lacks a coherent schedule.
+    why: >-
+      Acting believably in each moment can be incoherent over time. Plans give a
+      sequence of actions with locations, start times and durations, recursively
+      refined and stored in the memory stream.
+
+  - id: agai-5u2kcy
+    type: single
+    difficulty: hard
+    level: apply
+    topics: [Generative Agents, Reflection]
+    prompt: >-
+      Asked whom it would spend an hour with, an agent names the person it has met
+      most often, though they only ever pass each other in the hallway. Which
+      Generative Agents component fixes this?
+    options:
+      - id: a
+        text: Reflection, which synthesises memories into higher-level conclusions
+        correct: true
+      - id: b
+        text: Recency, which favours recently accessed memories
+        why: Recency changes which memories are retrieved. The fix needs abstraction over many memories.
+      - id: c
+        text: Planning, which keeps behaviour coherent over a day
+        why: Plans schedule actions. They do not draw conclusions about people or interests.
+      - id: d
+        text: Importance, which separates mundane from poignant memories
+        why: Importance ranks memories. It does not infer anything from them.
+    why: >-
+      With raw observations only, the agent picks the most frequent contact.
+      Reflection infers, for example, that it is passionate about research and so
+      is a colleague, which supports a better answer.
+
+  - id: agai-aq24jk
+    type: truefalse
+    difficulty: medium
+    level: understand
+    topics: [AutoGen, Multi-Agent Frameworks]
+    statement: In AutoGen, an agent that receives a message automatically generates a reply and sends it back unless a termination condition is met.
+    answer: true
+    why: >-
+      This auto-reply mechanism drives the conversation without a separate control
+      module. Termination can be set in code, such as a maximum number of replies,
+      or in natural language, such as replying TERMINATE.
+
+  - id: agai-jkh7gg
+    type: multi
+    difficulty: medium
+    level: understand
+    topics: [AutoGen, Deployment Risks]
+    prompt: Which AutoGen mechanisms help keep code-executing agents safe or under human control?
+    options:
+      - id: a
+        text: A separate safeguard agent that checks code before it runs
+        correct: true
+      - id: b
+        text: Human input modes that let a person join the conversation
+        correct: true
+      - id: c
+        text: Letting agents install packages freely to finish tasks faster
+        why: The AutoGen authors name installing packages through code execution as a risk that needs safeguards.
+      - id: d
+        text: Removing termination conditions so agents keep working until done
+        why: Termination conditions are a control mechanism. Removing them reduces control.
+    why: >-
+      In the OptiGuide application a Safeguard agent checks code before the
+      Commander runs it, and the user proxy can solicit human input. The authors
+      warn that code execution can change external environments in risky ways.
+
+  - id: agai-9r9d3t
+    type: truefalse
+    difficulty: medium
+    level: understand
+    topics: [AI Swarms, Deployment Risks]
+    statement: Swarms of AI agents threaten the wisdom of crowds because crowd wisdom depends on independent judgments, and swarms fake many independent voices.
+    answer: true
+    why: >-
+      Schroeder et al. argue swarms engineer a synthetic consensus. Citizens then
+      overestimate how much independent support a view has, which erodes the
+      independence that collective intelligence depends on.
+
+  - id: agai-kuksnb
+    type: single
+    difficulty: hard
+    level: apply
+    topics: [AI Swarms, Deployment Risks]
+    prompt: >-
+      A network copies the same articles across hundreds of domains. The sites have
+      poor interfaces and almost no human visitors. What is the most likely goal,
+      according to Schroeder et al.?
+    options:
+      - id: a
+        text: Ranking high in search results to attract human readers
+        why: Poor interfaces and almost no human traffic suggest humans are not the audience.
+      - id: b
+        text: Harassing journalists with coordinated tailored abuse
+        why: Synthetic harassment targets people directly on social platforms. Duplicated low-traffic sites target no one.
+      - id: c
+        text: Testing bot detectors with simulated swarms
+        why: Simulation for stress-testing is a defence the authors propose. This network is an attack.
+      - id: d
+        text: Getting fabricated narratives into future LLM training data
+        correct: true
+    why: >-
+      This is LLM grooming: flooding the web with chatter that crawlers collect, so
+      fabricated narratives end up in model weights at the next training cycle.
+      Schroeder et al. cite the Pravda network as a case.
+
+  - id: agai-v4qk3b
+    type: single
+    difficulty: hard
+    level: apply
+    topics: [ReAct, Self-Consistency]
+    prompt: >-
+      The ReAct paper combines ReAct with self-consistency chain-of-thought. On a
+      question, the most common answer appears in fewer than half of the sampled
+      chains. What does the CoT-SC to ReAct heuristic do next?
+    options:
+      - id: a
+        text: Return the most common answer without calling ReAct
+        why: A weak majority signals that internal knowledge is not confident, which is exactly when the heuristic backs off.
+      - id: b
+        text: Switch to ReAct to retrieve external information
+        correct: true
+      - id: c
+        text: Keep sampling chains until one answer has a majority
+        why: The heuristic does not resample. It hands the question to ReAct.
+      - id: d
+        text: Fall back to standard prompting without reasoning
+        why: Standard prompting is a baseline in the paper, never a fallback in the combined method.
+    why: >-
+      A weak majority means internal knowledge may not support the answer. The
+      method then backs off to ReAct and grounds the answer in retrieved facts.

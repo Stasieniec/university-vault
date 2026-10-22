@@ -1,0 +1,70 @@
+# Starter questions: spotting pure Nash equilibria in 2x2 payoff matrices.
+# PENDING Stas's decision on whether reading a small matrix counts as computing.
+# Delete this file if he says no; nothing else depends on it.
+# Payoffs are (row player, column player).
+course: AGAI
+lecture: AGAI-starter-matrix
+title: "Starter: 2x2 payoff matrices"
+sort: 96
+questions:
+
+  - id: agai-h97c4y
+    type: single
+    difficulty: medium
+    level: apply
+    topics: [Nash Equilibrium, Dominant Strategy]
+    time: 30
+    prompt: |
+      Payoffs are (row, column). Which cell is the only pure Nash equilibrium?
+
+      |   | L | R |
+      |---|---|---|
+      | T | 2, 1 | 0, 0 |
+      | B | 3, 0 | 1, 2 |
+    options:
+      - id: a
+        text: (T, L)
+        why: Row gains by switching from T to B (3 against 2).
+      - id: b
+        text: (B, R)
+        correct: true
+      - id: c
+        text: (B, L)
+        why: Column gains by switching from L to R (2 against 0).
+      - id: d
+        text: (T, R)
+        why: Row gains by switching to B (1 against 0), and column gains by switching to L (1 against 0).
+    why: >-
+      B strictly dominates T for row (3 > 2 and 1 > 0). Against B, column's best
+      reply is R (2 > 0). In (B, R) neither player can gain alone.
+
+  - id: agai-d7whd3
+    type: multi
+    difficulty: hard
+    level: apply
+    topics: [Nash Equilibrium, Best Response]
+    time: 30
+    prompt: |
+      Payoffs are (row, column). Select every pure Nash equilibrium.
+
+      |   | L | R |
+      |---|---|---|
+      | T | 4, 3 | 1, 1 |
+      | B | 3, 0 | 2, 2 |
+    options:
+      - id: a
+        text: (T, L)
+        correct: true
+      - id: b
+        text: (B, R)
+        correct: true
+      - id: c
+        text: (T, R)
+        why: Row gains by switching from T to B (2 against 1), and column by switching to L (3 against 1).
+      - id: d
+        text: (B, L)
+        why: Row gains by switching from B to T (4 against 3), and column by switching to R (2 against 0).
+    why: >-
+      Check each cell for a profitable one-player switch. T is row's best reply to
+      L and L is column's best reply to T; likewise B and R reply best to each
+      other. No action is dominant, so there are two pure equilibria.
