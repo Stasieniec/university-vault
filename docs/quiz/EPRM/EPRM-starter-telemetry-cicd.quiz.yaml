@@ -180,11 +180,12 @@ questions:
       alerts is the opposite failure, where issues go uncaptured.
 
   - id: eprm-4nvkg8
+    rev: 2
     type: multi
     difficulty: medium
     level: understand
     topics: [Telemetry]
-    prompt: Why do ML systems need telemetry beyond noticing crashes?
+    prompt: Which reasons does the course give for proactive telemetry on ML systems?
     options:
       - id: a
         text: Drift can degrade a model without any crash
@@ -203,7 +204,8 @@ questions:
         why: A deployed model does not improve by itself. As the data changes, its performance can decay.
     why: >-
       ML can fail silently through drift, and the world and its data keep
-      changing. Teams also need to deploy and forget until an alert arrives.
+      changing. Teams also need to deploy and forget until an alert arrives,
+      and waiting for users to complain is too late.
 
   - id: eprm-s526qx
     type: single
@@ -241,9 +243,9 @@ questions:
       long-living branch, and needs CI to pass first.
     answer: true
     why: >-
-      Each long-living branch targets an environment, so a merge to develop
-      deploys to acceptance and a merge to main to production. A CD pipeline
-      typically builds the Docker image and deploys it.
+      A merge into a long-living branch triggers deployment to that branch's
+      environment, with a passing CI as its prerequisite. A merge to develop
+      deploys to acceptance, and one to main deploys to production.
 
   - id: eprm-83u6t9
     type: cloze

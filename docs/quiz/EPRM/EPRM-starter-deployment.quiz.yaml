@@ -253,7 +253,7 @@ questions:
         text: Stored predictions are recomputed on each request
         why: Stored batch predictions are served as they are. Nothing is computed at request time.
       - id: c
-        text: They get no recommendations until the next run
+        text: No prediction exists for them until the next run
         correct: true
       - id: d
         text: They get yesterday's predictions for a similar user
