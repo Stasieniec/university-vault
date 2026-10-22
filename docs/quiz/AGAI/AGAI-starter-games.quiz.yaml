@@ -127,7 +127,7 @@ questions:
         text: In a zero-sum game, every strategy profile is Pareto optimal.
         correct: true
       - id: b
-        text: Every game has at least one Pareto-optimal outcome.
+        text: Every finite game has at least one Pareto-optimal outcome.
         correct: true
       - id: c
         text: A Pareto-optimal profile is a Nash equilibrium.
@@ -295,7 +295,7 @@ questions:
 
   - id: agai-v8zdtu
     type: single
-    difficulty: hard
+    difficulty: medium
     level: apply
     topics: [Prisoner's Dilemma, Normal-Form Games]
     prompt: >-

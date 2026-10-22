@@ -232,6 +232,6 @@ questions:
         text: Utility theory requires payoffs to be measured in money, so it does not apply
         why: The theory is stated in utility units. Money is one kind of outcome that utility is attached to.
     why: >-
-      Measured in utility units, an expected-utility maximiser would take the
-      gamble. Measured in money, most people do not, which shows that utility and
-      money are often not linearly related.
+      If the sums were utilities, an expected-utility maximiser would take the
+      gamble, whose expected value is 1,000,000. Most people decline, so their
+      utility grows more slowly than money.

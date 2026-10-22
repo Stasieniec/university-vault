@@ -29,8 +29,9 @@ questions:
         why: Alternating ignores the opponent entirely. Tit-for-tat mirrors what the opponent just did.
     why: >-
       Tit-for-tat starts by cooperating and then plays whatever the other player
-      played in the previous round. It is simple, hard to beat, and won several
-      repeated prisoner's dilemma tournaments for computer programs.
+      played in the previous round. It is simple and did strikingly well in
+      Axelrod's tournament of computer programs for the repeated prisoner's
+      dilemma.
 
   - id: agai-rw8buh
     type: single
@@ -112,9 +113,9 @@ questions:
         text: It shows that the repeated game has a unique equilibrium payoff.
         why: The point is the opposite. A huge set of payoff profiles is reachable in equilibrium.
     why: >-
-      The folk theorem says the equilibrium payoffs are exactly the feasible
-      profiles in which each player gets at least its minmax value. It describes
-      payoffs and leaves open which strategy profiles produce them.
+      Every Nash equilibrium gives each player at least its minmax value, and
+      every feasible profile with that property is the payoff of some Nash
+      equilibrium. So a large set of payoffs is reachable in equilibrium.
 
   - id: agai-3t5d5h
     type: single
@@ -205,7 +206,7 @@ questions:
 
   - id: agai-mkkch3
     type: single
-    difficulty: hard
+    difficulty: medium
     level: apply
     topics: [Repeated Games, Folk Theorem]
     prompt: >-
