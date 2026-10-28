@@ -12,7 +12,7 @@ status: complete
 # EPRM-Book Ch21: Interdisciplinary Teams
 
 > [!abstract] In short
-> Christian Kästner's chapter asks why building ML products needs teams of people with different expertise, why those teams so often clash, and what helps. No single person (the "unicorn") has all the skills, so teams are unavoidable, and they bring coordination costs, conflicting goals and groupthink. ML makes each of these worse, because model interfaces are unstable and hard to document. The remedies: deliberate team structure, T-shaped people who understand each other's concerns, a culture of constructive conflict, and the DevOps and MLOps model of joint goals supported by joint tools.
+> Christian Kästner's chapter asks why building ML products needs teams of people with different expertise, why those teams so often clash, and what helps. No single person (the "unicorn") has all the skills, so teams are unavoidable, and they bring coordination costs, conflicting goals and groupthink. ML makes these harder, because ML projects need more diverse expertise and model interfaces are unstable and hard to document. The remedies: deliberate team structure, T-shaped people who understand each other's concerns, a culture of constructive conflict, and the DevOps and MLOps model of joint goals supported by joint tools.
 >
 > It is the chapter the course assigns under Kästner's book part "Process and Teams", and it backs the week 1 argument in [[EPRM-L01 - Data Roles, ML Lifecycle, Clean Code and Unit Testing]] that handovers between siloed roles kill ML projects.
 
@@ -33,8 +33,8 @@ Conflicts arise **within teams** (members with conflicting goals tied to their r
 
 Two anonymised real organisations illustrate it:
 
-- **Organisation A:** four data scientists build a model for an external customer, whose own engineers (with little ML experience) integrate it. The data scientists cannot shape data collection or requirements, spend their time educating the customer about data quality and fighting unrealistic expectations, struggle to reach the customer's domain experts, and run complex infrastructure they never wanted. Nobody gave them latency, fairness or robustness requirements, so they did not feel responsible for those qualities.
-- **Organisation B:** one team of eight, mostly software engineers plus a single data scientist. The team splits into cliques; the data scientist feels isolated and does not know how the model fits the system; the engineers struggle to deploy ML code and feel they must teach others about code quality; nobody does integration or end-to-end testing; the data scientist is absent when the team lead talks to the client, so unrealistic requests are not pushed back early. The client ends up happy with the functionality and unhappy with the neglected user interface.
+- **Organisation A:** four data scientists build a model for an external customer, whose own engineers (with little ML experience) integrate it. The data scientists cannot shape data collection or requirements, spend their time educating the customer about data quality and fighting unrealistic expectations, struggle to reach the customer's domain experts, and run complex infrastructure themselves when they would rather do less engineering. Nobody gave them latency, fairness or robustness requirements, so they did not feel responsible for those qualities.
+- **Organisation B:** one team of eight, mostly software engineers plus a single data scientist. The team splits into cliques; the data scientist feels isolated and does not know how the model fits the system; the engineers struggle to deploy ML code and feel they must teach others about code quality; everyone focuses on their own part, with little integration testing or joint evaluation of the product; the data scientist is absent when the team lead talks to the client, so unrealistic requests are not pushed back early. The client ends up happy with the functionality and unhappy with the neglected user interface.
 
 ## Coordination costs
 
@@ -76,7 +76,7 @@ A T-shaped data scientist in the depression project might be an expert in multi-
 
 **Groupthink** is a group's tendency to minimise conflict by not exploring alternatives, suppressing dissent and isolating itself from outside views. The group goes with the first suggestion or the most senior person's. Symptoms: overconfidence, closed minds, pressure to conform, self-censorship.
 
-In software it shows up in hype-driven technology choices: the depression team prompts a well-known commercial LLM for everything because a manager suggested it and it seems modern, while members who think a cheaper, more explainable, equally accurate technique would do better stay quiet. It also shows up in dismissed risks: fairness or safety concerns are not raised because the leads always brush them off. Causes include homogeneous teams (data scientists often share educational backgrounds), cultures that isolate decision makers, and pressure from competitors, recent failures or public scrutiny.
+In software it shows up in hype-driven technology choices: the depression team prompts a well-known commercial LLM to analyse video text, without considering other techniques, because a manager suggested it and it seems modern, while members who think a cheaper, more explainable, equally accurate technique would do better stay quiet. It also shows up in dismissed risks: fairness or safety concerns are not raised because the leads always brush them off. Causes include homogeneous teams (data scientists often share educational backgrounds), cultures that isolate decision makers, and pressure from competitors, recent failures or public scrutiny.
 
 Interventions: hire more diverse teams, involve outside experts, ask everyone for their opinion, let high-status members speak last, moderate meetings actively, always explore a second solution, and use a devil's advocate (someone who argues the contrary view for the sake of debate).
 
@@ -132,13 +132,13 @@ Changing culture is hard: inertia ("this is how we always did it"), the learning
 > System structure tends to mirror team structure, so components should align with team boundaries.
 
 > [!card]- Why are ML component interfaces rarely stable?
-> Data science is exploratory: what the model can do, and its data needs, change as the project evolves.
+> Data science is exploratory: what the model can do is only discovered as the project evolves.
 
 > [!card]- Why can't fairness be assigned to the model team alone?
 > Fairness emerges from how all components interact in their environment, so no single component can assess it.
 
-> [!card]- What does Kästner recommend instead of sorting people into teams by specialty?
-> Interdisciplinary teams per component, since expertise does not line up with module boundaries.
+> [!card]- Why does Kästner recommend an interdisciplinary team per component over teams sorted by specialty?
+> Expertise does not line up with modules: a model team needs engineering skills, a UI team ML knowledge.
 
 > [!card]- What is awareness as a coordination strategy?
 > Actively broadcasting changes and decisions to everyone who might be affected.

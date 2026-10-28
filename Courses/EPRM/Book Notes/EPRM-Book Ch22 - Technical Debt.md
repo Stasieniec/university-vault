@@ -30,11 +30,11 @@ Like financial debt, it accumulates, and it can suffocate a project when nothing
 
 The chapter's running example: **sidewalk delivery robots**, suitcase-sized robots that carry restaurant food to homes, navigating from cameras and GPS among pedestrians, with human operators who can take over remotely.
 
-## Four kinds of debt
+## Fowler's technical debt quadrants
 
 Martin Fowler's technical debt quadrants classify debt on two dimensions.
 
-**Deliberate or inadvertent.** Deliberate debt is a conscious shortcut. The robot team deploys an obstacle-detection model by copying data by hand, running a notebook and copying the model to the robot, knowing this will slow future updates, make experiments in production harder and invite subtle faults, because a first prototype matters more right now. Inadvertent debt comes from not knowing better: a team unaware of pipeline automation only discovers later that hours go into copying files and remembering which scripts to run.
+**Deliberate or inadvertent.** Deliberate debt is a conscious shortcut. The robot team deploys an obstacle-detection model by copying data by hand, running a notebook and copying the model to the robot, knowing this will slow future updates, make experiments in production harder and invite subtle faults, because a first prototype matters more right now. Inadvertent debt comes from not understanding the consequences of a decision or not knowing better practices: a team unaware of pipeline automation only discovers later that hours go into copying files and remembering which scripts to run.
 
 **Prudent or reckless.** Prudent debt is an investment. In a hot market with many competitors, deploying many robots early with weak navigation models, paying heavily for remote human operators, may win investors and customers. Companies in markets with strong network effects (social networks, video conferencing, dating sites, app stores) take similar shortcuts to grow their user base fast. Reckless debt is credit-card impulse spending: skipping safety testing of the perception models saves time but risks accidents, bad publicity, liability and losing the licence to operate.
 
@@ -49,7 +49,7 @@ Ideally all debt is deliberate and prudent, and deliberate-but-reckless decision
 
 Sculley and other Google engineers framed ML's extra maintenance costs as debt in an influential paper first titled "Machine Learning: The High Interest Credit Card of Technical Debt" (published as "Hidden Technical Debt in Machine Learning Systems", 2015, often seen as a starting point of the MLOps movement).
 
-**Using ML where it is not needed** is debt in itself. Hype makes ML look like a quick fix, but production-quality ML components are expensive to engineer and maintain. Using ML as a gimmick, or where heuristics or established non-ML solutions suffice, is inadvertent, reckless debt.
+**Using ML where it is not needed** is debt in itself. Hype makes ML look like a quick fix, but production-quality ML components are expensive to engineer and maintain. Using ML as a gimmick, or where heuristics or established non-ML solutions suffice, without anticipating the later costs, can be inadvertent, reckless debt.
 
 **Skipping good engineering practices** is the other source. Hazard analysis, architecture design, robust pipelines, testing in production, fairness evaluation, threat modelling and provenance tracking all cost effort up front. Skip them and you get:
 
@@ -114,8 +114,8 @@ The tension between shipping fast and building for maintainability never goes aw
 > [!card]- What does versioning debt prevent you from doing?
 > Reproducing results and tracing what changed in data or training code when performance drops.
 
-> [!card]- What is observability debt?
-> No production monitoring of model quality, so problems are found and fixed by guesswork.
+> [!card]- Why does observability debt slow down fixing production problems?
+> Without production monitoring of model quality, the team guesses at fixes and spends days watching robots by hand.
 
 > [!card]- Name ML-specific sources of code quality debt.
 > Dead experimental code, glued-together scripts, duplicate feature extraction, poorly named variables.
@@ -126,8 +126,8 @@ The tension between shipping fast and building for maintainability never goes aw
 > [!card]- How can skipped requirements analysis create debt, in the delivery robot example?
 > A speed-optimised robot drives aggressively, pedestrians yield, speed is rewarded: a harmful feedback loop.
 
-> [!card]- Which debt is hardest to repay?
-> Requirements and design debt, harder than code quality or automation debt.
+> [!card]- Which is harder to repay: requirements and design debt, or code quality and automation debt?
+> Requirements and design debt: it can leave a fundamentally flawed design, while monitoring or automation can be added later.
 
 > [!card]- What is the minimum for managing deliberately taken debt?
 > Track the deferred work in an issue tracker, backlog or roadmap.

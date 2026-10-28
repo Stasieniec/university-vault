@@ -73,7 +73,7 @@ The tournament, modelled on Axelrod's 1980 tournament (won by Tit-for-Tat), is a
 
 **(a)** Many people pick C, out of fairness or hope. A purely self-interested agent picks D, because D pays more whatever the other does ($5 > 3$ and $1 > 0$): D is a dominant action.
 
-**(b)** The tempting prediction, from the Axelrod story, is that TFT wins and AllD loses. A careful prediction looks at *this* field: AllC and Random can be exploited every round and WSLS every other round, so AllD collects 5 per round from AllC and about 3 from Random and from WSLS. It may well stay on top, while AllC, which never punishes, should come last. The run (Q6) confirms this: AllD 2.62, TFT 2.45, WSLS 2.34, Random 2.24, AllC 2.11.
+**(b)** The tempting prediction, from the Axelrod story, is that TFT wins and AllD loses. But in *this* field AllC and Random can be exploited every round and WSLS every other round, so AllD collects 5 per round from AllC and about 3 from Random and from WSLS. It may well stay on top, while AllC, which never punishes, should come last. The run (Q6) confirms this: AllD 2.62, TFT 2.45, WSLS 2.34, Random 2.24, AllC 2.11.
 
 ### Q2: Nash, Pareto and social optimum in the PD
 
@@ -95,7 +95,7 @@ The tournament, modelled on Axelrod's 1980 tournament (won by Tit-for-Tat), is a
 
 **(b)** The row player's best response is D whether the column player plays C ($5 > 3$) or D ($1 > 0$): it does not depend on the partner at all. The same holds for the column player, so (D,D) is the only cell where both are best-responding. Preferring (C,C) jointly does not help, because at (C,C) each player gains 2 by switching alone.
 
-**(c)** (C,D) is Pareto optimal only because any move away from it hurts the column player, who gets 5, the most anyone can get. It is unequal (0 against 5) and wastes welfare (5 against 6). Pareto optimality only rules out outcomes where someone can gain for free; it says nothing about total welfare or fairness. The social optimum picks the outcome with the largest sum, a much stronger requirement: of the three Pareto-optimal outcomes, only (C,C) is socially optimal.
+**(c)** No. (C,D) is Pareto optimal only because any move away from it hurts the column player, who gets 5, the most anyone can get, yet it is unequal (0 against 5) and wastes welfare (5 against 6). Pareto optimality only rules out gains that cost nobody anything; it says nothing about total welfare or fairness. The social optimum, the outcome with the largest sum, is much stronger: of the three Pareto-optimal outcomes, only (C,C) qualifies.
 
 ### Q3: two games, two motives
 
@@ -115,7 +115,7 @@ The tournament, modelled on Axelrod's 1980 tournament (won by Tit-for-Tat), is a
 | greed | $T > R$ | yes, $5 > 3$ | no, $3 < 4$ |
 | fear | $P > S$ | yes, $1 > 0$ | yes, $2 > 0$ |
 
-In the PD both motives point to D, so D is dominant: even an agent *certain* that its partner will cooperate defects. No amount of trust fixes that; the payoffs themselves would have to change (punishment, contracts, repetition), which makes it an incentive problem. In the SH there is no greed, so an agent sure that its partner hunts stag hunts stag too. Only fear, doubt about the partner, pushes it to D. Fix the beliefs and cooperation follows, so the problem is trust and coordination.
+In the PD both motives point to D, so D is dominant: even an agent *certain* that its partner will cooperate defects. No amount of trust fixes that; the payoffs themselves must change (punishment, contracts, repetition), so it is an incentive problem. In the SH there is no greed, so an agent sure that its partner hunts stag hunts stag too; only fear, doubt about the partner, pushes it to D. Fix the beliefs and cooperation follows, so the problem is trust and coordination.
 
 ### Q4: which Stag Hunt equilibrium? (prediction)
 
@@ -151,10 +151,7 @@ $$1 - p^* > p^* \iff p^* < \tfrac12 \iff R - T > P - S.$$
 
 **(b)** The baseline run: rational best-responders reach (C,C) in only 11% of encounters and (D,D) in 45%. The argument confuses "better for both if both do it" with "best for me given what I expect". Each agent chooses alone, and (C,C) being Pareto superior does not make stag the best response unless the agent believes its partner hunts stag with probability above $p^* = 2/3$. With no reason for that belief, the safe hare wins.
 
-**(c)** Anything that makes beliefs high and shared changes the result:
-- **Communication:** if agents can say "I will hunt stag" before playing, keeping the promise pays: once the partner believes it and hunts stag, stag is the sender's own best response. Beliefs jump above $p^*$ and (C,C) becomes common.
-- **Memory and repetition:** agents who meet repeatedly update $p$ from experience. After a few successful stag hunts beliefs settle near 1 and (C,C) locks in; after a few failures they settle near 0. Part II models this adaptive version.
-- **Reputation or shared conventions:** a partner known to hunt stag, or agents built by the same company, start with $p$ near 1.
+**(c)** Anything that makes beliefs high and shared changes the result. **Communication:** if agents can say "I will hunt stag" before playing, keeping the promise pays, because once the partner believes it and hunts stag, stag is the sender's own best response; beliefs jump above $p^*$ and (C,C) becomes common. **Memory and repetition:** agents who meet repeatedly update $p$ from experience, so a few successful stag hunts lock in (C,C) and a few failures lock in (D,D). **Reputation or shared conventions:** a partner known to hunt stag, or agents built by the same company, start with $p$ near 1.
 
 ### Q6: one-shot against repeated tournament
 
@@ -202,7 +199,7 @@ This conditioning is what makes cooperation pay against a defector. An unconditi
 > [!question] Statement
 > In a strategy space with only AllD, TFT and WSLS: from how many rounds onwards do you expect AllD to stop being the best strategy? Give a number and a one-line reason.
 
-**Answer: from 4 rounds onwards.** One-line reason: AllD's edge over TFT is the single first-round temptation (plus an extra exploitation of WSLS in odd-length games), while TFT and WSLS earn 3 per round from each other, so from 4 rounds that one-off edge is diluted below TFT's score.
+**Answer: from 4 rounds onwards.** One-line reason: AllD's edge over TFT is a one-off first-round temptation, while TFT and WSLS earn 3 per round from each other, so from 4 rounds that edge is too diluted.
 
 **Derivation.** No noise, so everything is deterministic. With $n$ rounds, per-round payoffs in each pairing:
 
@@ -218,15 +215,7 @@ TFT is always at least WSLS, so AllD is best exactly when it beats TFT:
 - $n$ even: $5 + 4/n > 7 - 1/n \iff 5/n > 2 \iff n < 2.5$;
 - $n$ odd: $5 + 6/n > 7 - 1/n \iff 7/n > 2 \iff n < 3.5$.
 
-So AllD wins for $n = 1, 2, 3$ and TFT from $n = 4$. The run agrees exactly:
-
-| rounds | 1 | 2 | 3 | 4 | 5 | 10 | 50 |
-|---|---|---|---|---|---|---|---|
-| AllD | 3.67 | 2.33 | 2.33 | 2.00 | 2.07 | 1.80 | 1.69 |
-| TFT | 2.00 | 2.17 | 2.22 | 2.25 | 2.27 | 2.30 | 2.33 |
-| WSLS | 2.00 | 2.17 | 2.11 | 2.17 | 2.13 | 2.17 | 2.17 |
-
-Removing AllC and Random is what flips the 50-round result of Q6: without exploitable partners AllD falls to 1.69.
+So AllD wins for $n = 1, 2, 3$ and TFT from $n = 4$. The run agrees exactly: AllD against TFT is 2.33 against 2.22 at 3 rounds, 2.00 against 2.25 at 4, and 1.69 against 2.33 at 50 (WSLS 2.17). Removing AllC and Random is what flips the 50-round result of Q6: without exploitable partners AllD falls to 1.69.
 
 > [!tip] Beyond the questions: execution noise
 > My own extra run, with 5% noise (the notebook uses 0). One accidental D sends two TFT players into an echo of alternating retaliation, and TFT's self-play payoff over 200 rounds drops to 2.26. WSLS recovers in two rounds: after an accidental (D,C) the defector won and stays D, the victim lost and switches to D, and at (D,D) both lose and switch back to C. WSLS self-play stays at 2.77, and in the five-strategy field over 50 rounds WSLS (2.38) overtakes TFT (2.22).
@@ -400,13 +389,13 @@ Why receivers earn about 0 even with deception: low-quality sellers fake as much
 
 **(c)** The fee is bad. Receivers stay at 0, high-quality sellers fall from 0.298 to 0, total welfare from 0.084 to 0. Deception is gone only because the market for the label is gone.
 
-What stops faking is a **cost difference** between types, not the cost of the label as such: an honest signal survives when it pays for high-quality sellers and not for low-quality ones,
+The designer's error: what stops faking is a **cost difference** between types. An honest signal survives when it pays for high-quality sellers and not for low-quality ones,
 
 $$c_H < b < c_L,$$
 
-as in case (A). A fee charged to everyone moves both costs by the same $k$, so it can help only if it lands $b$ between them: $0.2 + k < 1 < 0.5 + k$, so $0.5 < k < 0.8$; $k = 1$ overshoots and prices out the honest sellers too. My extra runs show that even $k = 0.6$, inside that window, collapses the market from the 50/50 start, because trust (0.5) is below the honest sellers' new break-even (0.8) and they quit before trust can build; from a high-trust start ($x_H = 0.9$, $x_L = 0.5$, $y = 0.9$) it reaches the honest outcome ($x_L = 0$, $y = 1$, welfare 0.36).
+as in case (A). A fee charged to everyone moves both costs by the same $k$, so it can help only if it lands $b$ between them: $0.2 + k < 1 < 0.5 + k$, so $0.5 < k < 0.8$; $k = 1$ overshoots and prices out the honest sellers too. (My extra runs: even $k = 0.6$ collapses the market from the 50/50 start, because trust of 0.5 is below the honest sellers' new break-even of 0.8; from a high-trust start, $x_H = 0.9$, $x_L = 0.5$, $y = 0.9$, it reaches the honest outcome with welfare 0.36.)
 
-A correct version of the reasoning: "The label is misused because faking it is cheap relative to what being trusted is worth. I should make the label costly to fake while keeping it cheap for genuine sellers, for example a verification that genuine sellers pass easily and fakers fail, or a penalty for sellers caught faking. Raising the price for everyone removes honest sellers along with the fakers."
+The corrected reasoning: "The label is misused because faking it is cheap relative to what being trusted is worth. I should make it costly to fake while keeping it cheap for genuine sellers, for example a verification that genuine sellers pass and fakers fail, or a penalty for sellers caught faking. Raising the price for everyone removes honest sellers along with the fakers."
 
 > [!warning] Common pitfalls in Part II
 > - **Rest point taken for stable.** $x = 1$ in the PD and $x = 2/3$ in the SH are rest points that one push destroys. Check $g'(0) = S - P$ and $g'(1) = T - R$.
@@ -436,7 +425,7 @@ The robot knows the dynamics and computes an optimal policy with [[Value Iterati
 
 $$Q(s,a) = \sum_{s'} P(s' \mid s,a)\big[r(s,a,s') + \gamma V(s')\big], \qquad V(s) = \max_a Q(s,a),$$
 
-starting from $V = 0$ and repeating until the values stop changing. Ties (actions within $10^{-6}$ of the best) are broken at random. The robot then runs 1000 steps from "robot in A, both squares dirty, bag empty", with the same random dirt for every robot. The **performance measure**, how *we* judge the robot whatever its reward: floor clean (%), moves per step (Left or Right, wall bumps included), dumps per step (with a full bag), dirt collected per step, and reward per step (what the robot sees). Since the optimiser is exact, any odd behaviour comes from the reward.
+starting from $V = 0$ and repeating until the values stop changing. Ties (actions within $10^{-6}$ of the best) are broken at random. The robot runs 1000 steps from "robot in A, both squares dirty, bag empty", with the same random dirt for every robot, and is judged by a **performance measure** that ignores its reward: floor clean (%), moves per step (wall bumps included), dumps per step (with a full bag), dirt collected per step, and the reward per step it sees. Since the optimiser is exact, any odd behaviour comes from the reward.
 
 ### Q13: predictions before the analysis
 
@@ -462,12 +451,7 @@ starting from $V = 0$ and repeating until the values stop changing. Ties (action
 
 Bob's optimal policy at dirt rate 0 (`*` marks dirt, brackets the robot): suck when on dirt ([A\*] B, [A\*] B\*, A [B\*], A\* [B\*]); move towards the dirt when standing on a clean square ([A] B\* goes Right, A\* [B] goes Left); **Left, Right and Suck all optimal** in [A] B and A [B].
 
-| over 1000 steps | no new dirt | dirt rate 0.1 |
-|---|---|---|
-| floor clean (%) | 99.9 | 84.4 |
-| moves per step | 0.665 | 0.565 |
-| dirt collected per step | 0.002 | 0.196 |
-| reward per step | 1.998 | 1.687 |
+Over 1000 steps with no new dirt the floor is 99.9% clean and the reward is 1.998 per step.
 
 **(a)** More than one optimal action only in the two states where both squares are clean: Left, Right and Suck are all optimal. Whatever the robot does there, the floor stays clean, so it earns 2 now and at every future step: $Q = 2/(1 - 0.95) = 40$ for each action. Bob's reward depends only on how many squares are clean, and nothing in it distinguishes moving, bumping into a wall or sucking a clean floor. With dirt rate 0.1 the same tie remains (all three at 34.00), because A and B get dirty equally often, so being in either with a clean floor is worth the same.
 
@@ -492,7 +476,7 @@ Bob's optimal policy at dirt rate 0 (`*` marks dirt, brackets the robot): suck w
 | dirt collected per step | 0.196 | 0.196 | 0.196 | 0.527 |
 | reward per step | 1.687 | 1.687 | 0.196 | 0.527 |
 
-**(a)** In the lab the two robots have the same set of optimal actions in all 16 states (suck when on dirt, move towards dirt from a clean square, anything when the floor is clean), so with the same tie-breaking they chose the same action at every one of the 1000 steps. Their $Q$ values differ in size (Bob's about 30 to 34, Alice's about 3.5 to 5.2) but are maximised by the same actions. No behavioural test in this environment can tell them apart, because both rewards induce the same optimal policy. With only Left, Right and Suck, a square becomes clean only by being sucked and dirt comes only from the environment, so "squares clean" and "dirt sucked" move together. Only a change to the environment that separates the two can reveal the difference.
+**(a)** In the lab the two robots have the same set of optimal actions in all 16 states (suck when on dirt, move towards dirt from a clean square, anything when the floor is clean), so with the same tie-breaking they chose the same action at every one of the 1000 steps. Their $Q$ values differ in size (Bob's about 30 to 34, Alice's about 3.5 to 5.2) but are maximised by the same actions. So no behavioural test in this environment can tell them apart. The reason: with only Left, Right and Suck, a square becomes clean only by being sucked and dirt comes only from the environment, so "squares clean" and "dirt sucked" move together. Only a change to the environment that separates the two can reveal the difference.
 
 **(b)** With Dump, Alice's robot farms dirt: it dumps on 40% of all steps, collects 0.527 units of dirt per step (2.7 times the lab's 0.196), keeps the floor only 59.1% clean (against 84.4%) and barely moves (0.073). The start of the trace:
 
@@ -507,22 +491,15 @@ Bob's optimal policy at dirt rate 0 (`*` marks dirt, brackets the robot): suck w
 
 It settles in B and alternates Dump and Suck, earning +1 every two steps, while A, which got new dirt at step 1, stays dirty until a tie at step 10 sends the robot Left; it sucks A and starts the same loop there.
 
-Dump is optimal in exactly the four states where **the bag is full and the robot's square is clean**: uniquely in [A] B and A [B] (both squares clean), and tied with moving to the dirt in [A] B\* (Right or Dump) and A\* [B] (Left or Dump). The ties arise because both options deliver the next +1 two steps later and lead to states of equal value: once the robot can make its own dirt, dirt elsewhere adds nothing, and a state's value depends only on how soon the robot can next suck (standing on dirt 10.78, one step away 10.24, empty bag on a clean floor 8.24).
+Dump is optimal in exactly the four states where **the bag is full and the robot's square is clean**: uniquely in [A] B and A [B] (both squares clean), and tied with moving to the dirt in [A] B\* (Right or Dump) and A\* [B] (Left or Dump). The ties arise because both options deliver the next +1 two steps later and lead to states of equal value: once the robot can make its own dirt, dirt elsewhere adds nothing, and a state's value depends only on how soon it can next suck (standing on dirt 10.78, one step away 10.24, empty bag on a clean floor 8.24).
 
-Why dumping is optimal for Alice: her reward counts sucking events. Dump then Suck returns the robot to the same state with +1 earned, a guaranteed 0.5 per step, against waiting for dirt that arrives at rate 0.1 per square. (The reward of 0.527 per step is above 0.5 because new dirt sometimes lands right after a suck.) Even with no new dirt at all, my run of Alice's robot with Dump earns 0.500 per step and keeps the floor only 75% clean; without Dump it would earn 0.002.
+Why dumping is optimal for Alice: her reward counts sucking events. Dump then Suck returns the robot to the same state with +1 earned, a guaranteed 0.5 per step, against waiting for dirt that arrives at rate 0.1 per square. (The 0.527 is above 0.5 because new dirt sometimes lands right after a suck.) Even with no new dirt at all, my run of Alice's robot with Dump earns 0.500 per step and keeps the floor only 75% clean; without Dump it would earn 0.002.
 
-Why never for Bob: his reward counts clean squares and ignores the bag. Dumping onto a clean square makes it dirty, costing a point at every step until it is sucked again, and buys nothing. In Bob's table Dump appears among the optimal actions only in the two states with an empty bag and a clean floor, where it does nothing at all. In the run Bob's bag is full after his first suck and he never empties it: every number matches the lab exactly.
+Why never for Bob: his reward counts clean squares and ignores the bag, so dumping onto a clean square costs a point at every step until the dirt is sucked again, and buys nothing. Dump appears among his optimal actions only in the two states with an empty bag and a clean floor, where it does nothing at all. In the run his bag is full after his first suck and stays full: every number matches the lab exactly.
 
-**(c)** Q13(b) is confirmed. Nobody programmed dumping: it comes from optimising a reward that measured a proxy (dirt collected) in place of the goal (a clean floor). In the lab the proxy and the goal moved together, because the only source of dirt was the environment, so the proxy looked perfect in every test. The new action gave the robot a way to raise the proxy without serving the goal (create dirt in order to collect it), and a perfect optimiser takes any such way. That is [[Reward Hacking]] in its simplest form.
+**(c)** Q13(b) is confirmed. Nobody programmed dumping, and the planner is exact (it gives Bob's robot no dumping): the behaviour comes from optimising a reward that measured a proxy (dirt collected) in place of the goal (a clean floor). In the lab the proxy and the goal moved together, because the only source of dirt was the environment, so the proxy looked perfect in every test. The new action gave the robot a way to raise the proxy without serving the goal (create dirt in order to collect it), and a perfect optimiser takes any such way. That is [[Reward Hacking]] in its simplest form.
 
-For agents with more actions or tools:
-- Every new action or tool can break the link between the reward and the intended goal; a reward validated with one action set is not validated for a larger one.
-- Behaviour in testing cannot certify the reward: Bob's and Alice's robots were indistinguishable step for step.
-- Reward the outcome the designer wants (Bob: the state of the floor) over an activity that usually accompanies it (Alice: sucking), and test again whenever the agent's capabilities change.
-
-> [!warning] Common pitfalls in Part III
-> - **"The robot is buggy or irrational."** The wandering and the dumping both come from an exact optimiser; the same planner gives Bob's robot no dumping, so the difference lies in the reward alone.
-> - **"Identical behaviour in testing means identical objectives."** Two rewards can induce the same policy in one environment and diverge as soon as the environment changes.
+For agents with more actions or tools: every new action or tool can break the link between the reward and the intended goal, so a reward validated with one action set is not validated for a larger one; behaviour in testing cannot certify the reward, since the two robots were indistinguishable step for step; and rewards should target the outcome the designer wants (the state of the floor) over an activity that usually accompanies it (sucking), and be tested again whenever the agent's capabilities change.
 
 ---
 
@@ -569,7 +546,7 @@ For agents with more actions or tools:
 >
 > **Memory.** A memory-0 strategy (AllC, AllD, Random) plays the same way whoever it meets, so a cooperator of this kind is exploited every round. A memory-1 strategy conditions on the previous outcome: TFT cooperates with cooperators and defects against AllD from round 2, so it loses 5 points once and then gets 1 per round (0.98 per round over 50).
 >
-> **Why AllD tops the five-strategy field.** Its 50-round score, about 2.62, averages 5 against AllC, 1 against itself, 3 against Random, 1.08 against TFT and 3 against WSLS, which alternates C and D against it. Most of its points are the sucker payoffs of AllC, Random and WSLS; against TFT it earns little. TFT is second at about 2.44.
+> **Why AllD tops the five-strategy field.** Its 50-round score, about 2.62, averages 5 against AllC, 1 against itself, 3 against Random, 1.08 against TFT and 3 against WSLS, which alternates C and D against it. Most of its points are temptation payoffs taken from AllC, Random and WSLS; against TFT it earns little. TFT is second at about 2.44.
 >
 > **Crossover.** Per-round tournament scores times 3 over $n$ rounds: AllD $5 + 4/n$ ($n$ even) or $5 + 6/n$ ($n$ odd); TFT $7 - 1/n$; WSLS $6 + \lfloor n/2 \rfloor / n$. AllD beats TFT iff $n < 2.5$ (even) or $n < 3.5$ (odd), so AllD is best for 1, 2 and 3 rounds and TFT from 4 rounds on.
 
@@ -587,7 +564,7 @@ For agents with more actions or tools:
 >
 > **Expensive faking ($c_L = 1.5$).** Faking pays at most $b - c_L < 0$, so $x_L \to 0$. H signals whenever $y > 0.2$; once fakers are rare trusting pays ($0.3 x_H > 0.7 x_L$), so $y \to 1$ and $x_H \to 1$. The signal is fully reliable; receivers earn 0.3 and H sellers 0.8.
 >
-> **Cheap faking ($c_L = 0.5$).** Faking pays when $y > 0.5$; trusting pays when $x_L < 3/7$ (with $x_H = 1$). No state satisfies everyone, so trust and faking chase each other in cycles around $y = 0.5$, $x_L = 3/7$. Reliability averages about 0.5 (prior 0.3) and receivers average about 0: since $\frac{d}{dt}\ln\frac{y}{1-y}$ equals the advantage of trusting and $y$ stays bounded, that advantage averages to zero.
+> **Cheap faking ($c_L = 0.5$).** Faking pays when $y > 0.5$; trusting pays when $x_L < 3/7$ (with $x_H = 1$). No state satisfies everyone, so trust and faking chase each other in cycles around $y = 0.5$, $x_L = 3/7$. Reliability averages about 0.5 (prior 0.3) and receivers average about 0: fakers keep the signal just bad enough that trusting pays no better than scepticism (since $\frac{d}{dt}\ln\frac{y}{1-y}$ equals the advantage of trusting and $y$ stays bounded, that advantage averages about zero).
 >
 > **The fee.** With $k = 1$, $c_H = 1.2$ and $c_L = 1.5$ both exceed $b$, so nobody signals. Deception ends, but receivers stay at 0, H sellers drop from about 0.3 to 0 and welfare from 0.084 to 0. The fee is harmful.
 >
@@ -697,8 +674,8 @@ For agents with more actions or tools:
 > [!card]- Why can no behavioural test distinguish Bob's and Alice's robots without Dump?
 > Both rewards give the same optimal actions in all 16 states, so behaviour is identical.
 
-> [!card]- In which states does Alice's robot dump?
-> When the bag is full and its own square is clean.
+> [!card]- In which states does the dirt-collected (Alice) vacuum robot use Dump?
+> When its bag is full and its own square is clean.
 
 > [!card]- Why is dumping optimal under Alice's reward?
 > Dump then Suck returns to the same state with +1, a guaranteed reward every two steps.

@@ -1,6 +1,6 @@
 ---
 type: lecture
-course: EPRM
+course: 5204EPRM6Y
 week: 1
 lecture: 1
 date: 2026-10-28
@@ -32,11 +32,11 @@ The headline number: **87% of ML/AI projects failed** (the course's framing, for
 - **Roles, individuals and teams could not collaborate**, with each other or with stakeholders.
 - **The models could not be deployed.**
 
-The MIT Sloan reading (Davenport and Zhang, 2021) is more precise about the figure. It comes from a VentureBeat analysis suggesting that "87% of AI models are never put into production"; an IBM survey in the same paragraph found only 21% of 5,501 companies had "deployed AI across the business". The article's point is blunt: "If there is no production deployment, there is no economic value." Its advice for data science groups includes partnering with business units that are open to AI, choosing projects with clear value and a clear path to production, getting key stakeholders on board before development starts, and using proofs of concept selectively.
+The MIT Sloan reading (Davenport and Zhang, 2021) is more precise about the figure. It comes from a VentureBeat analysis suggesting that "87% of AI models are never put into production", so it counts models that never reached production. The article's point is blunt: "If there is no production deployment, there is no economic value." Its advice for data science groups includes partnering with business units that are open to AI, choosing projects with clear value and a clear path to production, getting key stakeholders on board before development starts, and using proofs of concept selectively.
 
-Yesilbek adds a slogan from Joshua Seiden's *Outcomes Over Output*: a **brilliant model** is not the goal, a **brilliant outcome** is. The book's subtitle says customer behaviour is the key metric for business success. A model with excellent offline accuracy that sits on a laptop is output; a deployed system that changes what users or the business actually do is an outcome.
+The lecturer, Kemal Yesilbek, adds a slogan from Joshua Seiden's *Outcomes Over Output*: a **brilliant model** is not the goal, a **brilliant outcome** is. The book's subtitle says customer behaviour is the key metric for business success. A model with excellent offline accuracy that sits on a laptop is output; a deployed system that changes what users or the business actually do is an outcome.
 
-Hence this course: ML/AI engineering, which assumes you can build models and teaches you to turn them into live, reliable systems. The same skills make research code reliable, and the lecturer calls them "hard to find" in job candidates.
+Hence this course: ML/AI engineering, which assumes you can build models and teaches you to turn them into live, reliable systems.
 
 ## Who does what between raw data and a product
 
@@ -128,7 +128,7 @@ Building a model that solves the problem is the data scientist's focus. Their ta
 - Live (controlled) experimentation: measuring the model's business impact in production
 - Monitoring and retraining when performance deteriorates; reporting results
 
-The goal is solving the business problem through ML; models and code are means to that end. So picking the right path matters as much as coding skill. (The lecturer would not call a data scientist a scientist, but keeps the name to avoid more confusion.)
+The goal is solving the business problem through ML; models and code are means to that end. So picking the right path matters as much as coding skill.
 
 ### ML engineers: production and operations
 
@@ -159,7 +159,7 @@ The lecturer's conclusion from industry: **merge the data scientist and ML engin
 3. **Later still:** ML engineers are introduced, and the handover problems move to the data scientist and ML engineer boundary.
 4. **Now:** full-stack ML engineering is a sought-after skill, and systems get deployed instead of drowning in organisational issues for months or years.
 
-A full-stack ML engineer will not be excellent at everything. What matters is **adequate skill in every area**, enough to do each part even at low maturity, so one person can **own the problem and the solution end to end**. In the lecturer's experience, splits and handovers caused trouble and failed projects every time. The course project, an end-to-end system you build yourself, trains exactly this profile.
+A full-stack ML engineer will not be excellent at everything, but has **adequate skill in every area** (enough to do each part, even at low maturity), so one person can **own the problem and the solution end to end**. In the lecturer's experience, splits and handovers caused trouble and failed projects every time. The course project, an end-to-end system you build yourself, trains this profile.
 
 > [!definition] Full-stack ML engineer
 > Combines the data scientist and ML engineer roles: adequate skills across modelling, productionization and operations, so that one person owns the ML problem and its solution end to end, without handovers.
@@ -197,7 +197,7 @@ Formulating the problem (what to predict, from what) leads back to collecting th
 > [!definition] MLOps
 > MLOps = DataML + DevOps. The machine learning lifecycle joins the data-and-model loop to the DevOps loop, so that models are built, shipped, operated and monitored continuously like other software.
 
-In the joined picture (drawn as the "MLOps eternal knot") the loops connect where the formulated model becomes code:
+In the joined picture (Satish Chandra Gupta's "MLOps eternal knot") the two loops become one continuous cycle. An evaluated model goes into code, build and test; it is released, deployed, operated and monitored; what monitoring shows feeds the plan, which leads to formulating the problem again and collecting new data:
 
 ```mermaid
 flowchart LR
@@ -205,7 +205,7 @@ flowchart LR
       C[collect] --> CU[curate] --> T[transform] --> V[validate]
     end
     subgraph ML
-      E[explore] --> TR[train] --> EV[evaluate] --> F[formulate]
+      E[explore] --> TR[train] --> EV[evaluate]
     end
     subgraph Dev
       CO[code] --> B[build] --> TE[test]
@@ -214,13 +214,12 @@ flowchart LR
       R[release] --> D[deploy] --> O[operate] --> M[monitor]
     end
     V --> E
-    F --> C
-    F --> CO
+    EV --> CO
     TE --> R
-    M --> P[plan] --> CO
+    M --> P[plan] --> F[formulate] --> C
 ```
 
-The point of the knot: a model is one stage in a cycle. It has to be coded, built and tested like any software, deployed, operated, monitored, and fed back into data collection and retraining. See [[MLOps]] for the concept in general.
+So a trained model is one stage in a cycle that never ends: it is shipped like any software and fed back into data collection and retraining. See [[MLOps]] for the concept in general.
 
 ## Clean code: running is not enough
 
@@ -231,7 +230,7 @@ Martin's principles, as the course uses them:
 - **Naming:** use intention-revealing names; avoid mental mapping (the reader should not have to translate `d` into "days since signup" in their head). Phil Karlton: "There are only two hard things in Computer Science: cache invalidation and naming things."
 - **Functions:** keep them small; each does one thing; no side effects; don't repeat yourself (DRY).
 - **Comments:** comments do not make up for bad code. Explain *why*, not *what*. Warn of consequences. Prefer a well-named function or variable to a comment. No commented-out code.
-- **Keep it simple:** write for today, not for "what we may need in future". Simple is best and simple is elegant. Do not flex your engineering skills. (Brooks's "No Silver Bullet", cited for this point, separates the complexity inherent in a problem from the complexity we add with our solutions.)
+- **Keep it simple:** write for today, not for "what we may need in future". Simple is best and simple is elegant. Do not flex your engineering skills. (The reference here is Brooks's "No Silver Bullet". From outside the course material: it separates the complexity inherent in a problem from the complexity we add with our solutions.)
 
 ### Worked examples from the course's `main.py`
 
@@ -303,21 +302,21 @@ The before version even claims to return `None` while returning a dict or a clas
 - **DRY:** the same eight-line one-hot encoding block was copied for `category` and `payment_type`; it became one `get_encoded_features()` function called in a loop over column names.
 - **Names one character apart:** `encoder` (the fitted object) and `encoded` (its output), easy to swap by autocomplete.
 - **Truncated names:** `z_scores_by_cat` became `z_scores_by_category`.
-- **Obsolete comment:** "Clean the payment type by removing the ' characters" above `str.replace("'", "")` repeats the code. The replacement explains why: the CSV encodes strings with quotes.
+- **Obsolete comment:** "Clean the payment type and category by removing the ' characters" above `str.replace("'", "")` repeats the code. The replacement explains why: the CSV encodes strings with quotes.
 - **Commented-out code** (`# x = data.drop("amount", axis=1)`) is deleted: git keeps the history.
 - **Too many arguments:** `save_model(model, directory, separator, file_name, cv_scores={}, is_s3=False)` became a zero-argument `save_model()` method, with paths from config. The `cv_scores={}` default is a classic Python trap: the dict is created once, when the function is defined, and shared across calls.
 - **Global scope:** code written directly under `if __name__ == "__main__":` creates module-level variables (`data`, `model`) that functions in the file can accidentally read or shadow. Wrap it in `def main():` and call `main()`.
 
 > [!warning] Config classes and "frozen"
-> The cleaned code keeps its configs in dataclasses marked `frozen=True`. From outside the course material, checked in Python: `frozen` only blocks assignment on *instances* (raising `FrozenInstanceError`); reading constants straight off the class, as `RunConfig.x`, leaves them assignable. The config still does its main job, one named place for every constant.
+> The cleaned code keeps its configs in dataclasses marked `frozen=True`. From outside the course material, checked in Python: `frozen` only blocks assignment on *instances* (raising `FrozenInstanceError`); constants used on the class itself, as `RunConfig.x`, can still be reassigned. The config still does its main job, one named place for every constant.
 
 ### A good repository layout
 
-The course repository is the model to copy:
+The course repository shows what a good layout may look like:
 
 ```
 uva-mlprod-code/
-├── data/  models/  artifacts/     data and trained outputs (kept out of git)
+├── data/  models/  artifacts/     data and trained outputs (model.pkl)
 ├── infra/                         build (Dockerfile), deployment (yaml),
 │                                  telemetry (prometheus, alerts), docker-compose
 ├── scripts/                       one-off helpers (e.g. csv_to_parquet.py)
@@ -327,13 +326,14 @@ uva-mlprod-code/
 │   ├── feature_engineering/       feature extraction
 │   ├── modelling/model.py         the Model class
 │   ├── utils/
-│   └── main_training.py, main_api.py, main_drift_calculation.py   entry points
+│   └── main_training.py, main_api.py,
+│       main_drift_calculation.py  entry points
 ├── tests/
 │   ├── unit/  integration/  conftest.py
 ├── Makefile  README.md  requirements.txt  .gitignore  .coveragerc
 ```
 
-Each folder has one job, entry points are thin `main_*.py` scripts, and tests mirror the code they test.
+Each folder has one job: pipeline code by stage under `src/`, separate `main_*.py` entry points for training, serving and drift calculation, and tests split into unit and integration.
 
 ## Unit testing: proof the code does what you think
 
@@ -404,7 +404,7 @@ def test_to_eur_with_mocked_rate_service():
     rate_client.get_rate.assert_called_once_with("USD", "EUR")
 ```
 
-The first test fails on the buggy lambda (it returns 0, 2, 4). The last one tests a function `to_eur(amount, currency, rate_client)` that would normally call a live exchange-rate service; passing the client in as a parameter is what makes it mockable. (The course's example is called `sum`, which shadows Python's built-in `sum`; another naming lesson.) The `pytest.raises` test checks the error case by expecting the exception.
+The first test fails on the buggy lambda (it returns 0, 2, 4). The last one tests a function `to_eur(amount, currency, rate_client)` that would normally call a live exchange-rate service; passing the client in as a parameter is what makes it mockable. (The course's example is called `sum`, which shadows Python's built-in `sum`; another naming lesson.) `patch` swaps `os.system` inside `src.ops` for a mock while the `with` block runs, so the test checks the call without shutting anything down.
 
 **Coverage.py** measures which lines your test run executed, which shows the code no test touches.
 
@@ -508,6 +508,9 @@ Mocks serve FIRST directly: a mocked API is fast, isolated and repeatable, and t
 
 > [!card]- Give the steps of the model development loop.
 > Collect, curate, transform, validate (data); explore, train, evaluate, formulate (ML).
+
+> [!card]- In the MLOps eternal knot, how do the Ops steps lead back to the data side?
+> Monitoring feeds planning, planning leads to formulating the problem, and formulating leads to collecting new data.
 
 > [!card]- What equation summarises MLOps in Gupta's lifecycle diagrams?
 > MLOps = DataML + DevOps.

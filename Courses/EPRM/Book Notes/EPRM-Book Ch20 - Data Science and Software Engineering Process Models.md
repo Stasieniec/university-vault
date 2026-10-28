@@ -94,7 +94,7 @@ Starting at system level frames the component requirements (accuracy, latency, p
 
 Few projects follow the idealised top-down order. The key difference is which comes first, and gets priority.
 
-**Model-first:** data scientists explore existing data or new model capabilities, and only if they find something does the team think about a product around it. Common when the model is the core and the rest is small (a transcription service; a demand forecasting system producing daily reports). Usually started by data scientists, with others brought in later.
+**Model-first:** data scientists explore existing data or new model capabilities, and only if they find something does the team think about a product around it. Common when the model is the core and the non-ML parts are considered small or less important (a transcription service, whose functionality depends entirely on the model; a demand forecasting system producing daily reports). Usually started by data scientists, with others brought in later.
 
 - *Benefits:* the model is usually the most uncertain part, so testing feasibility first avoids heavy engineering on projects that turn out impossible; data scientists have freedom to explore without system constraints.
 - *Costs:* the model often does not fit the system's needs. Many reports describe models abandoned or rebuilt because latency was unacceptable, users would not trust the automation, or explainability or safety requirements had been ignored. User experience suffers. Data scientists often say they could have built a different model had they known the requirements earlier.
