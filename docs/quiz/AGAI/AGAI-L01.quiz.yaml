@@ -723,13 +723,16 @@ questions:
       Cooperation pays only once more than two thirds already cooperate.
 
   - id: agai-mgnuyz
+    rev: 2
     type: truefalse
     difficulty: medium
     level: understand
     topics: [Reward Hacking]
     section: "Reward misalignment: the vacuum world"
-    statement: With only Left, Right and Suck, rewarding clean squares and rewarding dirt sucked produce different vacuum behaviour.
-    answer: false
+    statement: >-
+      In the vacuum world with only Left, Right and Suck, testing alone cannot
+      tell a "clean squares" reward from a "dirt sucked" reward.
+    answer: true
     why: >-
       Both rewards give the same behaviour, suck when dirty and move otherwise, so
       testing cannot tell them apart. Only once Dump is added does the
