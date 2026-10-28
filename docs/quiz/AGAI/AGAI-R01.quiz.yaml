@@ -402,7 +402,7 @@ questions:
         why: That is where a simple reflex agent suffices.
       - id: e
         text: Agents that run without any model of the world
-        why: Goals and utility both need some way to judge outcomes. Lacking a model is no case for utility.
+        why: Utility beats goals in two cases, conflicting goals and goals with uncertain success. Having no model of the world is neither.
     why: >-
       Goals only split states into happy and unhappy. Utility sets the trade-off
       between conflicting goals and weighs the chance of success against each

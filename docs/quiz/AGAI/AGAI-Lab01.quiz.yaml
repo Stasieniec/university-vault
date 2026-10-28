@@ -159,7 +159,7 @@ questions:
 
   - id: agai-cscjtg
     type: truefalse
-    difficulty: easy
+    difficulty: medium
     level: understand
     topics: [Repeated Game]
     section: "Q7: when does AllD stop being best?"
@@ -261,19 +261,20 @@ questions:
       D, so both give 2/3.
 
   - id: agai-2k5tan
+    rev: 2
     type: multi
     difficulty: hard
     level: analyze
     topics: ["Deception: the signalling game"]
     section: "Q12: the uniform fee"
-    prompt: In the signalling game, which conditions together keep the signal honest in the long run?
+    prompt: In the signalling game, which conditions must hold for an honest signal to survive in the long run?
     options:
       - id: a
         text: High-quality senders pay less for the signal than its benefit
         correct: true
       - id: b
-        text: Receivers trust every sender who signals
-        why: Trust is something that evolves. With cheap faking, high trust lets fakers spread.
+        text: Both types pay less for the signal than its benefit
+        why: Then faking pays whenever trust is high enough, so fakers and trust rise and fall in cycles.
       - id: c
         text: Low-quality senders pay more for the signal than its benefit
         correct: true

@@ -226,7 +226,7 @@ questions:
     level: remember
     topics: [ReAct, Memory]
     section: The thought-action-observation loop and ReAct
-    prompt: In ReAct, which component of the agent does the Observation step bring in?
+    prompt: ReAct's Observation step puts the tool's output back into the model's context. Which agent component does that bring in?
     options:
       - id: a
         text: Memory
@@ -254,8 +254,8 @@ questions:
     answer: false
     why: >-
       ReAct is a prompting technique: the prompt makes the model generate
-      thoughts and actions in turn. Fine-tuning can later improve how well a model
-      runs the ReAct cycle, but ReAct itself trains nothing.
+      thoughts and actions in turn. Fine-tuning can then improve how well a model
+      runs the ReAct cycle.
 
   - id: agai-gdf6g5
     type: single
