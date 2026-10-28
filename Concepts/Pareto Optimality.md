@@ -54,7 +54,7 @@ where:
 
 ## Key Properties / Variants
 
-- **Usually several Pareto optima.** Pareto optimality is a partial order; there is typically a whole set of optima (the Pareto frontier), and it does not pick one.
+- **Usually several Pareto optima.** Pareto dominance is only a partial order (two outcomes can each be better for a different player); there is typically a whole set of optima (the Pareto frontier), and it does not pick one.
 - **Equilibria can be Pareto-inefficient.** The Prisoner's Dilemma is the standard case: individual best responses lead to an outcome everyone would like to leave together.
 - **Coordination failure.** In the [[Stag Hunt]] the Pareto optimum is an equilibrium, yet agents may still miss it for lack of trust.
 - **Used beyond game theory** (background): the same idea defines efficiency in economics and the trade-off frontier in multi-objective optimisation.

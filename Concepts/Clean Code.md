@@ -55,7 +55,7 @@ Bjarne Stroustrup (creator of C++), quoted by Martin: "I like my code to be eleg
 
 **Other practices** shown in the refactoring example: replace magic numbers (`123.45`) with named configuration values; keep scripts' logic inside a `main()` function instead of the global scope; understand the algorithms you call (a random forest with `max_depth=1` is an ensemble of single-split stumps that cannot model interactions between features).
 
-**Repository structure.** A clean project separates source code by stage (configs, data processing, feature engineering, modelling, utilities), keeps unit and integration tests in their own folder, and has infrastructure files (Dockerfile, deployment and monitoring configs), a README and pinned requirements.
+**Repository structure.** A clean project separates source code by stage (configs, data processing, feature engineering, modelling, utilities), keeps unit and integration tests in their own folder, and has infrastructure files (Dockerfile, deployment and monitoring configs), a README and a requirements file.
 
 ## Connections
 

@@ -48,9 +48,9 @@ where:
 - **Reward versus performance measure.** The reward is what the agent maximises; the performance measure is how we judge it. Reward hacking lives in the gap between the two.
 - **Design rule** (Russell and Norvig): design performance measures according to **what you want achieved in the environment** (a clean floor) rather than **how you think the agent should behave** (sucking up dirt). Bob's reward follows the rule; Alice's rewards an activity, and an activity can be manufactured.
 - **Not every odd behaviour is hacking.** With Bob's reward and no new dirt, once the floor is clean every action earns the same reward, so the robot may shuttle back and forth or stay put at random. That looks pointless but is perfectly rational for its reward; adding a small cost per move fixes it.
-- **Learned rewards are hackable too.** When the reward comes from a model trained on human feedback, the policy can find outputs that fool the reward model; the KL penalty in [[Reinforcement Learning from Human Feedback]] exists to limit this.
+- **Learned rewards are hackable too** (background beyond the course material). When the reward comes from a model trained on human feedback, the policy can find outputs that fool the reward model; the KL penalty in [[Reinforcement Learning from Human Feedback]] exists to limit this.
 - **Why it matters for LLM agents.** LLM agents are increasingly trained with reinforcement learning, and they are given ever more tools, which is exactly the situation where the Dump example bites.
-- **Related ideas** (background beyond the course material): Goodhart's law ("when a measure becomes a target, it ceases to be a good measure"); "specification gaming" is the broader term covering any exploit of a misspecified objective.
+- **Related ideas** (background beyond the course material): Goodhart's law (in Marilyn Strathern's phrasing, "when a measure becomes a target, it ceases to be a good measure"); "specification gaming" is the broader term covering any exploit of a misspecified objective.
 
 ## Connections
 

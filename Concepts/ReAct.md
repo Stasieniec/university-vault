@@ -39,7 +39,7 @@ ReAct's three parts each play a role:
 
 ## Key Properties / Variants
 
-- **Prompting only.** The original method needs no training: a few in-context examples of Thought/Action/Observation traces teach the format (see [[In-Context Learning]]). Later work fine-tunes models, with supervised learning or RL, to run the cycle better.
+- **Prompting only.** The original method needs no training: a few in-context examples of Thought/Action/Observation traces teach the format (see [[In-Context Learning]]). Models can also be fine-tuned, with supervised learning or RL, to run the cycle better.
 - **Tools are text.** The model writes an action string; the agent framework parses it, executes the tool, and pastes the result back. This is the tool-calling loop of modern [[LLM Agent|LLM agents]].
 - **Context as working memory.** Every thought and observation stays in the prompt, which is why short-term memory management (trimming, summarising) matters for long tasks.
 - **Interpretability.** The reasoning trace shows why the agent took each action, which helps debugging and human oversight.

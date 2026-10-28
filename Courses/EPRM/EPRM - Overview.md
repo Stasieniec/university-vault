@@ -65,7 +65,7 @@ Weights are not published. Each Canvas item is worth 10 points. Assignments unlo
 | | Topic | Notes |
 |---|---|---|
 | Lecture 1 (Wed 28 Oct) | Data-driven roles and teams, the MLOps lifecycle and Dev/Acc/Prod, clean code, unit testing | [[EPRM-L01 - Data Roles, ML Lifecycle, Clean Code and Unit Testing]] |
-| Readings | Seiden, *Outcomes Over Output*; MIT Sloan Management Review, "Achieving Return on AI Projects"; Kästner, "Process and Teams" in *Machine Learning in Production*; Martin, *Clean Code* | Covered inside the lecture note and the Book Notes folder |
+| Readings | Seiden, *Outcomes Over Output*; MIT Sloan Management Review, "Achieving Return on AI Projects"; Kästner, "Process and Teams" in *Machine Learning in Production*; Martin, *Clean Code* | Kästner's part is three chapters: [[EPRM-Book Ch20 - Data Science and Software Engineering Process Models]], [[EPRM-Book Ch21 - Interdisciplinary Teams]], [[EPRM-Book Ch22 - Technical Debt]]. The others are covered inside the lecture note |
 
 ---
 
@@ -74,6 +74,9 @@ Weights are not published. Each Canvas item is worth 10 points. Assignments unlo
 | Note | Status |
 |---|---|
 | [[EPRM-L01 - Data Roles, ML Lifecycle, Clean Code and Unit Testing]] | complete |
+| [[EPRM-Book Ch20 - Data Science and Software Engineering Process Models]] | complete |
+| [[EPRM-Book Ch21 - Interdisciplinary Teams]] | complete |
+| [[EPRM-Book Ch22 - Technical Debt]] | complete |
 
 ---
 

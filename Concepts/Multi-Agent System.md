@@ -23,12 +23,12 @@ Russell and Norvig give the test for when another entity has to be treated as an
 ## Key Properties / Variants
 
 - **Competitive vs cooperative.** In chess, B maximising its measure minimises A's: competitive. In traffic, avoiding collisions is good for everyone: cooperative, though only one car fits in a parking space, so it is partially competitive too. Most interesting settings are mixed.
-- **Different design problems.** Communication often emerges as rational behaviour in multiagent environments, and in some competitive ones **randomised behaviour is rational** because predictability can be exploited. Neither holds in single-agent settings.
+- **Different design problems.** Communication often emerges as rational behaviour in multiagent environments, and in some competitive ones **randomised behaviour is rational** because predictability can be exploited. In single-agent settings randomising is usually not rational (beyond helping a simple reflex agent escape a loop).
 - **Dilemmas of cooperation.** Self-interest can destroy cooperation even when everyone would gain from it: the [[Prisoner's Dilemma]].
 - **Dilemmas of coordination.** Even when cooperating is an equilibrium, agents may fail to reach it for lack of trust: the [[Stag Hunt]].
 - **Tools for analysis.** Game theory and social choice, which come from mathematics, economics and philosophy, supply the solution concepts: [[Nash Equilibrium]] (what self-interested agents can settle on) and [[Pareto Optimality]] (which outcomes are not wasteful).
 - **Populations.** With many simple adaptive agents the question becomes which strategies spread over time: [[Replicator Dynamics]]. Repeated interaction and memory change what is sustainable: [[Repeated Game]].
-- **Learning is harder.** Each learner's environment includes the other learners, which keep changing their behaviour, so the environment is **non-stationary** from each agent's point of view. This is the central difficulty of multi-agent reinforcement learning.
+- **Learning is harder.** Each learner's environment includes the other learners, which keep changing their behaviour, so the environment is **non-stationary** from each agent's point of view. This is a central difficulty of multi-agent reinforcement learning.
 - **Payoffs and communication.** Whether agents deceive each other (or humans) depends on how rewards and payoffs are defined, and defining them is not trivial (see [[Reward Hacking]]).
 
 > [!example] LLM-based multi-agent systems

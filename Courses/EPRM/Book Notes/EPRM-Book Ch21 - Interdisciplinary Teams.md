@@ -1,6 +1,6 @@
 ---
 type: book-chapter
-course: EPRM
+course: 5204EPRM6Y
 book: "Machine Learning in Production: From Models to Products"
 chapter: 21
 sections: ["Unicorns Are Not Enough", "Conflicts Within and Between Teams are Common", "Coordination Costs", "Conflicting Goals and T-Shaped People", "Groupthink", "Team Structure and Allocating Experts", "Learning from DevOps and MLOps Culture"]
@@ -176,5 +176,5 @@ Changing culture is hard: inertia ("this is how we always did it"), the learning
 - **Lecture:** [[EPRM-L01 - Data Roles, ML Lifecycle, Clean Code and Unit Testing]] (data roles, handovers and the full-stack ML engineer)
 - **Concepts:** [[MLOps]]
 - **Source:** Christian Kästner, *Machine Learning in Production: From Models to Products* (MIT Press), Chapter 21 "Interdisciplinary Teams", online edition last updated 2024-06-17, https://mlip-cmu.github.io/book/21-interdisciplinary-teams.html (CC BY-NC-ND 4.0).
-- **Rest of the book part "Process and Teams":** Chapter 20, "Data Science and Software Engineering Process Models" (exploratory data science versus planned software processes, model-first versus system-first development), https://mlip-cmu.github.io/book/20-data-science-and-software-engineering-process-models.html. Chapter 22, "Technical Debt", https://mlip-cmu.github.io/book/22-technical-debt.html.
+- **Same book part "Process and Teams":** [[EPRM-Book Ch20 - Data Science and Software Engineering Process Models]] (exploratory data science versus planned software processes, model-first versus system-first development) · [[EPRM-Book Ch22 - Technical Debt]]
 - **Further (cited in the chapter):** Nahar, Zhou, Lewis and Kästner, "Collaboration Challenges in Building ML-Enabled Systems" (ICSE 2022). Conway, "How Do Committees Invent?" (1968). Parnas, "On the Criteria to Be Used in Decomposing Systems into Modules" (1972). Kniberg and Ivarsson, "Scaling Agile @ Spotify" (2012).

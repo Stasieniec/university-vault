@@ -1,6 +1,6 @@
 ---
 type: book-chapter
-course: AGAI
+course: 5204AGAI6Y
 book: "Artificial Intelligence: A Modern Approach (4th ed.)"
 chapter: 2
 sections: ["2.1", "2.2", "2.3", "2.4"]
@@ -43,6 +43,8 @@ A **percept** is what the sensors perceive at one moment; the **percept sequence
 
 The agent function could in principle be written as a table of every percept sequence and its action (infinite, unless sequence length is bounded). The table describes the agent from outside; the program is what produces the behaviour inside.
 
+The agent view is a tool for analysing systems and does not divide the world into agents and non-agents: calling a calculator an agent is possible but tells you nothing.
+
 ### The vacuum-cleaner world
 
 Two squares, **A** (left) and **B** (right), each clean or dirty, and a robot vacuum in one of them. It perceives its square and whether that square is dirty, so a percept looks like `[A, Dirty]`. It can move **Right**, move **Left**, **Suck**, or do nothing. A simple agent function: if the current square is dirty, suck; otherwise move to the other square.
@@ -59,8 +61,6 @@ Two squares, **A** (left) and **B** (right), each clean or dirty, and a robot va
 
 Every vacuum agent is a way of filling in the right-hand column. So what is the right way?
 
-The agent view is a tool for analysing systems and does not divide the world into agents and non-agents: calling a calculator an agent is possible but tells you nothing.
-
 ## The performance measure: judging behaviour by its consequences
 
 AI mostly uses **consequentialism**: judge behaviour by its consequences. The agent's actions take the environment through a sequence of states, and a **performance measure** scores that sequence of **environment states**. Machines have no preferences of their own, so the measure comes from the designer or the users. Some agent designs represent (a version of) the measure explicitly; in others it is entirely implicit, and the agent may do the right thing without knowing why.
@@ -70,7 +70,7 @@ A rational agent gives you exactly what you ask for. Score the vacuum agent on t
 > [!definition] Designing performance measures
 > As a general rule, it is better to design performance measures according to what one actually wants to be achieved in the environment, rather than according to how one thinks the agent should behave.
 
-"Clean up dirt" describes a behaviour the designer imagined; "the floor is clean" describes the state of the world the designer wants. An optimiser exploits any gap between the two. Russell and Norvig tie this to Norbert Wiener's warning that "the purpose put into the machine" must be "the purpose which we really desire", and to the King Midas problem. The course calls it [[Reward Hacking]] (specification gaming, a term the book does not use): maximising the stated measure in a way that defeats its purpose.
+"Clean up dirt" describes a behaviour the designer imagined; "the floor is clean" describes the state of the world the designer wants. An optimiser exploits any gap between the two. Russell and Norvig tie this to Norbert Wiener's warning that "the purpose put into the machine" must be "the purpose which we really desire", and to the King Midas problem (the king whose wish that everything he touched turn to gold was granted literally, food included). The course calls it [[Reward Hacking]] (specification gaming, a term the book does not use): maximising the stated measure in a way that defeats its purpose.
 
 > [!example] In the course: Lab 1 and the Dump action
 > Lab 1 compares +1 per clean square per time step with +1 per unit of dirt sucked up. With only Left, Right and Suck both robots behave the same, so testing cannot tell the rewards apart. Add a **Dump** action and the dirt-collected robot dumps and re-sucks: the flaw was there all along, and a new action made it exploitable.
@@ -100,7 +100,7 @@ That depends on the four things. Assume:
 
 Then the agent **is rational**: no other agent has higher expected performance. Change the circumstances and it is not:
 
-- **Moves cost a point:** it keeps oscillating once both squares are clean. A better agent does nothing once it is sure both are clean. (The book leaves designing that agent as an exercise. Being sure takes memory: the local sensor cannot see the other square, so the agent must remember having found it clean, which a simple reflex agent cannot do.)
+- **Moves cost a point:** it keeps oscillating once both squares are clean. A better agent does nothing once it is sure both are clean. (Being sure takes memory: the local sensor cannot see the other square, so the agent must remember having found it clean, which a simple reflex agent cannot do.)
 - **Clean squares can get dirty again:** it should check occasionally and re-clean.
 - **Unknown geography:** it should explore.
 
@@ -122,11 +122,12 @@ Full autonomy from the start is rarely sensible, since an agent with no experien
 
 ## Task environments and PEAS
 
-A **task environment** is the "problem" to which a rational agent is the "solution". It is specified by the **P**erformance measure, **E**nvironment, **A**ctuators and **S**ensors: the **PEAS** description. Designing any agent starts with specifying it as fully as possible. The book's main example:
+A **task environment** is the "problem" to which a rational agent is the "solution". It is specified by the **P**erformance measure, **E**nvironment, **A**ctuators and **S**ensors: the **PEAS** description. Designing any agent starts with specifying it as fully as possible. The book's main example is an automated taxi driver:
 
-| Agent type | Performance measure | Environment | Actuators | Sensors |
-|---|---|---|---|---|
-| Taxi driver | Safe, fast, legal, comfortable trip, maximize profits, minimize impact on other road users | Roads, other traffic, police, pedestrians, customers, weather | Steering, accelerator, brake, signal, horn, display, speech | Cameras, radar, speedometer, GPS, engine sensors, accelerometer, microphones, touchscreen |
+- **Performance measure:** safe, fast, legal, comfortable trip, maximize profits, minimize impact on other road users.
+- **Environment:** roads, other traffic, police, pedestrians, customers, weather.
+- **Actuators:** steering, accelerator, brake, signal, horn, display, speech.
+- **Sensors:** cameras, radar, speedometer, GPS, engine sensors, accelerometer, microphones, touchscreen.
 
 The goals conflict (fast against safe), so the measure must set tradeoffs; and the more restricted the environment (no snow, right-hand traffic only), the easier the design.
 
@@ -179,7 +180,7 @@ The book's classification of example environments:
 | Refinery controller | Partially | Single | Stochastic | Sequential | Dynamic | Continuous |
 | English tutor | Partially | Multi | Stochastic | Sequential | Dynamic | Discrete |
 
-The labels are not always clear-cut, so the justification matters. Medical diagnosis is single-agent because a disease is not usefully modelled as an agent, though difficult patients add a multiagent side; it is episodic if the task is one diagnosis from symptoms, sequential if it includes tests and treatment. Known/unknown has no column because it is not strictly a property of the environment.
+The labels are not always clear-cut, so the justification matters. Medical diagnosis is single-agent because a disease is not usefully modelled as an agent, though difficult patients add a multiagent side; it is episodic if the task is one diagnosis from symptoms, sequential if it includes tests and treatment.
 
 Agents are often evaluated over an **environment class**, a whole family of environments: a simulated taxi is tested in many traffic, lighting and weather conditions, and what counts is its average performance.
 
@@ -222,7 +223,7 @@ function REFLEX-VACUUM-AGENT([location, status]) returns an action
   else if location = B then return Left
 ```
 
-Ignoring history cuts the relevant percept sequences from $4^T$ to 4. The general mechanism is the **condition-action rule** (also called a situation-action rule, production or if-then rule), such as `if car-in-front-is-braking then initiate-braking`. A general version is a rule interpreter plus a rule set:
+With four possible percepts, ignoring history cuts the relevant percept sequences from $4^T$ to 4. The general mechanism is the **condition-action rule** (also called a situation-action rule, production or if-then rule), such as `if car-in-front-is-braking then initiate-braking`. A general version is a rule interpreter plus a rule set:
 
 ```pseudo
 function SIMPLE-REFLEX-AGENT(percept) returns an action
@@ -251,7 +252,7 @@ flowchart LR
 
 ## Model-based reflex agents
 
-The most effective way to handle partial observability is to **keep track of the part of the world the agent cannot see now**: maintain **internal state** that depends on the percept history (for brake lights, just the previous camera frame; for changing lanes, where the other cars are).
+The most effective way to handle partial observability is to **keep track of the part of the world the agent cannot see now**: maintain **internal state** that depends on the percept history (for brake lights, just the previous camera frame, which shows whether the two outer red lights went on together; for changing lanes, where the other cars are).
 
 > [!definition] Transition model and sensor model
 > The **transition model** describes how the world changes: the effects of the agent's actions (turn the wheel, the car turns) and how the world evolves on its own (rain wets the cameras).
@@ -288,7 +289,7 @@ function MODEL-BASED-REFLEX-AGENT(percept) returns an action
 
 ## Goal-based agents
 
-At a junction, the right turn depends on **where the taxi is going**. A **goal-based agent** adds **goal** information (desirable situations, such as being at the destination) and uses the model to predict what its actions will lead to. Its diagram is the model-based one with two changes: a box "What it will be like if I do action A" fed by the current-state estimate and the two models, and **Goals** in place of the condition-action rules.
+At a junction, the right turn depends on **where the taxi is going**. A **goal-based agent** adds **goal** information (desirable situations, such as being at the destination) and uses the model to predict what its actions will lead to. In place of condition-action rules, it asks "what will it be like if I do action A?" and checks the answer against its goals.
 
 Finding long action sequences that reach a goal is the job of **search** and **planning**. The difference from reflex rules is that the agent **considers the future**: "What will happen if I do this?" and "Will that make me happy?". The reflex agent brakes at brake lights without knowing why; the goal-based agent brakes because braking is the only action it predicts will keep it from hitting the car in front.
 
@@ -327,9 +328,7 @@ flowchart TB
   D --> A([action])
 ```
 
-Further points:
-
-- **Global becomes local.** Any rational agent must behave *as if* it maximises the expected value of some utility function. With an *explicit* utility function, one general-purpose algorithm decides for any utility function. This turns the "global" definition of rationality (the agent functions with the highest performance are rational) into a "local" constraint on agent designs that a simple program can express.
+- **Global becomes local.** Any rational agent must behave *as if* it maximises the expected value of some utility function. With an *explicit* utility function, one general-purpose algorithm (pick the action with the highest expected utility) decides for any utility function. This turns the "global" definition of rationality (the agent functions with the highest performance are rational), which says nothing about how to build such an agent, into a "local" constraint on agent designs that a simple program can express.
 - **It is not simple.** The agent must model and track its environment, and finding the best action needs clever algorithms; perfect rationality is usually computationally out of reach.
 - **Not all utility-based agents are model-based.** A **model-free agent** learns which action is best in a situation without learning how the action changes the environment. (Outside this chapter: model-free [[Reinforcement Learning]] methods such as Q-learning are of this kind.)
 
@@ -340,7 +339,7 @@ All of this assumes the utility function is specified correctly, which brings ba
 None of the four designs says where the program comes from. Turing (1950) proposed building learning machines and teaching them instead of programming them by hand. Any of the four types can be a learning agent, which can then work in unknown environments and outgrow its initial knowledge. It has four components:
 
 - **Performance element:** selects external actions; it is what the earlier designs called the whole agent.
-- **Learning element:** makes improvements, using the critic's feedback to change the performance element. Its design depends on the performance element: the first question is what the performance element will look like once it has learned, and only then how it learns.
+- **Learning element:** makes improvements, using the critic's feedback to change the performance element. Its design depends on what the performance element will look like once it has learned.
 - **Critic:** tells the learning element how well the agent is doing against a **fixed performance standard**. It exists because percepts carry no verdict: a chess program can perceive checkmate, but needs a standard to know checkmate is good. The standard must be **fixed** and conceptually **outside the agent**, because the agent must not modify it to fit its own behaviour.
 - **Problem generator:** suggests actions that lead to new and informative experiences. Left alone, the performance element keeps doing what looks best now; trying perhaps suboptimal actions may reveal much better ones, as Galileo dropped rocks at Pisa to improve his theory of motion.
 
@@ -523,17 +522,20 @@ Distributed representations are **more robust to noise**. In a localist code a f
 > [!card]- What is Russell and Norvig's rule for designing performance measures?
 > Measure what you actually want achieved in the environment, not how you think the agent should behave.
 
-> [!card]- Why did the dirt-collected reward look fine until a Dump action was added?
+> [!card]- In the vacuum world, why did a dirt-collected reward look fine until a Dump action was added?
 > With only Left, Right and Suck, it produced the same behaviour as a clean-floor reward.
 
 > [!card]- Name the four things rationality depends on.
 > Performance measure, prior knowledge of the environment, available actions, percept sequence to date.
 
-> [!card]- When is the simple reflex vacuum agent irrational even though it was rational before?
-> For example, when each move costs a point: it keeps oscillating after both squares are clean.
+> [!card]- Name one change of circumstances that makes the simple reflex vacuum agent irrational.
+> Each move costs a point: it keeps oscillating after both squares are clean.
 
 > [!card]- Why can a simple reflex vacuum agent not stop once both squares are clean?
 > Its local sensor cannot see the other square, and it cannot remember having found it clean.
+
+> [!card]- What does a rational agent select for each percept sequence?
+> An action expected to maximise its performance measure, given the percept sequence and built-in knowledge.
 
 > [!card]- How does rationality differ from perfection?
 > Rationality maximises expected performance; perfection maximises actual performance.
@@ -545,7 +547,7 @@ Distributed representations are **more robust to noise**. In a localist code a f
 > Doing actions in order to modify future percepts, such as looking before crossing.
 
 > [!card]- What does the sphex wasp illustrate?
-> An agent that cannot learn its innate plan is failing, so it repeats it endlessly.
+> An agent that cannot learn that its built-in plan is failing, so it repeats it endlessly.
 
 > [!card]- When does an agent lack autonomy?
 > When it relies on its designer's prior knowledge instead of its own percepts and learning.
@@ -598,6 +600,9 @@ Distributed representations are **more robust to noise**. In a localist code a f
 > [!card]- What is a utility function, in relation to the performance measure?
 > An internalisation of the performance measure.
 
+> [!card]- What is a model-free agent?
+> One that learns which action is best in a situation without learning how actions change the environment.
+
 > [!card]- What are the four components of a learning agent?
 > Performance element, learning element, critic, problem generator.
 
@@ -608,7 +613,7 @@ Distributed representations are **more robust to noise**. In a localist code a f
 > Exploratory actions that may be suboptimal now but yield informative experience.
 
 > [!card]- How do atomic, factored and structured states differ?
-> Atomic: black box. Factored: vector of variable values. Structured: objects with attributes and relations.
+> Atomic: black box. Factored: fixed set of variables with values. Structured: objects with attributes and relations.
 
 > [!card]- What is gained and lost with a more expressive representation?
 > More concise descriptions; harder reasoning and learning.

@@ -52,7 +52,7 @@ For the Stag Hunt above, $p^{*} = 2/(1+2) = 2/3$: each hunter goes for the stag 
 - **Existence** (Nash, 1950; standard result beyond the course material): every finite game has at least one Nash equilibrium, possibly in mixed strategies. Pure equilibria need not exist (matching pennies has none).
 - **Not necessarily efficient.** An equilibrium can be Pareto-dominated by another outcome: (D,D) in the Prisoner's Dilemma is worse for both than (C,C). Compare [[Pareto Optimality]].
 - **Can be multiple.** The Stag Hunt has two pure equilibria and one mixed one. "Play a Nash equilibrium" does not say which will be reached; that is the **equilibrium selection** problem, where beliefs, risk and dynamics decide.
-- **Dominant strategies.** If an action is the best response to everything the other can do (D in the Prisoner's Dilemma), every equilibrium uses it.
+- **Dominant strategies.** If an action earns strictly more than every alternative whatever the other does (D in the Prisoner's Dilemma), every equilibrium uses it.
 - **Stability under adaptation.** In the [[Replicator Dynamics]] of the Prisoner's Dilemma and the Stag Hunt, the stable rest points are exactly the strict pure equilibria, while the Stag Hunt's mixed equilibrium ($x = 2/3$) is an unstable rest point. An adaptive population therefore ends up at some equilibria and never at others. (Background beyond the course material: in general every stable rest point of the replicator dynamics is a Nash equilibrium and every strict equilibrium is stable, but a mixed equilibrium can be stable in other games, such as Hawk-Dove.)
 - **Repeated play changes the equilibria.** When the same game is repeated with memory, strategies like Tit-for-Tat can sustain cooperation: see [[Repeated Game]].
 

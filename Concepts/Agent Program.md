@@ -44,7 +44,7 @@ function MODEL-BASED-REFLEX-AGENT(percept) returns an action
 
 **Goal-based agent.** Adds **goal** information (desirable situations, such as a destination) and uses the model to ask "what will happen if I do this, and does it reach the goal?". Choosing a sequence of actions is the job of search and planning. Less efficient than a reflex agent but far more flexible: change the goal and the behaviour changes, while a reflex agent's rules would all need rewriting.
 
-**Utility-based agent.** Goals only split states into happy and unhappy. A **utility function** scores states by how desirable they are; it is an internalisation of the performance measure. If the two agree, maximising utility is rational. Utility handles two cases where goals fail: conflicting goals (speed versus safety) and uncertain goals (weighing the likelihood of success against importance). Under uncertainty the agent maximises **expected utility**:
+**Utility-based agent.** Goals only split states into happy and unhappy. A **utility function** scores states by how desirable they are; it is an internalisation of the performance measure. If the two agree, maximising utility is rational. Utility handles two cases where goals fail: conflicting goals (speed versus safety) and several goals none of which is certain to be reached (weighing the likelihood of success against importance). Under uncertainty the agent maximises **expected utility**:
 
 $$a^{*} = \arg\max_{a} \sum_{s'} P(s' \mid s, a)\, U(s')$$
 
