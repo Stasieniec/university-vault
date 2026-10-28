@@ -146,6 +146,21 @@ def build(course_dir: Path) -> list[Path]:
             decks.append((p.stem, name, n_exam, n_card))
         other_rows.append((p.stem, name, n_card))
 
+    # Book notes and exercise notes can end with flashcards too (AGAI's textbook chapter
+    # and lab notes do). Their decks follow the lectures so study mode picks them up.
+    section_cards: dict[str, int] = {}
+    for section in SECTIONS:
+        d = course_dir / section
+        if not d.is_dir():
+            continue
+        for p in sorted(d.glob("*.md"), key=natural):
+            n_exam, n_card = card_counts(p.read_text(encoding="utf-8"))
+            section_cards[p.stem] = n_card
+            if n_exam + n_card:
+                label, name = split_name(p.stem, code)
+                heading = f"{label}: {name}" if name != p.stem else p.stem
+                decks.append((p.stem, heading, n_exam, n_card))
+
     total = sum(c for _, _, _, c in decks)
     total_exam = sum(e for _, _, e, _ in decks)
     flash_stem = f"{code} - Flashcards"
@@ -220,7 +235,8 @@ def build(course_dir: Path) -> list[Path]:
         for p in notes:
             label, name = split_name(p.stem, code)
             shown = f"{label}: {name}" if name != p.stem else p.stem
-            lines.append(f"- [[{p.stem}|{shown}]]")
+            n = section_cards.get(p.stem, 0)
+            lines.append(f"- [[{p.stem}|{shown}]]" + (f" · {n} cards" if n else ""))
         lines.append("")
 
     extra_dirs = sorted(
