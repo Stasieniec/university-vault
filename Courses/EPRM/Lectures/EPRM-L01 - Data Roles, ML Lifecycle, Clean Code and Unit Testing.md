@@ -244,12 +244,12 @@ The course repository has a small fraud-detection pipeline (`payment_type`, `cat
 def data_crunching() -> pd.DataFrame:
     data = read_data(PathsConfig.raw_data)
     data = data.sample(frac=RunConfig.sample_rate)
-    data = data[["payment_type", "category", "amount", "fraud"]]
+    data = data.loc[:, ["payment_type", "category", "amount", "fraud"]]
     ...
 
 # after: a pure transformation; main() does the reading
 def data_preprocessing(data: pd.DataFrame) -> pd.DataFrame:
-    data = data[["payment_type", "category", "amount", "fraud"]]
+    data = data.loc[:, ["payment_type", "category", "amount", "fraud"]]
     data = data.sample(frac=RunConfig.sample_rate)
     ...
 ```

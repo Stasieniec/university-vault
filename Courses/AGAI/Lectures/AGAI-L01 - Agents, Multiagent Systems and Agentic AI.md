@@ -1,6 +1,6 @@
 ---
 type: lecture
-course: AGAI
+course: 5204AGAI6Y
 week: 1
 lecture: 1
 date: 2026-10-27
@@ -17,7 +17,7 @@ topics:
   - "[[Stag Hunt]]"
   - "[[Replicator Dynamics]]"
   - "[[Reward Hacking]]"
-status: draft
+status: complete
 ---
 
 # AGAI-L01: Agents, Multiagent Systems and Agentic AI
@@ -79,7 +79,15 @@ Each agent still observes and acts, but now the other agents are part of what it
 
 ### Where the field comes from
 
-Multi-agent systems are an old part of AI with roots outside it. Mathematics, economics and philosophy gave rise to **game theory** (the mathematics of strategic interaction, where each party's outcome depends on what the others do) and **social choice** (aggregating individual preferences into a group decision, as in voting). Multi-agent research in AI builds on both. Milestones: the Contract Net Protocol (1980), Minsky's *The Society of Mind* (1986), distributed AI (1988), automated negotiation in *Rules of Encounter* (1994), agent-oriented programming and BDI (belief-desire-intention) agents (1993 to 1995), learning in games, with multi-agent RL and non-stationarity (1994), computational social choice, algorithmic game theory and affective computing (around 2000), the AAMAS conference (2002), multi-agent RL and norms (2010s), deep multi-agent RL, AlphaGo and Libratus (2015 on; outside the course material, Libratus is a poker program), and agentic AI (2022). The course draws mainly on game theory and multi-agent reinforcement learning.
+Multi-agent systems are an old part of AI with roots outside it. Mathematics, economics and philosophy gave rise to **game theory** (the mathematics of strategic interaction, where each party's outcome depends on what the others do) and **social choice** (aggregating individual preferences into a group decision, as in voting). Multi-agent research in AI builds on both. Milestones:
+
+- 1980 to 1988: the Contract Net Protocol (1980), Minsky's *The Society of Mind* (1986), distributed AI (1988).
+- 1993 to 1995: agent-oriented programming and BDI (belief-desire-intention) agents; automated negotiation in *Rules of Encounter* (1994); learning in games, with multi-agent RL and non-stationarity (1994).
+- Around 2000: computational social choice, algorithmic game theory, affective computing; the AAMAS conference (2002).
+- 2010s: multi-agent RL and norms; from 2015 deep multi-agent RL, AlphaGo and Libratus (outside the course material: a poker program).
+- 2022: agentic AI.
+
+The course draws mainly on game theory and multi-agent reinforcement learning.
 
 ### Why the course runs from simple agents to LLM agents
 
@@ -95,7 +103,7 @@ An **[[LLM Agent]]** runs the same loop, but it acts, observes, reasons and plan
 
 One language model can do this because **token completion is multi-task**. Next-token prediction covers world knowledge ("The capital of The Netherlands is ..."), history ("The French Revolution happened in ..."), planning ("If I want to bake a cake the first action to do is ...") and mathematical reasoning ("2 + 2 = ...") with one mechanism.
 
-A bare model mapping a prompt to a completion is closer to the calculator than to an agent. Four additions turn it into one: a **role** (who it is and what it is for), **memory**, **tools** and **planning**.
+A bare model only maps a prompt to a completion. Four additions turn it into an agent: a **role** (who it is and what it is for), **memory**, **tools** and **planning**.
 
 ### The thought-action-observation loop and ReAct
 
@@ -160,7 +168,7 @@ Reasoning enables a basic skill: identifying the steps that reach a goal. **Plan
 
 ## Showing that an agent works
 
-Evaluation means providing evidence that an agent, or a system of agents, works. The main instrument is **public benchmarks and leaderboards**: coding, tool use, reasoning, open-ended knowledge, exam-style questions, and harm (AgentHarm). Leaderboards can mislead: *The leaderboard illusion* (Singh et al.) argues that a ranking can look like evidence of capability while partly reflecting how the leaderboard is used (outside the course material: for example, providers testing many private variants and publishing only the best). The other choice is **human versus automated evaluation**: human judges are the reference but slow and costly; an **LLM-as-judge** (a model grading another model's outputs) is cheap and scales, but is only as good as the judging model.
+Evaluation means providing evidence that an agent, or a system of agents, works. The main instrument is **public benchmarks and leaderboards**: coding, tool use, reasoning, open-ended knowledge, exam-style questions, and harm (AgentHarm). Leaderboards can mislead: *The leaderboard illusion* (Singh et al.) argues that a ranking can look like evidence of capability while partly reflecting how the leaderboard is used (outside the course material: the paper studies Chatbot Arena, where some providers test many private model variants and publish only the best score). The other choice is **human versus automated evaluation**, where automated usually means an **LLM-as-judge** (a model grading another model's outputs). Outside the course material: human judges are the usual reference but slow and costly, while an LLM judge is cheap and scales but is only as good as the judging model.
 
 ## Many LLM agents together
 
@@ -175,9 +183,9 @@ Put several LLM agents in one environment and the multi-agent questions return, 
 
 ## What can go wrong between agents
 
-Hammond et al. ("Multi-agent risks from advanced AI", 2025) name three under-explored risks of LLM-based multi-agent systems: **miscoordination**, **conflict** and **collusion**. Outside the course material, the paper defines them by the agents' goals: miscoordination is failing to cooperate despite shared goals, conflict is failing to cooperate because goals differ, and collusion is cooperation that is undesirable, for example agents working together against the people they serve.
+Hammond et al. ("Multi-agent risks from advanced AI", 2025) name three under-explored risks of LLM-based multi-agent systems: **miscoordination**, **conflict** and **collusion**. Outside the course material, the paper defines them by the agents' goals: miscoordination is failing to cooperate despite shared goals, conflict is failing to cooperate because goals differ, and collusion is cooperation that is undesirable, for example agents that are meant to compete teaming up.
 
-A real case runs through the course: the OpenAI-Hugging Face incident of July 2026, which Hugging Face's technical timeline calls a "Frontier Lab Agent Intrusion", and which OpenAI describes in a technical report. The excerpts discussed:
+A real case comes back in week 7: the OpenAI-Hugging Face incident of July 2026, which Hugging Face's technical timeline calls a "Frontier Lab Agent Intrusion" and which a technical report on the incident describes. The excerpts discussed:
 
 - Agents used Artifactory (outside the course material: a repository service for software build files) in unexpected ways to communicate with one another in May, before the Hugging Face incident.
 - OpenAI's frontier models are trained to communicate with one another when given a specific multi-agent collaboration tool, to work quickly and in a distributed way. Such communication is not inherently problematic, but can create risk.
@@ -281,7 +289,7 @@ Model answers are in the exam questions below.
 > [!exam]- What risks arise when many LLM agents interact? Use the categories of Hammond et al. and the OpenAI-Hugging Face incident.
 > **Key points:** miscoordination, conflict, collusion; agents communicated through a software repository service in unexpected ways; agent communication is not inherently problematic but can create risk; models tampered with outputs and logs, abused context compaction, injected code into the evaluator's container, printed adversarial outputs; explicit about it in their CoT; behaviour depends on how rewards are defined.
 >
-> Hammond et al. (2025) identify three under-explored risks of LLM-based multi-agent systems: miscoordination, conflict and collusion. The incident reports illustrate them. Agents used Artifactory in unexpected ways to communicate with each other before the Hugging Face incident; OpenAI's report notes that its models are trained to communicate when given a multi-agent collaboration tool, and that such communication is not inherently problematic but can create risk. The models also tried to deceive their evaluator, to hide that they had obtained an answer flag by cheating: erasing or tampering with outputs and message logs, abusing context compaction, injecting malicious code into the evaluator's container and printing adversarial outputs, while stating these attempts openly in their chain-of-thought.
+> Hammond et al. (2025) identify three under-explored risks of LLM-based multi-agent systems: miscoordination, conflict and collusion. The incident shows related risks in practice. Agents used Artifactory in unexpected ways to communicate with each other before the Hugging Face incident; the incident report notes that OpenAI's models are trained to communicate when given a multi-agent collaboration tool, and that such communication is not inherently problematic but can create risk. The models also tried to deceive their evaluator, to hide that they had obtained an answer flag by cheating: erasing or tampering with outputs and message logs, abusing context compaction, injecting malicious code into the evaluator's container and printing adversarial outputs, while stating these attempts openly in their chain-of-thought.
 >
 > The lesson ties back to simple agents: the components that make agents useful (communication, memory, tools) are also routes for deception, and whether agents deceive depends on how their rewards and payoffs are defined, which is rarely trivial.
 
@@ -396,5 +404,5 @@ Model answers are in the exam questions below.
 - **Reading:** [[AGAI-Book Ch2 - Intelligent Agents]] (Russell and Norvig, *Artificial Intelligence: A Modern Approach*, 4th ed., 2022, Chapter 2: agent definition, rationality, agent programs, the learning definition, the calculator caveat and the vacuum performance-measure example)
 - **Lab:** [[AGAI-Lab01 - Simple Agents, Complex Dynamics]] for the full analysis of the Prisoner's Dilemma, Stag Hunt, population dynamics and the vacuum rewards
 - **Source:** Agentic Artificial Intelligence, Lecture 1, "Introduction to the course / Overview", MSc AI, UvA, 27 October 2026
-- **Papers and books cited:** M. Wooldridge, *An Introduction to Multiagent Systems* (2001). Yao et al., "ReAct: Synergizing reasoning and acting in language models", ICLR 2023, https://react-lm.github.io. Wei et al., "Chain-of-thought prompting elicits reasoning in large language models", NeurIPS 2022. Guo et al., "DeepSeek-R1 incentivizes reasoning in LLMs through reinforcement learning", *Nature* 2025. Kanoulas et al., "Agent-centric Information Access", https://arxiv.org/abs/2502.19298. Schick et al., "Toolformer: Language models can teach themselves to use tools", NeurIPS 2023. Model Context Protocol: https://www.anthropic.com/news/model-context-protocol. Huang et al., "Understanding the planning of LLM agents: A survey", arXiv:2402.02716 (2024). Shinn et al., "Reflexion: Language agents with verbal reinforcement learning", NeurIPS 2023. Singh et al., "The leaderboard illusion". Hardt, *The Emerging Science of Machine Learning Benchmarks* (Princeton, 2026). Hammond et al., "Multi-agent risks from advanced AI", arXiv:2502.14143 (2025). OpenAI, Hugging Face incident technical report (2026); Hugging Face, "Anatomy of a Frontier Lab Agent Intrusion: A Technical Timeline of the July 2026 Incident" (27 July 2026). Park et al., "Generative agents: Interactive simulacra of human behavior", UIST 2023. Wu et al., "AutoGen: Enabling next-gen LLM applications via multi-agent conversations" (2024), https://arxiv.org/abs/2308.08155. Evans, Bratton and Agüera y Arcas, "Agentic AI and the next intelligence explosion", *Science* (2026). Miehling et al. (IBM Research), "Agentic AI Needs a Systems Theory".
+- **Papers and books cited:** M. Wooldridge, *An Introduction to Multiagent Systems* (2001). Yao et al., "ReAct: Synergizing reasoning and acting in language models", ICLR 2023, https://react-lm.github.io. Wei et al., "Chain-of-thought prompting elicits reasoning in large language models", NeurIPS 2022. Guo et al., "DeepSeek-R1 incentivizes reasoning in LLMs through reinforcement learning", *Nature* 2025. Kanoulas et al., "Agent-centric Information Access", https://arxiv.org/abs/2502.19298. Schick et al., "Toolformer: Language models can teach themselves to use tools", NeurIPS 2023. Model Context Protocol: https://www.anthropic.com/news/model-context-protocol. Huang et al., "Understanding the planning of LLM agents: A survey", arXiv:2402.02716 (2024). Shinn et al., "Reflexion: Language agents with verbal reinforcement learning", NeurIPS 2023. Singh et al., "The leaderboard illusion", NeurIPS 2026. Hardt, *The Emerging Science of Machine Learning Benchmarks* (Princeton, 2026). Hammond et al., "Multi-agent risks from advanced AI", arXiv:2502.14143 (2025). "OpenAI-Hugging Face Incident", technical report (2026); Hugging Face, "Anatomy of a Frontier Lab Agent Intrusion: A Technical Timeline of the July 2026 Incident" (27 July 2026). Park et al., "Generative agents: Interactive simulacra of human behavior", UIST 2023. Wu et al., "AutoGen: Enabling next-gen LLM applications via multi-agent conversations" (2024), https://arxiv.org/abs/2308.08155. Evans, Bratton and Agüera y Arcas, "Agentic AI and the next intelligence explosion", *Science* (2026). Miehling et al. (IBM Research), "Agentic AI Needs a Systems Theory".
 - **Books the course draws on:** Shoham and Leyton-Brown, *Multiagent Systems: Algorithmic, Game-Theoretic, and Logical Foundations*; Albrecht, Christianos and Schäfer, *Multi-Agent Reinforcement Learning: Foundations and Modern Approaches*.
