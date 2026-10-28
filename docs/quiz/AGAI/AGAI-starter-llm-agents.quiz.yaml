@@ -11,6 +11,7 @@ sort: 95
 questions:
 
   - id: agai-m8ynfr
+    status: retired
     type: cloze
     difficulty: easy
     level: remember

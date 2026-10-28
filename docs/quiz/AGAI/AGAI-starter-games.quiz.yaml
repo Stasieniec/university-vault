@@ -57,6 +57,7 @@ questions:
       can be removed from consideration.
 
   - id: agai-h6akgq
+    status: retired
     type: single
     difficulty: easy
     level: understand

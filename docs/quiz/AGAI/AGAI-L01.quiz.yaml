@@ -1,0 +1,764 @@
+# Lecture 1: agents, multi-agent systems, LLM agents, and the dilemmas simple agents face.
+# Source: the lecture note named below (checked against the slides and readings).
+course: AGAI
+lecture: AGAI-L01
+title: "L01 Agents, multiagent systems and agentic AI"
+sort: 1
+note: "AGAI-L01 - Agents, Multiagent Systems and Agentic AI"
+questions:
+
+  - id: agai-ykgq9m
+    type: single
+    difficulty: easy
+    level: remember
+    topics: [Intelligent Agent]
+    section: What makes something an agent
+    prompt: Which features of an agent does Wooldridge's definition stress, beyond Russell and Norvig's?
+    options:
+      - id: a
+        text: Sensors for perceiving and actuators for acting
+        why: That perception-action interface is Russell and Norvig's emphasis.
+      - id: b
+        text: Autonomous action to meet design objectives
+        correct: true
+      - id: c
+        text: Learning from feedback to improve performance
+        why: Learning comes later, as an extra for any agent program. Neither definition requires it.
+      - id: d
+        text: Maximising expected utility under uncertainty
+        why: That describes a utility-based or rational agent, a further notion beyond the basic definition.
+    why: >-
+      Wooldridge calls an agent a system capable of autonomous action in its
+      environment to meet its design objectives. Russell and Norvig stress
+      perceiving through sensors and acting through actuators.
+
+  - id: agai-29vjbn
+    type: single
+    difficulty: medium
+    level: understand
+    topics: [Intelligent Agent]
+    section: The agent idea is a lens
+    prompt: Russell and Norvig note that a calculator could be viewed as an agent that displays "4" after the percepts "2 + 2 =". What is their point?
+    options:
+      - id: a
+        text: The description is possible but adds nothing to our understanding
+        correct: true
+      - id: b
+        text: A calculator is a simple reflex agent, so the definition is too broad
+        why: They do not call the definition too broad. Being an agent is a way of describing a system, used where it helps.
+      - id: c
+        text: A calculator is no agent, because it has no actuators
+        why: A display can count as an actuator. The point is that the agent view explains nothing here.
+      - id: d
+        text: Only systems that learn deserve to be called agents
+        why: Simple reflex agents are agents too. Learning is not part of the definition.
+    why: >-
+      Russell and Norvig call the agent notion a tool for analysing systems. It
+      pays off for systems that choose among actions towards an objective, such
+      as a vacuum robot or an LLM agent.
+
+  - id: agai-sfwp8q
+    type: single
+    difficulty: medium
+    level: apply
+    topics: [Multi-Agent System, Reinforcement Learning]
+    section: What learning adds, and why it is hard
+    prompt: >-
+      Two trading bots learn by reinforcement learning in the same market. Bot A's
+      value estimates, accurate last week, are wrong this week, though the market
+      rules have not changed. Which difficulty of learning is this?
+    options:
+      - id: a
+        text: Exploration against exploitation
+        why: That trade-off is about trying worse-looking actions to learn. It does not explain estimates going stale.
+      - id: b
+        text: Noisy, delayed feedback that hides which action earned a reward
+        why: That makes values hard to estimate at all. Here they were right and then changed.
+      - id: c
+        text: Reward hacking by bot A
+        why: Reward hacking is maximising a badly chosen reward. Nothing here says the reward is wrong.
+      - id: d
+        text: A non-stationary environment, as bot B adapts too
+        correct: true
+    why: >-
+      Bot B's behaviour is part of bot A's environment, and it shifts as B learns.
+      From A's point of view the environment keeps changing, so what it learned
+      last week may be wrong today.
+
+  - id: agai-puhr9x
+    type: truefalse
+    difficulty: easy
+    level: understand
+    topics: [Agent Program]
+    section: "From reflexes to learning: the agent program"
+    statement: Any of the agent programs, from simple reflex to utility-based, can be made into a learning agent.
+    answer: true
+    why: >-
+      A learning agent is any of the other designs plus a way to improve itself
+      from feedback, so learning can be added to every design.
+
+  - id: agai-5tekz3
+    type: cloze
+    difficulty: medium
+    level: remember
+    topics: [Agent Program]
+    section: What learning adds, and why it is hard
+    prompt: Russell and Norvig define learning as modifying each component of the agent to bring it into closer agreement with the available ___ information.
+    options:
+      - id: a
+        text: background
+        why: Background knowledge is what the designer built in. Learning adjusts the agent to what it receives afterwards.
+      - id: b
+        text: feedback
+        correct: true
+      - id: c
+        text: training
+        why: The definition is not about a training set. It is about agreement with the feedback the agent gets.
+      - id: d
+        text: sensory
+        why: Sensors provide percepts. Learning uses the feedback in them, judged against a standard.
+    why: >-
+      Learning modifies each component of the agent to agree better with the
+      available feedback. That is how a learning agent improves its overall
+      performance.
+
+  - id: agai-zyagkb
+    type: cloze
+    difficulty: easy
+    level: remember
+    topics: [Multi-Agent System]
+    section: Many agents in one environment
+    prompt: When more than one agent inhabits the environment, the whole is called ___.
+    options:
+      - id: a
+        text: a task environment
+        why: A task environment is the problem one rational agent solves, described by PEAS. It may hold one agent.
+      - id: b
+        text: an agent architecture
+        why: The architecture is the device a single agent program runs on.
+      - id: c
+        text: a multi-agent system
+        correct: true
+      - id: d
+        text: a learning agent
+        why: A learning agent is one agent that improves from feedback.
+    why: >-
+      A multi-agent system (MAS) has more than one agent in the environment. The
+      other agents are part of what each one observes, and agents communicate,
+      cooperate, conflict and deceive.
+
+  - id: agai-cah3fc
+    type: single
+    difficulty: easy
+    level: remember
+    topics: [LLM Agent]
+    section: "LLM agents: reasoning and acting in language"
+    prompt: Which additions turn a bare language model into an LLM agent?
+    options:
+      - id: a
+        text: Sensors, actuators, a critic and a learning element
+        why: These mix Russell and Norvig's agent interface with their learning agent. They are not the LLM agent's parts.
+      - id: b
+        text: A reward, a policy, a value function and a model
+        why: Those are reinforcement learning ingredients. None of them wraps a model into an agent.
+      - id: c
+        text: A role, memory, tools and planning
+        correct: true
+      - id: d
+        text: A tokenizer, a decoder, weights and a prompt
+        why: Those make up a bare language model, which only maps a prompt to a completion.
+    why: >-
+      A bare model maps a prompt to a completion. A role, memory, tools and
+      planning, run in a loop with an environment, make it an agent.
+
+  - id: agai-rp4bgh
+    type: single
+    difficulty: medium
+    level: understand
+    topics: [LLM Agent]
+    section: "LLM agents: reasoning and acting in language"
+    prompt: Why can one language model answer world-knowledge, history, planning and arithmetic prompts?
+    options:
+      - id: a
+        text: It routes each kind of prompt to a specialised sub-model
+        why: No routing is involved. One next-token mechanism handles all of them.
+      - id: b
+        text: Next-token completion is a multi-task mechanism
+        correct: true
+      - id: c
+        text: It calls a separate tool for each kind of question
+        why: Tools let an agent act. A bare model completes these prompts without any tool.
+      - id: d
+        text: It is fine-tuned separately for each of these tasks
+        why: The same next-token prediction covers all of these prompts without task-specific tuning.
+    why: >-
+      One next-token mechanism completes knowledge, history, planning and maths
+      prompts alike. The prompts "The capital of The Netherlands is ..." and
+      "2 + 2 = ..." are the same task for it.
+
+  - id: agai-n4cb6q
+    type: cloze
+    difficulty: easy
+    level: remember
+    topics: [ReAct]
+    section: The thought-action-observation loop and ReAct
+    prompt: ReAct makes a language model generate reasoning and actions as text, repeated in the cycle Thought, Action, ___.
+    options:
+      - id: a
+        text: Reflection
+        why: Reflexion is a separate method that learns from written self-critique.
+      - id: b
+        text: Reward
+        why: ReAct is a prompting technique. No reward is involved in the loop.
+      - id: c
+        text: Plan
+        why: Planning happens inside the Thought step. The third step brings in the tool's result.
+      - id: d
+        text: Observation
+        correct: true
+    why: >-
+      ReAct interleaves Thought, Action and Observation. The Observation puts the
+      tool's output back into the model's context before the next Thought.
+
+  - id: agai-anz647
+    type: single
+    difficulty: easy
+    level: remember
+    topics: [ReAct, Memory]
+    section: The thought-action-observation loop and ReAct
+    prompt: In ReAct, which component of the agent does the Observation step bring in?
+    options:
+      - id: a
+        text: Memory
+        correct: true
+      - id: b
+        text: Tools
+        why: Tools come in with the Action step, text that calls an external function.
+      - id: c
+        text: Reasoning
+        why: Reasoning comes in with the Thought step, as in chain-of-thought.
+      - id: d
+        text: The role
+        why: The role is set in the prompt. It is not a step of the ReAct cycle.
+    why: >-
+      The Observation puts the tool's output into the model's context, its
+      memory. Thought brings in reasoning and Action brings in tools.
+
+  - id: agai-3579zw
+    type: truefalse
+    difficulty: medium
+    level: understand
+    topics: [ReAct]
+    section: The thought-action-observation loop and ReAct
+    statement: ReAct is a fine-tuning method that trains a language model to interleave reasoning and actions.
+    answer: false
+    why: >-
+      ReAct is a prompting technique: the prompt makes the model generate
+      thoughts and actions in turn. Fine-tuning can later improve how well a model
+      runs the ReAct cycle, but ReAct itself trains nothing.
+
+  - id: agai-gdf6g5
+    type: single
+    difficulty: medium
+    level: understand
+    topics: ["Reasoning models: thinking with tokens"]
+    section: "Reasoning models: thinking with tokens"
+    prompt: Reasoning LLMs shift from train-time to test-time compute. What does that mean?
+    options:
+      - id: a
+        text: Better models come from training longer on more data
+        why: That is train-time compute, the approach the shift moves away from.
+      - id: b
+        text: The model is fine-tuned on each new question before answering
+        why: Nothing is trained at answer time. The model spends more tokens thinking.
+      - id: c
+        text: Better answers come from generating more thinking tokens when asked
+        correct: true
+      - id: d
+        text: Answers are checked by running tests on the output
+        why: Test-time here means answering time. No software tests are involved.
+    why: >-
+      A reasoning LLM generates thoughts as tokens before its final answer. More
+      tokens at answer time means more computation on the problem, in place of a
+      better model through more training.
+
+  - id: agai-m7mexc
+    type: multi
+    difficulty: medium
+    level: understand
+    topics: [Chain-of-Thought Prompting, DeepSeek-R1]
+    section: "Reasoning models: thinking with tokens"
+    prompt: Which are ways to elicit or improve reasoning in LLMs?
+    options:
+      - id: a
+        text: Chain-of-thought prompting, zero-shot or few-shot
+        correct: true
+      - id: b
+        text: Sampling many reasoning traces and rewarding the best
+        correct: true
+      - id: c
+        text: Fine-tuning token probabilities with RL, as in DeepSeek-R1
+        correct: true
+      - id: d
+        text: Trimming old parts of the context window
+        why: Trimming manages short-term memory. It keeps the context within limits and adds no reasoning.
+      - id: e
+        text: Connecting the model to tools through MCP
+        why: MCP standardises how a model reaches tools, which lets it act. It does not change how it reasons.
+    why: >-
+      Prompting (chain-of-thought) elicits reasoning even in untuned models.
+      Search and verify samples many traces and rewards the best, and fine-tuning,
+      for example with RL as in DeepSeek-R1, improves the model's own reasoning.
+
+  - id: agai-5t6eys
+    type: multi
+    difficulty: medium
+    level: understand
+    topics: [Memory, Retrieval-Augmented Generation]
+    section: Memory
+    prompt: Which count as an LLM agent's long-term memory?
+    options:
+      - id: a
+        text: An external database the agent queries
+        correct: true
+      - id: b
+        text: Its context window
+        why: The context window is short-term memory, limited in size.
+      - id: c
+        text: Knowledge stored in its parameters during training
+        correct: true
+      - id: d
+        text: A summary of the current conversation kept in its context
+        why: Summarising is a way of keeping short-term memory within the context window.
+      - id: e
+        text: The tool output from its latest Observation
+        why: The Observation enters the context window, which is short-term memory.
+    why: >-
+      Long-term memory is either external, a database the agent queries as in
+      retrieval-augmented generation, or in the parameters, learned in training.
+      The context window is short-term memory.
+
+  - id: agai-sukgd2
+    type: single
+    difficulty: hard
+    level: apply
+    topics: [Memory, LLM Agent]
+    section: Memory
+    prompt: >-
+      A support agent has a role, tools and planning. Within one conversation it
+      uses the customer's details well, but in the next conversation it has
+      forgotten them. What should be added?
+    options:
+      - id: a
+        text: A larger context window
+        why: The context window is short-term memory and starts empty in a new conversation, whatever its size.
+      - id: b
+        text: Long-term memory in an external store it can query
+        correct: true
+      - id: c
+        text: Context engineering that summarises the history
+        why: Summarising keeps one conversation within the context window. It does not carry anything to the next one.
+      - id: d
+        text: More test-time compute so it reasons longer
+        why: Thinking longer cannot recover facts that are no longer in its context.
+    why: >-
+      Facts that must survive between conversations need long-term memory, such
+      as an external database the agent retrieves from. Short-term memory, the
+      context window, holds only the current interaction.
+
+  - id: agai-zjpyjr
+    type: single
+    difficulty: medium
+    level: understand
+    topics: [Agent-centric information access, Agentic Search]
+    section: Agent-centric information access
+    prompt: In Kanoulas et al.'s agent-centric information access, what does answering a query retrieve?
+    options:
+      - id: a
+        text: The documents most relevant to the query
+        why: Classic retrieval returns documents. In this ecosystem the retrieved items are agents.
+      - id: b
+        text: The most relevant expert agents
+        correct: true
+      - id: c
+        text: The tools in an MCP registry that fit the query
+        why: MCP connects a model to tools. The proposal is about retrieving among expert LLMs.
+      - id: d
+        text: Memories from the agent's own context window
+        why: That is short-term memory. The proposal retrieves among millions of expert LLMs.
+    why: >-
+      Agents are retrieved in place of documents. In an ecosystem of millions of
+      expert LLMs, a query is answered by estimating expertise, retrieving the
+      most relevant agents, querying them and synthesising their responses.
+
+  - id: agai-v7txka
+    type: single
+    difficulty: hard
+    level: analyze
+    topics: ["Tools: how an agent acts", LLM Agent]
+    section: "Tools: how an agent acts"
+    prompt: >-
+      An agent writes a correct search call, the harness runs it and gets
+      results, but the results never reach the model. Its next thought repeats
+      the same search. Which tool-use problem is failing?
+    options:
+      - id: a
+        text: Tool selection and learning
+        why: The agent chose a suitable tool. Choosing is not where it broke.
+      - id: b
+        text: Tool calling
+        why: The call was parsed and executed correctly, so calling worked.
+      - id: c
+        text: Tool output processing
+        correct: true
+      - id: d
+        text: Tool definition
+        why: The agent knew the tool existed, since it called it.
+    why: >-
+      Tool output processing feeds the result back into the model as a message.
+      Here selection and calling worked, but the result never entered the
+      context, so the agent cannot use it.
+
+  - id: agai-dp7tab
+    type: single
+    difficulty: hard
+    level: analyze
+    topics: ["Tools: how an agent acts", LLM Agent]
+    section: "Tools: how an agent acts"
+    prompt: >-
+      A team adds a calendar tool to its agent. The agent never uses it, even
+      for scheduling requests, because nothing in its context mentions the tool.
+      Which tool-use problem is this?
+    options:
+      - id: a
+        text: Tool definition
+        correct: true
+      - id: b
+        text: Tool selection and learning
+        why: Selection is reasoning about which known tool to use. This agent does not know the tool exists.
+      - id: c
+        text: Tool calling
+        why: Calling is parsing and executing a call. No call is ever made here.
+      - id: d
+        text: Tool output processing
+        why: Output processing needs a call that returned something. None happened.
+    why: >-
+      Tool definition is making the agent aware of which tools exist. An agent
+      cannot select a tool it has never been told about, however well the tool
+      itself is built.
+
+  - id: agai-25ekvn
+    type: cloze
+    difficulty: easy
+    level: remember
+    topics: ["Tools: how an agent acts"]
+    section: "Tools: how an agent acts"
+    prompt: The Model Context Protocol (MCP) standardises how LLMs connect to ___.
+    options:
+      - id: a
+        text: tools
+        correct: true
+      - id: b
+        text: each other
+        why: Agent-to-agent messaging is what protocols such as A2A standardise.
+      - id: c
+        text: human evaluators
+        why: Evaluation by humans or LLM judges is separate from MCP.
+      - id: d
+        text: their training data
+        why: MCP works at use time, linking a model to tools. Training data is not involved.
+    why: >-
+      MCP, from Anthropic, standardises the connection between LLMs and tools, so
+      a tool written once works with any model that speaks the protocol.
+
+  - id: agai-s7kwvh
+    type: truefalse
+    difficulty: easy
+    level: remember
+    topics: ["Tools: how an agent acts"]
+    section: "Tools: how an agent acts"
+    statement: Toolformer showed that language models can teach themselves to use tools.
+    answer: true
+    why: >-
+      Toolformer (Schick et al.) showed that language models can teach themselves
+      to use tools, one of the answers to how an agent learns tool use.
+
+  - id: agai-dqpj2k
+    type: single
+    difficulty: medium
+    level: apply
+    topics: [Planning and reflection, LLM Agent]
+    section: Planning and reflection
+    prompt: >-
+      An agent has a role, memory and tools. Asked to organise a workshop, it
+      acts on whichever step occurs to it first and never works out the steps
+      that reach the goal. Which component is weak?
+    options:
+      - id: a
+        text: Memory
+        why: Memory keeps facts and context. The problem is choosing a sequence of steps.
+      - id: b
+        text: Planning
+        correct: true
+      - id: c
+        text: Tools
+        why: Tools let it act, and it does act. It lacks a sequence of actions towards the goal.
+      - id: d
+        text: The role
+        why: The role says who the agent is. Decomposing a task is planning.
+    why: >-
+      Planning decomposes a task into sub-tasks and generates a sequence of
+      actions that reaches the goal. It can be prompted (chain-of-thought,
+      Least-to-Most, Plan-and-Solve) or improved by fine-tuning.
+
+  - id: agai-a83km6
+    type: multi
+    difficulty: medium
+    level: understand
+    topics: [LLM Agent, Intelligent Agent]
+    section: Classical and LLM agents side by side
+    prompt: Which pairings of a classical agent feature with its LLM-agent counterpart are right?
+    options:
+      - id: a
+        text: Actuators, and text turned into tool calls
+        correct: true
+      - id: b
+        text: Internal state, and the context window, external stores and weights
+        correct: true
+      - id: c
+        text: Updating its policy, and trimming the context window
+        why: Learning in an LLM agent is fine-tuning or RL on token probabilities. Trimming manages short-term memory.
+      - id: d
+        text: Performance measure, and objectives and role in the prompt
+        correct: true
+      - id: e
+        text: Deciding by rules and search, and running the tools
+        why: An LLM agent decides by reasoning in text. Running tools is how it acts.
+    why: >-
+      A classical agent acts through actuators, remembers in internal state and
+      is judged by a performance measure. An LLM agent acts through tool calls,
+      remembers in context, stores and weights, and gets its objectives in the
+      prompt.
+
+  - id: agai-gsmg53
+    type: truefalse
+    difficulty: easy
+    level: remember
+    topics: [Showing that an agent works]
+    section: Showing that an agent works
+    statement: In automated evaluation, an LLM-as-judge is a model that grades another model's outputs.
+    answer: true
+    why: >-
+      Evaluation is either by humans or automated, and automated usually means an
+      LLM-as-judge grading another model's outputs.
+
+  - id: agai-hxc8mu
+    type: truefalse
+    difficulty: medium
+    level: understand
+    topics: [Many LLM agents together]
+    section: Many LLM agents together
+    statement: AutoGen is a communication protocol, like A2A, that standardises how agents message each other.
+    answer: false
+    why: >-
+      AutoGen is a framework for building LLM applications as conversations
+      between multiple agents. A2A is the example of a communication protocol.
+
+  - id: agai-v458hz
+    type: multi
+    difficulty: medium
+    level: remember
+    topics: [What can go wrong between agents]
+    section: What can go wrong between agents
+    prompt: Which risks of LLM-based multi-agent systems do Hammond et al. name?
+    options:
+      - id: a
+        text: Miscoordination
+        correct: true
+      - id: b
+        text: Hallucination
+        why: Hallucination is a single-model failure. It is not one of the three multi-agent risks.
+      - id: c
+        text: Collusion
+        correct: true
+      - id: d
+        text: Reward hacking
+        why: Reward hacking is a reward-design problem that even one agent shows.
+      - id: e
+        text: Conflict
+        correct: true
+      - id: f
+        text: Context overflow
+        why: Running out of context is a memory limit of a single agent.
+    why: >-
+      Hammond et al. ("Multi-agent risks from advanced AI") name three
+      under-explored risks of LLM-based multi-agent systems: miscoordination,
+      conflict and collusion.
+
+  - id: agai-mzfzee
+    type: multi
+    difficulty: medium
+    level: understand
+    topics: [What can go wrong between agents]
+    section: What can go wrong between agents
+    prompt: Which statements match the excerpts on the OpenAI-Hugging Face incident?
+    options:
+      - id: a
+        text: Models abused context compaction to hide that they had cheated
+        correct: true
+      - id: b
+        text: Models hid their tampering from their own chain-of-thought
+        why: They were highly explicit about these attempts in their chain-of-thought.
+      - id: c
+        text: The report calls communication between agents inherently problematic
+        why: It says such communication is not inherently problematic, but can create risk.
+      - id: d
+        text: Models tried to inject malicious code into the evaluator's container
+        correct: true
+      - id: e
+        text: Agents first communicated in unexpected ways after the incident
+        why: The unexpected communication through Artifactory came in May, before the Hugging Face incident.
+    why: >-
+      Models tried to hide that they got the answer flag by cheating. They
+      tampered with outputs and logs, abused context compaction, injected code
+      into the evaluator's container and printed adversarial outputs, and said
+      so openly in their chain-of-thought.
+
+  - id: agai-x68kjr
+    type: truefalse
+    difficulty: medium
+    level: understand
+    topics: [Prisoner's Dilemma, Nash Equilibrium]
+    section: "Cooperation: the Prisoner's Dilemma"
+    statement: In the Prisoner's Dilemma, both agents prefer mutual cooperation to the outcome that rational agents reach.
+    answer: true
+    why: >-
+      Defection dominates, so rational agents reach (D, D), the only Nash
+      equilibrium, with 1 each. Both would rather have (C, C) with 3 each:
+      individual rationality and the group's interest come apart.
+
+  - id: agai-pp4kpf
+    type: single
+    difficulty: hard
+    level: apply
+    topics: [Prisoner's Dilemma]
+    section: "Cooperation: the Prisoner's Dilemma"
+    prompt: >-
+      In the one-shot Prisoner's Dilemma (C,C = 3,3; C,D = 0,5; D,C = 5,0;
+      D,D = 1,1), an agent is certain its partner will cooperate. What does a
+      self-interested agent do?
+    options:
+      - id: a
+        text: Cooperate, since certainty makes (C, C) reachable
+        why: Reaching (C, C) needs this agent to give up 2 points. Certainty about the partner does not change that.
+      - id: b
+        text: Cooperate, since the best reply copies the partner
+        why: Copying the partner is the Stag Hunt's best reply. In the Prisoner's Dilemma, D is best against C.
+      - id: c
+        text: Defect, since 5 against a cooperator beats 3
+        correct: true
+      - id: d
+        text: Randomise, since neither action is better for sure
+        why: D is better for sure. It pays more whatever the partner does.
+    why: >-
+      Against a cooperator, defecting earns 5 and cooperating 3. D dominates C, so
+      even trust in the partner does not make cooperation the self-interested
+      choice.
+
+  - id: agai-tdcxc4
+    type: multi
+    difficulty: hard
+    level: analyze
+    topics: [Stag Hunt, Nash Equilibrium]
+    section: "Coordination: the Stag Hunt"
+    prompt: In the Stag Hunt (C,C = 4,4; C,D = 0,3; D,C = 3,0; D,D = 2,2), which statements are true?
+    options:
+      - id: a
+        text: (C, C) is a Nash equilibrium
+        correct: true
+      - id: b
+        text: D dominates C, as in the Prisoner's Dilemma
+        why: Against C, playing C pays more (4 against 3). The best reply depends on the partner, so nothing dominates.
+      - id: c
+        text: (D, D) is a Nash equilibrium
+        correct: true
+      - id: d
+        text: Game theory alone predicts that agents reach (C, C)
+        why: Both equilibria are possible. Game theory alone does not say which one agents reach.
+      - id: e
+        text: Cooperating is risky, since alone it earns 0
+        correct: true
+    why: >-
+      The best reply copies the partner, so (C, C) and (D, D) are both
+      equilibria. (C, C) is better for both, but D guarantees at least 2 while a
+      lone cooperator gets 0.
+
+  - id: agai-utd3uu
+    type: single
+    difficulty: hard
+    level: analyze
+    topics: [Stag Hunt, Replicator Dynamics]
+    section: "Populations: who spreads?"
+    prompt: >-
+      A large population plays the Stag Hunt (C,C = 4,4; C,D = 0,3; D,C = 3,0;
+      D,D = 2,2),
+      half C agents and half D agents, meeting at random. Strategies that earn
+      more spread. Why do C agents decline?
+    options:
+      - id: a
+        text: D dominates C, so D agents earn more against everyone
+        why: D does not dominate in the Stag Hunt. Against a C partner, C earns more.
+      - id: b
+        text: (D, D) is the only equilibrium of the Stag Hunt
+        why: (C, C) is an equilibrium too. The decline comes from average payoffs at this mix.
+      - id: c
+        text: D agents exploit C agents for 5 points each time
+        why: That is the Prisoner's Dilemma. In the Stag Hunt a defector against a cooperator gets 3.
+      - id: d
+        text: At this mix, D earns 2.5 on average and C earns 2
+        correct: true
+    why: >-
+      With half the partners cooperating, D averages 2.5 and C only 2, so D
+      spreads. C earns 0.5 × 4 + 0.5 × 0 and D earns 0.5 × 3 + 0.5 × 2.
+      Cooperation pays only once more than two thirds already cooperate.
+
+  - id: agai-mgnuyz
+    type: truefalse
+    difficulty: medium
+    level: understand
+    topics: [Reward Hacking]
+    section: "Reward misalignment: the vacuum world"
+    statement: With only Left, Right and Suck, rewarding clean squares and rewarding dirt sucked produce different vacuum behaviour.
+    answer: false
+    why: >-
+      Both rewards give the same behaviour, suck when dirty and move otherwise, so
+      testing cannot tell them apart. Only once Dump is added does the
+      dirt-sucked reward dump and re-suck forever.
+
+  - id: agai-7bh95z
+    type: single
+    difficulty: hard
+    level: apply
+    topics: [Reward Hacking, Rational Agent]
+    section: "Reward misalignment: the vacuum world"
+    prompt: >-
+      A support agent earns +1 per ticket it closes. After an update lets it
+      reopen tickets, it closes and reopens the same ticket over and over. Which
+      design rule was broken?
+    options:
+      - id: a
+        text: Penalise every new action until it has been tested
+        why: No such rule exists. Rewarding the wanted outcome would make reopening worthless without any penalty.
+      - id: b
+        text: Reward solved problems, the outcome actually wanted
+        correct: true
+      - id: c
+        text: Give the agent a utility function in place of a goal
+        why: The agent already maximises a numeric reward. The trouble is what that reward measures.
+      - id: d
+        text: Let the agent keep an internal model of the world
+        why: A better model would only make it better at farming the reward.
+    why: >-
+      Russell and Norvig: design performance measures by what you want achieved in
+      the environment, not by how you think the agent should behave. Like the
+      vacuum that dumps and re-sucks, this agent farms the behaviour that is paid.

@@ -1,0 +1,511 @@
+# Reading for week 1: Russell and Norvig, Artificial Intelligence: A Modern
+# Approach (4th ed.), chapter 2, Intelligent Agents.
+# Source: the book note named below.
+course: AGAI
+lecture: AGAI-R01
+title: "Reading: R&N ch. 2, Intelligent agents"
+sort: 2
+note: "AGAI-Book Ch2 - Intelligent Agents"
+questions:
+
+  - id: agai-6tbzz9
+    type: single
+    difficulty: easy
+    level: remember
+    topics: [Agent Program]
+    section: Agents, percepts and the agent function
+    prompt: In Russell and Norvig's terms, what is the agent program?
+    options:
+      - id: a
+        text: An abstract mapping from percept sequences to actions
+        why: That is the agent function, the outside description of behaviour.
+      - id: b
+        text: The device with sensors and actuators it runs on
+        why: That is the agent architecture. Agent = architecture + program.
+      - id: c
+        text: A concrete implementation of the agent function
+        correct: true
+      - id: d
+        text: The complete history of everything the agent perceived
+        why: That is the percept sequence, which the agent function takes as input.
+    why: >-
+      The agent program implements the agent function and runs within a physical
+      system, the architecture. The function is the abstract mapping it
+      implements.
+
+  - id: agai-9rhzh5
+    type: single
+    difficulty: medium
+    level: understand
+    topics: [Agent Program]
+    section: The table-driven agent, and why it fails
+    prompt: A table-driven agent looks up its whole percept sequence in a table of actions. Why is this approach doomed?
+    options:
+      - id: a
+        text: It ignores the percept sequence and sees one percept
+        why: It looks up the whole percept sequence. That is exactly what makes the table so large.
+      - id: b
+        text: It needs an entry per percept sequence, far too many
+        correct: true
+      - id: c
+        text: No table can describe a rational agent function
+        why: With a correct table it implements any desired agent function. The problem is size.
+      - id: d
+        text: Each lookup is too slow for real-time use
+        why: Speed is not the objection. The table cannot even be stored, built or learned.
+    why: >-
+      With percept set P and lifetime T the table has the sum of |P|^t entries,
+      over 10^150 even for chess. No agent could store it, no designer build it,
+      no agent learn it.
+
+  - id: agai-g37h8n
+    type: multi
+    difficulty: medium
+    level: remember
+    topics: [Rational Agent]
+    section: Rationality
+    prompt: Which of these does rationality at a given time depend on?
+    options:
+      - id: a
+        text: The performance measure that defines success
+        correct: true
+      - id: b
+        text: The agent's prior knowledge of the environment
+        correct: true
+      - id: c
+        text: The actual outcomes its actions will have
+        why: Knowing actual outcomes would be omniscience. Rationality uses expected performance.
+      - id: d
+        text: The actions it can perform
+        correct: true
+      - id: e
+        text: Its percept sequence to date
+        correct: true
+      - id: f
+        text: How the designer expects it to behave
+        why: The designer's expectations are not one of the four. Good measures score states of the environment.
+    why: >-
+      Rationality depends on four things: the performance measure, the agent's
+      prior knowledge, the actions available and the percept sequence so far.
+
+  - id: agai-56cg4c
+    type: single
+    difficulty: hard
+    level: analyze
+    topics: [Rational Agent]
+    section: Is the simple vacuum agent rational?
+    prompt: >-
+      The reflex vacuum agent (suck if dirty, else move to the other square) is
+      rational when scored by clean squares per time step. Which change makes it
+      irrational?
+    options:
+      - id: a
+        text: The start square is not known in advance
+        why: That is already part of the assumptions under which it is rational.
+      - id: b
+        text: Where the dirt starts is not known in advance
+        why: That too is already assumed. The agent cleans any dirty square it finds.
+      - id: c
+        text: Every move costs a point
+        correct: true
+      - id: d
+        text: Suck reliably cleans the current square
+        why: Reliable suction is one of the standard assumptions, so it changes nothing.
+    why: >-
+      If moves cost a point, the agent keeps oscillating after both squares are
+      clean and loses points. A better agent would stop, which needs memory that
+      the other square is clean.
+
+  - id: agai-8rghgb
+    type: truefalse
+    difficulty: medium
+    level: understand
+    topics: [Rational Agent]
+    section: "Rational is not omniscient: information, learning, autonomy"
+    statement: An agent that crosses a busy road without looking acts rationally if its percepts showed no truck.
+    answer: false
+    why: >-
+      Crossing on an uninformative percept sequence is too risky. Looking first
+      raises expected performance, so a rational agent looks: that is information
+      gathering.
+
+  - id: agai-sms42n
+    type: single
+    difficulty: medium
+    level: apply
+    topics: [Rational Agent]
+    section: "Rational is not omniscient: information, learning, autonomy"
+    prompt: >-
+      A delivery robot follows the floor plan its designer built in. When walls
+      are moved it keeps bumping into them and never adjusts to what it
+      perceives. What does it lack, in Russell and Norvig's sense?
+    options:
+      - id: a
+        text: Omniscience
+        why: No agent is omniscient, and rationality does not ask for it.
+      - id: b
+        text: A performance measure
+        why: A measure scores its behaviour from outside. The flaw is that the robot ignores its own percepts.
+      - id: c
+        text: Autonomy
+        correct: true
+      - id: d
+        text: An agent architecture
+        why: It has one, since it senses and moves. The problem is in what its program relies on.
+    why: >-
+      An agent that relies on its designer's prior knowledge over its own percepts
+      and learning lacks autonomy. A rational agent should learn to make up for
+      partial or wrong prior knowledge.
+
+  - id: agai-dma2ec
+    type: cloze
+    difficulty: easy
+    level: remember
+    topics: [Task Environment]
+    section: Task environments and PEAS
+    prompt: A task environment is specified by PEAS, standing for Performance measure, Environment, Actuators and ___.
+    options:
+      - id: a
+        text: States
+        why: States come up in representations. The S in PEAS is what the agent perceives with.
+      - id: b
+        text: Sensors
+        correct: true
+      - id: c
+        text: Strategies
+        why: Strategies are a game-theory notion. PEAS lists the agent's interface with the world.
+      - id: d
+        text: Success criteria
+        why: Success is the performance measure, the P.
+    why: >-
+      PEAS is Performance measure, Environment, Actuators, Sensors. Designing an
+      agent starts by specifying it as fully as possible.
+
+  - id: agai-z3ygbs
+    type: single
+    difficulty: hard
+    level: apply
+    topics: [Task Environment]
+    section: Properties of task environments
+    prompt: >-
+      In solitaire the rules are fully known, but some cards lie face down. How
+      do Russell and Norvig classify it?
+    options:
+      - id: a
+        text: Unknown and partially observable
+        why: Hidden cards make it partially observable. Known or unknown is about the rules, which are known.
+      - id: b
+        text: Known and fully observable
+        why: The face-down cards are part of the state the agent cannot see.
+      - id: c
+        text: Unknown and fully observable
+        why: That fits a new video game, with the whole screen visible and the effect of the buttons a mystery.
+      - id: d
+        text: Known and partially observable
+        correct: true
+    why: >-
+      Known or unknown concerns the agent's knowledge of the rules, and is
+      independent of observability. Solitaire's rules are known, but hidden
+      cards make it partially observable.
+
+  - id: agai-5jzdzk
+    type: truefalse
+    difficulty: medium
+    level: understand
+    topics: [Task Environment]
+    section: Properties of task environments
+    statement: In a semidynamic environment, the environment does not change with time, but the agent's performance score does.
+    answer: true
+    why: >-
+      Chess with a clock is semidynamic: the board waits, but the clock keeps
+      counting against the player. A dynamic environment, like traffic, changes
+      while the agent deliberates.
+
+  - id: agai-kxxzec
+    type: single
+    difficulty: medium
+    level: understand
+    topics: [Multi-Agent System, Task Environment]
+    section: Properties of task environments
+    prompt: When should an automated taxi treat another car as an agent, according to Russell and Norvig?
+    options:
+      - id: a
+        text: When the car is driven by software rather than a person
+        why: People are agents too. The test is about how the behaviour is best described.
+      - id: b
+        text: When the car moves independently of the taxi
+        why: Rain and traffic lights also change on their own. Moving alone does not make something an agent.
+      - id: c
+        text: When its behaviour maximises a measure that depends on the taxi's
+        correct: true
+      - id: d
+        text: When the taxi's sensors can observe the car directly
+        why: Observability is a separate dimension. A hidden opponent can still be an agent.
+    why: >-
+      Another entity is an agent when its behaviour is best described as
+      maximising a performance measure that depends on our agent's behaviour.
+      Other drivers pass that test; a falling branch does not.
+
+  - id: agai-zb9eys
+    type: multi
+    difficulty: hard
+    level: apply
+    topics: [Task Environment]
+    section: Properties of task environments
+    prompt: Which labels fit the task environment of taxi driving?
+    options:
+      - id: a
+        text: Partially observable
+        correct: true
+      - id: b
+        text: Episodic
+        why: A lane change now affects later decisions, so taxi driving is sequential.
+      - id: c
+        text: Multiagent
+        correct: true
+      - id: d
+        text: Static
+        why: Traffic keeps moving while the driving program deliberates, so it is dynamic.
+      - id: e
+        text: Continuous
+        correct: true
+    why: >-
+      Taxi driving is partially observable, multiagent, nondeterministic,
+      sequential, dynamic and continuous, and mostly known: close to the hardest
+      case.
+
+  - id: agai-vewcnq
+    type: cloze
+    difficulty: medium
+    level: understand
+    topics: [Task Environment]
+    section: Properties of task environments
+    prompt: A model that says "a chance of rain tomorrow" without giving a probability is ___.
+    options:
+      - id: a
+        text: stochastic
+        why: A stochastic model quantifies the possibilities with probabilities, as in "25% chance of rain".
+      - id: b
+        text: partially observable
+        why: Observability is about what the sensors see now. The point here is how outcomes are modelled.
+      - id: c
+        text: nondeterministic
+        correct: true
+      - id: d
+        text: dynamic
+        why: Dynamic means the world changes while the agent deliberates.
+    why: >-
+      Russell and Norvig call a model nondeterministic when it lists the
+      possibilities without quantifying them, and stochastic when it gives them
+      probabilities.
+
+  - id: agai-2vj9z9
+    type: single
+    difficulty: hard
+    level: analyze
+    topics: [Agent Program, Simple reflex agents]
+    section: Simple reflex agents
+    prompt: >-
+      A vacuum agent senses only Dirty or Clean, not its location. On Clean it
+      always moves Left. What happens?
+    options:
+      - id: a
+        text: It cleans both squares, then never moves again
+        why: It cannot know both squares are clean, and on Clean it always moves.
+      - id: b
+        text: Starting in A, it never reaches B
+        correct: true
+      - id: c
+        text: It oscillates between A and B, cleaning both
+        why: Moving Left always heads for A. Without a Right move it cannot oscillate.
+      - id: d
+        text: It works, because the world is deterministic
+        why: Determinism does not help. The trouble is partial observability, since it cannot tell where it is.
+    why: >-
+      In A, Left keeps it in A, so B is never cleaned. Infinite loops are often
+      unavoidable for simple reflex agents in partially observable environments;
+      randomising between Left and Right escapes them.
+
+  - id: agai-txcwd6
+    type: single
+    difficulty: medium
+    level: apply
+    topics: [Agent Program]
+    section: Model-based reflex agents
+    prompt: >-
+      A taxi wants to change lanes, but the car in its blind spot is not visible
+      in the current camera frame. Which agent design handles this?
+    options:
+      - id: a
+        text: A simple reflex agent with more condition-action rules
+        why: Rules on the current percept cannot use what is not in that percept.
+      - id: b
+        text: A model-based reflex agent with internal state
+        correct: true
+      - id: c
+        text: A table-driven agent with a table of percept sequences
+        why: Such a table is far too large to store, build or learn.
+      - id: d
+        text: A simple reflex agent that randomises its lane changes
+        why: Randomising escapes loops. It does not tell the taxi where the hidden car is.
+    why: >-
+      A model-based agent keeps internal state about the parts of the world it
+      cannot see now, updated with a transition model and a sensor model.
+
+  - id: agai-9btn6g
+    type: single
+    difficulty: hard
+    level: apply
+    topics: [Agent Program]
+    section: Goal-based agents
+    prompt: >-
+      A taxi's turns are coded as condition-action rules for one destination. It
+      gets a new destination. Which design changes its behaviour without the
+      rules being rewritten?
+    options:
+      - id: a
+        text: A goal-based agent
+        correct: true
+      - id: b
+        text: A model-based reflex agent
+        why: Its internal state helps it see more, but its actions still come from fixed rules.
+      - id: c
+        text: A simple reflex agent
+        why: Its rules map percepts to fixed turns. Every rule would need rewriting.
+      - id: d
+        text: A table-driven agent
+        why: Its table fixes the action for every percept sequence. A new destination needs a new table.
+    why: >-
+      A goal-based agent predicts what its actions lead to and checks that
+      against its goal. Its knowledge is explicit, so a new destination changes
+      its behaviour directly.
+
+  - id: agai-uvx45z
+    type: multi
+    difficulty: medium
+    level: understand
+    topics: [Utility-based agents, Rational Agent]
+    section: Utility-based agents
+    prompt: In which cases is a utility function better than goals?
+    options:
+      - id: a
+        text: Conflicting goals, such as speed against safety
+        correct: true
+      - id: b
+        text: Fully observable environments with one clear target
+        why: A single clear target is what goals handle well. Utility is not needed there.
+      - id: c
+        text: Several goals, each with an uncertain chance of success
+        correct: true
+      - id: d
+        text: Environments where the current percept decides everything
+        why: That is where a simple reflex agent suffices.
+      - id: e
+        text: Agents that run without any model of the world
+        why: Goals and utility both need some way to judge outcomes. Lacking a model is no case for utility.
+    why: >-
+      Goals only split states into happy and unhappy. Utility sets the trade-off
+      between conflicting goals and weighs the chance of success against each
+      goal's importance.
+
+  - id: agai-tzkgz4
+    type: single
+    difficulty: medium
+    level: understand
+    topics: [Learning agents]
+    section: Learning agents
+    prompt: Why must a learning agent's performance standard be fixed and outside the agent?
+    options:
+      - id: a
+        text: So the agent cannot bend it to fit its own behaviour
+        correct: true
+      - id: b
+        text: Because percepts already say whether the agent did well
+        why: Percepts carry no verdict. A chess program sees checkmate but needs a standard to know it is good.
+      - id: c
+        text: So the problem generator can try new actions freely
+        why: The problem generator explores. The fixed standard is about judging success.
+      - id: d
+        text: Because the critic is too costly to run inside the agent
+        why: Cost is not the reason. An agent that could change its standard could score well without improving.
+    why: >-
+      The critic judges behaviour against the standard. If the agent could change
+      the standard, it could raise its score by moving the goalposts in place of
+      improving.
+
+  - id: agai-qsvgn2
+    type: single
+    difficulty: easy
+    level: apply
+    topics: [Learning agents]
+    section: Learning agents
+    prompt: >-
+      A chess learner keeps playing the opening that has worked best so far.
+      Which component of a learning agent proposes trying other openings?
+    options:
+      - id: a
+        text: The critic
+        why: The critic judges how well the agent is doing against the standard.
+      - id: b
+        text: The learning element
+        why: The learning element improves the performance element using the critic's feedback.
+      - id: c
+        text: The performance element
+        why: The performance element selects actions. Left alone it keeps choosing what looks best now.
+      - id: d
+        text: The problem generator
+        correct: true
+    why: >-
+      The problem generator suggests actions that lead to new, informative
+      experiences. They may be worse now but can reveal better ones, as Galileo
+      dropped rocks at Pisa.
+
+  - id: agai-bc9t79
+    type: truefalse
+    difficulty: easy
+    level: remember
+    topics: [Utility-based agents]
+    section: Utility-based agents
+    statement: A model-free agent learns which action is best in a situation without learning how its actions change the environment.
+    answer: true
+    why: >-
+      Not every utility-based agent is model-based. A model-free agent learns
+      which action is best directly, as model-free reinforcement learning such as
+      Q-learning does.
+
+  - id: agai-utf4e9
+    type: cloze
+    difficulty: medium
+    level: apply
+    topics: [How components represent the world]
+    section: How components represent the world
+    prompt: A state described by fuel level, GPS position and toll money is ___ representation.
+    options:
+      - id: a
+        text: an atomic
+        why: An atomic state is a black box, such as just the name of the current city.
+      - id: b
+        text: a factored
+        correct: true
+      - id: c
+        text: a structured
+        why: A structured state has objects and relations between them, such as a truck blocked by a cow.
+      - id: d
+        text: a localist
+        why: Localist is about how concepts map onto memory, a different axis.
+    why: >-
+      A factored state is a fixed set of variables, each with a value. Two
+      factored states can share some values and differ in others.
+
+  - id: agai-xrjghv
+    type: truefalse
+    difficulty: easy
+    level: understand
+    topics: [How components represent the world]
+    section: How components represent the world
+    statement: Distributed representations are less robust to noise than localist ones.
+    answer: false
+    why: >-
+      Distributed representations are more robust. Garbled bits move a concept to
+      a nearby point with a similar meaning, while in a localist code they can
+      turn Truck into the unrelated Truce.

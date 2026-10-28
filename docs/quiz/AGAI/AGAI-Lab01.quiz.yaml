@@ -1,0 +1,345 @@
+# Lab 1: simple agents, complex dynamics. Conceptual questions on what the
+# notebook's agents do and why the dynamics come out as they do; nothing to run
+# or compute. Source: the lab note named below.
+course: AGAI
+lecture: AGAI-Lab01
+title: "Lab 1 Simple agents, complex dynamics"
+sort: 3
+note: "AGAI-Lab01 - Simple Agents, Complex Dynamics"
+questions:
+
+  - id: agai-82mx7c
+    type: cloze
+    difficulty: medium
+    level: understand
+    topics: [Stag Hunt, Prisoner's Dilemma]
+    section: "Q3: two games, two motives"
+    prompt: The Prisoner's Dilemma has both greed and fear, while the Stag Hunt has only ___.
+    options:
+      - id: a
+        text: greed
+        why: In the Stag Hunt T < R, so defecting against a cooperator pays less. There is no greed.
+      - id: b
+        text: fear
+        correct: true
+      - id: c
+        text: temptation
+        why: Temptation is the payoff T. Greed, T > R, is the motive it creates, and the Stag Hunt lacks it.
+      - id: d
+        text: dominance
+        why: Dominance is no motive, and nothing dominates in the Stag Hunt.
+    why: >-
+      Fear (P > S) means defecting pays more against a defector, and both games
+      have it. Greed (T > R) is only in the Prisoner's Dilemma, so in the Stag
+      Hunt an agent sure that its partner hunts stag hunts stag too.
+
+  - id: agai-t3zrug
+    type: truefalse
+    difficulty: medium
+    level: understand
+    topics: [Prisoner's Dilemma]
+    section: "Q3: two games, two motives"
+    statement: Making Prisoner's Dilemma agents certain that their partner will cooperate makes mutual cooperation the outcome.
+    answer: false
+    why: >-
+      Greed remains: against a sure cooperator, D pays 5 and C pays 3. The
+      Prisoner's Dilemma is an incentive problem, so the payoffs must change.
+      Fixing beliefs works in the Stag Hunt, a trust problem.
+
+  - id: agai-2vn4ft
+    type: single
+    difficulty: hard
+    level: analyze
+    topics: [Stag Hunt]
+    section: "Q4: which Stag Hunt equilibrium? (prediction)"
+    prompt: >-
+      Agents meet once in the Stag Hunt (R=4, S=0, T=3, P=2), each with a belief
+      about its partner drawn uniformly from 0 to 1, and best-respond. Why is
+      (C,C) the least frequent outcome?
+    options:
+      - id: a
+        text: D dominates C, so agents rarely cooperate
+        why: D does not dominate in the Stag Hunt. Against a sure stag hunter, stag pays more.
+      - id: b
+        text: (C,C) is not a Nash equilibrium of the Stag Hunt
+        why: (C,C) is an equilibrium. The issue is which beliefs make stag the best response.
+      - id: c
+        text: Stag needs a belief above 2/3 to be the best response
+        correct: true
+      - id: d
+        text: Agents cannot see each other's beliefs, so they miscoordinate
+        why: Hidden beliefs explain miscoordination, but not why (C,C) is rarer than (D,D).
+    why: >-
+      With fear (P − S = 2) larger than gain (R − T = 1), stag needs a belief
+      above 2/3. Only a third of agents hunt stag, so both do so in about one
+      encounter in nine.
+
+  - id: agai-jy7j53
+    type: single
+    difficulty: medium
+    level: understand
+    topics: [Stag Hunt]
+    section: "Q5: a rule for which equilibrium wins"
+    prompt: >-
+      In a Stag Hunt with payoffs R (C,C), S (sucker), T (temptation) and P
+      (D,D), agents with uniform beliefs play (C,C) more often than (D,D)
+      exactly when which holds?
+    options:
+      - id: a
+        text: R − S > T − P
+        why: Since R > T and S < P, that holds in every Stag Hunt, including the lab's, where (D,D) is far more frequent.
+      - id: b
+        text: R > T
+        why: That is the absence of greed, true of every Stag Hunt. It does not decide which equilibrium wins.
+      - id: c
+        text: R − T > P − S
+        correct: true
+      - id: d
+        text: P > S
+        why: That is fear. It holds in every Stag Hunt and pushes towards (D,D).
+    why: >-
+      (C,C) wins when the gain from cooperating with a cooperator, R − T, beats
+      the loss from cooperating with a defector, P − S. Then the threshold belief
+      is below 1/2.
+
+  - id: agai-kp4y28
+    type: multi
+    difficulty: medium
+    level: understand
+    topics: [Repeated Game]
+    section: "Q6: one-shot against repeated tournament"
+    prompt: In the 50-round tournament, which strategies cooperate at different rates depending on who they play?
+    options:
+      - id: a
+        text: TFT
+        correct: true
+      - id: b
+        text: AllC
+        why: AllC cooperates every round whoever it faces. It is memory-0.
+      - id: c
+        text: WSLS
+        correct: true
+      - id: d
+        text: Random
+        why: Random flips a fair coin whoever it faces. Its small differences are sampling noise.
+      - id: e
+        text: AllD
+        why: AllD defects every round whoever it faces. It is memory-0.
+    why: >-
+      TFT and WSLS are memory-1: they react to the last round, so they cooperate
+      fully with cooperators and much less against AllD. Memory-0 strategies
+      cannot react to the partner at all.
+
+  - id: agai-45phqz
+    type: single
+    difficulty: hard
+    level: analyze
+    topics: [Repeated Game]
+    section: "Q6: one-shot against repeated tournament"
+    prompt: >-
+      AllD wins the lab's 50-round tournament of five strategies. Where does
+      most of its score come from?
+    options:
+      - id: a
+        text: Beating TFT, which it exploits every round
+        why: TFT retaliates after the first round, so AllD earns barely more than 1 per round against it.
+      - id: b
+        text: Exploiting AllC, Random and WSLS
+        correct: true
+      - id: c
+        text: Mutual defection against itself
+        why: Mutual defection pays only 1 per round, the smallest part of its score.
+      - id: d
+        text: Earning 3 per round in mutual cooperation
+        why: AllD never cooperates, so it never earns R = 3.
+    why: >-
+      AllC gives it 5 every round, and Random and WSLS give it 5 about half the
+      time. Its win depends on exploitable partners in the field; without them
+      TFT comes out on top.
+
+  - id: agai-cscjtg
+    type: truefalse
+    difficulty: easy
+    level: understand
+    topics: [Repeated Game]
+    section: "Q7: when does AllD stop being best?"
+    statement: In a 50-round tournament with only AllD, TFT and WSLS, TFT outscores AllD.
+    answer: true
+    why: >-
+      AllD's edge over TFT is a one-off first-round gain, while TFT and WSLS earn
+      3 per round from each other. From 4 rounds on, TFT beats AllD.
+
+  - id: agai-axsm4c
+    type: single
+    difficulty: easy
+    level: understand
+    topics: [Repeated Game]
+    section: "Q6: one-shot against repeated tournament"
+    prompt: Why does AllD exploit WSLS every other round?
+    options:
+      - id: a
+        text: WSLS counts mutual defection as a loss and switches back to C
+        correct: true
+      - id: b
+        text: WSLS copies AllD's last action with a one-round delay
+        why: Copying the partner's last action is TFT, which defects for good after round one.
+      - id: c
+        text: WSLS flips a coin after every round it loses
+        why: WSLS is deterministic. After a loss it always switches its action.
+      - id: d
+        text: WSLS forgives any defection after two rounds
+        why: WSLS has no forgiveness timer. It reacts only to whether the last round was a win.
+    why: >-
+      WSLS stays after a win (3 or 5) and switches after a loss (0 or 1). Against
+      AllD, mutual defection pays 1, a loss, so it switches to C and is suckered,
+      round after round.
+
+  - id: agai-2xznrc
+    type: single
+    difficulty: easy
+    level: apply
+    topics: [Replicator Dynamics, Prisoner's Dilemma]
+    section: "Q8: predictions before the analysis"
+    prompt: >-
+      A population playing the Prisoner's Dilemma starts with 90% cooperators.
+      Strategies earning more than average spread. What happens to the
+      cooperators?
+    options:
+      - id: a
+        text: They stay at 90%, since the population is at rest
+        why: At 90%, defectors earn more, so the share keeps changing. It is no rest point.
+      - id: b
+        text: They take over, since the majority already cooperates
+        why: A majority does not help. Defectors earn more than cooperators against any mix.
+      - id: c
+        text: They settle at a stable mix of the two strategies
+        why: The Prisoner's Dilemma has no interior rest point, since defecting always pays more.
+      - id: d
+        text: They die out, since defectors earn more against any mix
+        correct: true
+    why: >-
+      D is dominant, so defectors earn more whatever the mix and their share keeps
+      growing. A 90% start only delays the fall to all-defect, the Nash
+      equilibrium.
+
+  - id: agai-f9samb
+    type: cloze
+    difficulty: easy
+    level: remember
+    topics: [Replicator Dynamics, Stag Hunt]
+    section: "Q10: the Stag Hunt under replicator dynamics"
+    prompt: Under replicator dynamics, the Stag Hunt's interior rest point at x = 2/3 is ___.
+    options:
+      - id: a
+        text: stable
+        why: A small push either way tips the population towards all-stag or all-hare.
+      - id: b
+        text: unstable
+        correct: true
+      - id: c
+        text: the social optimum
+        why: The social optimum is (C,C), everyone hunting stag, at x = 1.
+      - id: d
+        text: a pure Nash equilibrium
+        why: It is the mixed equilibrium, each agent cooperating with probability 2/3.
+    why: >-
+      Just above 2/3, stag pays more and spreads; just below, hare does. The point
+      is the watershed between the basins of all-hare (x = 0) and all-stag
+      (x = 1), both stable.
+
+  - id: agai-vvgk6g
+    type: truefalse
+    difficulty: medium
+    level: understand
+    topics: [Replicator Dynamics, Stag Hunt]
+    section: "Q10: the Stag Hunt under replicator dynamics"
+    statement: The Stag Hunt's interior replicator rest point equals the threshold belief p* at which a rational agent is indifferent.
+    answer: true
+    why: >-
+      Under random matching, the share of cooperators plays the role of the
+      belief. Both models solve the same equation, payoff of C equal to payoff of
+      D, so both give 2/3.
+
+  - id: agai-2k5tan
+    type: multi
+    difficulty: hard
+    level: analyze
+    topics: ["Deception: the signalling game"]
+    section: "Q12: the uniform fee"
+    prompt: In the signalling game, which conditions together keep the signal honest in the long run?
+    options:
+      - id: a
+        text: High-quality senders pay less for the signal than its benefit
+        correct: true
+      - id: b
+        text: Receivers trust every sender who signals
+        why: Trust is something that evolves. With cheap faking, high trust lets fakers spread.
+      - id: c
+        text: Low-quality senders pay more for the signal than its benefit
+        correct: true
+      - id: d
+        text: Every sender pays the same high fee for the signal
+        why: A uniform fee moves both costs together. Set high, it prices out honest senders too.
+      - id: e
+        text: Low-quality senders are the majority of senders
+        why: The share of high-quality senders sets what trust is worth. It is not what keeps fakers out.
+    why: >-
+      An honest signal survives when c_H < b < c_L: it pays for high-quality
+      senders and not for low-quality ones. What stops faking is a cost
+      difference between the types.
+
+  - id: agai-jy9m78
+    type: single
+    difficulty: medium
+    level: apply
+    topics: ["Deception: the signalling game"]
+    section: "Q12: the uniform fee"
+    prompt: >-
+      Low-quality sellers fake a platform's premium label. The platform charges
+      every seller the same fee, so the label costs more than being trusted is
+      worth for all of them. What happens?
+    options:
+      - id: a
+        text: Fakers drop the label and honest sellers keep it
+        why: The fee hits both types. Honest sellers lose money on the label too, so they drop it.
+      - id: b
+        text: Receivers become much better off
+        why: Receivers earned about 0 before and earn 0 after. They gain nothing.
+      - id: c
+        text: The label becomes fully reliable
+        why: Nobody shows the label, so it carries no information at all.
+      - id: d
+        text: Nobody shows the label, so deception ends
+        correct: true
+    why: >-
+      With costs above the benefit for both types, every seller stops signalling.
+      Deception ends because the market for the label is gone, and high-quality
+      sellers lose what they earned.
+
+  - id: agai-dmbjhy
+    type: single
+    difficulty: hard
+    level: analyze
+    topics: [Reward Hacking, Value Iteration]
+    section: "Q14: Bob's robot"
+    prompt: >-
+      Bob's robot gets +1 per clean square per step. Once the floor is clean and
+      no new dirt comes, it wanders, moving on about two steps in three. Is it
+      behaving irrationally?
+    options:
+      - id: a
+        text: Yes, since moving wastes energy for no gain
+        why: Energy matters to the owner, but Bob's reward never mentions it, so the robot has no reason to save it.
+      - id: b
+        text: No, since every action earns the maximum reward there
+        correct: true
+      - id: c
+        text: No, since it is exploring to find new dirt
+        why: Value iteration already knows the dynamics. The moves come from random tie-breaking among equal actions.
+      - id: d
+        text: Yes, since an optimal robot would stay in place
+        why: It would only if moves cost something. Under Bob's reward, staying and moving score the same.
+    why: >-
+      With a clean floor, Left, Right and Suck all keep earning 2 per step, so
+      they tie and random tie-breaking makes it wander. The robot maximises its
+      reward; the reward just ignores what moving costs.
