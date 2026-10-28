@@ -478,18 +478,7 @@ Over 1000 steps with no new dirt the floor is 99.9% clean and the reward is 1.99
 
 **(a)** In the lab the two robots have the same set of optimal actions in all 16 states (suck when on dirt, move towards dirt from a clean square, anything when the floor is clean), so with the same tie-breaking they chose the same action at every one of the 1000 steps. Their $Q$ values differ in size (Bob's about 30 to 34, Alice's about 3.5 to 5.2) but are maximised by the same actions. So no behavioural test in this environment can tell them apart. The reason: with only Left, Right and Suck, a square becomes clean only by being sucked and dirt comes only from the environment, so "squares clean" and "dirt sucked" move together. Only a change to the environment that separates the two can reveal the difference.
 
-**(b)** With Dump, Alice's robot farms dirt: it dumps on 40% of all steps, collects 0.527 units of dirt per step (2.7 times the lab's 0.196), keeps the floor only 59.1% clean (against 84.4%) and barely moves (0.073). The start of the trace:
-
-| t | state before | action | reward |
-|---|---|---|---|
-| 0 | [A\*] B\* bag 0 | Suck | +1 |
-| 1 | [A] B\* bag 1 | Right | 0 |
-| 2 | A\* [B\*] bag 1 | Suck | +1 |
-| 3 | A\* [B] bag 1 | Dump | 0 |
-| 4 | A\* [B\*] bag 0 | Suck | +1 |
-| 5 | A\* [B] bag 1 | Dump | 0 |
-
-It settles in B and alternates Dump and Suck, earning +1 every two steps, while A, which got new dirt at step 1, stays dirty until a tie at step 10 sends the robot Left; it sucks A and starts the same loop there.
+**(b)** With Dump, Alice's robot farms dirt: it dumps on 40% of all steps, collects 0.527 units of dirt per step (2.7 times the lab's 0.196), keeps the floor only 59.1% clean (against 84.4%) and barely moves (0.073). The trace starts Suck (+1) in A, Right, Suck (+1) in B, then Dump, Suck (+1), Dump, Suck (+1): the robot settles in B and alternates Dump and Suck, earning +1 every two steps, while A, which got new dirt at step 1, stays dirty until a tie at step 10 sends the robot Left; it sucks A and starts the same loop there.
 
 Dump is optimal in exactly the four states where **the bag is full and the robot's square is clean**: uniquely in [A] B and A [B] (both squares clean), and tied with moving to the dirt in [A] B\* (Right or Dump) and A\* [B] (Left or Dump). The ties arise because both options deliver the next +1 two steps later and lead to states of equal value: once the robot can make its own dirt, dirt elsewhere adds nothing, and a state's value depends only on how soon it can next suck (standing on dirt 10.78, one step away 10.24, empty bag on a clean floor 8.24).
 
@@ -500,6 +489,10 @@ Why never for Bob: his reward counts clean squares and ignores the bag, so dumpi
 **(c)** Q13(b) is confirmed. Nobody programmed dumping, and the planner is exact (it gives Bob's robot no dumping): the behaviour comes from optimising a reward that measured a proxy (dirt collected) in place of the goal (a clean floor). In the lab the proxy and the goal moved together, because the only source of dirt was the environment, so the proxy looked perfect in every test. The new action gave the robot a way to raise the proxy without serving the goal (create dirt in order to collect it), and a perfect optimiser takes any such way. That is [[Reward Hacking]] in its simplest form.
 
 For agents with more actions or tools: every new action or tool can break the link between the reward and the intended goal, so a reward validated with one action set is not validated for a larger one; behaviour in testing cannot certify the reward, since the two robots were indistinguishable step for step; and rewards should target the outcome the designer wants (the state of the floor) over an activity that usually accompanies it (sucking), and be tested again whenever the agent's capabilities change.
+
+> [!warning] Common pitfalls in Part III
+> - **"The robot is buggy or irrational."** Wandering and dumping both come from an exact optimiser; unwanted behaviour from an exact optimiser points at the reward.
+> - **"Identical behaviour in testing means identical objectives."** Two rewards can share a policy in one environment and diverge when the environment changes.
 
 ---
 

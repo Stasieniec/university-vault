@@ -252,7 +252,9 @@ def build(course_dir: Path) -> list[Path]:
             "",
             f"# {code} - Flashcards",
             "",
-            f"All {total} flashcards for {title}, one set per note. Each card asks one thing and has a short answer. Say the answer before you reveal it, and only press Got it if you had all of it. Study everything at once, a single lecture, or tick any mix. Progress lives only in this browser tab and disappears when you close it. The long-form questions are on the [[{exam_stem}|exam questions]] page.",
+            f"All {total} flashcards for {title}, one set per note. Each card asks one thing and has a short answer. Say the answer before you reveal it, and only press Got it if you had all of it. Study everything at once, a single lecture, or tick any mix. Progress lives only in this browser tab and disappears when you close it."
+            # Courses without an exam (EPRM) have no exam questions page to point to.
+            + (f" The long-form questions are on the [[{exam_stem}|exam questions]] page." if total_exam else ""),
             "",
             # Full path: every course has an "index", so a bare [[index]] is ambiguous.
             f"Back to the [[Courses/{code}/index|{title} home]].",
