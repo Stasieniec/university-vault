@@ -39,7 +39,7 @@ Two classic definitions frame the course.
 > [!definition] Agent (Wooldridge 2001, *An Introduction to Multiagent Systems*)
 > "An agent is a computer system that is situated in some **environment**, and that is capable of **autonomous action** in this environment to meet its design **objectives**."
 
-Both put the agent in a loop with an environment: it observes, acts, and observes the result. Russell and Norvig stress the **perception-action interface** (sensors in, actuators out) and say "can be **viewed as**": being an agent is a way of describing a system. Wooldridge stresses **autonomy** (the system decides for itself, without a human choosing each action) and **objectives** (it acts to meet goals its designer gave it). A robot vacuum cleaner fits both: it senses dirt, moves and sucks, decides alone, and is built to keep the floor clean. A [[Rational Agent|rational agent]] picks the action expected to maximise its performance measure, given what it has perceived and knows; the full treatment is in [[AGAI-Book Ch2 - Intelligent Agents]].
+Both put the agent in a loop with an environment: it observes, acts, and observes the result. Russell and Norvig stress the **perception-action interface** (sensors in, actuators out) and say "can be **viewed as**": being an agent is a way of describing a system. Wooldridge stresses **autonomy** (the system decides for itself, without a human choosing each action) and **objectives** (it acts to meet goals its designer gave it). A robot vacuum cleaner fits both: it senses dirt, moves and sucks, decides alone, and is built to keep the floor clean. A [[Rational Agent|rational agent]] picks the action expected to maximise its **performance measure** (the criterion, set by the designer, that scores how well the agent's behaviour achieves what is wanted), given what it has perceived and knows; the full treatment is in [[AGAI-Book Ch2 - Intelligent Agents]].
 
 ### The agent idea is a lens
 
@@ -79,7 +79,7 @@ Each agent still observes and acts, but now the other agents are part of what it
 
 ### Where the field comes from
 
-Multi-agent systems are an old part of AI with roots outside it. Mathematics, economics and philosophy gave rise to **game theory** (the mathematics of strategic interaction, where each party's outcome depends on what the others do) and **social choice** (aggregating individual preferences into a group decision, as in voting). Multi-agent research in AI builds on both. Milestones: the Contract Net Protocol (1980), Minsky's *The Society of Mind* (1986), distributed AI (1988), automated negotiation in *Rules of Encounter* and BDI (belief-desire-intention) agents (mid-1990s), learning in games and with it non-stationarity (1994), computational social choice and algorithmic game theory (around 2000), the AAMAS conference (2002), multi-agent RL and norms (2010s), deep multi-agent RL, AlphaGo and Libratus (2015 on; outside the course material, Libratus is a poker program), and agentic AI (2022). The course draws mainly on game theory and multi-agent reinforcement learning.
+Multi-agent systems are an old part of AI with roots outside it. Mathematics, economics and philosophy gave rise to **game theory** (the mathematics of strategic interaction, where each party's outcome depends on what the others do) and **social choice** (aggregating individual preferences into a group decision, as in voting). Multi-agent research in AI builds on both. Milestones: the Contract Net Protocol (1980), Minsky's *The Society of Mind* (1986), distributed AI (1988), automated negotiation in *Rules of Encounter* (1994), agent-oriented programming and BDI (belief-desire-intention) agents (1993 to 1995), learning in games, with multi-agent RL and non-stationarity (1994), computational social choice, algorithmic game theory and affective computing (around 2000), the AAMAS conference (2002), multi-agent RL and norms (2010s), deep multi-agent RL, AlphaGo and Libratus (2015 on; outside the course material, Libratus is a poker program), and agentic AI (2022). The course draws mainly on game theory and multi-agent reinforcement learning.
 
 ### Why the course runs from simple agents to LLM agents
 
@@ -101,7 +101,7 @@ A bare model mapping a prompt to a completion is closer to the calculator than t
 
 An LLM agent works in a loop: (1) **reason and plan** in text, (2) **act**, (3) **observe** the result, then reason again.
 
-**[[ReAct]]** (Yao et al., ICLR 2023) is a prompting technique for this loop. It makes a language model to generate both verbal reasoning (text) and actions (text), interleaved and repeated: **Thought, Action, Observation**. Each step brings in one of the agent's components:
+**[[ReAct]]** (Yao et al., ICLR 2023) is a prompting technique for this loop. It makes a language model generate both verbal reasoning (text) and actions (text), interleaved and repeated: **Thought, Action, Observation**. Each step brings in one of the agent's components:
 
 - **Thought** forces the model to think in several steps, as in chain-of-thought: **reasoning**.
 - **Action** is text that interacts with external tools: **tools**.
@@ -198,7 +198,7 @@ Will agents cooperate or cheat?
 | **C** | 3, 3 | 0, 5 |
 | **D** | 5, 0 | 1, 1 |
 
-Whatever the other agent does, D pays more: 5 against 3 if the other cooperates, 1 against 0 if it defects. D **dominates** C, so rational agents both defect and get (1, 1), the only [[Nash Equilibrium]]. Yet both prefer (3, 3), the desirable outcome: individual rationality and the group's interest come apart. See [[Prisoner's Dilemma]].
+Whatever the other agent does, D pays more: 5 against 3 if the other cooperates, 1 against 0 if it defects. D **dominates** C, so rational agents both defect and get (1, 1), the only [[Nash Equilibrium]] (an outcome where neither agent can gain by changing its own action alone). Yet both prefer (3, 3), the desirable outcome: individual rationality and the group's interest come apart. See [[Prisoner's Dilemma]].
 
 ### Coordination: the Stag Hunt
 
@@ -211,7 +211,7 @@ Now the best reply copies the other agent: C if it plays C (4 against 3), D if i
 
 ### Populations: who spreads?
 
-Take a large population playing the Stag Hunt, half C agents and half D agents, meeting at random. Does the number of C agents grow, shrink or stay the same? Against a random partner, a C agent earns $0.5 \times 4 + 0.5 \times 0 = 2$ on average and a D agent $0.5 \times 3 + 0.5 \times 2 = 2.5$. If strategies that earn more spread, as in [[Replicator Dynamics|replicator dynamics]], **C agents decrease**. Cooperation pays only once more than two thirds of the population cooperates. Lecture 2 develops this as evolutionary game theory.
+Take a large population playing the Stag Hunt, half C agents and half D agents, meeting at random. Does the number of C agents grow, shrink or stay the same? Against a random partner, a C agent earns $0.5 \times 4 + 0.5 \times 0 = 2$ on average and a D agent $0.5 \times 3 + 0.5 \times 2 = 2.5$. If strategies that earn more spread, as in [[Replicator Dynamics|replicator dynamics]], **C agents decrease**. In general, if a fraction $p$ of the population plays C, a C agent earns $4p$ and a D agent $3p + 2(1-p) = 2 + p$, so cooperation pays only once $p > 2/3$: more than two thirds of the population must already cooperate. Lecture 2 develops this as evolutionary game theory.
 
 ### Communication and deception
 
@@ -312,8 +312,8 @@ Model answers are in the exam questions below.
 > [!card]- What does a model-based reflex agent add to a simple reflex agent?
 > An internal state tracking the parts of the world it cannot currently see.
 
-> [!card]- Why can a utility-based agent decide where a goal-based agent cannot?
-> Its utility function trades off conflicting goals and uncertain outcomes; a goal is only achieved or not.
+> [!card]- What can a utility-based agent do that a goal-based agent cannot?
+> Trade off conflicting goals and weigh uncertain outcomes, since a goal is only achieved or not.
 
 > [!card]- How do Russell and Norvig define learning in agents?
 > Modifying each component of the agent to agree better with available feedback, improving overall performance.
@@ -324,7 +324,7 @@ Model answers are in the exam questions below.
 > [!card]- What is a system called in which more than one agent inhabits the environment?
 > A multi-agent system (MAS).
 
-> [!card]- Which fields gave multi-agent systems game theory and social choice?
+> [!card]- Which fields gave rise to game theory and social choice, the roots of multi-agent systems?
 > Mathematics, economics and philosophy.
 
 > [!card]- What makes token completion multi-task?
@@ -345,8 +345,11 @@ Model answers are in the exam questions below.
 > [!card]- How does search and verify improve LLM reasoning?
 > Sample many reasoning traces and reward the best one.
 
-> [!card]- What is an LLM agent's short-term memory, and how is it kept within limits?
-> The context window; managed by trimming or summarising.
+> [!card]- What is an LLM agent's short-term memory?
+> Its limited context window.
+
+> [!card]- How is an LLM agent's short-term memory kept within the context window?
+> Context engineering: long histories are trimmed or summarised.
 
 > [!card]- What are the two forms of an LLM agent's long-term memory?
 > External databases it queries, and knowledge stored in its parameters.
@@ -354,8 +357,11 @@ Model answers are in the exam questions below.
 > [!card]- What does answering a query require in Kanoulas et al.'s agent-centric information access?
 > Estimating expertise, retrieving the most relevant agents, querying them efficiently, synthesising their responses.
 
-> [!card]- What do the Model Context Protocol and Toolformer each contribute to LLM tool use?
-> MCP standardises how LLMs connect to tools; Toolformer showed models can teach themselves to use tools.
+> [!card]- What does the Model Context Protocol (MCP) standardise?
+> How LLMs connect to tools.
+
+> [!card]- What did Toolformer show about language models and tools?
+> That language models can teach themselves to use tools.
 
 > [!card]- Name three prompting techniques for planning in LLMs.
 > Chain-of-thought, Least-to-Most, Plan-and-Solve.
@@ -375,8 +381,8 @@ Model answers are in the exam questions below.
 > [!card]- How does the Stag Hunt differ from the Prisoner's Dilemma in its equilibria?
 > Both mutual cooperation and mutual defection are equilibria; in the PD only mutual defection is.
 
-> [!card]- In a Stag Hunt population with 50% C and 50% D agents, what happens to C agents, and why?
-> They decline: against random partners C earns 2, D earns 2.5.
+> [!card]- Why do C agents decline in a Stag Hunt population with 50% C and 50% D agents?
+> Against random partners C earns 2 on average, D earns 2.5, so D spreads.
 
 > [!card]- In the vacuum world with a Dump action, why does rewarding each unit of dirt sucked fail?
 > The agent earns endlessly by dumping dirt and sucking it up again.

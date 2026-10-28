@@ -35,10 +35,10 @@ status: complete
   ML:   explore -> train -> evaluate -> formulate -> (back to collect)
 ```
 
-- **Data half**: gather raw data, curate it (clean, deduplicate, label), transform it into usable features, and validate its quality.
+- **Data half**: gather raw data, curate it (select and clean what is worth keeping), transform it into usable features, and validate its quality.
 - **ML half**: explore the data, train models, evaluate them; formulate is the step that closes the ML half and feeds the next round.
 
-**The joined lifecycle** (drawn as an "eternal knot"): the two loops are linked so that the model development loop's formulate step leads into the software loop's plan and code steps. Models flow into code, code is built, tested, released and deployed, and what monitoring reveals in production feeds back into planning and new data collection. There is no final step: the system keeps cycling.
+**The joined lifecycle** (drawn as an "eternal knot"): the two figure-eights are linked into one knot of four loops. Data feeds the ML loop; the ML loop hands over to software development where formulate meets plan and code; development releases into operations; and what monitoring reveals in production feeds back into planning and, through it, into new data and models. There is no final step: the system keeps cycling.
 
 ## Key Properties / Variants
 
