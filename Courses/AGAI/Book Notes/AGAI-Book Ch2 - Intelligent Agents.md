@@ -17,7 +17,7 @@ status: complete
 # AGAI-Book Ch2: Intelligent Agents
 
 > [!abstract] In short
-> What is an agent, what makes one behave well, and how do you build one? An agent perceives its environment through sensors and acts on it through actuators. It is **rational** when it picks the action expected to maximise a performance measure, given what it has perceived and what it knew in advance. Which design works depends on the **task environment**, described by PEAS (performance measure, environment, actuators, sensors) and classified along seven dimensions such as observable or not, single or multiagent, episodic or sequential. Russell and Norvig then build four agent programs of increasing power (simple reflex, model-based reflex, goal-based, utility-based), show how any of them can learn, and end with three ways to represent states (atomic, factored, structured).
+> What is an agent, what makes one behave well, and how do you build one? An agent, which perceives through sensors and acts through actuators, is **rational** when it picks the action expected to maximise a performance measure, given what it has perceived and what it knew in advance. Which design works depends on the **task environment**, described by PEAS (performance measure, environment, actuators, sensors) and classified along seven dimensions such as observable or not, single or multiagent, episodic or sequential. Russell and Norvig then build four agent programs of increasing power (simple reflex, model-based reflex, goal-based, utility-based), show how any of them can learn, and end with three ways to represent states (atomic, factored, structured).
 >
 > This is the set reading for [[AGAI-L01 - Agents, Multiagent Systems and Agentic AI|Lecture 1]], the vacuum world returns in Lab 1, and the whole chapter is midterm material.
 
@@ -34,8 +34,6 @@ Environment             Agent   (sensors -> ? -> actuators)
    +----------------------+
             actions
 ```
-
-The rest of the chapter is about what goes in place of the "?".
 
 A **percept** is what the sensors perceive at one moment; the **percept sequence** is the complete history of everything the agent has ever perceived. An agent's choice can depend on its built-in knowledge and the whole percept sequence so far, never on anything it has not perceived.
 
@@ -61,7 +59,7 @@ Two squares, **A** (left) and **B** (right), each clean or dirty, and a robot va
 
 Every vacuum agent is a way of filling in the right-hand column. So what is the right way?
 
-The agent view is a tool for analysis and does not split the world into agents and non-agents: a calculator can be described as an agent that displays "4" after "2 + 2 =", but nothing is gained by it.
+The agent view is a tool for analysing systems and does not divide the world into agents and non-agents: calling a calculator an agent is possible but tells you nothing.
 
 ## The performance measure: judging behaviour by its consequences
 
@@ -72,10 +70,10 @@ A rational agent gives you exactly what you ask for. Score the vacuum agent on t
 > [!definition] Designing performance measures
 > As a general rule, it is better to design performance measures according to what one actually wants to be achieved in the environment, rather than according to how one thinks the agent should behave.
 
-"Clean up dirt" describes a behaviour the designer imagined; "the floor is clean" describes the state of the world the designer wants. An optimiser exploits any gap between the two. Russell and Norvig connect this to Norbert Wiener's warning that "the purpose put into the machine" must be "the purpose which we really desire", and to the King Midas problem of getting exactly what you asked for. The course calls it [[Reward Hacking]] (specification gaming): maximising the stated measure in a way that defeats its purpose. The book does not use that term.
+"Clean up dirt" describes a behaviour the designer imagined; "the floor is clean" describes the state of the world the designer wants. An optimiser exploits any gap between the two. Russell and Norvig tie this to Norbert Wiener's warning that "the purpose put into the machine" must be "the purpose which we really desire", and to the King Midas problem. The course calls it [[Reward Hacking]] (specification gaming, a term the book does not use): maximising the stated measure in a way that defeats its purpose.
 
 > [!example] In the course: Lab 1 and the Dump action
-> Lab 1 turns the example into an experiment. One reward gives +1 per clean square per time step, the other +1 per unit of dirt sucked up. With only Left, Right and Suck, both robots behave the same, so testing cannot tell the rewards apart. Add a **Dump** action that empties the bag onto the floor, and the dirt-collected robot dumps and re-sucks. The flaw was there all along; a new action made it exploitable.
+> Lab 1 compares +1 per clean square per time step with +1 per unit of dirt sucked up. With only Left, Right and Suck both robots behave the same, so testing cannot tell the rewards apart. Add a **Dump** action and the dirt-collected robot dumps and re-sucks: the flaw was there all along, and a new action made it exploitable.
 
 Even a sensible measure leaves value judgments open: the same average cleanliness comes from steady mediocre cleaning or from bursts of hard work with long breaks. Since designers can get the measure wrong and users differ, agents may need to start uncertain about the true performance measure and learn it.
 
@@ -191,7 +189,7 @@ AI's job is to design the **agent program** that implements the agent function. 
 
 $$\text{agent} = \text{architecture} + \text{program}$$
 
-The program must suit the architecture (an action like *Walk* needs legs). The architecture makes the sensors' percepts available to the program, runs it, and passes its chosen actions to the actuators.
+The architecture passes percepts to the program, runs it and feeds its actions to the actuators, so the program must suit it (*Walk* needs legs).
 
 Every agent program in the book takes the **current percept** as input and returns an action. The agent function may depend on the whole history, but the environment only supplies the current percept, so a program that needs the history must remember it.
 
@@ -249,7 +247,7 @@ flowchart LR
 - **Brake lights.** On older cars a single video frame cannot always tell braking from taillights, so the agent brakes constantly or never.
 - **Vacuum without a location sensor.** Percepts are only `[Dirty]` and `[Clean]`. On `[Clean]`, always moving Left loops forever if it starts in A, always moving Right if it starts in B. **Infinite loops** are often unavoidable for simple reflex agents in partially observable environments.
 
-**Randomisation** escapes the loop: flipping a coin between Left and Right reaches the other square in two steps on average. So a randomised simple reflex agent can beat a deterministic one. In single-agent environments, though, randomising is usually not rational; it is a trick, and better deterministic agents do much better.
+**Randomisation** escapes the loop: flipping a coin between Left and Right reaches the other square in two steps on average. So a randomised simple reflex agent can beat a deterministic one, though in single-agent environments randomising is usually not rational: more sophisticated deterministic agents do much better.
 
 ## Model-based reflex agents
 
@@ -290,7 +288,7 @@ function MODEL-BASED-REFLEX-AGENT(percept) returns an action
 
 ## Goal-based agents
 
-At a junction, the right turn depends on **where the taxi is going**. A **goal-based agent** adds **goal** information (desirable situations, such as being at the destination) and uses the model to predict what its actions will lead to. Its diagram is the model-based one with two changes: a box "What it will be like if I do action A" fed by the state and the two models, and **Goals** in place of the condition-action rules.
+At a junction, the right turn depends on **where the taxi is going**. A **goal-based agent** adds **goal** information (desirable situations, such as being at the destination) and uses the model to predict what its actions will lead to. Its diagram is the model-based one with two changes: a box "What it will be like if I do action A" fed by the current-state estimate and the two models, and **Goals** in place of the condition-action rules.
 
 Finding long action sequences that reach a goal is the job of **search** and **planning**. The difference from reflex rules is that the agent **considers the future**: "What will happen if I do this?" and "Will that make me happy?". The reflex agent brakes at brake lights without knowing why; the goal-based agent brakes because braking is the only action it predicts will keep it from hitting the car in front.
 
@@ -366,7 +364,7 @@ The learning element can change any knowledge component of the earlier designs. 
 
 ## How components represent the world
 
-The components ("What is the world like now?", "What do my actions do?") can represent states in ways that lie on an axis of increasing expressive power:
+Components such as "What my actions do" can represent states at three points on an axis of increasing expressive power:
 
 - **Atomic:** a state is a black box with no internal structure, only the same as or different from another. For a route across a country, the state is just the current city. Search, game playing, hidden Markov models and [[Markov Decision Process|Markov decision processes]] use atomic states.
 - **Factored:** a state is a fixed set of **variables** (attributes), each with a **value** (Boolean, real, or a symbol). The same trip with fuel level, GPS position and toll money. Two factored states can share some values and differ in others, which makes it easier to see how to turn one into the other. Constraint satisfaction, propositional logic, planning, Bayesian networks and many machine learning methods use them.
