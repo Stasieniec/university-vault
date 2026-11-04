@@ -4,7 +4,7 @@
 course: AGAI
 lecture: AGAI-L03
 title: "L03 Intro to multi-agent RL"
-sort: 3
+sort: 5
 note: "AGAI-L03 - Intro to Multi-Agent Reinforcement Learning"
 questions:
 
@@ -255,16 +255,17 @@ questions:
       so both cannot be better off at once.
 
   - id: agai-92cq38
+    rev: 2
     type: truefalse
     difficulty: easy
     level: remember
     topics: [Stochastic Game]
     section: "Stochastic games: the MDP with many agents"
-    statement: A one-shot normal-form game is a stochastic game with a single state.
+    statement: A stochastic game with only one state plays the same normal-form game at every step.
     answer: true
     why: >-
-      A stochastic game generalises an MDP to N agents acting simultaneously, each
-      with its own reward. With only one state, it reduces to a normal-form game.
+      With one state, every step faces the same payoff matrix, so the stochastic
+      game is a repeated normal-form game. Each single step is the one-shot game.
 
   - id: agai-3wpbqr
     type: single
@@ -667,7 +668,7 @@ questions:
         text: "Independent learners together explore |A| × N actions"
         correct: true
       - id: c
-        text: In level-based foraging, IQL reached the optimal return sooner
+        text: In level-based foraging, IQL reached the optimal return sooner than the centralized learner
         correct: true
       - id: d
         text: In the climbing game, independent learners find 11 sooner

@@ -231,7 +231,7 @@ questions:
     level: remember
     topics: [Nash Equilibrium]
     section: "Nash equilibrium: everyone best-responds at once"
-    prompt: When is a joint policy a Nash equilibrium?
+    prompt: Which condition defines a Nash equilibrium?
     options:
       - id: a
         text: No other joint policy helps one agent without hurting another
@@ -241,7 +241,7 @@ questions:
         correct: true
       - id: c
         text: Each agent's policy is best against any policies the others could play
-        why: That is far stronger, a dominant policy. A Nash equilibrium needs a best response to the others' actual policies.
+        why: That describes dominant policies, a much stronger condition. A Nash equilibrium only needs a best response to the others' actual policies.
       - id: d
         text: The sum of the agents' expected returns is as large as it can be
         why: That is welfare optimality. The Prisoner's Dilemma equilibrium (D, D) has the lowest sum.
@@ -699,7 +699,7 @@ questions:
         why: Defectors earn more against any mix, so cooperators decline even from a large majority.
     why: >-
       The Prisoner's Dilemma ends all D. The Stag Hunt tips to one of two pure
-      states, depending on the start, and Hawk-Dove settles in a stable mix near
+      states, depending on the start, and Hawk-Dove settles in a stable mix at
       4/9 C.
 
   - id: agai-6dg2fs
