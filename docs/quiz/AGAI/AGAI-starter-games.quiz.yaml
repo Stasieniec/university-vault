@@ -9,6 +9,7 @@ sort: 92
 questions:
 
   - id: agai-xfkja8
+    status: retired
     type: single
     difficulty: easy
     level: remember
@@ -145,6 +146,7 @@ questions:
       optimality and equilibrium are separate properties.
 
   - id: agai-abbj42
+    status: retired
     type: single
     difficulty: medium
     level: understand
@@ -295,6 +297,7 @@ questions:
       says nothing about efficiency.
 
   - id: agai-v8zdtu
+    status: retired
     type: single
     difficulty: medium
     level: apply

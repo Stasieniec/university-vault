@@ -1,0 +1,716 @@
+# Lecture 2: game models, solution concepts, social dilemmas and replicator dynamics.
+# Source: the lecture note named below (checked against the slides and readings).
+# Payoffs in matrices are (row agent, column agent).
+course: AGAI
+lecture: AGAI-L02
+title: "L02 Game theory and population dynamics"
+sort: 4
+note: "AGAI-L02 - Game Theory and Population Dynamics"
+questions:
+
+  - id: agai-49ynt8
+    type: single
+    difficulty: easy
+    level: remember
+    topics: [Multi-Agent System]
+    section: Simple rules, surprising group behaviour
+    prompt: Which of these is **NOT** one of the three rules of Reynolds' Boids?
+    options:
+      - id: a
+        text: "Separation: move away from nearby agents"
+        why: Separation is a Boids rule. It keeps agents from crowding or colliding.
+      - id: b
+        text: "Alignment: steer towards nearby agents' average direction"
+        why: Alignment is a Boids rule. It makes neighbours fly the same way.
+      - id: c
+        text: "Cohesion: move towards nearby agents' average position"
+        why: Cohesion is a Boids rule. It keeps each agent with the group.
+      - id: d
+        text: "Leadership: follow the agent at the front of the group"
+        correct: true
+    why: >-
+      Boids use three local rules: separation, alignment and cohesion. No rule
+      mentions a flock or a leader. The flock emerges from local interactions.
+
+  - id: agai-2spybs
+    type: cloze
+    difficulty: easy
+    level: remember
+    topics: [Multi-Agent System]
+    section: Simple rules, surprising group behaviour
+    prompt: In Conway's Game of Life, a dead cell becomes alive when it has ___ live neighbours.
+    options:
+      - id: a
+        text: exactly 3
+        correct: true
+      - id: b
+        text: 2 or 3
+        why: With 2 or 3 live neighbours a live cell survives. Birth needs exactly 3.
+      - id: c
+        text: at least 2
+        why: Two neighbours are not enough for birth, and more than 3 means overpopulation.
+      - id: d
+        text: more than 3
+        why: More than 3 live neighbours kills a live cell by overpopulation. Birth needs exactly 3.
+    why: >-
+      A dead cell with exactly 3 live neighbours is born. A live cell survives with
+      2 or 3 and dies otherwise. From these rules come stable, cycling and
+      travelling shapes such as the glider.
+
+  - id: agai-r99h7r
+    type: single
+    difficulty: easy
+    level: apply
+    topics: [Normal-Form Game]
+    section: "Normal-form games: actions and rewards only"
+    prompt: >-
+      Two coding agents are each paid the share of the team's tests that pass,
+      whoever wrote them. Which class of game do they play?
+    options:
+      - id: a
+        text: A zero-sum game
+        why: In a zero-sum game the rewards in each cell sum to zero, so one agent's gain is the other's loss.
+      - id: b
+        text: A general-sum game
+        why: General-sum covers every other relation, where interests partly align and partly conflict. Here they coincide.
+      - id: c
+        text: A common-reward game
+        correct: true
+      - id: d
+        text: A social dilemma
+        why: A dilemma needs self-interest to clash with the group's interest. Identical rewards leave nothing to clash.
+    why: >-
+      In a common-reward game all agents get the same reward in every cell, so
+      their interests coincide. Zero-sum and general-sum are the other two classes.
+
+  - id: agai-ufkuqs
+    type: cloze
+    difficulty: medium
+    level: remember
+    topics: [Repeated Game]
+    section: "Repeating the game: policies with memory"
+    prompt: In the repeated Prisoner's Dilemma, Win-Stay Lose-Shift starts with C and keeps its action if it earned ___.
+    options:
+      - id: a
+        text: one of the top payoffs, 3 or 5
+        correct: true
+      - id: b
+        text: more than the opponent did
+        why: WSLS looks at its own payoff. After mutual cooperation it earns the same as the opponent and still stays.
+      - id: c
+        text: at least as much as last round
+        why: WSLS compares its payoff with a fixed bar, the top payoffs 3 and 5, without looking back further.
+      - id: d
+        text: a positive payoff
+        why: Mutual defection pays 1, a positive payoff, yet WSLS counts it as a loss and switches.
+    why: >-
+      WSLS stays after earning 3 or 5 and switches after 0 or 1. Tit-for-Tat, the
+      other strategy from Lab 1, copies the opponent's last action.
+
+  - id: agai-a9absg
+    type: multi
+    difficulty: easy
+    level: remember
+    topics: [Stochastic Game]
+    section: "Adding states: stochastic games"
+    prompt: Which of these are components of a stochastic game?
+    options:
+      - id: a
+        text: A finite set of states
+        correct: true
+      - id: b
+        text: A transition function
+        correct: true
+      - id: c
+        text: An initial state distribution
+        correct: true
+      - id: d
+        text: An observation function for each agent
+        why: Observation functions are what a partially observable stochastic game adds. In a stochastic game agents see the state.
+      - id: e
+        text: A history of joint actions
+        why: A history is what policies condition on in a repeated game. It is not part of the game's definition.
+    why: >-
+      A stochastic game is the 6-tuple of agents, states, action sets, reward
+      functions, a transition function and an initial state distribution.
+      Observation sets and functions turn it into a POSG.
+
+  - id: agai-vzk33e
+    type: truefalse
+    difficulty: easy
+    level: understand
+    topics: [Stochastic Game]
+    section: "Adding states: stochastic games"
+    statement: In a stochastic game, an action matters for the reward it earns in the current state and for nothing else.
+    answer: false
+    why: >-
+      An action matters twice: it earns a reward now and helps decide the next
+      state, and so which game is played tomorrow.
+
+  - id: agai-v222zj
+    type: single
+    difficulty: easy
+    level: apply
+    topics: [POMDP, Stochastic Game]
+    section: "Hiding the state: partially observable stochastic games"
+    prompt: Which situation needs a partially observable stochastic game, where a stochastic game falls short?
+    options:
+      - id: a
+        text: Two robots collect apples on a grid, each seeing the whole grid
+        why: Each robot sees the full state, so a stochastic game is enough.
+      - id: b
+        text: Two agents play the Stag Hunt once, at the same time
+        why: One shot with no state is a one-shot normal-form game.
+      - id: c
+        text: Two agents play the Prisoner's Dilemma for 100 rounds
+        why: The same game played over time, with one state, is a repeated normal-form game.
+      - id: d
+        text: Self-driving cars share a road and cannot see behind trucks
+        correct: true
+    why: >-
+      A POSG models limited sensing: agents get observations that give incomplete
+      information about the state and others' actions. Autonomous driving and card
+      games with hidden hands are the standard cases.
+
+  - id: agai-7qwj8c
+    type: single
+    difficulty: medium
+    level: understand
+    topics: [Stochastic Game, POMDP]
+    section: "Hiding the state: partially observable stochastic games"
+    prompt: In a POSG, what does agent i's observation function give?
+    options:
+      - id: a
+        text: The probability of reaching a state from the current one under a joint action
+        why: That is the transition function T, which a stochastic game already has.
+      - id: b
+        text: The probability that i observes o when joint action a led to state s
+        correct: true
+      - id: c
+        text: The reward agent i receives for each observation it makes
+        why: Rewards come from the reward functions. Observations carry information only.
+      - id: d
+        text: The probability that the state is s, given what agent i observed
+        why: That reverses the direction. The observation function gives observations given the joint action and resulting state.
+    why: >-
+      The observation function maps a joint action, a resulting state and an
+      observation to a probability. Since agents never see the state itself, their
+      policies condition on their own observation histories.
+
+  - id: agai-bw9jwf
+    type: multi
+    difficulty: medium
+    level: understand
+    topics: [Normal-Form Game, Repeated Game, Stochastic Game]
+    section: Games as models of multi-agent interaction
+    prompt: Which statements about the hierarchy of game models are true?
+    options:
+      - id: a
+        text: Each model contains the previous one as a special case.
+        correct: true
+      - id: b
+        text: In a POSG, each policy conditions on the agent's own observation history.
+        correct: true
+      - id: c
+        text: A normal-form game's rewards depend on each agent's own action alone.
+        why: Rewards are defined on joint actions, so they depend on what everyone else did too.
+      - id: d
+        text: In a stochastic game, each agent sees only part of the state.
+        why: Stochastic games are fully observable. Hiding the state is what a POSG adds.
+      - id: e
+        text: A stochastic game can carry a different payoff matrix in each state.
+        correct: true
+    why: >-
+      Each model is a special case of the next. Stochastic games add states, each
+      with its own game; POSGs hide the state, so agents condition on their own
+      observation histories.
+
+  - id: agai-agqt5x
+    type: single
+    difficulty: easy
+    level: remember
+    topics: [Nash Equilibrium]
+    section: "Nash equilibrium: everyone best-responds at once"
+    prompt: When is a joint policy a Nash equilibrium?
+    options:
+      - id: a
+        text: No other joint policy helps one agent without hurting another
+        why: That is Pareto optimality, a judgement of how desirable an outcome is for the group.
+      - id: b
+        text: No agent can gain by changing its own policy while the others keep theirs
+        correct: true
+      - id: c
+        text: Each agent's policy is best against any policies the others could play
+        why: That is far stronger, a dominant policy. A Nash equilibrium needs a best response to the others' actual policies.
+      - id: d
+        text: The sum of the agents' expected returns is as large as it can be
+        why: That is welfare optimality. The Prisoner's Dilemma equilibrium (D, D) has the lowest sum.
+    why: >-
+      A Nash equilibrium is a mutual best response. No agent can improve its
+      expected return by changing its policy while the others keep theirs.
+
+  - id: agai-9bkgpd
+    type: single
+    difficulty: medium
+    level: understand
+    topics: [Best Response, Stag Hunt]
+    section: Best response
+    prompt: Why is acting optimally in a game defined as a best response to fixed policies of the others?
+    options:
+      - id: a
+        text: Agents cannot observe the other agents' rewards
+        why: Observability of rewards is not the reason. Even with full knowledge, the best action changes with the others' play.
+      - id: b
+        text: A best response is a single policy, which makes it easy to compute
+        why: A best response is a set, since several policies can tie.
+      - id: c
+        text: Every game has one action that is best against all others
+        why: Many games have no such action. In the Stag Hunt the best action changes with the partner's.
+      - id: d
+        text: Which action is best depends on what the others play
+        correct: true
+    why: >-
+      Optimality only makes sense relative to the others. In the Stag Hunt, C is
+      best against a partner who plays C and D against one who plays D.
+
+  - id: agai-xfd7se
+    type: truefalse
+    difficulty: medium
+    level: understand
+    topics: [Best Response]
+    section: Best response
+    statement: Given the other agents' policies, an agent's best response is a single, unique policy.
+    answer: false
+    why: >-
+      The best response is the set of policies that maximise the agent's expected
+      return against the others' policies. Several policies can tie, so the set can
+      hold more than one.
+
+  - id: agai-tg3fng
+    type: truefalse
+    difficulty: medium
+    level: understand
+    topics: [Nash Equilibrium]
+    section: "Nash equilibrium: everyone best-responds at once"
+    statement: Rock-Paper-Scissors shows that a finite normal-form game can have no Nash equilibrium at all.
+    answer: false
+    why: >-
+      Rock-Paper-Scissors has no pure equilibrium, but playing each action with
+      probability 1/3 is one. Nash proved every finite game has an equilibrium once
+      mixed policies are allowed.
+
+  - id: agai-s8ykd6
+    type: single
+    difficulty: medium
+    level: understand
+    topics: [Nash Equilibrium, Policy]
+    section: "Nash equilibrium: everyone best-responds at once"
+    prompt: Why must every action an agent mixes over in a mixed Nash equilibrium earn it the same expected return?
+    options:
+      - id: a
+        text: If one action earned more, the agent would drop the others
+        correct: true
+      - id: b
+        text: Nash's theorem requires each action to get equal probability
+        why: The probabilities can differ. In the Stag Hunt each agent plays C with probability 2/3.
+      - id: c
+        text: The other agent could not compute a best response otherwise
+        why: A best response exists against any policy. The equal returns concern the mixing agent's own incentives.
+      - id: d
+        text: Mixed policies are defined to have equal rewards in every cell
+        why: A policy is a distribution over actions. It says nothing about the rewards in the cells.
+    why: >-
+      A mixing agent must be indifferent between the actions it mixes over. If one
+      action earned more, putting all weight on it would pay more, and the mix
+      would be no best response.
+
+  - id: agai-gjfu5n
+    type: multi
+    difficulty: medium
+    level: remember
+    topics: [Nash Equilibrium]
+    section: What a Nash equilibrium does not tell you
+    prompt: Which are limitations of the Nash equilibrium as a solution concept?
+    options:
+      - id: a
+        text: An equilibrium need not maximise the agents' returns.
+        correct: true
+      - id: b
+        text: A game can have several equilibria with different returns.
+        correct: true
+      - id: c
+        text: It does not say how agents reach an equilibrium.
+        correct: true
+      - id: d
+        text: Some finite games have no equilibrium at all.
+        why: Nash proved that every finite game has one, possibly mixed.
+      - id: e
+        text: It applies to zero-sum games alone.
+        why: The Nash equilibrium applies to general-sum games with two or more agents.
+    why: >-
+      The three limitations are sub-optimality, non-uniqueness and incompleteness.
+      Examples: (D, D) in the Prisoner's Dilemma, the Stag Hunt's three
+      equilibria, and no account of off-path play or of how agents get there.
+
+  - id: agai-6chd9c
+    type: single
+    difficulty: medium
+    level: apply
+    topics: [Nash Equilibrium]
+    section: What a Nash equilibrium does not tell you
+    prompt: >-
+      In a sequential game, an equilibrium says nothing about what agents do after
+      someone deviates from it. Which limitation of the Nash equilibrium is this?
+    options:
+      - id: a
+        text: Sub-optimality
+        why: Sub-optimality means an equilibrium can pay less than another outcome, as (D, D) in the Prisoner's Dilemma.
+      - id: b
+        text: Non-uniqueness
+        why: Non-uniqueness means a game can have several equilibria and the concept does not pick one.
+      - id: c
+        text: Non-existence
+        why: That is no limitation of the concept. Nash proved every finite game has an equilibrium.
+      - id: d
+        text: Incompleteness
+        correct: true
+    why: >-
+      This is incompleteness. An equilibrium says where no one wants to move, but
+      not what happens off the equilibrium path, nor how agents reach it.
+
+  - id: agai-n8p6z9
+    type: multi
+    difficulty: hard
+    level: apply
+    topics: [Pareto Optimality]
+    section: "Desirable outcomes: Pareto optimality, welfare and fairness"
+    time: 30
+    prompt: |
+      Payoffs are (row, column). Select every Pareto-optimal outcome.
+
+      |   | L | R |
+      |---|---|---|
+      | U | 2, 6 | 4, 4 |
+      | D | 3, 1 | 1, 1 |
+    options:
+      - id: a
+        text: (U, L)
+        correct: true
+      - id: b
+        text: (U, R)
+        correct: true
+      - id: c
+        text: (D, L)
+        why: (U, R) gives both agents more, 4 against 3 and 4 against 1.
+      - id: d
+        text: (D, R)
+        why: (U, R) gives both agents more, and so does (D, L) for the row agent without hurting the column agent.
+    why: >-
+      An outcome is Pareto optimal if no other gives someone more without giving
+      anyone less. Neither (2, 6) nor (4, 4) beats the other for both agents, and
+      (4, 4) dominates both bottom cells.
+
+  - id: agai-2udsum
+    type: truefalse
+    difficulty: hard
+    level: analyze
+    topics: [Pareto Optimality, Prisoner's Dilemma]
+    section: "Desirable outcomes: Pareto optimality, welfare and fairness"
+    statement: In the Prisoner's Dilemma, the outcome where one agent defects and the other cooperates is Pareto optimal.
+    answer: true
+    why: >-
+      Any move away from (D, C) lowers the defector's payoff of 5, so no outcome
+      improves it for one agent without hurting the other. Only (D, D) is not
+      Pareto optimal. Pareto optimality rules out waste and says nothing about
+      fairness.
+
+  - id: agai-ge7728
+    type: single
+    difficulty: medium
+    level: understand
+    topics: [Pareto Optimality]
+    section: "Desirable outcomes: Pareto optimality, welfare and fairness"
+    prompt: >-
+      Two outcomes, all payoffs positive, have the same total. One splits it
+      evenly, the other very unevenly. How do welfare and fairness rank them?
+    options:
+      - id: a
+        text: Both prefer the even split
+        why: Welfare is the sum of returns, which ignores how the total is divided.
+      - id: b
+        text: Welfare ties them; fairness prefers the even split
+        correct: true
+      - id: c
+        text: Welfare prefers the even split; fairness ties them
+        why: That swaps the two. The sum ties them, and the product rewards equal splits.
+      - id: d
+        text: Both rank them as equally good
+        why: The product changes with the split. (5, 5) gives 25, (9, 1) gives 9.
+    why: >-
+      Welfare is the sum of the agents' returns and fairness the product. With
+      (5, 5) and (9, 1), welfare is 10 for both while fairness is 25 against 9.
+
+  - id: agai-ub9bab
+    type: single
+    difficulty: hard
+    level: analyze
+    topics: [Social Dilemma, Nash Equilibrium, Pareto Optimality]
+    section: Social dilemmas
+    time: 30
+    prompt: |
+      Payoffs are (row, column). What does this game pose?
+
+      |   | L | R |
+      |---|---|---|
+      | U | 1, 1 | 3, 0 |
+      | D | 0, 3 | 2, 2 |
+    options:
+      - id: a
+        text: "A dilemma of cooperation: the unique equilibrium is not Pareto optimal"
+        correct: true
+      - id: b
+        text: "A dilemma of coordination: the best outcome is an equilibrium, but so is a worse one"
+        why: (D, R) is no equilibrium. Against R the row agent earns 3 with U, against D the column agent earns 3 with L.
+      - id: c
+        text: "No dilemma: the equilibrium is also the welfare optimum"
+        why: The equilibrium (U, L) totals 2, while (D, R) totals 4.
+      - id: d
+        text: "No dilemma: one agent's gain is the other's loss"
+        why: The game is not zero-sum. Cells such as (2, 2) do not sum to zero, so both agents can gain together.
+    why: >-
+      U and L earn more whatever the other plays, so (U, L) is the only
+      equilibrium, yet (D, R) is better for both. That is the Prisoner's Dilemma
+      with the actions listed in reverse order.
+
+  - id: agai-5sndw9
+    type: single
+    difficulty: medium
+    level: understand
+    topics: [Replicator Dynamics]
+    section: Evolutionary game theory
+    prompt: Why can a strategy's fitness not be measured in isolation in evolutionary game theory?
+    options:
+      - id: a
+        text: It depends on the agents' beliefs about each other
+        why: Evolutionary game theory needs no beliefs or rationality. What earns more simply becomes more common.
+      - id: b
+        text: It depends on how common the other strategies are
+        correct: true
+      - id: c
+        text: It is defined at a Nash equilibrium of the game
+        why: Fitness is defined for any mix of strategies in the population, at equilibrium or away from it.
+      - id: d
+        text: It depends on the genotype's mutation rate
+        why: Mutation plays no part in the replicator equation. Fitness comes from payoffs against the current population.
+    why: >-
+      Fitness is frequency-dependent: a cooperator does well among cooperators and
+      badly among defectors, just as a payoff in game theory depends on the others'
+      strategies.
+
+  - id: agai-d465cf
+    type: cloze
+    difficulty: easy
+    level: remember
+    topics: [Replicator Dynamics]
+    section: The replicator equation
+    prompt: Under the replicator equation, strategy C replicates when its fitness is higher than ___.
+    options:
+      - id: a
+        text: the average fitness in the population
+        correct: true
+      - id: b
+        text: its fitness in the previous generation
+        why: The equation compares C with the current population, at the same moment.
+      - id: c
+        text: the fitness at the Nash equilibrium
+        why: No equilibrium enters the equation. C is compared with the current population average.
+      - id: d
+        text: the highest fitness of any strategy
+        why: C need not be the best strategy to spread. Beating the average is enough.
+    why: >-
+      The replicator equation sets the growth of C's share x to x times (C's
+      fitness minus the population's average fitness). The factor x means a
+      strategy nobody uses cannot spread.
+
+  - id: agai-6a8fm4
+    type: multi
+    difficulty: easy
+    level: remember
+    topics: [Replicator Dynamics]
+    section: The replicator equation
+    prompt: Which are readings of the replicator equation given in the course?
+    options:
+      - id: a
+        text: "Biology: replication and natural selection"
+        correct: true
+      - id: b
+        text: "Economics: social learning by imitating those who do better"
+        correct: true
+      - id: c
+        text: "Computer science: reinforcement learning dynamics"
+        correct: true
+      - id: d
+        text: "Economics: rational agents computing best responses"
+        why: The economics reading is imitation. The replicator equation needs no rational computation.
+      - id: e
+        text: "Computer science: planning by searching a game tree"
+        why: The computer science reading is reinforcement learning, after Börgers and Sarin.
+    why: >-
+      The same equation describes natural selection, imitation and reinforcement
+      learning dynamics. Börgers and Sarin linked simple reinforcement learning to
+      the replicator equation.
+
+  - id: agai-z69du2
+    type: truefalse
+    difficulty: medium
+    level: understand
+    topics: [Replicator Dynamics]
+    section: The replicator equation
+    statement: With two strategies both present, the sign of C's fitness minus D's fitness alone decides whether C grows.
+    answer: true
+    why: >-
+      The two-strategy form multiplies that difference by x(1 - x). That factor is
+      positive whenever both strategies are present, so the sign of the difference
+      sets the direction.
+
+  - id: agai-afqzc8
+    type: single
+    difficulty: hard
+    level: analyze
+    topics: [Replicator Dynamics, Stag Hunt]
+    section: "Reading the dynamics: rest points and stability"
+    prompt: >-
+      A large Stag Hunt population (R = 4, S = 0, T = 3, P = 2) is half C and half
+      D, paired at random. Under the replicator dynamics, what happens?
+    options:
+      - id: a
+        text: C spreads to everyone, since (C, C) pays most
+        why: C pays only once more than two thirds cooperate. At half, a C agent earns 2 and a D agent 2.5.
+      - id: b
+        text: The shares stay at half, since both pure outcomes are equilibria
+        why: Half is no rest point. The rest points are 0, 2/3 and 1.
+      - id: c
+        text: The population moves to the mixed equilibrium at 2/3 C
+        why: The rest point at 2/3 is unstable, a tipping point the population moves away from.
+      - id: d
+        text: C declines until the whole population plays D
+        correct: true
+    why: >-
+      Under the tipping point at 2/3, C earns less than D, so its share falls all
+      the way to zero. Populations starting over 2/3 C go to all C instead.
+
+  - id: agai-pmnhka
+    type: single
+    difficulty: hard
+    level: analyze
+    topics: [Replicator Dynamics]
+    section: "Reading the dynamics: rest points and stability"
+    prompt: Under the replicator dynamics, all-D is a stable rest point when P > S. What does that condition say?
+    options:
+      - id: a
+        text: A lone defector among cooperators earns less than they do
+        why: That is R > T, the condition for all-C to be stable.
+      - id: b
+        text: Mutual defection pays more than mutual cooperation
+        why: That compares P with R. Stability of all-D depends on what a cooperator who appears among defectors earns.
+      - id: c
+        text: A lone cooperator among defectors earns less than they do
+        correct: true
+      - id: d
+        text: Defecting pays more whatever the partner does
+        why: That is dominance of D, which needs T > R as well. All-D can be stable without it, as in the Stag Hunt.
+    why: >-
+      Near all-D, a cooperator almost always meets defectors and earns S, while the
+      defectors earn P. If P > S the cooperators shrink back, so all-D is stable.
+
+  - id: agai-caad7g
+    type: single
+    difficulty: medium
+    level: understand
+    topics: [Replicator Dynamics, Prisoner's Dilemma]
+    section: The Prisoner's Dilemma in a population
+    prompt: >-
+      In the donation game (b > c > 0), a population of all cooperators is a rest
+      point. Why does it not stay all-cooperative once a defector appears?
+    options:
+      - id: a
+        text: Cooperators punish the defector, which costs them c each time
+        why: Nobody punishes anyone. Each agent plays a fixed strategy and earns its payoff.
+      - id: b
+        text: The defector earns b, more than the cooperators' b - c, and spreads
+        correct: true
+      - id: c
+        text: Every rest point of the replicator dynamics is unstable
+        why: Stable rest points exist, such as all-D here and both pure states of the Stag Hunt.
+      - id: d
+        text: The defector earns 0 and lowers the average fitness
+        why: Among cooperators, a defector earns b, the most anyone gets.
+    why: >-
+      Cooperating costs exactly c relative to defecting, whoever you meet. So
+      defectors always earn more, and from any mix the population ends fully D.
+
+  - id: agai-gu95e7
+    type: single
+    difficulty: hard
+    level: analyze
+    topics: [Replicator Dynamics]
+    section: "Hawk-Dove: coexistence"
+    prompt: In a Hawk-Dove population (C = conventional, D = dangerous), why is neither pure state stable?
+    options:
+      - id: a
+        text: Neither pure state is a rest point of the dynamics
+        why: Both are rest points, since a strategy nobody uses cannot grow. They are unstable rest points.
+      - id: b
+        text: Each strategy earns more when it is rare
+        correct: true
+      - id: c
+        text: Every agent randomises between C and D
+        why: Each agent plays one strategy. The mix is a share of the population.
+      - id: d
+        text: D earns more than C whatever the partner plays
+        why: Against D, C earns more (2 against -2). Neither strategy dominates.
+    why: >-
+      Among mostly conventional agents a dangerous one earns 8, and among mostly
+      dangerous ones a conventional one earns 2 against their -2. So a rare
+      strategy spreads, and the population settles at a stable mix.
+
+  - id: agai-5jderg
+    type: multi
+    difficulty: medium
+    level: understand
+    topics: [Replicator Dynamics, Prisoner's Dilemma, Stag Hunt]
+    section: Equilibria against population outcomes
+    prompt: Which long-run outcomes under the replicator dynamics are correct?
+    options:
+      - id: a
+        text: "Prisoner's Dilemma: all D, from any start"
+        correct: true
+      - id: b
+        text: "Stag Hunt: all C if it starts over 2/3 C, all D if under"
+        correct: true
+      - id: c
+        text: "Hawk-Dove: a stable mix of C and D"
+        correct: true
+      - id: d
+        text: "Stag Hunt: the population settles at the mixed equilibrium"
+        why: The Stag Hunt's mixed equilibrium is an unstable tipping point. Populations move away from it.
+      - id: e
+        text: "Prisoner's Dilemma: all C once most agents cooperate"
+        why: Defectors earn more against any mix, so cooperators decline even from a large majority.
+    why: >-
+      The Prisoner's Dilemma ends all D. The Stag Hunt tips to one of two pure
+      states, depending on the start, and Hawk-Dove settles in a stable mix near
+      4/9 C.
+
+  - id: agai-6dg2fs
+    type: truefalse
+    difficulty: hard
+    level: analyze
+    topics: [Replicator Dynamics, Nash Equilibrium]
+    section: "Hawk-Dove: coexistence"
+    statement: In both the Stag Hunt and Hawk-Dove, the interior rest point of the replicator dynamics is the game's mixed Nash equilibrium.
+    answer: true
+    why: >-
+      Both interior rest points are the mixed equilibria, 2/3 C and 4/9 C. They
+      differ in stability: the Stag Hunt's is an unstable tipping point, and
+      Hawk-Dove's is where the population ends.
