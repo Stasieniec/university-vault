@@ -32,6 +32,7 @@ questions:
       history, so the agents can be deployed fully decentralised.
 
   - id: agai-u9d5cx
+    status: retired
     type: single
     difficulty: easy
     level: remember
@@ -92,6 +93,7 @@ questions:
       widely studied in multi-agent planning.
 
   - id: agai-ruxfpv
+    status: retired
     type: single
     difficulty: medium
     level: apply
@@ -206,6 +208,7 @@ questions:
       an important baseline.
 
   - id: agai-b35u9q
+    status: retired
     type: single
     difficulty: hard
     level: apply

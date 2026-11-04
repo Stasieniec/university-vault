@@ -1,0 +1,719 @@
+# Lecture 3: single-agent RL recap, stochastic games, why multi-agent learning is hard,
+# and independent Q-learning.
+# Source: the lecture note named below (reviewed against the slides).
+course: AGAI
+lecture: AGAI-L03
+title: "L03 Intro to multi-agent RL"
+sort: 3
+note: "AGAI-L03 - Intro to Multi-Agent Reinforcement Learning"
+questions:
+
+  - id: agai-awfbeu
+    type: single
+    difficulty: easy
+    level: understand
+    topics: [Reinforcement Learning]
+    section: Learning from your own actions
+    prompt: Which of these tasks is sequential decision making, the kind of problem reinforcement learning addresses?
+    options:
+      - id: a
+        text: Forecasting next month's electricity demand
+        why: A forecast does not change future demand, so the predictions do not shape the data that follows.
+      - id: b
+        text: Playing chess against an opponent
+        correct: true
+      - id: c
+        text: Transcribing recorded speech into text
+        why: The transcript does not change what audio comes next. It is a labelled prediction problem.
+      - id: d
+        text: Sorting photos into labelled categories
+        why: Each photo is classified on its own from a labelled dataset, which is supervised learning.
+    why: >-
+      In sequential decision making your actions shape what you see next. A chess
+      move changes the board you face; a forecast or a transcript leaves future
+      inputs untouched.
+
+  - id: agai-xkqgtx
+    type: truefalse
+    difficulty: easy
+    level: remember
+    topics: [Reinforcement Learning]
+    section: Learning from your own actions
+    statement: Reinforcement learning data is i.i.d., like supervised data, but carries rewards in place of labels.
+    answer: false
+    why: >-
+      RL data is not i.i.d. Consecutive samples are correlated and depend on how
+      the agent acts. The second half is right: there are no labels, only reward.
+
+  - id: agai-cr5vc5
+    type: single
+    difficulty: medium
+    level: apply
+    topics: [Markov Decision Process]
+    section: The pieces of an RL problem
+    prompt: >-
+      A robot dog's state is its grid cell, but it also has a battery the state
+      leaves out. The same cell now leads to different futures depending on how
+      long it has walked. What has gone wrong?
+    options:
+      - id: a
+        text: The discount factor is set too low
+        why: The discount factor weights future rewards. It cannot make one state lead to different futures.
+      - id: b
+        text: The reward depends on the next state
+        why: Rewards R(s, a, s') may depend on the next state in any MDP. That breaks nothing.
+      - id: c
+        text: The action set is too small to reach home
+        why: The actions are fine. The problem is that the state does not summarise the past.
+      - id: d
+        text: Its state is no longer Markov
+        correct: true
+    why: >-
+      A Markov state summarises everything about the past that matters for the
+      future. With a hidden battery, how long the robot has walked matters, so the
+      cell alone is no longer Markov.
+
+  - id: agai-mv37ex
+    type: cloze
+    difficulty: easy
+    level: remember
+    topics: [Value Iteration]
+    section: Values and the Bellman equations
+    prompt: Value iteration makes the evaluated policy greedy, so the Bellman equation's average over actions becomes ___.
+    options:
+      - id: a
+        text: a max
+        correct: true
+      - id: b
+        text: a sum
+        why: The policy-evaluation equation already sums over actions, weighted by the policy. Greediness replaces that weighted sum.
+      - id: c
+        text: a single sample
+        why: That is how Q-learning drops the model, by replacing the expectation over next states.
+      - id: d
+        text: a softmax
+        why: Softmax is how Boltzmann exploration chooses actions. Value iteration takes the best action.
+    why: >-
+      With a greedy policy, each update takes the best action's value instead of
+      averaging over the policy's actions. When the values stop changing, the
+      greedy policy is optimal.
+
+  - id: agai-5pcr26
+    type: single
+    difficulty: medium
+    level: understand
+    topics: [Q-Learning]
+    section: "Learning without a model: Q-learning"
+    prompt: Value iteration needs the transition and reward model. How does Q-learning do without it?
+    options:
+      - id: a
+        text: It estimates the model from data, then runs value iteration
+        why: That is model-based learning. Q-learning updates values straight from transitions and builds no model.
+      - id: b
+        text: It averages over actions with the policy's probabilities
+        why: That average belongs to the Bellman equation for a fixed policy. Q-learning's target takes the max.
+      - id: c
+        text: It replaces the expectation over next states with a single sample
+        correct: true
+      - id: d
+        text: It searches directly over every deterministic policy
+        why: There are |A|^|S| of those, far too many. Values let decisions be built state by state.
+    why: >-
+      Q-learning uses each sample (s, a, r, s') as a one-sample estimate of the
+      expectation. Its target r + γ max Q(s', a') is therefore noisy, and the
+      learning rate averages the noise out over visits.
+
+  - id: agai-mcvg9z
+    type: truefalse
+    difficulty: easy
+    level: remember
+    topics: [Q-Learning, TD Error]
+    section: "Learning without a model: Q-learning"
+    statement: When the next state is terminal, the Q-learning target is just the reward r.
+    answer: true
+    why: >-
+      A terminal state has no future value, so the γ max Q(s', a') term drops out
+      and the target is r alone.
+
+  - id: agai-x69rmn
+    type: single
+    difficulty: hard
+    level: apply
+    topics: [Q-Learning]
+    section: Discount, learning rate and exploration
+    prompt: >-
+      A Q-learner on a slippery ice grid, where moves sometimes slide, uses a high
+      constant learning rate. Its estimates jump with every outcome and do not
+      settle. What is the standard fix?
+    options:
+      - id: a
+        text: Raise the learning rate further
+        why: A higher learning rate trusts each noisy sample even more, so the estimates jump further.
+      - id: b
+        text: Lower the discount factor
+        why: The discount sets how much future rewards count. It does not average out noise from slippery moves.
+      - id: c
+        text: Switch to Boltzmann exploration
+        why: Exploration decides which actions get tried. The noise here comes from trusting single samples too much.
+      - id: d
+        text: Decay the learning rate over time
+        correct: true
+    why: >-
+      In a stochastic environment a high learning rate makes estimates noisy, and a
+      low one is smooth but slow. Decaying it gets fast early learning and stable
+      later estimates.
+
+  - id: agai-q584xq
+    type: single
+    difficulty: medium
+    level: understand
+    topics: [Epsilon-Greedy Policy]
+    section: Discount, learning rate and exploration
+    prompt: Why is the exploration of ε-greedy called blind?
+    options:
+      - id: a
+        text: When exploring, it skips the greedy action
+        why: The random choice is uniform over all actions, greedy one included. That is why the greedy action gets an extra ε/|A|.
+      - id: b
+        text: A disastrous action is tried as often as a nearly-best one
+        correct: true
+      - id: c
+        text: Its good settings depend on the scale of the Q-values
+        why: That is the weakness of Boltzmann exploration, through its temperature τ.
+      - id: d
+        text: It explores the same amount at every stage of learning
+        why: ε is usually decayed on a schedule, and ε-greedy is easy to decay. Blindness is about which actions get tried.
+    why: >-
+      With probability ε, ε-greedy picks uniformly at random, whatever the
+      Q-values say. Boltzmann exploration is value-aware instead, trying better
+      actions more often.
+
+  - id: agai-btqwtz
+    type: multi
+    difficulty: medium
+    level: understand
+    topics: [Softmax Policy, Exploration vs Exploitation]
+    section: Discount, learning rate and exploration
+    prompt: Which statements about Boltzmann (softmax) exploration are true?
+    options:
+      - id: a
+        text: Better actions are tried more often than worse ones
+        correct: true
+      - id: b
+        text: A good temperature depends on the scale of the Q-values
+        correct: true
+      - id: c
+        text: A high temperature makes it nearly greedy
+        why: A high τ makes it nearly uniform. A low τ is nearly greedy.
+      - id: d
+        text: It is easier to tune than ε-greedy
+        why: It is harder to tune, because a good τ depends on the Q-value scale. ε-greedy is simple and easy to decay.
+      - id: e
+        text: It tries a disastrous action as often as a nearly-best one
+        why: That blindness is the weakness of ε-greedy. Boltzmann weights actions by exp(Q/τ).
+    why: >-
+      Boltzmann exploration picks actions with probability proportional to
+      exp(Q/τ), so it is value-aware. The price is tuning: low τ is nearly greedy,
+      high τ nearly uniform, and the right τ depends on the Q-values.
+
+  - id: agai-fqxzb7
+    type: cloze
+    difficulty: easy
+    level: remember
+    topics: ["Payoff structure decides what a good solution is"]
+    section: Payoff structure decides what a good solution is
+    prompt: A two-agent game in which R1 = −R2 in every outcome is called ___.
+    options:
+      - id: a
+        text: fully cooperative
+        why: Fully cooperative means R1 = R2, so both agents want the same thing.
+      - id: b
+        text: general-sum
+        why: General-sum covers everything between equal and opposite rewards.
+      - id: c
+        text: zero-sum
+        correct: true
+      - id: d
+        text: symmetric
+        why: Symmetry is about the agents' roles, a separate dimension of a game's structure.
+    why: >-
+      In a zero-sum game your win is my loss, as in rock-paper-scissors or hide and
+      seek. Learning there must stay robust to many opponents, since my changes
+      prompt counter-changes.
+
+  - id: agai-9m583w
+    type: truefalse
+    difficulty: medium
+    level: understand
+    topics: [Pareto Optimality]
+    section: Payoff structure decides what a good solution is
+    statement: Pareto inefficiency, an outcome where everyone could be better off, is the typical struggle of learners in zero-sum games.
+    answer: false
+    why: >-
+      Pareto inefficiency is a general-sum problem, like mutual defection in the
+      Prisoner's Dilemma. In a zero-sum game one agent's win is the other's loss,
+      so both cannot be better off at once.
+
+  - id: agai-92cq38
+    type: truefalse
+    difficulty: easy
+    level: remember
+    topics: [Stochastic Game]
+    section: "Stochastic games: the MDP with many agents"
+    statement: A one-shot normal-form game is a stochastic game with a single state.
+    answer: true
+    why: >-
+      A stochastic game generalises an MDP to N agents acting simultaneously, each
+      with its own reward. With only one state, it reduces to a normal-form game.
+
+  - id: agai-3wpbqr
+    type: single
+    difficulty: easy
+    level: remember
+    topics: [Stochastic Game, Prisoner's Dilemma]
+    section: "Stochastic games: the MDP with many agents"
+    prompt: The iterated Prisoner's Dilemma can be written as a stochastic game. What is its state?
+    options:
+      - id: a
+        text: Both players' actions in the previous round
+        correct: true
+      - id: b
+        text: Each player's total score so far
+        why: Scores are not part of the state. Last round's actions, CC, CD, DC or DD, are what a policy reacts to.
+      - id: c
+        text: The number of rounds played so far
+        why: The round count is not part of the state. The state is last round's joint action.
+      - id: d
+        text: The payoff matrix of the current round
+        why: The matrix is the same every round. It gives the rewards, and the state is last round's joint action.
+    why: >-
+      The state is last round's joint action: CC, CD, DC or DD. The current joint
+      action fixes the next state, so a policy can say "cooperate if the other
+      cooperated last time".
+
+  - id: agai-qtn8gj
+    type: single
+    difficulty: medium
+    level: understand
+    topics: [Stochastic Game, Nash Equilibrium]
+    section: "Stochastic games: the MDP with many agents"
+    prompt: Why does "maximise your return" stop being an adequate solution concept in a stochastic game?
+    options:
+      - id: a
+        text: Returns can no longer be discounted with several agents
+        why: Each agent's objective is still a discounted return. The trouble is what that return depends on.
+      - id: b
+        text: My best policy depends on yours, and yours on mine
+        correct: true
+      - id: c
+        text: The joint state space is too large to compute returns
+        why: Size is the scalability challenge. Even a tiny game has this problem, because my best policy depends on yours.
+      - id: d
+        text: Each agent's reward ignores the other agents' actions
+        why: Rewards depend on the joint action. That dependence is exactly why my return depends on what you do.
+    why: >-
+      Agent i's return depends on everyone's policies, but it controls only its
+      own. MARL optimises instead for stability (a Nash equilibrium), no regret,
+      social welfare or robustness to opponents.
+
+  - id: agai-654xyz
+    type: multi
+    difficulty: medium
+    level: remember
+    topics: [Nash Equilibrium, Stochastic Game]
+    section: "Stochastic games: the MDP with many agents"
+    prompt: In place of "maximise your return", which criteria does multi-agent RL optimise for?
+    options:
+      - id: a
+        text: "Stability: no agent gains by changing its own policy alone"
+        correct: true
+      - id: b
+        text: Social welfare, the total reward of the agents
+        correct: true
+      - id: c
+        text: Robustness to many kinds of opponent
+        correct: true
+      - id: d
+        text: The best return against the opponents' initial policies
+        why: Those policies change as the opponents learn, so a response to them goes stale.
+      - id: e
+        text: Exact convergence of every agent's policy
+        why: In matching pennies policies can cycle without settling while their average still matches the equilibrium.
+    why: >-
+      MARL replaces it with stability (a Nash equilibrium), no regret, social
+      welfare or robustness to opponents. Which one fits depends on the setting,
+      since my best policy depends on yours.
+
+  - id: agai-r5tc76
+    type: single
+    difficulty: medium
+    level: understand
+    topics: ["What convergence means when everyone learns"]
+    section: What convergence means when everyone learns
+    prompt: In matching pennies, why do two learners' policies orbit the equilibrium without settling?
+    options:
+      - id: a
+        text: Their learning rates are too high to settle
+        why: The cycling comes from the game. Each best response gives the other player a reason to counter it.
+      - id: b
+        text: The game has no equilibrium to reach
+        why: It has one, with each player choosing heads with probability 0.5. The dynamics circle around it.
+      - id: c
+        text: The payoffs are noisy, so the values keep shifting
+        why: The payoffs are fixed at +1 and −1. The movement comes from each player reacting to the other.
+      - id: d
+        text: Each player's change gives the other a reason to counter it
+        correct: true
+    why: >-
+      If the goalkeeper leans to heads, the kicker should lean to tails, so the
+      goalkeeper should switch to tails, and so on. Best responses chase each other
+      around the 0.5 equilibrium.
+
+  - id: agai-wfez43
+    type: multi
+    difficulty: hard
+    level: analyze
+    topics: ["What convergence means when everyone learns"]
+    section: What convergence means when everyone learns
+    prompt: >-
+      Two learners in matching pennies keep cycling. Averaged over many episodes,
+      each plays heads half the time and earns 0, the equilibrium's reward. Under
+      which notions of convergence have they converged?
+    options:
+      - id: a
+        text: Exact policy, each policy equal to the equilibrium's
+        why: The policies keep cycling around 0.5, so they do not match the equilibrium exactly.
+      - id: b
+        text: Average policy over many episodes
+        correct: true
+      - id: c
+        text: Average reward matching the equilibrium's
+        correct: true
+      - id: d
+        text: Best responses that have stopped changing
+        why: The best responses are what keeps chasing each other. They do not stop changing.
+    why: >-
+      Exact-policy convergence fails because the policies orbit. Their average
+      policy matches the equilibrium and so does their average reward, so under
+      those two notions they have converged.
+
+  - id: agai-ekkc9k
+    type: single
+    difficulty: hard
+    level: analyze
+    topics: ["Non-stationarity: experience has a shelf life"]
+    section: "Non-stationarity: experience has a shelf life"
+    prompt: >-
+      To agent i, the transitions it experiences are the game's true transitions
+      averaged over what the other agents play. What makes these vary over
+      time?
+    options:
+      - id: a
+        text: The game's true transition function drifts
+        why: The true transition function is fixed. What moves are the weights from the others' policies.
+      - id: b
+        text: Agent i's own value estimates improve
+        why: Improving estimates moves targets in single-agent RL too, but leaves the transitions agent i faces unchanged.
+      - id: c
+        text: The other agents' policies shift as they learn
+        correct: true
+      - id: d
+        text: More agents join the game as it runs
+        why: The set of agents is fixed in a stochastic game. The change comes from the others learning.
+    why: >-
+      Agent i's transitions sum the fixed true transitions over the others' joint
+      actions, weighted by their policies. When those policies change, so do agent
+      i's transitions and expected rewards, and its learning targets go stale.
+
+  - id: agai-3ydr4d
+    type: multi
+    difficulty: medium
+    level: understand
+    topics: ["Non-stationarity: experience has a shelf life"]
+    section: "Non-stationarity: experience has a shelf life"
+    prompt: Which of these are consequences of non-stationarity in multi-agent RL?
+    options:
+      - id: a
+        text: Best responses chase each other in cycles
+        correct: true
+      - id: b
+        text: Convergence proofs for Q-learning stop applying
+        correct: true
+      - id: c
+        text: Joint action spaces grow exponentially with the agents
+        why: That is the scalability challenge. It makes non-stationarity worse but is a separate problem.
+      - id: d
+        text: An idle agent is reinforced when its teammates succeed
+        why: That is multi-agent credit assignment, the lazy agent problem.
+    why: >-
+      When the others learn, agent i's environment changes. Best responses can
+      cycle as in matching pennies, MDP convergence proofs assume a fixed
+      environment, and bootstrapped targets go stale.
+
+  - id: agai-q6zhcg
+    type: cloze
+    difficulty: medium
+    level: remember
+    topics: [Multi-Agent Credit Assignment]
+    section: "Credit assignment: whose action earned the reward"
+    prompt: Multi-agent credit assignment is hardest in ___ games, though it also appears in general-sum ones.
+    options:
+      - id: a
+        text: fully cooperative
+        correct: true
+      - id: b
+        text: two-player zero-sum
+        why: Zero-sum rewards are individual. The worst case is one shared reward, which carries no individual signal.
+      - id: c
+        text: turn-based repeated
+        why: Turn order is a separate dimension of a game. The difficulty comes from a shared reward with no individual signal.
+      - id: d
+        text: one-shot matrix
+        why: The number of rounds is a separate dimension. Credit is hardest to split when everyone gets the same reward.
+    why: >-
+      In fully cooperative games everyone gets the same reward, so there is no
+      individual signal at all. Disentangling contributions then needs
+      counterfactuals: what if this agent had acted differently?
+
+  - id: agai-x2r5es
+    type: single
+    difficulty: hard
+    level: apply
+    topics: [Multi-Agent Credit Assignment, Social Dilemma]
+    section: "Credit assignment: whose action earned the reward"
+    prompt: >-
+      Agents fish from a shared lake that can be depleted. I fish aggressively
+      while the others hold back, catch lots, and learn that aggression pays.
+      Which challenge has misled me?
+    options:
+      - id: a
+        text: Non-stationarity
+        why: Nothing here changed over time. I credited my own action with an outcome that depended on the others' restraint.
+      - id: b
+        text: Temporal credit assignment
+        why: That asks which earlier action caused a reward. My error is about whose behaviour caused it.
+      - id: c
+        text: Equilibrium selection
+        why: That is about settling in one of several equilibria. Here one lesson was drawn wrongly from a good outcome.
+      - id: d
+        text: Multi-agent credit assignment
+        correct: true
+    why: >-
+      My big catch paid only because the others held back. Credit assignment
+      arises in general-sum games too, since individual rewards still depend on
+      what the others do.
+
+  - id: agai-ntt472
+    type: single
+    difficulty: medium
+    level: understand
+    topics: ["Why multi-agent learning is hard"]
+    section: Why multi-agent learning is hard
+    prompt: Which challenge of multi-agent learning decides where learners end up, as opposed to how well they learn?
+    options:
+      - id: a
+        text: Non-stationarity
+        why: It limits how well agents learn by making the signal noisy. It does not pick the outcome.
+      - id: b
+        text: Equilibrium selection
+        correct: true
+      - id: c
+        text: Credit assignment
+        why: It makes the learning signal noisy, limiting how well agents learn.
+      - id: d
+        text: Scalability
+        why: Scalability makes every other challenge worse. It does not itself pick the outcome.
+    why: >-
+      Non-stationarity and credit assignment limit how well we learn. Equilibrium
+      selection decides where we end up: games have many equilibria, and the
+      desirable ones are often harder to reach.
+
+  - id: agai-umba2s
+    type: single
+    difficulty: hard
+    level: analyze
+    topics: [Stag Hunt, "Equilibrium selection: settling in the wrong equilibrium"]
+    section: "Equilibrium selection: settling in the wrong equilibrium"
+    prompt: >-
+      In a gridworld stag hunt, a plant alone gives +1, the stag gives +5 if hunted
+      together, and trying for the stag alone gives nothing. Learners mostly settle
+      on plants. Why?
+    options:
+      - id: a
+        text: Failed stag attempts while exploring cost too much
+        correct: true
+      - id: b
+        text: Collecting plants is the Pareto-optimal outcome
+        why: Hunting the stag together pays +5 each, so plants are worse for everyone.
+      - id: c
+        text: Mutual stag hunting is not an equilibrium
+        why: It is one. Neither hunter gains by switching to plants while the other goes for the stag.
+      - id: d
+        text: Hunting the stag is a dominated action
+        why: Against a stag-hunting partner, the stag (+5) beats a plant (+1), so it is not dominated.
+    why: >-
+      Learners tend to reach safe equilibria because costly exploration mistakes
+      dissuade them. While the partner explores, going for the stag often pays
+      nothing and a plant pays +1, so both learn that plants are safe.
+
+  - id: agai-89bkk6
+    type: truefalse
+    difficulty: medium
+    level: understand
+    topics: ["Equilibrium selection: settling in the wrong equilibrium"]
+    section: "Equilibrium selection: settling in the wrong equilibrium"
+    statement: A country that drives on the left keeps doing so because driving on the right would not be an equilibrium there.
+    answer: false
+    why: >-
+      Both sides of the road are equilibria. The country keeps the one its history
+      gave it, since the first driver to switch crashes: an equilibrium can exist
+      yet be unreachable.
+
+  - id: agai-bwq9f7
+    type: cloze
+    difficulty: easy
+    level: remember
+    topics: ["Scalability: the curse of dimensionality"]
+    section: "Scalability: the curse of dimensionality"
+    prompt: With 5 actions per agent, a game with N agents has ___ joint actions.
+    options:
+      - id: a
+        text: 5N
+        why: 5N counts each agent's own actions, as independent learners do. Joint actions multiply.
+      - id: b
+        text: N^5
+        why: The exponent is the number of agents, since each of the N agents picks one of 5 actions.
+      - id: c
+        text: 5^N
+        correct: true
+      - id: d
+        text: 5 + N
+        why: Choices multiply across agents, so the count grows exponentially.
+    why: >-
+      Every agent picks one of 5 actions, so the combinations number 5^N. Joint
+      states grow the same way, which makes every other challenge worse.
+
+  - id: agai-8aqrs7
+    type: single
+    difficulty: hard
+    level: analyze
+    topics: [Independent Learning, "IQL in the climbing game"]
+    section: IQL in the climbing game
+    prompt: >-
+      In the climbing game (shared reward), (a, a) pays 11, but playing a against a
+      partner's b pays −30, while action c risks nothing that bad. With partners
+      exploring uniformly, why do independent Q-learners drift to c?
+    options:
+      - id: a
+        text: (c, c) is the game's Pareto-optimal outcome
+        why: (a, a) = 11 is the Pareto-optimal equilibrium. (c, c) pays 5.
+      - id: b
+        text: Averaged over the other agent's actions, c looks best
+        correct: true
+      - id: c
+        text: c is a dominant action for both agents
+        why: Against a partner playing a, action a pays 11 and c pays 0, so c is not dominant.
+      - id: d
+        text: Their discount factor is too low to value 11
+        why: The climbing game has one state. The pull to c comes from averaging over the partner's random actions.
+    why: >-
+      Each agent's Q-value averages the reward over its partner's actions. Against
+      a uniform partner, a and b average about −6 and c about 1.7, because c
+      avoids −30. Both drift to c and get stuck at (c, c) = 5.
+
+  - id: agai-rggjeb
+    type: multi
+    difficulty: medium
+    level: understand
+    topics: [Independent Learning]
+    section: "Independent learning: treat everyone else as environment"
+    prompt: Which statements about independent Q-learning (IQL) are true?
+    options:
+      - id: a
+        text: Each agent's Q-table covers its own actions alone
+        correct: true
+      - id: b
+        text: An agent's value for an action averages over its partners' current behaviour
+        correct: true
+      - id: c
+        text: It keeps the convergence guarantees of Q-learning
+        why: Those guarantees assume a fixed environment. Each agent's MDP changes as the others learn.
+      - id: d
+        text: With one agent, it is ordinary tabular Q-learning
+        correct: true
+      - id: e
+        text: Each agent stores one value per joint action
+        why: That is the centralized learner. IQL tables hold the agent's own actions, and the joint action does not appear.
+      - id: f
+        text: The same recipe works with IPPO, DDPG or SAC
+        correct: true
+    why: >-
+      IQL runs plain Q-learning per agent over its own actions, so the others act
+      like noise and each agent's MDP keeps changing. It has no guarantees, but the
+      recipe generalises and is a standard baseline.
+
+  - id: agai-tarbf4
+    type: multi
+    difficulty: medium
+    level: understand
+    topics: [Independent Learning]
+    section: IQL in the stag hunt and in level-based foraging
+    prompt: Which statements compare centralized and independent Q-learning correctly?
+    options:
+      - id: a
+        text: "A centralized learner explores |A|^N joint actions"
+        correct: true
+      - id: b
+        text: "Independent learners together explore |A| × N actions"
+        correct: true
+      - id: c
+        text: In level-based foraging, IQL reached the optimal return sooner
+        correct: true
+      - id: d
+        text: In the climbing game, independent learners find 11 sooner
+        why: The reverse holds. The centralized learner finds 11, while independent learners get stuck at (c, c) = 5.
+      - id: e
+        text: A centralized learner averages over its partners' actions
+        why: It keeps one value per joint action, so it sees each combination directly. The averaging is what IQL does.
+    why: >-
+      Centralized learning sees joint actions directly, which helps coordination
+      but means exploring |A|^N of them. Independent learners explore |A| × N,
+      which pays off once the joint space blows up, as in level-based foraging.
+
+  - id: agai-dz5bma
+    type: truefalse
+    difficulty: hard
+    level: analyze
+    topics: [Independent Learning, "IQL in the climbing game"]
+    section: IQL in the climbing game
+    statement: In the climbing game, more random exploration by both independent learners helps them find the optimum (a, a) = 11.
+    answer: false
+    why: >-
+      Against a randomly exploring partner, action a averages about −6.3 because
+      of the −30 risk. More random play keeps a looking bad, since a pays 11 only
+      when the partner also plays a.
+
+  - id: agai-76s4hd
+    type: single
+    difficulty: easy
+    level: remember
+    topics: [Independent Learning]
+    section: "Independent learning: treat everyone else as environment"
+    prompt: In independent Q-learning, how does each agent handle the other agents?
+    options:
+      - id: a
+        text: It learns an explicit model of their policies
+        why: That is agent modelling, a multi-agent-aware method. IQL agents do not model each other.
+      - id: b
+        text: A central learner chooses everyone's actions
+        why: That is centralized learning, the other naive way to reuse single-agent RL.
+      - id: c
+        text: It copies their policy, so all agents share one
+        why: Sharing one policy is a different technique. Each IQL agent keeps its own table.
+      - id: d
+        text: It treats them as part of the environment
+        correct: true
+    why: >-
+      Each agent runs ordinary Q-learning on its own actions and rewards. The
+      others' changing behaviour is absorbed into the transitions and rewards it
+      experiences, so its MDP is not fixed.
