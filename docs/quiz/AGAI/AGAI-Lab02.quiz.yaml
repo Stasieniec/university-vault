@@ -1,0 +1,389 @@
+# Lab 2: learning agents. Conceptual questions on what the notebook's learners
+# (stateless Q-learning in the Stag Hunt, tabular Q-learning and PPO in the
+# Coin Game) do and why the results come out as they do; nothing to run or
+# compute. Source: the lab note named below.
+course: AGAI
+lecture: AGAI-Lab02
+title: "Lab 2 Learning agents"
+sort: 6
+note: "AGAI-Lab02 - Learning Agents"
+questions:
+
+  - id: agai-xf96ar
+    type: cloze
+    difficulty: easy
+    level: remember
+    topics: [Q-Learning]
+    section: "Q4: exploration as noise in the other's rewards"
+    prompt: With a constant learning rate, a stateless Q-learner's Q(C) is an exponentially weighted average of the ___ payoffs of C.
+    options:
+      - id: a
+        text: recent
+        correct: true
+      - id: b
+        text: expected
+        why: The expected value is what Q(C) never settles on. Its weights favour the last few payoffs, so it stays noisy.
+      - id: c
+        text: highest
+        why: The update moves Q(C) towards every payoff received, low ones included.
+      - id: d
+        text: initial
+        why: The initial value's weight shrinks by 10% per C play and soon vanishes.
+    why: >-
+      Unrolling the update gives weights 0.1, 0.09, 0.081 and so on, so Q(C)
+      remembers roughly the last 1/α = 10 payoffs. It estimates what C paid
+      lately, a noisy quantity.
+
+  - id: agai-nhwfut
+    type: single
+    difficulty: medium
+    level: understand
+    topics: [Prisoner's Dilemma, Social Dilemma]
+    section: "Q2: the baseline run"
+    prompt: Independent Q-learners in the Prisoner's Dilemma always end at (D,D). Why is that no coordination failure?
+    options:
+      - id: a
+        text: They explore too little to discover that (C,C) pays more
+        why: More exploration would not help. Against any partner D pays more, so (C,C) is never stable for them.
+      - id: b
+        text: (C,C) does not give both players more than (D,D)
+        why: It does. (C,C) Pareto dominates (D,D), which is what makes this a social dilemma.
+      - id: c
+        text: They lock into D before ever playing (C,C)
+        why: That describes the Stag Hunt. Here D pays more whatever the partner does, so (C,C) would not hold.
+      - id: d
+        text: D is dominant, so (D,D) is the one Nash equilibrium
+        correct: true
+    why: >-
+      There was no other equilibrium to coordinate on, and the learners found the
+      one there is. The bad outcome is a social dilemma, an incentive problem. In
+      the Stag Hunt (C,C) is an equilibrium, so missing it is a coordination failure.
+
+  - id: agai-vkz7pb
+    type: multi
+    difficulty: medium
+    level: understand
+    topics: [Stag Hunt, Independent Learning]
+    section: "Q2: the baseline run"
+    prompt: Q-learners start the Stag Hunt with all values at 0. Which help explain why most runs lock into (D,D)?
+    options:
+      - id: a
+        text: Against a coin-flipping partner, D earns more on average than C
+        correct: true
+      - id: b
+        text: D pays at least 2 against anything, while C pays 0 half the time
+        correct: true
+      - id: c
+        text: D is the dominant action in the Stag Hunt
+        why: Nothing dominates in the Stag Hunt. Against a stag hunter, stag pays 4 and hare 3.
+      - id: d
+        text: Once the partner plays D, C pays 0, which hides that C can pay 4
+        correct: true
+      - id: e
+        text: The learning rate is too low to register a payoff of 4
+        why: One round of both playing C lifts Q(C) to 0.4 and makes C greedy for both.
+    why: >-
+      Early on the partner breaks ties at random, and against that D earns 2.5
+      and C 2. A feedback loop follows: my D makes C pay 0 for my partner, and
+      its D does the same to me.
+
+  - id: agai-t9gffa
+    type: single
+    difficulty: medium
+    level: understand
+    topics: [Stag Hunt, Q-Learning]
+    section: "Q3: initial values as beliefs"
+    prompt: >-
+      With little exploration, an optimist (belief 0.9 that the partner hunts
+      stag) meets a sceptic (belief 0.5). What happens?
+    options:
+      - id: a
+        text: The sceptic adapts, and they settle at (C,C)
+        why: The sceptic never plays C, so its Q(C) is never updated and it never sees stag pay 4.
+      - id: b
+        text: The optimist adapts, and they settle at (D,D)
+        correct: true
+      - id: c
+        text: They keep miscoordinating, since neither changes its first action
+        why: The optimist's stag hunts earn 0, each cutting its Q(C) by 10%, and it switches within a few rounds.
+      - id: d
+        text: They settle at (C,C), since the optimist's belief is further from 2/3
+        why: Distance from the threshold decides nothing. The agent whose action is punished does the adapting.
+    why: >-
+      C earns the optimist 0 against the sceptic's D, so each stag hunt cuts its
+      Q(C) by 10% until hare looks better. The sceptic's D earns 3 or 2, which
+      keeps its preference for D.
+
+  - id: agai-kv8d5s
+    type: single
+    difficulty: hard
+    level: analyze
+    topics: [Q-Learning]
+    section: "Q3: initial values as beliefs"
+    prompt: >-
+      With exploration off, the optimist facing a sceptic switches to hare in
+      round 4, then hunts stag again in rounds 8, 14 and 25. What causes these
+      relapses?
+    options:
+      - id: a
+        text: The sceptic occasionally hunts stag, which lifts the optimist's Q(C)
+        why: The sceptic plays D throughout. Its Q(C) of 2.0 stays below its Q(D).
+      - id: b
+        text: Random tie-breaking picks C whenever the two values are close
+        why: Ties are broken at random, but the values are not tied. Q(C) is strictly higher in those rounds.
+      - id: c
+        text: Q(D) falls towards 2 while the unplayed Q(C) stays above 2
+        correct: true
+      - id: d
+        text: Q(C) slowly recovers towards its initial value while it is not played
+        why: An unplayed action's value is not updated at all. It neither recovers nor decays.
+    why: >-
+      At (D,D) the optimist's Q(D) falls towards P = 2, while its stale Q(C) is
+      not updated and is still above 2. Each relapse earns 0 and cuts Q(C) by 10%,
+      until after six stag hunts it is below 2 for good.
+
+  - id: agai-9fxfxf
+    type: single
+    difficulty: hard
+    level: analyze
+    topics: [Exploration vs Exploitation, Q-Learning]
+    section: "Q4: exploration as noise in the other's rewards"
+    prompt: >-
+      Two Q-learners start at (C,C). Against a partner who explores 10% of the
+      time, C still pays 3.8 and D 2.95, yet most pairs leave (C,C). Why?
+    options:
+      - id: a
+        text: A short streak of the partner's exploratory D plays drags Q(C) below Q(D)
+        correct: true
+      - id: b
+        text: The partner's exploration makes (C,C) stop being a Nash equilibrium
+        why: C stays the best response at every exploration rate tested, so (C,C) remains an equilibrium.
+      - id: c
+        text: The learners reason that hare is the safer, risk-dominant choice
+        why: Q-learners do no such reasoning. They react to the payoffs they have just received.
+      - id: d
+        text: The learning rate decays, so Q(C) stops tracking C's payoff
+        why: The rate is constant at 0.1. That constancy is what makes Q(C) react to noise.
+    why: >-
+      Q(C) tracks recent payoffs, and each exploratory D by the partner pays 0
+      and cuts Q(C) by 10%. Three zeros in a short stretch take it from 3.8 to
+      2.77, below Q(D), and the partner follows within about three rounds.
+
+  - id: agai-s3h3ez
+    type: truefalse
+    difficulty: medium
+    level: understand
+    topics: [Stag Hunt, Exploration vs Exploitation]
+    section: "Q4: exploration as noise in the other's rewards"
+    statement: In the Stag Hunt, exploration moves independent Q-learners from (D,D) to (C,C) about as often as from (C,C) to (D,D).
+    answer: false
+    why: >-
+      Leaving (D,D) needs about seven rounds in which both explore C at once,
+      with no failure in between, and then a joint switch. One run in 500 made
+      it, and it fell back. Noisy learners drift to (D,D) and stay.
+
+  - id: agai-wv78k5
+    type: single
+    difficulty: easy
+    level: remember
+    topics: [Social Dilemma]
+    section: "Part II: the Coin Game with tabular Q-learning"
+    prompt: In the Coin Game, what happens when an agent picks up the other player's coin?
+    options:
+      - id: a
+        text: The picker gets +1 and the coin's owner loses 1
+        why: The owner loses 2. The −1 is the total for the pair.
+      - id: b
+        text: The picker gets +1 and the coin's owner loses 2
+        correct: true
+      - id: c
+        text: The picker gets nothing and the coin's owner loses 2
+        why: A pickup pays the picker +1 whatever the coin's colour.
+      - id: d
+        text: The picker gets +2 and the coin's owner loses 2
+        why: Every pickup pays the picker the same +1, own colour or not.
+    why: >-
+      Taking the other's coin pays +1 and costs its owner 2, a total of −1. Taking
+      your own pays +1. Leaving the other's coins alone is the cooperative pattern.
+
+  - id: agai-yf46pb
+    type: cloze
+    difficulty: easy
+    level: understand
+    topics: [Social Dilemma]
+    section: "Q6: what the Q-learners learn"
+    prompt: When both Coin Game agents take every coin they can reach, the expected total reward per pickup is ___.
+    options:
+      - id: a
+        text: "+1"
+        why: That is the total for an own-coin pickup, but half the pickups are the other's coin.
+      - id: b
+        text: "−1"
+        why: That is the total for taking the other's coin, but half the pickups are own coins.
+      - id: c
+        text: "0"
+        correct: true
+      - id: d
+        text: "+0.5"
+        why: Half the pickups total +1 and half total −1, which averages to 0.
+    why: >-
+      Colours are random, so half the pickups are own coins (+1 in total) and half
+      the other's (+1 − 2 = −1). Colour-blind experts therefore score about 0
+      however many coins they collect.
+
+  - id: agai-7s6wgb
+    type: single
+    difficulty: medium
+    level: understand
+    topics: [Social Dilemma, Tabular RL]
+    section: "Q6: what the Q-learners learn"
+    prompt: Over 1000 updates, tabular Q-learners come to pick up 4.6 times as many coins as random agents. Where does their welfare end?
+    options:
+      - id: a
+        text: It rises in step with their pickups
+        why: Welfare is pickups times (2 × restraint − 1), and restraint stays near 0.5.
+      - id: b
+        text: Far below random agents', from taking each other's coins
+        why: Their own share is 0.52, so welfare is slightly positive, near random agents' 0.
+      - id: c
+        text: Barely above random agents'
+        correct: true
+      - id: d
+        text: At its peak for the whole run
+        why: Welfare peaked around updates 100 to 200 and then fell as the agents got better at collecting.
+    why: >-
+      The agents got good at the individual task and no better at the social one.
+      With an own share near 0.5, welfare ends at about +0.6 per episode, close
+      to random agents' 0.
+
+  - id: agai-ye4gr2
+    type: multi
+    difficulty: hard
+    level: analyze
+    topics: [Independent Learning, Social Dilemma]
+    section: "Q6: what the Q-learners learn"
+    prompt: Why can independent Q-learners in the Coin Game not learn to leave each other's coins alone?
+    options:
+      - id: a
+        text: The −2 from taking the other's coin is no part of the taker's reward
+        correct: true
+      - id: b
+        text: The state holds no record of the other's past restraint, so restraint cannot be reciprocated
+        correct: true
+      - id: c
+        text: Against any fixed behaviour of the other, taking every coin is the best response
+        correct: true
+      - id: d
+        text: The Q-table is too large for the budget to reach the restrained policy
+        why: Without lamps every reachable state is visited about 444 times, and PPO, which handles size, defects too.
+      - id: e
+        text: A discount factor of 0.95 makes the agents ignore future coins
+        why: Discounting is not the issue. With no memory of the partner, restraint never changes the other's later play.
+    why: >-
+      Restraint gives up +1 now and protects only the other's reward. It could pay
+      only through reciprocity, and learners that treat the other as part of the
+      environment cannot reward or punish it. The result is mutual defection.
+
+  - id: agai-p7rrmt
+    type: single
+    difficulty: medium
+    level: understand
+    topics: [Tabular RL]
+    section: "Q8: why the table breaks"
+    prompt: Lamps switch on and off at random and do not affect the Coin Game. Why do they hurt tabular Q-learners?
+    options:
+      - id: a
+        text: They change the best policy, which the agents must relearn
+        why: The best policy ignores the lamps and is the same with or without them.
+      - id: b
+        text: They add noise to the rewards, which makes the values unstable
+        why: The lamps have no effect on the game, so the rewards are unchanged.
+      - id: c
+        text: They slow each update down, so fewer updates fit in the budget
+        why: The budget is fixed in decisions per agent, so the number of updates is the same.
+      - id: d
+        text: Each lamp pattern is a separate row, so experience per row shrinks
+        correct: true
+    why: >-
+      With k lamps the table has 2^k times as many rows, and nothing learned in one
+      row carries over to another. With 8 lamps the average state is seen under
+      twice, so play is close to random.
+
+  - id: agai-y9fesh
+    type: multi
+    difficulty: medium
+    level: understand
+    topics: [Actor-Critic, REINFORCE, Baseline]
+    section: "Q9: the pieces of PPO"
+    prompt: What does PPO's critic add over REINFORCE, which uses the whole episode's return?
+    options:
+      - id: a
+        text: A baseline V(s), so an action is judged against what usually happens from that state
+        correct: true
+      - id: b
+        text: Bootstrapping from V of the next state, which sharpens credit assignment
+        correct: true
+      - id: c
+        text: An unbiased advantage estimate, since the critic learns the true return
+        why: Bootstrapping adds some bias when the critic is wrong. What the critic buys is lower variance.
+      - id: d
+        text: Epsilon-greedy exploration on top of the actor's own choices
+        why: PPO explores by sampling from the actor's probabilities, and the critic plays no part in it.
+      - id: e
+        text: A trust region that keeps each update close to the old policy
+        why: That comes from clipping the importance weight in the actor loss. The critic has no part in it.
+    why: >-
+      REINFORCE's whole-episode return mixes the effects of many later events, so
+      its gradient has high variance. Subtracting V(s) and bootstrapping from the
+      next state's value both lower it.
+
+  - id: agai-brre55
+    type: single
+    difficulty: easy
+    level: remember
+    topics: [PPO, Exploration vs Exploitation]
+    section: "Q9: the pieces of PPO"
+    prompt: Where does a PPO agent's exploration come from?
+    options:
+      - id: a
+        text: It samples its action from the actor's probabilities
+        correct: true
+      - id: b
+        text: It takes a uniformly random action with probability ε
+        why: That is how the Q-learners explored. PPO has no ε.
+      - id: c
+        text: The critic's errors push it towards unfamiliar actions
+        why: The critic estimates returns for the advantage. It does not choose actions.
+      - id: d
+        text: Clipping the importance weight keeps it trying old actions
+        why: Clipping limits how far one update moves the policy. It does not create exploration.
+    why: >-
+      Every action with non-zero probability keeps being tried. The entropy term
+      in the loss rewards spread-out probabilities, so the policy does not turn
+      deterministic too early.
+
+  - id: agai-mc8vzd
+    type: truefalse
+    difficulty: easy
+    level: remember
+    topics: [PPO, Function Approximation]
+    section: "Q10: PPO against the table"
+    statement: Adding 8 irrelevant lamps leaves PPO's coin pickups in the Coin Game about where they are without lamps.
+    answer: true
+    why: >-
+      PPO's network shares one set of weights across all observations, so
+      experience under one lamp pattern is used under every other. The table
+      drops from 16.9 to 6.6 pickups.
+
+  - id: agai-9pfak7
+    type: truefalse
+    difficulty: hard
+    level: analyze
+    topics: [Stag Hunt, PPO]
+    section: "Q11: wrap-up"
+    statement: If the Part I Stag Hunt learners used PPO, equilibrium selection would stop being a problem, since a network generalises.
+    answer: false
+    why: >-
+      With a single state there is nothing to generalise over. The gradient
+      pushes towards C only when the partner plays C with probability above 2/3,
+      as in the replicator dynamics, so fresh networks that play C about half the time drift to (D,D).
