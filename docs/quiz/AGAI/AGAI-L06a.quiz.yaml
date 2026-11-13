@@ -12,7 +12,7 @@ questions:
 
   - id: agai-wc9pep
     type: single
-    difficulty: hard
+    difficulty: medium
     level: apply
     topics: [Monte Carlo Tree Search (MCTS), Why plain MCTS struggles in Go]
     section: Why plain MCTS struggles in Go
@@ -28,7 +28,7 @@ questions:
         text: Random rollouts assume a random opponent
         correct: true
       - id: c
-        text: Too few random games are averaged per move
+        text: Too few random rollouts are averaged per move
         why: More random games would only measure more precisely how the move does against random replies.
       - id: d
         text: The branching factor is too large to expand
@@ -191,13 +191,13 @@ questions:
 
   - id: agai-ectg4q
     type: single
-    difficulty: hard
+    difficulty: medium
     level: apply
     topics: [REINFORCE, Self-Play, "AlphaGo: search guided by two networks"]
     section: "AlphaGo: search guided by two networks"
     prompt: >-
       A team copies AlphaGo's expert stage, then runs REINFORCE with every game
-      played against a fixed player that picks random legal moves. The policy
+      played against a fixed player that picks random legal moves. The network
       wins nearly every training game but loses to amateurs. What did they change
       from AlphaGo's recipe?
     options:
@@ -208,7 +208,7 @@ questions:
         text: "The value network: AlphaGo trains it before REINFORCE"
         why: AlphaGo trains the value network after REINFORCE, and it scores leaves in the search. It does not set the policy's opponent.
       - id: c
-        text: "The opponent: AlphaGo plays against the policy itself"
+        text: "The opponent: AlphaGo pits the policy against itself"
         correct: true
       - id: d
         text: "The data: AlphaGo adds expert games to the REINFORCE stage"
@@ -233,24 +233,24 @@ questions:
   - id: agai-z2ty86
     type: single
     difficulty: easy
-    level: remember
+    level: understand
     topics: [AlphaGo Zero, Self-Play]
     section: "AlphaGo Zero and AlphaZero: no human games"
-    prompt: AlphaGo Zero trains one network by self-play. What lets that single network play both black and white?
+    prompt: AlphaGo Zero learns Go with no human game examples. Which part of AlphaGo's recipe does it drop?
     options:
       - id: a
-        text: It first copies expert games played by both colours
-        why: AlphaGo Zero uses no human games at all. It starts from a random policy.
+        text: Playing games against itself to improve the policy
+        why: AlphaGo Zero learns entirely through self-play, so games against itself are all it has.
       - id: b
-        text: The board is shown from the side of the player to move
+        text: The supervised stage that copies expert moves
         correct: true
       - id: c
-        text: Go's reward is shared by both players
-        why: Go is zero-sum, so one player's win is the other's loss.
+        text: The tree search that the networks guide
+        why: The search stays. AlphaZero, the same method, needs each game's engine because every MCTS simulation steps through the rules.
     why: >-
-      Self-play works when the same policy can be used from the perspective of
-      both agents. Showing the board from the side to move turns black and white
-      into one problem.
+      AlphaGo's first stage fits the policy to expert moves, so it needs human
+      games. AlphaGo Zero starts from a random policy instead and learns only by
+      self-play.
 
   - id: agai-ed6dwz
     type: single
@@ -337,7 +337,7 @@ questions:
     level: understand
     topics: [Self-Play, Population-Based Training]
     section: "When self-play is not enough: populations of policies"
-    prompt: In which of these games would one self-play policy be unable to play both sides?
+    prompt: Which features of a two-player game stop one self-play policy from playing both sides?
     options:
       - id: a
         text: The two players have different sets of actions
@@ -491,30 +491,28 @@ questions:
 
   - id: agai-9heurr
     type: single
-    difficulty: hard
-    level: analyze
-    topics: [Policy Space Response Oracles (PSRO), Self-Play]
-    section: "PSRO: populations plus a meta-game"
+    difficulty: medium
+    level: understand
+    topics: [Social Dilemma, From RL to agentic AI]
+    section: From RL to agentic AI
     prompt: >-
-      In rock-paper-scissors, self-play that best-responds to its latest self goes
-      Rock, Paper, Scissors, Rock and so on. What in PSRO stops this cycle?
+      AI agents act for different users, and each agent is well aligned to its
+      own user. What kind of interaction should mostly be expected between the
+      agents?
     options:
       - id: a
-        text: Meta-game payoffs are averaged over many episodes
-        why: Averaging makes the payoff estimates accurate. Accurate payoffs alone would not stop best-responding to the latest policy.
+        text: Fully cooperative, since good alignment removes conflict
+        why: Alignment carries the users' own objectives over to the agents, and those objectives partly conflict.
       - id: b
-        text: The oracle is a single-agent RL algorithm
-        why: Self-play's best responses also come from RL. What differs is who the new policy trains against.
+        text: Zero-sum, as in Go, chess and StarCraft II
+        why: Zero-sum was the setting of the game-playing methods. Real objectives are rarely completely opposed.
       - id: c
-        text: The populations start from random policies
-        why: Self-play can start from a random policy too. The starting point does not change who later policies answer.
-      - id: d
-        text: New policies train against a mixture of the earlier policies
+        text: Mixed-motive, with room for mutual gain and for conflict
         correct: true
     why: >-
-      Best-responding to the latest policy forgets the older ones, so play
-      cycles. PSRO trains against the meta-solution's mixture over the population,
-      so a new policy has to do well against old strategies too.
+      In most real strategic interactions, objectives are neither identical nor
+      completely opposed. Agents aligned to their users inherit that, so some
+      cooperation and some competition should be expected, as in human society.
 
   - id: agai-nu5a8y
     type: single
@@ -530,14 +528,14 @@ questions:
         text: Population-based training, perturbing and copying policies
         why: No policy is perturbed or copied. Each new policy is still trained by RL as a best response.
       - id: b
-        text: Best-responding to the latest policy, as naive self-play does
+        text: Best-responding to the latest version, as naive self-play does
         correct: true
       - id: c
         text: Training against a uniform mixture of the population
         why: A uniform mixture would give every stored policy equal weight. Here all of it sits on one policy.
       - id: d
         text: Training against a Nash equilibrium of the meta-game
-        why: A Nash meta-solver weights policies by how they do against each other, which is what keeps older policies in play.
+        why: A Nash meta-solver sets the weights from the meta-game payoffs. A rule that always picks the newest policy ignores them.
     why: >-
       The oracle trains against policies sampled from the meta-solution. If that
       is the newest policy alone, each new policy answers only the latest one,
@@ -549,11 +547,11 @@ questions:
     level: remember
     topics: ["AlphaStar: a PSRO-like league", Population-Based Training]
     section: "AlphaStar: a PSRO-like league"
-    statement: AlphaStar is an example of self-play with heterogeneous populations, trained in a league that works like PSRO.
+    statement: AlphaStar trained its agents in a league of heterogeneous populations that works much like PSRO.
     answer: true
     why: >-
-      AlphaStar's league is population-based training that works like PSRO, which
-      suits StarCraft II, where the players' roles are asymmetric.
+      AlphaStar is self-play with heterogeneous populations: population-based
+      training in a PSRO-like league, which suits StarCraft II's asymmetric roles.
 
   - id: agai-gxaexh
     type: single
@@ -636,8 +634,8 @@ questions:
 
   - id: agai-fgemaz
     type: single
-    difficulty: hard
-    level: analyze
+    difficulty: medium
+    level: understand
     topics: [DeepSeek-R1, GRPO, REINFORCE]
     section: From RL to agentic AI
     prompt: DeepSeek-R1 improves an LLM's reasoning with GRPO. Which part of AlphaGo does that training most resemble?
@@ -647,7 +645,7 @@ questions:
         why: The LLM still generates without search. GRPO changes the policy that picks each token.
       - id: b
         text: The expert stage, copying demonstrations by cross-entropy
-        why: GRPO is a policy gradient method that learns from rewards, which is RL rather than copying.
+        why: GRPO is a policy gradient method. It learns from rewards, and copies no demonstrations.
       - id: c
         text: The value stage, regressing outcomes by squared error
         why: GRPO trains the policy itself. AlphaGo's value network only predicts outcomes for the search.
@@ -679,9 +677,6 @@ questions:
       - id: c
         text: A common-reward game
         why: Each planner pursues its own firm's savings, so the objectives differ.
-      - id: d
-        text: A meta-game
-        why: A meta-game is PSRO's normal-form game over stored policies, unrelated to the firms' incentives.
     why: >-
       Each planner's selfish incentive, cheap rush-hour trips, diverges from the
       collective good of fast deliveries for all. That is a social dilemma, a
