@@ -29,7 +29,7 @@ Populations $\Pi_1, \dots, \Pi_n$, one per agent. Evaluating policy $\pi_i \in \
 
 - **Handles asymmetric roles**, which self-play cannot.
 - **Keeps old strategies around**, which protects against the cycling of self-play in non-transitive games.
-- **AlphaStar's league** (StarCraft II, DeepMind 2019) is the course's PSRO-like example: self-play with heterogeneous populations. (From outside the course material: the league kept frozen copies of past agents as opponents, added "exploiter" agents trained to find the main agents' weaknesses, and chose opponents by how often the learner lost to them.)
+- **AlphaStar's league** (StarCraft II, DeepMind 2019) is the course's PSRO-like example: self-play with heterogeneous populations. (From outside the course material: the league kept frozen copies of past agents as opponents, added "exploiter" agents trained to find the weaknesses of the main agents and of the league as a whole, and chose opponents by how often the learner lost to them.)
 - Expensive: every policy pairing has to be evaluated by simulation, and each new policy is a training run.
 
 ## Connections

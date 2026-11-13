@@ -15,25 +15,29 @@ topics:
   - "[[GRPO]]"
   - "[[DeepSeek-R1]]"
   - "[[Social Dilemma]]"
-status: draft
+status: complete
 ---
 
 # AGAI-L06a: From Deep MARL to Reasoning
 
 > [!abstract] In short
-> How do you learn a huge two-player zero-sum game like Go, where the only reward is win or lose at the end? Monte Carlo tree search explores the game tree, but its random rollouts are a weak signal and assume a random opponent. AlphaGo guides the search with two networks: a policy network (first copying expert moves, then improved by REINFORCE in self-play) that chooses which moves to explore, and a value network that scores new positions. AlphaGo Zero drops the expert data and learns from self-play alone, and AlphaZero runs the same method on chess, shogi and Go. Self-play needs both players to have symmetric roles; when they do not, population-based training trains policies against populations of other policies, and PSRO does this through a meta-game, a normal-form game whose actions are the policies in the current populations (AlphaStar's league works in a similar way). The lecture closes by tying RL to agentic AI: an LLM is a next-token policy that RL can improve, it arguably lacks AlphaGo's search, and many LLM agents face the same cooperation and conflict problems as MARL agents.
+> How do you learn a huge two-player zero-sum game like Go, where the only reward is win or lose at the end? Monte Carlo tree search explores the game tree, but its random rollouts are a weak signal and assume a random opponent. AlphaGo guides the search with two networks: a policy network (first copying expert moves, then improved by REINFORCE in self-play) that chooses which moves to explore, and a value network that scores new positions. AlphaGo Zero drops the expert data and learns from self-play alone, and AlphaZero runs the same method on chess, shogi and Go. Self-play needs symmetric roles; when roles differ, population-based training trains policies against populations of other policies, and PSRO does this through a meta-game, a normal-form game whose actions are the policies in the current populations (AlphaStar's league is PSRO-like). The lecture closes by tying RL to agentic AI: an LLM is a next-token policy that RL can improve, it arguably lacks AlphaGo's search, and LLM agents face the same cooperation and conflict problems as MARL agents.
 >
 > Feeds mock question 28 (the PSRO meta-game) and the Deep MARL part of the midterm in general.
 
 ## What this builds on
 
-[[AGAI-L05 - Deep MARL, Part II|Lecture 5]] ended on the setting used here: **zero-sum games with two agents and fully observable states and actions**, such as chess, shogi, backgammon and Go. They are hard because the reward is sparse (win or lose only at the end), the branching factor is large (many legal moves per position) and the horizon is long, so learning needs an efficient way to explore the game tree. Lecture 5 also gave the three steps of [[Monte Carlo Tree Search (MCTS)|MCTS]] and its statistics, and the requirements of [[Self-Play|self-play]] (symmetric roles, egocentric observations).
+[[AGAI-L05 - Deep MARL, Part II|Lecture 5]] ended on the setting used here: **zero-sum games with two agents and fully observable states and actions**, such as chess, shogi, backgammon and Go. They are hard because the reward is sparse (win or lose only at the end), the branching factor is large (many legal moves per position) and the horizon is long, so learning needs an efficient way to explore the game tree. Lecture 5 also gave the requirements of [[Self-Play|self-play]] (symmetric roles, egocentric observations) and [[Monte Carlo Tree Search (MCTS)|MCTS]], a tree search that simulates possible outcomes of the game and updates value estimates of the actions at each state. Each simulation has three steps: **selection and simulation** (walk down the tree, choosing an action at each node), **expansion** (add a new leaf $\hat s^l$ to the tree) and **backpropagation** (send the outcome back up the visited path).
 
-One detail matters for what follows. In plain MCTS, once the search adds a new leaf, it plays a **random rollout** from there to the end of the game (both sides choosing random moves), and that game's outcome $u$ is what backpropagation sends up the tree. Each $Q(s,a)$ is then the average rollout outcome through $(s,a)$, and $N(s,a)$ counts how often it was tried.
+One detail matters for what follows. In plain MCTS, once the search adds a new leaf, it plays a **random rollout** from there to the end of the game (both sides choosing random moves), and that game's outcome $u$ is what backpropagation sends up the tree. Every $(s,a)$ on the path is updated with it:
+
+$$N(s,a) \leftarrow N(s,a) + 1, \qquad Q(s,a) \leftarrow Q(s,a) + \frac{G - Q(s,a)}{N(s,a)}$$
+
+where $G$ is this simulation's outcome (the $u$ above), $N(s,a)$ counts how often $a$ was tried in $s$, and $Q(s,a)$ stays the average outcome through $(s,a)$. Selection picks actions from these statistics with ε-greedy or [[Upper Confidence Bound|UCB]].
 
 ## Why plain MCTS struggles in Go
 
-MCTS needs some way to judge a position it has just reached. In a game as large as Go, both options are poor:
+MCTS needs some way to judge a position it has just reached. In a game as large as Go, the usual ways have three problems:
 
 1. **Hand-made heuristics need manual annotation.** A function that scores positions directly has to be designed or labelled by human experts.
 2. **Random rollouts give a weak signal** about which trajectories are most promising. The outcome of a random game from a position says little about who is winning under good play.
@@ -62,7 +66,7 @@ They are trained in three stages.
 > - $z$: the **outcome of the self-play game** for the player whose moves are updated (in the paper $+1$ for a win, $-1$ for a loss)
 > - $V_\phi(s)$: the value network's estimate of the outcome from position $s$
 
-Stage 1 makes the expert's move likely in each position. Stage 2 is REINFORCE with a sparse reward: the only reward arrives at the end, so the return from every move is the outcome $z$, and every move of a won game becomes more likely while every move of a lost game becomes less likely. The opponent is a copy of the policy itself, so the policy improves beyond the experts against ever-stronger play, which answers the "random opponent" problem. Stage 3 regresses the value network on the outcomes of those self-play games, so it answers "who wins from here?" without a rollout.
+Stage 1 makes the expert's move likely in each position. Stage 2 is REINFORCE with a sparse reward: the only reward arrives at the end, so the return from every move is the outcome $z$, and every move of a won game becomes more likely while every move of a lost game becomes less likely. The opponent is the policy itself (in the paper, randomly chosen earlier versions of it), so the policy keeps improving beyond the experts against ever-stronger play, which answers the "random opponent" problem. Stage 3 regresses the value network on the outcomes of those self-play games, so it answers "who wins from here?" without a rollout.
 
 Inside the search, each network replaces one weak part of plain MCTS:
 
@@ -82,7 +86,7 @@ For each (s,a) on the path, from the leaf up:      // backpropagation
                                                    // in a zero-sum game, my +u is your −u
 ```
 
-The policy network narrows the search (few of the many legal moves get explored), and the value network shortens it (no need to play to the end). The exact selection rule is in [[AlphaGo Zero]]. (Outside the course material: the original AlphaGo scored a leaf by mixing the value network's estimate with the outcome of a fast rollout; AlphaGo Zero uses the value network alone.)
+The policy network narrows the search (few of the many legal moves get explored), and the value network shortens it (no need to play to the end). (Outside the course material: the exact selection formula is in [[AlphaGo Zero]], and the original AlphaGo scored a leaf by mixing the value network's estimate with the outcome of a fast rollout; AlphaGo Zero uses the value network alone.)
 
 ## AlphaGo Zero and AlphaZero: no human games
 
@@ -106,7 +110,7 @@ Repeat:
 
 Search improves on the network's moves, the network learns to imitate the improved moves, and the next search starts from a stronger guide.
 
-**AlphaZero** (Silver et al., Science 2018) is "Alpha Zero" without the Go: the **same learning and search method applied to different games**, chess, shogi and Go. The only game-specific part is the engine that enforces each game's legal moves, transitions and end conditions. MCTS needs this engine, because every simulation steps through the game's rules.
+**AlphaZero** (Silver et al., Science 2018) drops "Go" from the name because it is the **same learning and search method applied to different games**: chess, shogi and Go. The only game-specific part is the engine that enforces each game's legal moves, transitions and end conditions. MCTS needs this engine, because every simulation steps through the game's rules.
 
 ## When self-play is not enough: populations of policies
 
@@ -119,7 +123,7 @@ AlphaZero is **self-play in a zero-sum game with a homogeneous population**: a s
 3. **Modify** existing policies, for example through random changes, or by copying the parameters of the best-performing policies.
 4. Repeat from step 2.
 
-This brings back the population dynamics of [[AGAI-L02 - Game Theory and Population Dynamics|week 1]]: as in [[Replicator Dynamics|replicator dynamics]], what does well against the current population spreads (copying the best performers), and random changes act like mutation.
+This brings back the population dynamics of [[AGAI-L02 - Game Theory and Population Dynamics|week 1]]: as in [[Replicator Dynamics|replicator dynamics]], what does well against the current populations spreads (by copying the best performers), and random changes add variation.
 
 ## PSRO: populations plus a meta-game
 
@@ -130,7 +134,7 @@ This brings back the population dynamics of [[AGAI-L02 - Game Theory and Populat
 > - **Actions** in the meta-game = **policies** in the complex interaction
 > - **Payoffs** between actions = **average returns** between the policies
 
-Each entry is estimated by letting the policies play many episodes of the real game and averaging the returns. The real game can be huge, but the meta-game has only one row or column per stored policy.
+Each cell holds every agent's average return for that pair of policies (for two agents, a pair of numbers such as "1, 2"), estimated by letting the policies play many episodes of the real game. The real game can be huge, but the meta-game has only one row or column per stored policy.
 
 PSRO repeats five steps:
 
@@ -169,7 +173,7 @@ The new policy $\pi_i'$ is an approximate [[Best Response|best response]] to the
 
 **AlphaStar** (DeepMind, 2019) reached Grandmaster level in StarCraft II, a real-time strategy game, using multi-agent RL. It is the example of **self-play with heterogeneous populations**: population-based training in a **league** that works like PSRO.
 
-(Outside the course material: in StarCraft II each player picks one of three races with different units, and sees only part of the map, so the roles are asymmetric and the game is partially observable. AlphaStar's agents started from imitating human games, then trained in a league that kept frozen copies of past agents as opponents. Besides the main agents, the league contained "exploiter" agents whose only job was to find the main agents' weaknesses. Opponents were picked according to how often the learner lost to them, which plays the role PSRO gives to the meta-solver.)
+(Outside the course material: StarCraft II players pick one of three races with different units and see only part of the map, so the roles are asymmetric. AlphaStar's agents started by imitating human games, then trained in a league of frozen copies of past agents plus "exploiter" agents that hunt for the main agents' and the league's weaknesses. Opponents were picked by how often the learner lost to them, the role PSRO gives to the meta-solver.)
 
 ## How the methods compare
 
@@ -184,14 +188,14 @@ The new policy $\pi_i'$ is an approximate [[Best Response|best response]] to the
 
 ## From RL to agentic AI
 
-After two weeks on RL, the course moves to agentic AI. Why spend the time on RL first? The lecture asks three questions about RL and [[Large Language Models (LLM)|LLMs]].
+After two weeks on RL the course moves to agentic AI, and the lecture asks three questions about RL and [[Large Language Models (LLM)|LLMs]] to say why RL came first.
 
 **RL versus LLMs: alternative approaches?** Games can serve as a proxy for studying reasoning. AlphaGo has **two systems**:
 
 - **System 1:** the policy network, intuition: immediate feedback and action;
 - **System 2:** the long-horizon rollouts of the search, thinking ahead before acting.
 
-The view presented in the lecture is that current LLMs are **still System 1 only**: they generate the next token, with no search behind it. This is the argument of Thore Graepel's opinion piece "Don't be fooled: LLMs don't reason" (2 October 2026): ten years after AlphaGo's match against Go champion Lee Sedol, today's AI still does not use the machinery that made that win possible. Yann LeCun, endorsing it: "True reasoning must involve a search. LLMs don't possess this capability." (The System 1 and System 2 terms come from Daniel Kahneman's psychology of fast intuitive and slow deliberate thinking; background from outside the course material.)
+What do current LLMs lack? The lecture's answer is that they are **still System 1 only**: they generate the next token, with no search behind it. Two sources back this up. Thore Graepel's opinion piece "Don't be fooled: LLMs don't reason" (2 October 2026) argues that ten years after AlphaGo's match against Go champion Lee Sedol, today's AI still does not use the machinery that made that win possible. Yann LeCun, commenting on it: "True reasoning must involve a search. LLMs don't possess this capability." (The System 1 and System 2 terms come from Daniel Kahneman's psychology of fast intuitive and slow deliberate thinking; background from outside the course material.)
 
 **RL plus LLMs: complementary approaches?** Text generation can be written as an RL problem:
 
@@ -200,9 +204,9 @@ The view presented in the lecture is that current LLMs are **still System 1 only
 - **Reward:** high if the completed response is good
 - **Policy:** choose the next token from the learned probability $\pi(a \mid s)$
 
-Improving the policy then means better reasoning. [[DeepSeek-R1]] (Nature, September 2025, "DeepSeek-R1 incentivizes reasoning in LLMs through reinforcement learning") does this with a policy gradient algorithm, [[GRPO]], a close relative of [[PPO]]. The structure is AlphaGo's stage 2 again: one reward at the end of a long sequence of actions, used to make every action of a good outcome more likely.
+Improving the policy then means better reasoning. [[DeepSeek-R1]] (Nature, September 2025, "DeepSeek-R1 incentivizes reasoning in LLMs through reinforcement learning") does this with a policy gradient algorithm, [[GRPO]], a close relative of [[PPO]]. The structure resembles AlphaGo's stage 2: one reward at the end of a long sequence of actions, used to make the actions of good responses more likely.
 
-**RL and LLMs: equivalent challenges?** The Cooperative AI Foundation's report "Multi-Agent Risks from Advanced AI" (Hammond et al., February 2025) points out that in the vast majority of real-world strategic interactions, agents' objectives are **neither identical nor completely opposed**. Even AI agents that are well aligned to their own users will show both cooperation and competition, as people do. These **mixed-motive** settings allow mutual gains but also conflict from selfish incentives. Conflict arises in any **[[Social Dilemma|social dilemma]]**, where selfish incentives diverge from the collective good. Social dilemmas are an old problem, but AI could help actors pursue selfish incentives by overcoming technical, legal or social barriers. These are the same cooperation and conflict problems as in Assignment 1. Everything else in this lecture was zero-sum; agents deployed in the world mostly face mixed motives.
+**RL and LLMs: equivalent challenges?** The Cooperative AI Foundation's report "Multi-Agent Risks from Advanced AI" (Hammond et al., February 2025) points out that in the vast majority of real-world strategic interactions, agents' objectives are **neither identical nor completely opposed**. If AI agents are well aligned to their users or deployers, some degree of both cooperation and competition should be expected, as in human society. These **mixed-motive** settings allow mutual gains but also conflict from selfish incentives. Conflict arises in any **[[Social Dilemma|social dilemma]]**, where selfish incentives diverge from the collective good. Social dilemmas are an old problem, but AI could help actors pursue selfish incentives by overcoming technical, legal or social barriers. These are the same cooperation and conflict problems as in Assignment 1. Everything else in this lecture was zero-sum; agents deployed in the world mostly face mixed motives.
 
 ## What to be able to answer
 
@@ -255,17 +259,17 @@ Model answers are in the exam questions.
 >
 > As an RL problem, the state is the prompt plus the tokens generated so far, the action is the next token, the policy is the model's learned next-token distribution $\pi(a \mid s)$, and the reward is high when the completed response is good. Improving the policy means better reasoning. DeepSeek-R1 does this with GRPO, a policy gradient algorithm close to PPO. Like AlphaGo's REINFORCE stage, it learns from one reward at the end of a long sequence of actions.
 >
-> RL is also the comparison point. AlphaGo combines a System 1, the policy network's immediate intuition, with a System 2, long-horizon search. Graepel argues that current LLMs are still System 1 only, predicting the next token without search, and LeCun adds that true reasoning must involve search.
+> RL is also the comparison point. AlphaGo combines a System 1, the policy network's immediate intuition, with a System 2, long-horizon rollouts in the search. Current LLMs are still System 1 only, predicting the next token without search: Graepel argues that today's AI does not use the machinery behind AlphaGo's win, and LeCun adds that true reasoning must involve a search.
 >
-> Finally, the multi-agent problems carry over. Most real interactions between agents, including AI agents aligned to different users, are mixed-motive: objectives are neither identical nor opposed, so there is room for mutual gain and for conflict. Social dilemmas, where selfish incentives diverge from the collective good, are the same cooperation problems studied with MARL.
+> Finally, the multi-agent problems carry over. Most real interactions between agents, including AI agents well aligned to their users, are mixed-motive: objectives are neither identical nor completely opposed, so there is room for mutual gain and for conflict. Social dilemmas, where selfish incentives diverge from the collective good, are the same cooperation problems studied with MARL.
 
 ## Flashcards
 
 > [!card]- What does plain MCTS do after adding a new leaf?
 > Plays a random rollout to the end of the game and backs up the outcome.
 
-> [!card]- Why do hand-made position heuristics scale badly for MCTS in Go?
-> They require manual annotation by experts.
+> [!card]- What is the drawback of hand-made heuristics for estimating state values in MCTS?
+> They require manual annotation.
 
 > [!card]- Why is a random rollout a weak signal for MCTS?
 > A random game says little about which lines are promising under good play.
@@ -273,11 +277,17 @@ Model answers are in the exam questions.
 > [!card]- What opponent do random rollouts implicitly assume?
 > A random opponent, while the agent must beat strong ones.
 
-> [!card]- In AlphaGo, what does the policy network answer, and where is it used?
-> Which moves are promising; it guides node selection in MCTS.
+> [!card]- Which question does AlphaGo's policy network answer?
+> Which moves are promising?
 
-> [!card]- In AlphaGo, what does the value network answer, and where is it used?
-> The chance of winning from a position; it evaluates newly expanded nodes.
+> [!card]- Which MCTS step does AlphaGo's policy network guide?
+> Node selection.
+
+> [!card]- What does AlphaGo's value network estimate?
+> The chance of winning from a given position.
+
+> [!card]- In AlphaGo's search, which nodes does the value network evaluate?
+> Newly expanded nodes.
 
 > [!card]- How is AlphaGo's policy network first trained?
 > Supervised, to reproduce expert moves, with a cross-entropy loss.
@@ -294,8 +304,11 @@ Model answers are in the exam questions.
 > [!card]- What loss trains AlphaGo's value network?
 > $(z - V_\phi(s))^2$, squared error to the self-play outcome.
 
-> [!card]- What does each AlphaGo network remove from plain MCTS?
-> The policy network narrows which moves are explored; the value network replaces rollouts to the end.
+> [!card]- How does AlphaGo's policy network make the search cheaper?
+> Only the promising few of the many legal moves get explored.
+
+> [!card]- How does AlphaGo's value network make the search cheaper?
+> It scores new positions, so no rollout to the end of the game is needed.
 
 > [!card]- What does AlphaGo Zero start from instead of an expert-trained policy?
 > A random policy.
@@ -330,6 +343,9 @@ Model answers are in the exam questions.
 > [!card]- What is a meta-game in PSRO?
 > A simplified normal-form game representing the interaction between complex policies.
 
+> [!card]- What is the name for a normal-form game whose actions are policies and whose payoffs are their average returns?
+> A meta-game.
+
 > [!card]- In a PSRO meta-game, what are the actions?
 > The policies in the current populations.
 
@@ -354,20 +370,32 @@ Model answers are in the exam questions.
 > [!card]- What kind of training is AlphaStar's league an example of?
 > Population-based training with heterogeneous populations, PSRO-like.
 
-> [!card]- In the System 1 and System 2 reading of AlphaGo, what is each?
-> System 1: the policy network's intuition. System 2: long-horizon search.
+> [!card]- In AlphaGo, what plays the role of System 1?
+> The policy network: intuition, immediate feedback and action.
 
-> [!card]- Why are current LLMs called "System 1 only" in Graepel's argument?
-> They produce the next token without search.
+> [!card]- In AlphaGo, what plays the role of System 2?
+> The long-horizon rollouts of the search.
 
-> [!card]- In LLM generation as RL, what are the state and the action?
-> State: prompt plus tokens so far. Action: the next token.
+> [!card]- Why are current LLMs called "System 1 only"?
+> They generate the next token without any search behind it.
+
+> [!card]- According to Yann LeCun, what must true reasoning involve?
+> A search, which LLMs lack.
+
+> [!card]- In LLM generation as RL, what is the state?
+> The prompt plus the tokens generated so far.
+
+> [!card]- In LLM generation as RL, what is the action?
+> The next token.
+
+> [!card]- In LLM generation as RL, what is the reward?
+> High if the completed response is good.
 
 > [!card]- Which RL algorithm does DeepSeek-R1 use to improve reasoning?
 > GRPO, a policy gradient method close to PPO.
 
-> [!card]- What is a mixed-motive setting?
-> Agents' objectives are neither identical nor completely opposed.
+> [!card]- What is a setting called where agents' objectives are neither identical nor completely opposed?
+> A mixed-motive setting.
 
 > [!card]- What is a social dilemma?
 > A situation where selfish incentives diverge from the collective good.
@@ -381,10 +409,13 @@ Model answers are in the exam questions.
 > [!card]- True or false: AlphaZero uses a different learning method for chess and for Go.
 > **False.** The learning and search method is the same; only the game engine differs.
 
+> [!card]- True or false: AlphaGo's value network is trained with a cross-entropy loss.
+> **False.** It is trained with squared error to the self-play outcome $z$.
+
 > [!card]- True or false: Self-play assumes the two agents have symmetric roles.
 > **True.** One policy has to play both sides.
 
-> [!card]- True or false: In a PSRO meta-game, the actions are individual moves of the underlying game.
+> [!card]- True or false: In a PSRO meta-game, the actions are the moves of the underlying game.
 > **False.** The actions are whole policies from the current populations.
 
 > [!card]- True or false: PSRO trains each new policy against the most recent policy only.
