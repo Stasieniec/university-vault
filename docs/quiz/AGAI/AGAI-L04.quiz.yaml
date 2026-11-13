@@ -51,31 +51,31 @@ questions:
 
   - id: agai-8h7qsf
     type: single
-    difficulty: hard
-    level: apply
-    topics: ["Why tables stop working"]
-    section: Why tables stop working
+    difficulty: medium
+    level: understand
+    topics: [Function Approximation, "Why tables stop working"]
+    section: "Function approximation: learn a function instead of a table"
     prompt: >-
-      Tabular Q-learners play a coin-collecting game on a fixed training budget.
-      Adding eight random lamps that never affect play drops their score close to
-      that of random agents. What is the main cause?
+      Random lamps that never affect play ruin tabular Q-learners in a coin game
+      with a fixed training budget. Why does a Q-network on the same inputs cope
+      better?
     options:
       - id: a
-        text: Most rows get no visits, and those rows still hold zeros
+        text: Similar states share parameters, so learning carries over
         correct: true
       - id: b
-        text: The lamps change the optimal policy, so earlier values mislead
-        why: The lamps do not affect play, so the best policy ignores them. The table just cannot discover that.
+        text: It gets more experience per state from the same budget
+        why: The budget is the same. What changes is that experience in one state also updates similar states.
       - id: c
-        text: The larger table makes the learning rate effectively too high
-        why: Each update uses the same learning rate as before. The trouble is how few updates each row receives.
+        text: It is told which inputs affect the reward
+        why: Nobody tells it. Shared parameters let it give similar states similar values by itself.
       - id: d
-        text: Random lamp switches make the Q-learning update undefined
-        why: The update stays well defined. Each row still keeps a running average of its targets.
+        text: It needs no exploration, so no state stays unvisited
+        why: Deep Q-learning still explores ε-greedily. It copes because its updates generalise to states it has not visited.
     why: >-
-      Each lamp doubles the rows while the budget stays fixed, so experience per
-      row falls by 2^k. Unvisited rows hold zeros and the agent acts at random
-      there, and rows differing in one lamp share nothing.
+      All inputs share the network's parameters, so an update for one state also
+      changes similar states. A table keeps each lamp pattern as a separate row
+      that learns nothing from the others.
 
   - id: agai-tv6g97
     type: multi
@@ -116,9 +116,6 @@ questions:
       - id: a
         text: A convolutional network
         why: It slides shared filters over an image to detect a pattern anywhere. It carries no hidden state over time.
-      - id: b
-        text: A target network
-        why: That is DQN's slowly refreshed copy for computing targets. It has nothing to do with sequences.
       - id: c
         text: A feedforward network
         why: It maps one input to one output through stacked layers, with no memory of earlier inputs.
@@ -135,20 +132,20 @@ questions:
     level: understand
     topics: [Deep Q-Network (DQN)]
     section: "Deep Q-learning: Q-learning with a network"
-    prompt: A standard DQN plays a game with four joystick actions. What does one forward pass of its network output for a state?
+    prompt: A standard DQN network has one output per discrete action. How does the agent find its greedy action in a state?
     options:
       - id: a
-        text: A probability for each of the four actions
-        why: Action probabilities are what a policy network outputs. DQN outputs values.
+        text: Sample an action from a softmax of the outputs
+        why: Sampling from a softmax is how a policy network acts. DQN's greedy action is the largest Q-value.
       - id: b
-        text: Four Q-values, one per action
+        text: One forward pass, then take the largest output
         correct: true
       - id: c
-        text: One value for the state as a whole
-        why: A single state value is what a critic V(s) outputs. DQN needs one value per action to pick the greedy one.
+        text: One forward pass per action, with the action as input
+        why: The network takes only the state and outputs every action's value, so a single pass is enough.
       - id: d
-        text: A predicted next state for each action
-        why: DQN does not model transitions. It maps the state to action values.
+        text: Solve an optimisation over actions at every step
+        why: That is the trouble with continuous actions. With one output per discrete action, the max is a simple comparison.
     why: >-
       The state goes in and one Q-value per discrete action comes out. One pass
       gives every action's value, and the greedy action is the largest output.
@@ -199,7 +196,7 @@ questions:
 
   - id: agai-jgccnd
     type: single
-    difficulty: hard
+    difficulty: medium
     level: analyze
     topics: [Experience Replay, "What breaks: moving targets and correlated data"]
     section: "What breaks: moving targets and correlated data"
@@ -228,7 +225,7 @@ questions:
 
   - id: agai-69jzr6
     type: single
-    difficulty: hard
+    difficulty: medium
     level: apply
     topics: [Target Network]
     section: "DQN: a target network and a replay buffer"
@@ -244,7 +241,7 @@ questions:
         text: A state baseline subtracted from each target
         why: Baselines reduce variance in policy gradient methods. They do not stop targets from moving.
       - id: c
-        text: Boltzmann exploration over the Q-values
+        text: A smaller ε for exploration
         why: Exploration changes which actions are tried. The targets still move with every update.
       - id: d
         text: A target network copied from the main one at intervals
@@ -342,27 +339,28 @@ questions:
 
   - id: agai-2y3jgy
     type: single
-    difficulty: hard
-    level: apply
+    difficulty: medium
+    level: understand
     topics: [Epsilon-Greedy Policy]
     section: What a value-based agent cannot express
-    prompt: An agent derives an ε-greedy policy from its Q-values over three actions. Which distribution over the actions can it express, for some ε?
+    prompt: An agent acts ε-greedily on its Q-values over three actions. What holds for its policy at every value of ε?
     options:
       - id: a
-        text: "(0.45, 0.45, 0.1)"
-        why: ε-greedy favours a single action. Two equally favoured actions need a general probabilistic policy.
+        text: Probabilities rise with the actions' Q-values
+        why: That describes a softmax over Q-values. ε-greedy ignores how much better an action is and spreads ε evenly.
       - id: b
-        text: "(0.2, 0, 0.8)"
-        why: Every non-greedy action gets the same ε/3, so one at zero means ε = 0, and then the greedy action gets 1.
+        text: Any split works if the greedy action gets the most
+        why: The non-greedy actions always share ε evenly, so a split like (0.6, 0.3, 0.1) is out of reach.
       - id: c
-        text: "(0.6, 0.3, 0.1)"
-        why: The two non-greedy actions get unequal shares, but ε-greedy gives each the same ε/3.
+        text: The greedy action gets exactly 1 − ε
+        why: It also gets its ε/3 share of the random choice, so 1 − ε + ε/3.
       - id: d
-        text: "(0.8, 0.1, 0.1)"
+        text: The two non-greedy actions are equally likely
         correct: true
     why: >-
-      ε-greedy gives the greedy action 1 − ε + ε/3 and every other action ε/3:
-      one favourite plus equal leftovers. (0.8, 0.1, 0.1) is ε = 0.3.
+      ε-greedy gives the greedy action 1 − ε + ε/3 and every other action ε/3.
+      The non-greedy actions are always tied, so policies like (0.4, 0.1, 0.5)
+      are out of reach.
 
   - id: agai-nxrxpd
     type: multi
@@ -445,8 +443,8 @@ questions:
 
   - id: agai-h7y25f
     type: single
-    difficulty: hard
-    level: analyze
+    difficulty: medium
+    level: apply
     topics: [REINFORCE]
     section: "REINFORCE: estimate Q with the return"
     prompt: >-
@@ -554,14 +552,11 @@ questions:
         text: Makes action a more likely in s
         why: That happens when the advantage is positive. Here the outcome fell short of the critic's expectation.
       - id: b
-        text: Leaves the policy as it is and corrects the critic
-        why: Actor and critic are both updated every step. The critic's error is the advantage that drives the actor.
+        text: Waits for the episode's return before updating
+        why: Waiting for the full return is REINFORCE. A2C updates at once from the one-step advantage.
       - id: c
         text: Makes action a less likely in s
         correct: true
-      - id: d
-        text: Sets the probability of action a in s to zero
-        why: A gradient step moves the probability a little. It does not remove the action.
     why: >-
       The advantage r + γV(s') − V(s) is negative, so the action did worse than
       expected. Minimising −Adv · log π(a | s) then lowers π(a | s).
@@ -592,21 +587,20 @@ questions:
 
   - id: agai-thgsrx
     type: single
-    difficulty: hard
-    level: apply
+    difficulty: medium
+    level: understand
     topics: [PPO]
     section: "PPO: limit how far one update moves the policy"
     prompt: >-
-      PPO uses ε = 0.2. A good action, with positive advantage, already has ratio
-      ρ = 1.4 for the current batch. What does the clipped loss do to that
-      action?
+      In PPO, a good action, with positive advantage, already has a ratio ρ above
+      1 + ε for the current batch. What does the clipped loss do to that action?
     options:
       - id: a
-        text: Pushes its probability back down to a ratio of 1.2
-        why: The clip makes the term a constant, 1.2 × Adv. A constant has no gradient, so nothing pushes the ratio back.
+        text: Pushes its probability back down to the clip edge
+        why: The clip makes the term the constant (1 + ε) × Adv. A constant has no gradient, so nothing pushes the ratio back.
       - id: b
-        text: Keeps raising it, in proportion to 1.4 × Adv
-        why: The min picks the smaller term, the clipped 1.2 × Adv, which is constant. The unclipped push is switched off.
+        text: Keeps raising it, in proportion to ρ × Adv
+        why: The min picks the smaller term, the clipped (1 + ε) × Adv, which is constant. The unclipped push is switched off.
       - id: c
         text: Drops the transition from the batch
         why: The transition stays in the loss. Its term just stops contributing a gradient.
@@ -614,9 +608,9 @@ questions:
         text: Gives no gradient to raise its probability further
         correct: true
     why: >-
-      The terms are 1.4 × Adv and 1.2 × Adv, and the min picks the clipped one.
-      It is a constant, so no gradient pushes ρ further up. That keeps the policy
-      near the one that collected the data.
+      Above 1 + ε the min picks the clipped term, (1 + ε) × Adv, a constant. No
+      gradient pushes ρ further up, which keeps the policy near the one that
+      collected the data.
 
   - id: agai-7dfa8v
     type: multi
@@ -764,26 +758,26 @@ questions:
     topics: [Independent DQN]
     section: Independent DQN and its stale replay buffer
     prompt: >-
-      Two IDQN agents play a coin game. Agent 2 used to ignore coins and now
-      races for them. Agent 1 keeps replaying transitions where heading for a coin
-      reliably won it. What is wrong with those transitions?
+      In IDQN, agent 1 replays coin-game transitions from when agent 2 ignored
+      coins. Agent 2 now races for them. DQN is off-policy, so why are those
+      transitions still a problem?
     options:
       - id: a
-        text: They record an environment that agent 2's change made obsolete
+        text: Agent 2's old behaviour is part of agent 1's environment
         correct: true
       - id: b
-        text: Agent 1's own older ε-greedy actions make them unusable
-        why: Off-policy learning covers agent 1's own old behaviour. The trouble is agent 2's old behaviour, part of agent 1's environment.
+        text: Off-policy learning breaks once ε changes
+        why: The max in the target ignores which ε chose the stored actions. The trouble is agent 2's change.
       - id: c
-        text: They were computed with an outdated target network
+        text: Their targets were built with an old target network
         why: Targets are recomputed with the current target network when a transition is sampled. The stored outcome is what is out of date.
       - id: d
-        text: Uniform sampling replays them in the wrong order
-        why: Replay is meant to break the order. The content of the transitions is out of date.
+        text: Agent 1 lacks importance weights for its own old actions
+        why: Q-learning's max needs no weights for agent 1's own actions. IDQN's importance weights correct for the other agents' changed policies.
     why: >-
-      Each stored transition reflects the other agents' policies at the time.
-      Once agent 2 changes, the same action in the same state leads elsewhere.
-      DQN's off-policy property does not cover the others' behaviour.
+      A stored transition records what happened under agent 2's old policy, and
+      now the same action leads elsewhere. Off-policy learning covers agent 1's
+      own old actions, while agent 2 belongs to its environment.
 
   - id: agai-8xhfmm
     type: truefalse
@@ -816,8 +810,8 @@ questions:
         text: Each IPPO agent's clip ensures the joint policy changes safely
         why: Each clip bounds that agent's own change. Nothing bounds the joint change, and the others keep updating.
       - id: d
-        text: They read the other agents' policy parameters during training
-        why: Independent learners use their own history. Reading the others' parameters would be centralised training.
+        text: Fresh experience removes the non-stationarity the others cause
+        why: Fresh data keeps nothing stale, but the others' simultaneous updates keep the environment non-stationary.
       - id: e
         text: They adapt by replaying the other agents' older experience
         why: They are on-policy and discard data after each update. Replaying old experience is IDQN's weakness.
@@ -843,9 +837,6 @@ questions:
       - id: b
         text: It cannot tell whose action earned the team reward
         correct: true
-      - id: c
-        text: Its bootstrapped targets have too little variance
-        why: Lower variance is the critic's benefit. The problem is that a shared reward carries no individual signal.
       - id: d
         text: Its replay buffer holds outdated team rewards
         why: IA2C is on-policy and has no replay buffer. The issue is credit assignment under a shared reward.

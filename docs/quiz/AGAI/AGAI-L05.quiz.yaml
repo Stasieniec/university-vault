@@ -15,24 +15,24 @@ questions:
     level: remember
     topics: ["Who sees what, and when: training and execution modes"]
     section: "Who sees what, and when: training and execution modes"
-    prompt: In multi-agent RL, a training or execution phase is centralised when agent i uses ___.
+    prompt: Decentralised training and execution scales, and it suits distributed agents that ___.
     options:
       - id: a
-        text: shared information about the other agents
+        text: cannot communicate with each other
         correct: true
       - id: b
-        text: one network shared by every agent
-        why: That is parameter sharing, a separate technique. A phase is centralised by the information an agent draws on.
+        text: share one central controller
+        why: A shared controller is what centralised execution needs, and distributed agents often cannot have one.
       - id: c
-        text: a reward common to the whole team
-        why: A common reward is a property of the game's payoffs. Centralisation is about what information an agent uses.
+        text: all see the global state
+        why: A global state is centralised information. DTDE agents rely on their own experience alone.
       - id: d
-        text: a fixed turn order with the others
-        why: Turn order is a property of the game. Centralisation is about whether an agent uses the others' information.
+        text: run one shared network
+        why: That is parameter sharing, where one set of parameters is trained on every agent's experience.
     why: >-
-      Centralised means agent i uses centrally shared information about the
-      others: their observations, the joint history, the global state or the joint
-      policy. Decentralised means it relies on its own experience alone.
+      In DTDE no agent ever relies on centrally shared information, so nothing
+      has to be exchanged in training or execution. The price is
+      non-stationarity and possible suboptimal equilibria.
 
   - id: agai-w38d83
     type: single
@@ -41,26 +41,26 @@ questions:
     topics: [Centralised Training with Decentralised Execution]
     section: "Who sees what, and when: training and execution modes"
     prompt: >-
-      A drone swarm loses radio contact once deployed, so each drone must act on
-      its own camera. In a simulator, every drone's camera feed and the full map
-      are available. Which mode fits best?
+      Underwater robots cannot communicate once submerged, so each must act on its
+      own sonar. In a test tank, every robot's sonar and exact position are logged
+      for training. Which mode fits best?
     options:
       - id: a
         text: Centralised training and execution
-        why: Centralised execution would need the drones to share information in flight, which the lost radio rules out.
+        why: Centralised execution would need the robots to share information underwater, which they cannot.
       - id: b
         text: Decentralised training and execution
-        why: It would work, but it throws away the simulator's full information, which could improve coordination in training.
+        why: It would work, but it throws away the logged data, which could improve coordination in training.
       - id: c
         text: Centralised training with decentralised execution
         correct: true
       - id: d
         text: Decentralised training with centralised execution
-        why: That is backwards. The shared information exists in training and is missing in flight.
+        why: That is backwards. The shared information exists in training and is missing underwater.
     why: >-
-      Shared information is available only in training, and each drone must act
-      alone in flight. That is CTDE: train with the simulator's full data, then
-      execute on each drone's own history.
+      Shared information is available only in training, and each robot must act
+      alone underwater. That is CTDE: train with the tank's full logs, then
+      execute on each robot's own history.
 
   - id: agai-wmpcca
     type: truefalse
@@ -79,46 +79,46 @@ questions:
     type: multi
     difficulty: medium
     level: understand
-    topics: ["Who sees what, and when: training and execution modes", Independent Learning]
+    topics: [Centralised Training with Decentralised Execution]
     section: "Who sees what, and when: training and execution modes"
-    prompt: Which are weaknesses of decentralised training and execution?
+    prompt: Which are weaknesses of centralised training with decentralised execution?
     options:
       - id: a
-        text: Training suffers from non-stationarity
+        text: Centralised training can become a bottleneck
         correct: true
       - id: b
-        text: Agents can settle in suboptimal equilibria
+        text: Coordination suffers when local information falls short at execution
         correct: true
       - id: c
-        text: An agent cannot tell which changes come from other agents
-        correct: true
+        text: The joint action space at execution grows exponentially with the agents
+        why: Each agent picks its own action from its own history. The exponential joint action space is CTCE's problem.
       - id: d
-        text: The joint action space grows exponentially with the agents
-        why: That is the weakness of centralised training and execution, which learns over joint actions.
+        text: Agents must exchange observations while acting
+        why: CTDE needs no runtime communication. Shared information is used only during training.
       - id: e
-        text: Agents must communicate with each other while acting
-        why: DTDE needs no communication at all, which is one of its strengths for distributed agents.
+        text: Training ignores how the agents interact
+        why: Accounting for the interactions in training is CTDE's strength, and it improves coordination.
     why: >-
-      Without shared information each agent sees the others as a changing
-      environment: non-stationarity, possible suboptimal equilibria, and no way to
-      attribute changes to them. In return it scales and needs no communication.
+      CTDE shares information only in training, so execution needs no controller
+      or communication. Its costs: centralised training can still be a
+      bottleneck, and coordination is hard when local information is not enough.
 
   - id: agai-q8nm5u
     type: truefalse
     difficulty: easy
-    level: remember
-    topics: [Centralised Training with Decentralised Execution]
+    level: understand
+    topics: ["Who sees what, and when: training and execution modes", Partial Observability]
     section: "Who sees what, and when: training and execution modes"
-    statement: Under CTDE, a trained agent needs only its own observation history to choose its actions.
+    statement: In a partially observable stochastic game, centralised training and execution can pool every agent's observations and so remove much of the partial observability.
     answer: true
     why: >-
-      CTDE uses shared information only during training. Each trained policy
-      conditions on the agent's own history, so execution needs no central
-      controller.
+      Pooling everyone's observations is part of CTCE's strength, alongside
+      coordination. Its price is a joint action space that grows exponentially
+      with the number of agents.
 
   - id: agai-pcvvrt
     type: match
-    difficulty: hard
+    difficulty: medium
     level: apply
     topics: [Centralised Training with Decentralised Execution, Independent DQN, "How the methods compare"]
     section: How the methods compare
@@ -129,7 +129,7 @@ questions:
       - Centralised training, decentralised execution
     pairs:
       - id: a
-        text: One learner picks the joint action from everyone's observations
+        text: Every action chosen at run time from all agents' pooled observations
         target: Centralised training and execution
       - id: b
         text: Independent DQN, one learner per agent
@@ -141,12 +141,12 @@ questions:
         text: Joint-action learning with agent models built from own observations
         target: Decentralised training and execution
       - id: e
-        text: A2C whose critic sees the global state
+        text: MAPPO with a centralised value critic
         target: Centralised training, decentralised execution
     why: >-
-      VDN and a centralised critic use shared information only in training.
-      Independent learners and agent models built from an agent's own observations
-      use none. A single learner over the joint action is centralised throughout.
+      VDN and MAPPO's critic use shared information only in training. Independent
+      learners and agent models built from an agent's own observations use none.
+      Acting on everyone's pooled observations is centralised throughout.
 
   - id: agai-dcj45z
     type: multi
@@ -200,8 +200,8 @@ questions:
 
   - id: agai-b8w532
     type: single
-    difficulty: hard
-    level: analyze
+    difficulty: medium
+    level: understand
     topics: [REINFORCE, Centralised Training with Decentralised Execution]
     section: The centralised actor-critic
     prompt: >-
@@ -212,8 +212,8 @@ questions:
         text: Its sampled returns already depend on the joint action
         why: That holds for any multi-agent return and is no obstacle. The obstacle is that no training-only network exists to take z.
       - id: b
-        text: It is off-policy, so stored data cannot carry z
-        why: REINFORCE is on-policy. The problem is structural, since it learns nothing besides the policy.
+        text: Centralised information only helps value-based methods
+        why: Centralised critics bring CTDE to policy gradient methods such as A2C and MAPPO. REINFORCE just has no critic.
       - id: c
         text: Its sole learned part is the policy, which must run decentralised
         correct: true
@@ -255,7 +255,7 @@ questions:
   - id: agai-nstvnz
     type: single
     difficulty: medium
-    level: apply
+    level: understand
     topics: [Multi-Agent Credit Assignment]
     section: What a centralised value function still cannot do
     prompt: >-
@@ -334,7 +334,7 @@ questions:
 
   - id: agai-36x2a6
     type: single
-    difficulty: hard
+    difficulty: medium
     level: apply
     topics: [Value Decomposition Networks (VDN)]
     section: Splitting the team value into utilities
@@ -568,8 +568,8 @@ questions:
         text: The global state in, a value for each joint action out
         why: That describes a centralised action-value function. An agent model predicts j's actions.
       - id: d
-        text: i's observation history in, j's network parameters out
-        why: The model predicts behaviour. Agent j's parameters are never observed or copied.
+        text: i's observation history in, j's reward out
+        why: The model predicts j's behaviour. It is trained on the actions i has seen j take.
     why: >-
       The model π̂_j^i(a_j | h_i) uses what agent i has seen to predict how j will
       act. It is trained on j's observed actions with a negative log-likelihood
@@ -686,27 +686,30 @@ questions:
   - id: agai-ssk566
     type: single
     difficulty: medium
-    level: understand
+    level: apply
     topics: [Parameter Sharing]
     section: Parameter sharing (strongly homogeneous agents)
-    prompt: Which statement about parameter sharing is **NOT** true?
+    prompt: >-
+      Two agents share one network but must reach two different landmarks. From
+      symmetric positions they keep heading for the same one. What lets the one
+      shared network split them?
     options:
       - id: a
-        text: The parameter count stays constant as agents are added
-        why: This is true. Every agent uses the same network, however many agents there are.
-      - id: b
-        text: Every agent's experience updates the shared parameters
-        why: This is true. The shared network learns from every agent's experience, which improves sample efficiency.
-      - id: c
-        text: It suits agents whose optimal policies differ
+        text: Adding each agent's index to its observation
         correct: true
+      - id: b
+        text: Making the shared network larger
+        why: Size does not help. Identical policies still act identically on identical observations.
+      - id: c
+        text: Training it on more pooled experience
+        why: More data trains the same single policy, which still acts identically in symmetric situations.
       - id: d
-        text: Each agent runs its own copy on its own observations
-        why: This is true. Nothing has to be exchanged at execution.
+        text: Giving each agent its own copy at execution
+        why: Each agent already runs its own copy, with the same parameters. Copies act alike on alike observations.
     why: >-
-      Parameter sharing constrains the agents to one policy, so it suits strongly
-      homogeneous agents with identical optimal policies. When optimal policies
-      differ, experience sharing or an agent index in the observations helps.
+      With shared parameters, identical observations give identical behaviour.
+      Adding the agent index makes the observations differ, so one network can
+      act like different policies for different agents.
 
   - id: agai-nkvhj9
     type: single
@@ -715,12 +718,13 @@ questions:
     topics: [Parameter Sharing, "Experience sharing (weakly homogeneous agents)"]
     section: Experience sharing (weakly homogeneous agents)
     prompt: >-
-      Two warehouse robots with identical sensors and actions must load two
-      different trucks, and swapping their policies leaves the return unchanged.
-      How can learning still exploit their similarity?
+      Two warehouse robots with identical sensors and actions, and no agent index
+      in their observations, must load two different trucks. Swapping their
+      policies leaves the return unchanged. How can learning still exploit their
+      similarity?
     options:
       - id: a
-        text: Parameter sharing, with no agent index added
+        text: Parameter sharing, one network for both
         why: Identical policies act alike in symmetric situations, so they could not reliably send the robots to different trucks.
       - id: b
         text: Experience sharing, with a separate network each
@@ -798,31 +802,27 @@ questions:
 
   - id: agai-7h7qa4
     type: single
-    difficulty: hard
+    difficulty: medium
     level: apply
     topics: [Self-Play]
     section: "Self-play: AlphaZero"
     prompt: >-
-      In a two-player chase game, one side is a cat that can pounce and the other
-      a mouse that can burrow. What stops training one policy by self-play to play
-      both sides?
+      One chess policy is trained by self-play to play both White and Black. How
+      should the board be presented to it?
     options:
       - id: a
-        text: The two roles have different actions
+        text: From the mover's view, as its own pieces and the opponent's
         correct: true
       - id: b
-        text: The game is zero-sum, so self-play would cycle
-        why: Zero-sum board games are where self-play is used, as in AlphaZero.
+        text: In one fixed layout, with White's pieces always first
+        why: Then the same input means different things depending on the colour it plays. Self-play needs egocentric observations.
       - id: c
-        text: The reward arrives only when the game ends
-        why: A sparse reward makes learning hard but does not rule out self-play. Board games have it too.
-      - id: d
-        text: Both players see the whole board at once
-        why: Full observability is fine. Self-play needs symmetric roles and egocentric observations.
+        text: As the mover's pieces, with the opponent's hidden
+        why: Chess is fully observable and the policy needs the whole board. Egocentric means seen from its side, with nothing removed.
     why: >-
-      Self-play has one policy choose the actions for every agent, which needs
-      symmetric roles and egocentric observations. A cat and a mouse with
-      different actions are not interchangeable sides.
+      Self-play has one policy choose every agent's actions. That needs symmetric
+      roles and egocentric observations, so "my pieces" and "the opponent's
+      pieces" mean the same whichever colour it plays.
 
   - id: agai-9uuw78
     type: single
@@ -830,21 +830,23 @@ questions:
     level: understand
     topics: [Policy Space Response Oracles (PSRO)]
     section: "Populations of policies: PSRO"
-    prompt: PSRO repeatedly solves a meta-game between the agents. In that meta-game, what does each agent choose among?
+    prompt: >-
+      In games like rock-paper-scissors, self-play can cycle and forget how to
+      beat old strategies. How does PSRO avoid that?
     options:
       - id: a
-        text: The policies in its current population
+        text: Each new policy best-responds to a mix of earlier ones
         correct: true
       - id: b
-        text: The actions of the underlying game
-        why: Those are the original game's actions. A meta-game action is a whole policy.
+        text: Each new policy trains against the opponent's newest one
+        why: That is plain self-play, which chases the latest version and can cycle.
       - id: c
-        text: The nodes of a Monte Carlo search tree
-        why: That is MCTS. PSRO's meta-game is a normal-form game over policies.
+        text: Each new best response replaces the old population
+        why: New policies are added to the populations, so old strategies stay in the meta-game.
       - id: d
-        text: The utilities from a value decomposition
-        why: Utilities belong to value decomposition in common-reward games, which PSRO does not use.
+        text: Each move is planned with Monte Carlo tree search
+        why: That is how AlphaZero explores large game trees. PSRO's answer to cycling is a population of policies.
     why: >-
-      The meta-game is a normal-form game whose actions are the policies in the
-      populations, with payoffs from simulated episodes. Its solution weights each
-      population, and a new best response is trained against it.
+      PSRO solves a meta-game over the populations and trains each new policy as
+      a best response to the others' meta-game mixtures. Having to beat a mixture
+      of earlier policies stops it chasing only the latest one.
