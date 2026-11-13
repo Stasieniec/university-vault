@@ -1,0 +1,688 @@
+# Lecture 6a: why plain MCTS struggles in Go, AlphaGo's two networks and training
+# stages, AlphaGo Zero and AlphaZero, population-based training, PSRO's loop and
+# oracle, the AlphaStar league, System 1 and System 2, LLM generation as RL, and
+# mixed-motive settings.
+# Source: the lecture note named below.
+course: AGAI
+lecture: AGAI-L06a
+title: "L06a From deep MARL to reasoning"
+sort: 9
+note: "AGAI-L06a - From Deep MARL to Reasoning"
+questions:
+
+  - id: agai-wc9pep
+    type: single
+    difficulty: hard
+    level: apply
+    topics: [Monte Carlo Tree Search (MCTS), Why plain MCTS struggles in Go]
+    section: Why plain MCTS struggles in Go
+    prompt: >-
+      In plain MCTS, a Go move gets a high value because it wins most of its
+      random rollouts. Against a strong player the same move loses. Which weakness
+      of plain MCTS does this show?
+    options:
+      - id: a
+        text: Hand-made heuristics need manual annotation
+        why: No heuristic scored this position. Random rollouts did, and they are what misled the search.
+      - id: b
+        text: Random rollouts assume a random opponent
+        correct: true
+      - id: c
+        text: Too few random games are averaged per move
+        why: More random games would only measure more precisely how the move does against random replies.
+      - id: d
+        text: The branching factor is too large to expand
+        why: A large branching factor makes search costly. It does not explain winning against random replies and losing to good ones.
+    why: >-
+      Rollouts play random moves for both sides, so a move is scored by how it
+      does against random replies. A strong player finds the replies random play
+      misses, which is why AlphaGo learns from self-play.
+
+  - id: agai-ccer5t
+    type: match
+    difficulty: medium
+    level: understand
+    topics: ["AlphaGo: search guided by two networks", Monte Carlo Tree Search (MCTS)]
+    section: "AlphaGo: search guided by two networks"
+    prompt: In AlphaGo's search, assign each job to the network that does it.
+    targets:
+      - Policy network
+      - Value network
+    pairs:
+      - id: a
+        text: Steers selection towards promising moves
+        target: Policy network
+      - id: b
+        text: Scores a leaf the search has just added
+        target: Value network
+      - id: c
+        text: Removes the need to play each simulation to the end
+        target: Value network
+      - id: d
+        text: Narrows the search to a few of the many legal moves
+        target: Policy network
+      - id: e
+        text: Estimates the chance of winning from a position
+        target: Value network
+    why: >-
+      The policy network answers "which moves are promising?" and guides
+      selection, so it narrows the search. The value network answers "who wins
+      from here?" for new leaves, so it shortens the search.
+
+  - id: agai-mq7c8c
+    type: order
+    difficulty: easy
+    level: remember
+    topics: ["AlphaGo: search guided by two networks", REINFORCE]
+    section: "AlphaGo: search guided by two networks"
+    prompt: Put AlphaGo's training stages in order.
+    items:
+      - id: a
+        text: Fit the policy network to expert moves
+      - id: b
+        text: Improve the policy network by self-play with REINFORCE
+      - id: c
+        text: Train the value network to predict self-play winners
+    why: >-
+      Supervised learning on expert moves gives a starting policy. REINFORCE in
+      self-play improves it beyond the experts, and the value network is then
+      regressed on the outcomes of those self-play games.
+
+  - id: agai-5enchc
+    type: cloze
+    difficulty: easy
+    level: remember
+    topics: ["AlphaGo: search guided by two networks"]
+    section: "AlphaGo: search guided by two networks"
+    prompt: AlphaGo's first training stage fits the policy network to expert moves by minimising ___.
+    options:
+      - id: a
+        text: a squared-error loss
+        why: Squared error is the third stage, which regresses the value network on game outcomes.
+      - id: b
+        text: an outcome-weighted REINFORCE loss
+        why: REINFORCE is the second stage, which improves the policy by self-play after the expert stage.
+      - id: c
+        text: a cross-entropy loss
+        correct: true
+      - id: d
+        text: a temporal-difference error
+        why: None of AlphaGo's three stages uses temporal-difference learning. The first is plain supervised learning.
+    why: >-
+      Stage 1 is supervised. The loss, minus the sum of log π(a | s; θ) over expert
+      positions and moves, makes the expert's move likely in each position.
+
+  - id: agai-rskvx2
+    type: single
+    difficulty: easy
+    level: understand
+    topics: [REINFORCE, "AlphaGo: search guided by two networks"]
+    section: "AlphaGo: search guided by two networks"
+    prompt: In AlphaGo's REINFORCE stage, the policy loses a self-play game. What happens to the moves it played in that game?
+    options:
+      - id: a
+        text: Every one of them becomes less likely
+        correct: true
+      - id: b
+        text: Just the final move becomes less likely
+        why: The only reward comes at the end, so every move's return is the same outcome z and every move is pushed the same way.
+      - id: c
+        text: They stay unchanged, as a loss carries no reward
+        why: A loss has a negative outcome (−1 in the paper), so the update pushes that game's moves down.
+      - id: d
+        text: Moves the experts would avoid become less likely
+        why: Expert data is used only in the first stage. The REINFORCE stage weights moves by the self-play outcome z alone.
+    why: >-
+      The update adds η z times the sum of ∇ log π(a_t | s_t; θ) over the game.
+      With z negative for a loss, every move of that game becomes less likely;
+      after a win, every move becomes more likely.
+
+  - id: agai-eev2ut
+    type: multi
+    difficulty: medium
+    level: understand
+    topics: ["AlphaGo: search guided by two networks", Self-Play]
+    section: "AlphaGo: search guided by two networks"
+    prompt: Which statements about AlphaGo's second and third training stages are true?
+    options:
+      - id: a
+        text: In the REINFORCE stage, the opponent is the policy itself
+        correct: true
+      - id: b
+        text: The REINFORCE stage keeps the policy close to the expert moves
+        why: The REINFORCE stage lets the policy improve beyond the experts. Expert moves appear only in the first stage.
+      - id: c
+        text: The value network is trained on the moves of expert games
+        why: It is trained on the outcomes of the self-play games from the REINFORCE stage.
+      - id: d
+        text: The value network replaces the policy network once trained
+        why: Both are kept. The policy network guides selection and the value network scores new leaves.
+      - id: e
+        text: The REINFORCE stage rewards each move by how much it helps
+        why: The only reward is the game's outcome z at the end, and every move of the game gets it.
+    why: >-
+      The REINFORCE stage plays against the policy itself (earlier versions of it,
+      in the paper), so it keeps meeting stronger play. The value network then
+      learns to predict the winners of those self-play games.
+
+  - id: agai-3ty4f9
+    type: single
+    difficulty: medium
+    level: understand
+    topics: [Value Function, "AlphaGo: search guided by two networks"]
+    section: "AlphaGo: search guided by two networks"
+    prompt: AlphaGo's value network is trained by minimising (z − V_φ(s))² over self-play positions. What does V_φ(s) learn to estimate?
+    options:
+      - id: a
+        text: The move an expert would most likely play in s
+        why: Predicting expert moves is the policy network's job in the first stage.
+      - id: b
+        text: How often the search has visited position s
+        why: Visit counts N(s,a) are statistics the tree keeps during search. No network learns them.
+      - id: c
+        text: The average result of random rollouts from s
+        why: Its targets are self-play outcomes between strong policies, and it replaces random rollouts in the search.
+      - id: d
+        text: The final outcome of the game from position s
+        correct: true
+    why: >-
+      Squared error to the outcome z makes V_φ(s) predict who wins from s. The
+      search can then score a new leaf without playing to the end of the game.
+
+  - id: agai-ectg4q
+    type: single
+    difficulty: hard
+    level: apply
+    topics: [REINFORCE, Self-Play, "AlphaGo: search guided by two networks"]
+    section: "AlphaGo: search guided by two networks"
+    prompt: >-
+      A team copies AlphaGo's expert stage, then runs REINFORCE with every game
+      played against a fixed player that picks random legal moves. The policy
+      wins nearly every training game but loses to amateurs. What did they change
+      from AlphaGo's recipe?
+    options:
+      - id: a
+        text: "The move weights: AlphaGo weights each move by the outcome z"
+        why: The team ran REINFORCE, which already weights moves by z. The problem is who the games are played against.
+      - id: b
+        text: "The value network: AlphaGo trains it before REINFORCE"
+        why: AlphaGo trains the value network after REINFORCE, and it scores leaves in the search. It does not set the policy's opponent.
+      - id: c
+        text: "The opponent: AlphaGo plays against the policy itself"
+        correct: true
+      - id: d
+        text: "The data: AlphaGo adds expert games to the REINFORCE stage"
+        why: Expert games appear only in the first stage, which the team kept.
+    why: >-
+      AlphaGo's REINFORCE stage plays the policy against itself, so it keeps
+      facing stronger play. Beating random moves repeats the random-opponent
+      problem of plain rollouts.
+
+  - id: agai-rnfrks
+    type: truefalse
+    difficulty: medium
+    level: understand
+    topics: ["AlphaGo: search guided by two networks", Monte Carlo Tree Search (MCTS)]
+    section: "AlphaGo: search guided by two networks"
+    statement: In AlphaGo's search, the policy network scores each newly added leaf in place of a random rollout.
+    answer: false
+    why: >-
+      The value network scores new leaves. The policy network guides selection,
+      deciding which moves the search explores first.
+
+  - id: agai-z2ty86
+    type: single
+    difficulty: easy
+    level: remember
+    topics: [AlphaGo Zero, Self-Play]
+    section: "AlphaGo Zero and AlphaZero: no human games"
+    prompt: AlphaGo Zero trains one network by self-play. What lets that single network play both black and white?
+    options:
+      - id: a
+        text: It first copies expert games played by both colours
+        why: AlphaGo Zero uses no human games at all. It starts from a random policy.
+      - id: b
+        text: The board is shown from the side of the player to move
+        correct: true
+      - id: c
+        text: Go's reward is shared by both players
+        why: Go is zero-sum, so one player's win is the other's loss.
+    why: >-
+      Self-play works when the same policy can be used from the perspective of
+      both agents. Showing the board from the side to move turns black and white
+      into one problem.
+
+  - id: agai-ed6dwz
+    type: single
+    difficulty: medium
+    level: apply
+    topics: [AlphaGo Zero, Monte Carlo Tree Search (MCTS)]
+    section: "AlphaGo Zero and AlphaZero: no human games"
+    prompt: A lab wants to apply AlphaZero to a new two-player board game. What has to be written specifically for that game?
+    options:
+      - id: a
+        text: A dataset of expert games to start the policy from
+        why: AlphaZero starts from a random policy and learns by self-play. Expert data was AlphaGo's first stage.
+      - id: b
+        text: A new search algorithm suited to its game tree
+        why: AlphaZero uses the same search for chess, shogi and Go.
+      - id: c
+        text: A hand-made heuristic that scores its positions
+        why: The value network learns to score positions, so no manual annotation is needed.
+      - id: d
+        text: An engine for its legal moves, transitions and end conditions
+        correct: true
+    why: >-
+      AlphaZero is one learning and search method for several games. MCTS steps
+      through the rules in every simulation, so the engine enforcing them is the
+      only game-specific part.
+
+  - id: agai-emrg9f
+    type: multi
+    difficulty: medium
+    level: understand
+    topics: [AlphaGo Zero, Policy Space Response Oracles (PSRO), How the methods compare]
+    section: How the methods compare
+    prompt: Which of these methods start learning without any human game data?
+    options:
+      - id: a
+        text: AlphaGo Zero
+        correct: true
+      - id: b
+        text: AlphaZero
+        correct: true
+      - id: c
+        text: PSRO
+        correct: true
+      - id: d
+        text: AlphaGo
+        why: AlphaGo's first stage fits its policy network to expert human moves.
+      - id: e
+        text: AlphaStar
+        why: AlphaStar's agents started by imitating human games before league training.
+    why: >-
+      AlphaGo Zero and AlphaZero start from a random policy, and PSRO from random
+      policies. AlphaGo starts from expert moves and AlphaStar from human games.
+
+  - id: agai-dce848
+    type: single
+    difficulty: hard
+    level: apply
+    topics: [Self-Play, Population-Based Training]
+    section: "When self-play is not enough: populations of policies"
+    prompt: >-
+      In a zero-sum game, one player defends a base and can build walls; the
+      other attacks and can only move units. Which approach fits this game?
+    options:
+      - id: a
+        text: Training against populations of policies, one per role
+        correct: true
+      - id: b
+        text: AlphaZero-style self-play with one shared policy
+        why: Self-play has one policy play both sides, which assumes symmetric roles. Attacker and defender have different actions.
+      - id: c
+        text: AlphaGo Zero's loop, showing the board from the mover's side
+        why: Showing the board from the mover's side makes the sides alike only when both have the same actions.
+      - id: d
+        text: AlphaGo's expert stage, then REINFORCE self-play
+        why: Expert data does not fix the problem. The REINFORCE stage still has one policy play both sides.
+    why: >-
+      The AlphaGo family lets one policy play both sides, which needs symmetric
+      roles. Population-based training keeps a population per agent, so policies
+      can have different roles, actions and observations.
+
+  - id: agai-7kq6jy
+    type: multi
+    difficulty: medium
+    level: understand
+    topics: [Self-Play, Population-Based Training]
+    section: "When self-play is not enough: populations of policies"
+    prompt: In which of these games would one self-play policy be unable to play both sides?
+    options:
+      - id: a
+        text: The two players have different sets of actions
+        correct: true
+      - id: b
+        text: The two players receive different kinds of observations
+        correct: true
+      - id: c
+        text: The only reward is a win or loss at the end
+        why: Go has a sparse reward too, and AlphaZero handles it with self-play.
+      - id: d
+        text: Each position has a very large number of legal moves
+        why: A large branching factor makes search hard, as in Go, but both sides can still share one policy.
+      - id: e
+        text: The game is zero-sum between the two players
+        why: AlphaZero's self-play is exactly the zero-sum case. What it needs is symmetric roles.
+    why: >-
+      Self-play assumes the two agents have symmetric roles. Different actions or
+      observations break that, and population-based training is used instead.
+
+  - id: agai-ba4b3y
+    type: single
+    difficulty: easy
+    level: remember
+    topics: [Population-Based Training]
+    section: "When self-play is not enough: populations of policies"
+    prompt: In population-based training, how are existing policies modified after they are evaluated?
+    options:
+      - id: a
+        text: By training a best response to a meta-game solution
+        why: That is what PSRO adds on top of populations.
+      - id: b
+        text: By random changes, or by copying the best performers' parameters
+        correct: true
+      - id: c
+        text: By fitting them to expert games with a cross-entropy loss
+        why: That is AlphaGo's first stage. Population-based training needs no expert data.
+      - id: d
+        text: By letting one policy play both sides of each game
+        why: That is self-play, which assumes symmetric roles. Populations are used when it fails.
+    why: >-
+      Each policy is evaluated against the other populations. Then policies are
+      changed at random or overwritten with the parameters of the best performers,
+      and evaluation starts again.
+
+  - id: agai-re9uf7
+    type: truefalse
+    difficulty: medium
+    level: understand
+    topics: [Population-Based Training, Replicator Dynamics]
+    section: "When self-play is not enough: populations of policies"
+    statement: >-
+      Copying the parameters of the best-performing policies makes
+      population-based training resemble replicator dynamics, since what does
+      well against the current populations spreads.
+    answer: true
+    why: >-
+      As in replicator dynamics, strategies that do well gain ground. Copying the
+      best performers spreads what works, and random changes add variation.
+
+  - id: agai-gadab3
+    type: order
+    difficulty: medium
+    level: remember
+    topics: [Policy Space Response Oracles (PSRO)]
+    section: "PSRO: populations plus a meta-game"
+    prompt: Put one PSRO generation in order, starting from the current populations.
+    items:
+      - id: a
+        text: Construct the meta-game from the current populations
+      - id: b
+        text: Run the meta-solver to get a distribution over each population
+      - id: c
+        text: Sample the other agents' policies from that distribution
+      - id: d
+        text: Train a new policy against them with single-agent RL
+      - id: e
+        text: Add the new policy to its agent's population
+    why: >-
+      The meta-game has to exist before it can be solved, and its solution
+      supplies the opponents the new policy trains against. Adding that policy
+      grows the meta-game for the next generation.
+
+  - id: agai-fz4n4u
+    type: multi
+    difficulty: medium
+    level: understand
+    topics: [Policy Space Response Oracles (PSRO), Normal-Form Game]
+    section: "PSRO: populations plus a meta-game"
+    prompt: Which statements about the PSRO meta-game are true?
+    options:
+      - id: a
+        text: A cell holds each agent's average return for that pair of policies
+        correct: true
+      - id: b
+        text: Its payoffs are estimated by running many episodes of the real game
+        correct: true
+      - id: c
+        text: In a two-player game it gains a row and a column per generation
+        correct: true
+      - id: d
+        text: It is solved once, before the first new policy is trained
+        why: It is rebuilt and solved again every generation, as new policies join the populations.
+      - id: e
+        text: Its size grows with the number of states of the real game
+        why: It has one row or column per stored policy, so it stays small even when the real game is huge.
+    why: >-
+      The meta-game is a normal-form game with one action per stored policy and
+      average returns as payoffs, estimated by simulation. Each generation adds a
+      policy per agent, whose new pairings have to be simulated.
+
+  - id: agai-af62xv
+    type: truefalse
+    difficulty: medium
+    level: understand
+    topics: [Policy Space Response Oracles (PSRO), Nash Equilibrium]
+    section: "PSRO: populations plus a meta-game"
+    statement: PSRO's meta-solver can rank policies by computing a Nash equilibrium of the underlying game.
+    answer: false
+    why: >-
+      The meta-solver solves the meta-game, the small normal-form game over the
+      stored policies. The underlying game is only played, to estimate payoffs and
+      to train new policies.
+
+  - id: agai-22tvng
+    type: cloze
+    difficulty: easy
+    level: remember
+    topics: [Policy Space Response Oracles (PSRO), Best Response]
+    section: "PSRO: populations plus a meta-game"
+    prompt: >-
+      In PSRO, the oracle trains each new policy against policies sampled from
+      the meta-solution, using ___ in the underlying game.
+    options:
+      - id: a
+        text: supervised learning on expert games
+        why: PSRO uses no expert data. The new policy learns by playing against the sampled opponents.
+      - id: b
+        text: replicator dynamics
+        why: Replicator dynamics changes the shares of existing strategies. PSRO's new policies come from an RL algorithm.
+      - id: c
+        text: single-agent RL
+        correct: true
+      - id: d
+        text: value decomposition
+        why: Value decomposition splits a team value in common-reward games and plays no part in PSRO.
+    why: >-
+      With the others' policies fixed by sampling, agent i faces a single-agent
+      problem. The RL algorithm that solves it, giving an approximate best
+      response, is the oracle in the name.
+
+  - id: agai-9heurr
+    type: single
+    difficulty: hard
+    level: analyze
+    topics: [Policy Space Response Oracles (PSRO), Self-Play]
+    section: "PSRO: populations plus a meta-game"
+    prompt: >-
+      In rock-paper-scissors, self-play that best-responds to its latest self goes
+      Rock, Paper, Scissors, Rock and so on. What in PSRO stops this cycle?
+    options:
+      - id: a
+        text: Meta-game payoffs are averaged over many episodes
+        why: Averaging makes the payoff estimates accurate. Accurate payoffs alone would not stop best-responding to the latest policy.
+      - id: b
+        text: The oracle is a single-agent RL algorithm
+        why: Self-play's best responses also come from RL. What differs is who the new policy trains against.
+      - id: c
+        text: The populations start from random policies
+        why: Self-play can start from a random policy too. The starting point does not change who later policies answer.
+      - id: d
+        text: New policies train against a mixture of the earlier policies
+        correct: true
+    why: >-
+      Best-responding to the latest policy forgets the older ones, so play
+      cycles. PSRO trains against the meta-solution's mixture over the population,
+      so a new policy has to do well against old strategies too.
+
+  - id: agai-nu5a8y
+    type: single
+    difficulty: hard
+    level: analyze
+    topics: [Policy Space Response Oracles (PSRO), Best Response]
+    section: "PSRO: populations plus a meta-game"
+    prompt: >-
+      Suppose a PSRO meta-solver put its whole weight on each agent's newest
+      policy in every generation. What would training then amount to?
+    options:
+      - id: a
+        text: Population-based training, perturbing and copying policies
+        why: No policy is perturbed or copied. Each new policy is still trained by RL as a best response.
+      - id: b
+        text: Best-responding to the latest policy, as naive self-play does
+        correct: true
+      - id: c
+        text: Training against a uniform mixture of the population
+        why: A uniform mixture would give every stored policy equal weight. Here all of it sits on one policy.
+      - id: d
+        text: Training against a Nash equilibrium of the meta-game
+        why: A Nash meta-solver weights policies by how they do against each other, which is what keeps older policies in play.
+    why: >-
+      The oracle trains against policies sampled from the meta-solution. If that
+      is the newest policy alone, each new policy answers only the latest one,
+      which is the cycling self-play PSRO avoids.
+
+  - id: agai-v3hcec
+    type: truefalse
+    difficulty: easy
+    level: remember
+    topics: ["AlphaStar: a PSRO-like league", Population-Based Training]
+    section: "AlphaStar: a PSRO-like league"
+    statement: AlphaStar is an example of self-play with heterogeneous populations, trained in a league that works like PSRO.
+    answer: true
+    why: >-
+      AlphaStar's league is population-based training that works like PSRO, which
+      suits StarCraft II, where the players' roles are asymmetric.
+
+  - id: agai-gxaexh
+    type: single
+    difficulty: medium
+    level: apply
+    topics: [From RL to agentic AI, Large Language Models (LLM)]
+    section: From RL to agentic AI
+    prompt: >-
+      A Go program plays every move straight from its policy network, with no
+      search. In the reading of AlphaGo as two systems, how is it best described?
+    options:
+      - id: a
+        text: System 1 only, like current next-token LLMs
+        correct: true
+      - id: b
+        text: System 2 only, as its policy was trained by self-play
+        why: Self-play training adds no search at play time. System 2 is thinking ahead with the search's rollouts.
+      - id: c
+        text: Both systems, as its policy was improved by REINFORCE
+        why: REINFORCE sharpens System 1's intuition. System 2 needs a search before acting.
+    why: >-
+      System 1 is the policy network's immediate intuition and System 2 the
+      search's long-horizon rollouts. Without search only System 1 is left, which
+      is how current LLMs are described: next-token generation with no search.
+
+  - id: agai-zj4u5s
+    type: cloze
+    difficulty: easy
+    level: remember
+    topics: [From RL to agentic AI, Large Language Models (LLM)]
+    section: From RL to agentic AI
+    prompt: When text generation is written as an RL problem, the action at each step is ___.
+    options:
+      - id: a
+        text: the whole completed response
+        why: The completed response is what the reward judges. Each step's action is a single token.
+      - id: b
+        text: the prompt
+        why: The prompt is part of the state, together with the tokens generated so far.
+      - id: c
+        text: the next token
+        correct: true
+      - id: d
+        text: a search over continuations
+        why: LLMs are argued to generate without search. The action is just the next token.
+    why: >-
+      The action is the next token. The state is the prompt plus the tokens so
+      far, and the reward is high when the completed response is good.
+
+  - id: agai-fca8rg
+    type: multi
+    difficulty: medium
+    level: understand
+    topics: [From RL to agentic AI, Large Language Models (LLM)]
+    section: From RL to agentic AI
+    prompt: Text generation is written as an RL problem. Which statements are correct?
+    options:
+      - id: a
+        text: The state includes the tokens generated so far
+        correct: true
+      - id: b
+        text: The reward is high when the completed response is good
+        correct: true
+      - id: c
+        text: The policy is the learned next-token probability π(a | s)
+        correct: true
+      - id: d
+        text: The state is the prompt on its own
+        why: The state is the prompt plus every token generated so far.
+      - id: e
+        text: A reward arrives for each token on its own
+        why: The reward judges the completed response, so it comes once at the end.
+      - id: f
+        text: The policy searches ahead before choosing each token
+        why: LLMs are argued to lack search. The policy picks the next token from its learned probabilities.
+    why: >-
+      State, the prompt and tokens so far; action, the next token; reward, high
+      for a good completed response; policy, the learned π(a | s). Improving the
+      policy then means better reasoning.
+
+  - id: agai-fgemaz
+    type: single
+    difficulty: hard
+    level: analyze
+    topics: [DeepSeek-R1, GRPO, REINFORCE]
+    section: From RL to agentic AI
+    prompt: DeepSeek-R1 improves an LLM's reasoning with GRPO. Which part of AlphaGo does that training most resemble?
+    options:
+      - id: a
+        text: The search, looking ahead before each move
+        why: The LLM still generates without search. GRPO changes the policy that picks each token.
+      - id: b
+        text: The expert stage, copying demonstrations by cross-entropy
+        why: GRPO is a policy gradient method that learns from rewards, which is RL rather than copying.
+      - id: c
+        text: The value stage, regressing outcomes by squared error
+        why: GRPO trains the policy itself. AlphaGo's value network only predicts outcomes for the search.
+      - id: d
+        text: The REINFORCE stage, learning from one reward at the end
+        correct: true
+    why: >-
+      GRPO is a policy gradient method close to PPO. Like AlphaGo's REINFORCE
+      stage, it gets one reward at the end of a long sequence of actions and makes
+      the actions of good responses more likely.
+
+  - id: agai-gpdck2
+    type: single
+    difficulty: medium
+    level: apply
+    topics: [Social Dilemma, From RL to agentic AI]
+    section: From RL to agentic AI
+    prompt: >-
+      Each delivery firm's AI planner saves money by sending its trucks at rush
+      hour, and the resulting traffic slows every firm's deliveries. Which term
+      fits?
+    options:
+      - id: a
+        text: A zero-sum game
+        why: All the firms can lose together from the traffic, so their interests are only partly opposed.
+      - id: b
+        text: A social dilemma
+        correct: true
+      - id: c
+        text: A common-reward game
+        why: Each planner pursues its own firm's savings, so the objectives differ.
+      - id: d
+        text: A meta-game
+        why: A meta-game is PSRO's normal-form game over stored policies, unrelated to the firms' incentives.
+    why: >-
+      Each planner's selfish incentive, cheap rush-hour trips, diverges from the
+      collective good of fast deliveries for all. That is a social dilemma, a
+      mixed-motive conflict that AI agents can make easier to pursue.

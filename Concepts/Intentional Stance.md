@@ -3,7 +3,7 @@ type: concept
 aliases: [intentional stance, design stance, physical stance, Dennett's stances, stances]
 course: [AGAI]
 tags: [agents, philosophy]
-status: draft
+status: complete
 ---
 
 # Intentional Stance
@@ -21,7 +21,7 @@ It is the top of Daniel Dennett's three stances, three ways of interpreting an e
 
 ## Intuition
 
-> [!intuition] Three ways to predict a thing
+> [!intuition] A billiard ball, a clock and a poker player
 > A billiard ball is predicted from physics: where and how hard the cue hits it. A clock is predicted from its design: you read the time without knowing the mechanism. That works only while it works; when the clock breaks, only the physical stance explains what it does. A poker player, a cat that looks scared, or a country in a trade dispute is predicted by asking what it believes and wants and assuming it acts sensibly on that.
 
 The stance is a choice made by an observer. Nothing is an agent "in itself": Giovanni Sileno's ontology makes this explicit by defining **agents as actors ascribed with intentions**, where objects are passive (they undergo changes) and actors are active (they produce changes). This matches Russell and Norvig's remark that "agent" is a tool for analysing systems (see [[Intelligent Agent]]). (Outside the course material: Dennett justifies the intentional stance by its predictive success. Predicting a chess program's next move from its code is hopeless; assuming it wants to win and knows the rules works well.)

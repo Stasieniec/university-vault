@@ -3,7 +3,7 @@ type: concept
 aliases: [BDI, Belief-Desire-Intention, belief-desire-intention, BDI agent, BDI agents, BDI architecture, beliefs desires intentions]
 course: [AGAI]
 tags: [agents, architectures]
-status: draft
+status: complete
 ---
 
 # BDI Model
@@ -29,10 +29,10 @@ Why intentions are needed on top of beliefs and desires is Michael Bratman's poi
 
 - **Intention includes side effects.** Committing to a conduct brings more consequences than the desired outcome (the dentist also means the drill and the bill), so deliberating about intentions means weighing those too.
 - **Architectural claim (Sileno).** If an architecture misses the function of intention deliberation, it misses performing, offline or online, an evaluation and weighing of possible choices.
-- **Two forms of selection (Georgeff and Rao, 1991):**
+- **Intent selection and plan selection (Georgeff and Rao, 1991):**
   - **Intent selection:** among several, possibly conflicting desires, give a priority on which goal to advance.
   - **Plan selection:** among several plans for an intent, give a priority on which plan to commit to.
-- **Intention = intent + selected plan.** Desires also set preferences about plans; beliefs about the current world determine which plans are possible and how the intent translates concretely.
+- **Intention = intent + selected plan.** Desires set preferences about both the intent and the plans; beliefs about the current world determine which plans are possible and how the intent translates concretely.
 - **Belief side.** Percepts may conflict and must be resolved into consistent beliefs (belief revision, data fusion).
 - **Categorial leap.** A goal may be about a situation (a state), while a plan is always a conduct (a composite action); reading goals as *achieving* a situation narrows the gap.
 - **Perceive-reason-act loop.** Practitioner descriptions of agentic AI (for example AWS's) place a reasoning core between perception and action, working with goals, a plan library, beliefs and intentions: the BDI structure.

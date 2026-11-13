@@ -3,7 +3,7 @@ type: concept
 aliases: [ABM, agent-based modeling, agent-based model, agent-based models]
 course: [AGAI]
 tags: [agents, simulation]
-status: draft
+status: complete
 ---
 
 # Agent-Based Modelling

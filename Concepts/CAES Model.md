@@ -3,7 +3,7 @@ type: concept
 aliases: [CAES, "Commitments, Abilities, Expectations, Susceptibilities", commitments abilities expectations susceptibilities]
 course: [AGAI]
 tags: [agents, architectures]
-status: draft
+status: complete
 ---
 
 # CAES Model
@@ -24,21 +24,19 @@ Giovanni Sileno presents it as a cleaner template than the [[BDI Model]], whose 
 > On the acting side, commitments (what to achieve) and abilities (how) meet in the action that goes out to the world. On the perceiving side, what comes in is filtered by susceptibilities (what the agent attends and reacts to) and integrated into expectations (what it takes the world to be).
 
 ```
-          C                       E
-   intent selection        belief revision
-          |                       |
-  A       |                       |       S
-  plan    |        AGENT          |   attention
-  selection                           allocation
-      \   |                       |   /
-         (o)                     (o)
-  --------|-----------------------^--------
-          v        WORLD          |
+      C                    E
+      | intent             | belief
+      | selection          | revision
+ A ---*                    *--- S
+ plan |                    ^  attention
+ selection                 |  allocation
+------v-------WORLD--------|------
+    acts               perceives
 ```
 
 ## Key Properties / Variants
 
-- **Relation to BDI.** Commitments (structural, contingent) take over desires and intent; abilities (skills, competences) take over plans and plan selection; expectations (structural, contingent) take over percepts and beliefs. Susceptibilities are new. The course material does not define "structural" and "contingent"; a plausible reading is standing against situation-dependent.
+- **Relation to BDI.** Commitments (structural, contingent) take over desires and intent; abilities (skills, competences) take over plans and plan selection; expectations (structural, contingent) take over percepts and beliefs. Susceptibilities are new. The course material does not define "structural" and "contingent"; a plausible reading (not from the course material) is standing commitments or expectations against situation-dependent ones.
 - **Applied to a coding agent harness (Sileno):**
   - Commitments: task input ("fix the bug"), constraint input ("preserve the API"), guardrail checks ("don't edit unrelated files"), completion criteria ("the bug is fixed and relevant tests pass").
   - Abilities: SKILL.md files exposing tool usage, the tools, the system running them.
