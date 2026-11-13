@@ -122,7 +122,7 @@ The mock exam's Deep RL and Deep MARL questions are worked in [[AGAI-L04 - Deep 
 | [[AGAI-L04 - Deep RL and Intro to Deep MARL]] | complete |
 | [[AGAI-L05 - Deep MARL, Part II]] | complete |
 | [[AGAI-L06a - From Deep MARL to Reasoning]] | complete |
-| [[AGAI-L06b - What Would Make a Chatbot an Agent]] | in review |
+| [[AGAI-L06b - What Would Make a Chatbot an Agent]] | complete |
 
 ---
 

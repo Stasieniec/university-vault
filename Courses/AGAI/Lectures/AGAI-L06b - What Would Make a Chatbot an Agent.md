@@ -24,7 +24,7 @@ status: complete
 >
 > Beliefs and desires are not enough: an agent also needs intentions, a settled commitment to a goal and a plan, reached by weighing choices and their side effects (Bratman, the BDI model). Sileno's CAES model (commitments, abilities, expectations, susceptibilities) gives this a cleaner structure and maps onto the harness of a coding agent. Today's "AI agent" is an LLM plus a harness; "agentic AI" orchestrates several agents.
 >
-> Not midterm material; it feeds the final exam, whose format is not announced.
+> The midterm lists Lecture 6 only under Deep MARL, which is part 1; whether this part is examined there is not stated. It feeds the final exam, whose format is not announced.
 
 ## The question: is a tool-using chatbot an agent?
 
