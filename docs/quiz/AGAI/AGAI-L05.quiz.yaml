@@ -1,0 +1,850 @@
+# Lecture 5: training and execution modes, centralised critics, value decomposition
+# (IGM, VDN, QMIX), agent modelling and LOLA, parameter and experience sharing,
+# MCTS and self-play, and PSRO from the MARL book.
+# Source: the lecture note named below.
+course: AGAI
+lecture: AGAI-L05
+title: "L05 Deep MARL, part II"
+sort: 8
+note: "AGAI-L05 - Deep MARL, Part II"
+questions:
+
+  - id: agai-ecjsxt
+    type: cloze
+    difficulty: easy
+    level: remember
+    topics: ["Who sees what, and when: training and execution modes"]
+    section: "Who sees what, and when: training and execution modes"
+    prompt: In multi-agent RL, a training or execution phase is centralised when agent i uses ___.
+    options:
+      - id: a
+        text: shared information about the other agents
+        correct: true
+      - id: b
+        text: one network shared by every agent
+        why: That is parameter sharing, a separate technique. A phase is centralised by the information an agent draws on.
+      - id: c
+        text: a reward common to the whole team
+        why: A common reward is a property of the game's payoffs. Centralisation is about what information an agent uses.
+      - id: d
+        text: a fixed turn order with the others
+        why: Turn order is a property of the game. Centralisation is about whether an agent uses the others' information.
+    why: >-
+      Centralised means agent i uses centrally shared information about the
+      others: their observations, the joint history, the global state or the joint
+      policy. Decentralised means it relies on its own experience alone.
+
+  - id: agai-w38d83
+    type: single
+    difficulty: medium
+    level: apply
+    topics: [Centralised Training with Decentralised Execution]
+    section: "Who sees what, and when: training and execution modes"
+    prompt: >-
+      A drone swarm loses radio contact once deployed, so each drone must act on
+      its own camera. In a simulator, every drone's camera feed and the full map
+      are available. Which mode fits best?
+    options:
+      - id: a
+        text: Centralised training and execution
+        why: Centralised execution would need the drones to share information in flight, which the lost radio rules out.
+      - id: b
+        text: Decentralised training and execution
+        why: It would work, but it throws away the simulator's full information, which could improve coordination in training.
+      - id: c
+        text: Centralised training with decentralised execution
+        correct: true
+      - id: d
+        text: Decentralised training with centralised execution
+        why: That is backwards. The shared information exists in training and is missing in flight.
+    why: >-
+      Shared information is available only in training, and each drone must act
+      alone in flight. That is CTDE: train with the simulator's full data, then
+      execute on each drone's own history.
+
+  - id: agai-wmpcca
+    type: truefalse
+    difficulty: easy
+    level: remember
+    topics: ["Who sees what, and when: training and execution modes"]
+    section: "Who sees what, and when: training and execution modes"
+    statement: In centralised training and execution, the joint action space grows linearly with the number of agents.
+    answer: false
+    why: >-
+      It grows exponentially, since every combination of the agents' actions is
+      a separate joint action. That is CTCE's main scaling problem, alongside
+      agents that cannot share one controller.
+
+  - id: agai-9zu8my
+    type: multi
+    difficulty: medium
+    level: understand
+    topics: ["Who sees what, and when: training and execution modes", Independent Learning]
+    section: "Who sees what, and when: training and execution modes"
+    prompt: Which are weaknesses of decentralised training and execution?
+    options:
+      - id: a
+        text: Training suffers from non-stationarity
+        correct: true
+      - id: b
+        text: Agents can settle in suboptimal equilibria
+        correct: true
+      - id: c
+        text: An agent cannot tell which changes come from other agents
+        correct: true
+      - id: d
+        text: The joint action space grows exponentially with the agents
+        why: That is the weakness of centralised training and execution, which learns over joint actions.
+      - id: e
+        text: Agents must communicate with each other while acting
+        why: DTDE needs no communication at all, which is one of its strengths for distributed agents.
+    why: >-
+      Without shared information each agent sees the others as a changing
+      environment: non-stationarity, possible suboptimal equilibria, and no way to
+      attribute changes to them. In return it scales and needs no communication.
+
+  - id: agai-q8nm5u
+    type: truefalse
+    difficulty: easy
+    level: remember
+    topics: [Centralised Training with Decentralised Execution]
+    section: "Who sees what, and when: training and execution modes"
+    statement: Under CTDE, a trained agent needs only its own observation history to choose its actions.
+    answer: true
+    why: >-
+      CTDE uses shared information only during training. Each trained policy
+      conditions on the agent's own history, so execution needs no central
+      controller.
+
+  - id: agai-pcvvrt
+    type: match
+    difficulty: hard
+    level: apply
+    topics: [Centralised Training with Decentralised Execution, Independent DQN, "How the methods compare"]
+    section: How the methods compare
+    prompt: Assign each learning setup to its training and execution mode.
+    targets:
+      - Centralised training and execution
+      - Decentralised training and execution
+      - Centralised training, decentralised execution
+    pairs:
+      - id: a
+        text: One learner picks the joint action from everyone's observations
+        target: Centralised training and execution
+      - id: b
+        text: Independent DQN, one learner per agent
+        target: Decentralised training and execution
+      - id: c
+        text: Value decomposition networks (VDN)
+        target: Centralised training, decentralised execution
+      - id: d
+        text: Joint-action learning with agent models built from own observations
+        target: Decentralised training and execution
+      - id: e
+        text: A2C whose critic sees the global state
+        target: Centralised training, decentralised execution
+    why: >-
+      VDN and a centralised critic use shared information only in training.
+      Independent learners and agent models built from an agent's own observations
+      use none. A single learner over the joint action is centralised throughout.
+
+  - id: agai-dcj45z
+    type: multi
+    difficulty: medium
+    level: understand
+    topics: [Policy Gradient Theorem, Centralised Training with Decentralised Execution]
+    section: "Centralised critics: CTDE for policy gradient"
+    prompt: In the multi-agent policy gradient for agent i, which statements are true?
+    options:
+      - id: a
+        text: The action is evaluated given the joint action of the agents
+        correct: true
+      - id: b
+        text: The policy term conditions on agent i's own history h_i
+        correct: true
+      - id: c
+        text: The policy term conditions on the full history of every agent
+        why: Only the evaluation uses the full history. The policy uses h_i, so the agent can carry it into execution.
+      - id: d
+        text: The other agents' actions are held at their greedy choices
+        why: They are sampled from the other agents' policies π_{-i}, just as agent i's action is sampled from π_i.
+      - id: e
+        text: The evaluation is needed again when the agent executes
+        why: The evaluation only computes gradients during training. At execution the agent uses its policy alone.
+    why: >-
+      The evaluation Q_i uses the full history and the joint action, but is needed
+      only to compute gradients. The policy conditions on h_i alone. That split is
+      what makes the theorem a CTDE recipe.
+
+  - id: agai-psdcfq
+    type: cloze
+    difficulty: easy
+    level: remember
+    topics: [Actor-Critic, Centralised Training with Decentralised Execution]
+    section: The centralised actor-critic
+    prompt: In a centralised actor-critic, the centralised information z is an input to ___.
+    options:
+      - id: a
+        text: the actor alone
+        why: The actor runs at execution, where z is unavailable, so it conditions on h_i only.
+      - id: b
+        text: the critic alone
+        correct: true
+      - id: c
+        text: both the actor and the critic
+        why: Feeding z to the actor would make execution depend on shared information, which breaks decentralised execution.
+    why: >-
+      The critic V(h_i, z) is used only in training, so it can take shared
+      information. The actor π(· | h_i) must run at execution on the agent's own
+      history, and gets z's benefit through the advantage.
+
+  - id: agai-b8w532
+    type: single
+    difficulty: hard
+    level: analyze
+    topics: [REINFORCE, Centralised Training with Decentralised Execution]
+    section: The centralised actor-critic
+    prompt: >-
+      Someone tries to build a CTDE version of REINFORCE and finds nowhere to put
+      the centralised information. Why?
+    options:
+      - id: a
+        text: Its sampled returns already depend on the joint action
+        why: That holds for any multi-agent return and is no obstacle. The obstacle is that no training-only network exists to take z.
+      - id: b
+        text: It is off-policy, so stored data cannot carry z
+        why: REINFORCE is on-policy. The problem is structural, since it learns nothing besides the policy.
+      - id: c
+        text: Its sole learned part is the policy, which must run decentralised
+        correct: true
+      - id: d
+        text: Its gradient variance grows too large once z is added
+        why: High variance is REINFORCE's general weakness. Here the issue is that it has no critic to hold z.
+    why: >-
+      CTDE needs a training-only component to hold centralised information. In
+      policy gradient methods that is the critic, and REINFORCE has none: it
+      weights the gradient by sampled returns.
+
+  - id: agai-h8ddes
+    type: cloze
+    difficulty: easy
+    level: remember
+    topics: ["Value critics and action-value critics"]
+    section: Value critics and action-value critics
+    prompt: >-
+      A critic that also takes the other agents' actions as input can say what would
+      have happened had agent i acted differently. This supports ___ reasoning.
+    options:
+      - id: a
+        text: egocentric
+        why: Egocentric describes observations seen from the acting player's side, which self-play needs.
+      - id: b
+        text: Monte Carlo
+        why: Monte Carlo estimates average sampled returns. They do not hold the others' actions fixed.
+      - id: c
+        text: decentralised
+        why: The critic uses the others' actions, which is centralised information.
+      - id: d
+        text: counterfactual
+        correct: true
+    why: >-
+      A centralised action-value critic gives a value for each of agent i's actions
+      with the others' actions held fixed. Comparing them asks what would have
+      happened otherwise, which helps with credit assignment.
+
+  - id: agai-nstvnz
+    type: single
+    difficulty: medium
+    level: apply
+    topics: [Multi-Agent Credit Assignment]
+    section: What a centralised value function still cannot do
+    prompt: >-
+      A cooperative team with one shared reward trains a centralised action-value
+      function over the joint action. Which challenge does it leave open?
+    options:
+      - id: a
+        text: Non-stationarity
+        why: The others' information is an input, so their changes are no longer invisible.
+      - id: b
+        text: Partial observability
+        why: Pooling the agents' information during training eases partial observability.
+      - id: c
+        text: Coordination
+        why: Valuing joint actions directly is what helps the agents coordinate.
+      - id: d
+        text: Credit assignment
+        correct: true
+    why: >-
+      One team value learned from one shared reward never says which agent's action
+      made the difference. Execution also still has to be decentralised, which
+      motivates learning one utility per agent.
+
+  - id: agai-phestp
+    type: single
+    difficulty: easy
+    level: remember
+    topics: [Individual-Global-Max Property]
+    section: Splitting the team value into utilities
+    prompt: What does the Individual-Global-Max (IGM) property require of a value decomposition?
+    options:
+      - id: a
+        text: The team reward is a sum of individual reward terms
+        why: That is VDN's assumption about the reward. IGM is about greedy actions agreeing.
+      - id: b
+        text: The joint value equals the sum of the agents' utilities
+        why: A sum is one way to satisfy IGM. QMIX satisfies it with a monotonic mix instead.
+      - id: c
+        text: The best joint action is the tuple of each agent's greedy action
+        correct: true
+      - id: d
+        text: Each utility equals that agent's expected return
+        why: Utilities need not equal any actual return. Only their role in rebuilding the team value matters.
+    why: >-
+      Under IGM the argmax of the joint value equals the individual argmaxes. Each
+      agent can then act greedily on its own utility, and together they play the
+      best joint action.
+
+  - id: agai-u7yt6j
+    type: multi
+    difficulty: medium
+    level: understand
+    topics: [Individual-Global-Max Property]
+    section: Splitting the team value into utilities
+    prompt: A value decomposition satisfies IGM. Which consequences follow?
+    options:
+      - id: a
+        text: Each agent can act greedily on its own utility at execution
+        correct: true
+      - id: b
+        text: The greedy joint action takes one small maximisation per agent
+        correct: true
+      - id: c
+        text: The agents no longer need to explore
+        why: IGM is about greedy actions agreeing. Agents still explore, for example ε-greedily in VDN.
+      - id: d
+        text: The joint value has to be linear in the utilities
+        why: Linearity is sufficient but not required. A monotonic mix, as in QMIX, also gives IGM.
+      - id: e
+        text: Training targets drop the max over next actions
+        why: Targets still take a max over the next joint action. IGM makes it cheap, one max per agent.
+    why: >-
+      IGM gives decentralised greedy execution and a cheap greedy joint action.
+      With 5 agents of 10 actions, 5 maximisations over 10 values replace one over
+      10^5 joint actions, which every training target needs.
+
+  - id: agai-36x2a6
+    type: single
+    difficulty: hard
+    level: apply
+    topics: [Value Decomposition Networks (VDN)]
+    section: Splitting the team value into utilities
+    prompt: >-
+      VDN has learned utilities whose sums reproduce every reward of a two-agent
+      game. You add 3 to both of agent 1's utilities and subtract 3 from both of
+      agent 2's. What changes?
+    options:
+      - id: a
+        text: "Nothing: every sum and every greedy action stay the same"
+        correct: true
+      - id: b
+        text: Agent 1's greedy action changes, because its values rose
+        why: Adding the same constant to both of agent 1's utilities keeps their order, so its greedy action stays.
+      - id: c
+        text: The sums no longer match the rewards, so IGM fails
+        why: Each sum gains 3 from agent 1 and loses 3 from agent 2, so every joint value is unchanged.
+      - id: d
+        text: The split becomes unique, fixing each agent's credit
+        why: The shift shows the opposite. The split is not unique, which is why these are called utilities.
+    why: >-
+      Every joint value is a sum with one term from each agent, so +3 and −3
+      cancel, and each agent's ordering is kept. The split is not unique, which is
+      why the per-agent functions are called utilities.
+
+  - id: agai-yvgb2w
+    type: single
+    difficulty: easy
+    level: remember
+    topics: [Value Decomposition Networks (VDN)]
+    section: "VDN: the team value as a sum"
+    prompt: VDN derives a team value that is a sum of utilities from one assumption about the reward. Which?
+    options:
+      - id: a
+        text: Each agent observes its own share of the reward
+        why: Nobody observes the individual terms. The networks learn how to split the credit.
+      - id: b
+        text: The shared reward is a sum of individual reward terms
+        correct: true
+      - id: c
+        text: The reward depends on the global state alone
+        why: The reward depends on the joint action too. Linearity comes from splitting the reward into a sum.
+      - id: d
+        text: The reward is zero-sum between the agents
+        why: VDN is for cooperative, common-reward games, where every agent gets the same team reward.
+    why: >-
+      If r = r̄_1 + ... + r̄_n, linearity of expectation splits the team value into
+      one expected return per agent. Approximating each by a utility of that
+      agent's history and action gives VDN.
+
+  - id: agai-7f49sj
+    type: single
+    difficulty: hard
+    level: analyze
+    topics: [Value Decomposition Networks (VDN)]
+    section: "VDN: the team value as a sum"
+    prompt: >-
+      Two agents earn a shared 10 when they choose the same action and 0
+      otherwise. Why does VDN fail on this task?
+    options:
+      - id: a
+        text: Its exploration is too random to find matching pairs
+        why: The problem is what VDN can represent. No sum of individual values fits these rewards, however the data is collected.
+      - id: b
+        text: A choice's value depends on what the partner picks
+        correct: true
+      - id: c
+        text: Its target networks lag behind the changing utilities
+        why: Target networks stabilise training. No setting of the utilities can represent the task in the first place.
+      - id: d
+        text: The reward cannot be shared between two agents
+        why: VDN is designed for a shared reward. The difficulty is that a sum ignores how the actions combine.
+    why: >-
+      VDN's sum gives each action a value of its own, whatever the partner does.
+      Here an action is worth 10 or 0 depending on the partner, so no sum fits and
+      the agents learn no reason to match.
+
+  - id: agai-z2r8pt
+    type: multi
+    difficulty: medium
+    level: understand
+    topics: [Value Decomposition Networks (VDN)]
+    section: "VDN: the team value as a sum"
+    prompt: Which statements describe how VDN trains its utility networks?
+    options:
+      - id: a
+        text: The target sums each agent's greedy next-step utility
+        correct: true
+      - id: b
+        text: The agents store transitions in one shared replay buffer
+        correct: true
+      - id: c
+        text: Each agent picks actions ε-greedily from its own utility
+        correct: true
+      - id: d
+        text: Gradients reach every utility through the sum in the loss
+        correct: true
+      - id: e
+        text: A hypernetwork turns the global state into mixing weights
+        why: That is QMIX. VDN simply sums the utilities.
+      - id: f
+        text: Each agent minimises a loss on its own reward term
+        why: The individual reward terms are never observed. All utilities are trained through one loss on the team reward.
+    why: >-
+      VDN keeps one shared buffer and one team loss, (y − Σ_i Q_i)². Each utility
+      is trained only through the sum, so the networks discover how to split the
+      credit, and each agent still acts on its own utility.
+
+  - id: agai-snscjc
+    type: single
+    difficulty: medium
+    level: understand
+    topics: [QMIX, Individual-Global-Max Property]
+    section: "QMIX: any monotonic mix"
+    prompt: QMIX combines the agents' utilities with a learned mixing network. Which property of that network keeps IGM?
+    options:
+      - id: a
+        text: It is linear in every agent's utility
+        why: Linearity is VDN's special case. QMIX needs less than that.
+      - id: b
+        text: Its weights are the same in every state
+        why: The weights come from a hypernetwork fed with the state, so they change from state to state.
+      - id: c
+        text: Raising a utility cannot lower the team value
+        correct: true
+      - id: d
+        text: It is trained apart from the utility networks
+        why: The mix and the utilities are trained together, through one loss on the team target.
+    why: >-
+      If raising any utility can never lower the joint value, each agent
+      maximising its own utility maximises the joint value. Monotonicity is enough
+      for IGM, and linearity, VDN's case, is stricter than needed.
+
+  - id: agai-4jxanz
+    type: truefalse
+    difficulty: medium
+    level: understand
+    topics: [QMIX]
+    section: "QMIX: any monotonic mix"
+    statement: QMIX's hypernetwork takes each agent's own observation history as its input.
+    answer: false
+    why: >-
+      It takes the centralised information z, typically the global state, and
+      outputs the mixing network's weights. The agents' own histories feed their
+      utility networks.
+
+  - id: agai-sxuxxy
+    type: truefalse
+    difficulty: medium
+    level: understand
+    topics: [QMIX, Value Decomposition Networks (VDN)]
+    section: "QMIX: any monotonic mix"
+    statement: Any team value that VDN can represent, QMIX can represent as well.
+    answer: true
+    why: >-
+      A sum is a monotonic mix, so VDN is QMIX with the sum as its mixing
+      function. QMIX can represent everything VDN can, and more.
+
+  - id: agai-4yjz2w
+    type: single
+    difficulty: hard
+    level: analyze
+    topics: [QMIX, Value Decomposition Networks (VDN)]
+    section: "QMIX: any monotonic mix"
+    prompt: Which kind of cooperative game is beyond both VDN and QMIX?
+    options:
+      - id: a
+        text: One where an agent's best action flips with the other's
+        correct: true
+      - id: b
+        text: One with more than two agents sharing a reward
+        why: Both handle any number of agents, with one utility each.
+      - id: c
+        text: One whose team value is a nonlinear, monotonic mix
+        why: QMIX represents exactly that kind of mix. Only VDN would fail.
+      - id: d
+        text: One whose reward splits into per-agent terms
+        why: That is VDN's own assumption, so both can represent it.
+    why: >-
+      Under monotonicity, raising a utility never lowers the joint value, so an
+      agent's preferred action cannot depend on the other's. A matching game needs
+      that dependence; QTRAN goes beyond both decompositions.
+
+  - id: agai-wrkh8y
+    type: match
+    difficulty: medium
+    level: understand
+    topics: [Value Decomposition Networks (VDN), QMIX]
+    section: "QMIX: any monotonic mix"
+    prompt: Assign each property to the methods it holds for.
+    targets:
+      - VDN only
+      - QMIX only
+      - VDN and QMIX
+    pairs:
+      - id: a
+        text: Combines the utilities by summing them
+        target: VDN only
+      - id: b
+        text: Gets its mixing weights from a hypernetwork
+        target: QMIX only
+      - id: c
+        text: Satisfies the IGM property
+        target: VDN and QMIX
+      - id: d
+        text: Can combine utilities nonlinearly
+        target: QMIX only
+      - id: e
+        text: Trains every utility through one team loss
+        target: VDN and QMIX
+    why: >-
+      Both satisfy IGM and train the utilities through a team loss. VDN sums them;
+      QMIX passes them through a monotonic mix whose weights a hypernetwork
+      produces from the state.
+
+  - id: agai-5qqhbm
+    type: single
+    difficulty: easy
+    level: remember
+    topics: [Agent Modelling]
+    section: Modelling the other agents
+    prompt: In deep joint-action learning, what does agent i's model of agent j take in and output?
+    options:
+      - id: a
+        text: j's observation history in, j's next action out
+        why: Agent i cannot see j's history. Its model works from i's own observations.
+      - id: b
+        text: i's observation history in, a distribution over j's actions out
+        correct: true
+      - id: c
+        text: The global state in, a value for each joint action out
+        why: That describes a centralised action-value function. An agent model predicts j's actions.
+      - id: d
+        text: i's observation history in, j's network parameters out
+        why: The model predicts behaviour. Agent j's parameters are never observed or copied.
+    why: >-
+      The model π̂_j^i(a_j | h_i) uses what agent i has seen to predict how j will
+      act. It is trained on j's observed actions with a negative log-likelihood
+      loss.
+
+  - id: agai-qbh2rf
+    type: single
+    difficulty: medium
+    level: understand
+    topics: [Agent Modelling]
+    section: Modelling the other agents
+    prompt: >-
+      An agent has learned a value over joint actions and models of the other
+      agents' policies. How does it score its own action a_i?
+    options:
+      - id: a
+        text: The joint value at the others' most likely actions
+        why: It weights every combination of the others' actions by its predicted probability. The likeliest one is a single term.
+      - id: b
+        text: The joint value averaged over the others' predicted actions
+        correct: true
+      - id: c
+        text: The best joint value over the others' possible actions
+        why: That assumes the others act in agent i's favour. The models predict what they will actually do.
+      - id: d
+        text: Its own utility plus the others' predicted utilities
+        why: That is value decomposition. Agent models predict actions, which then weight joint-action values.
+    why: >-
+      AV(h_i, a_i) sums the joint-action value over the others' actions, weighted
+      by the product of the models' probabilities. The agent acts ε-greedily on AV
+      and uses it in its targets.
+
+  - id: agai-9kp4ka
+    type: single
+    difficulty: medium
+    level: understand
+    topics: ["Shaping how the others learn: LOLA"]
+    section: "Shaping how the others learn: LOLA"
+    prompt: What does a LOLA agent take into account that a naive policy gradient learner ignores?
+    options:
+      - id: a
+        text: The opponent's current action probabilities
+        why: Agent models predict those. LOLA goes a step further and anticipates how the opponent will learn.
+      - id: b
+        text: The value of each joint action
+        why: That is a joint-action critic. LOLA adds a term for how its update steers the opponent's learning.
+      - id: c
+        text: A population of the opponent's earlier policies
+        why: Keeping populations is PSRO. LOLA looks one learning step ahead of the opponent.
+      - id: d
+        text: The opponent's next learning step
+        correct: true
+    why: >-
+      LOLA writes the opponent's next parameters as a function of its own and
+      differentiates through that step. The extra shaping term picks its update
+      partly for how it steers the opponent's learning.
+
+  - id: agai-jm6s8w
+    type: single
+    difficulty: easy
+    level: remember
+    topics: ["Many similar agents: sharing parameters or experience"]
+    section: "Many similar agents: sharing parameters or experience"
+    prompt: When are agents strongly homogeneous?
+    options:
+      - id: a
+        text: Swapping their policies leaves the returns unchanged
+        why: That is weak homogeneity. Strong homogeneity adds that the optimal policies are identical.
+      - id: b
+        text: The optimal joint policy consists of identical policies
+        correct: true
+      - id: c
+        text: They have the same actions and observations
+        why: Same spaces make swapping policies possible, but the definition is about the optimal joint policy.
+      - id: d
+        text: They receive one shared team reward
+        why: A shared reward makes the game common-reward. Homogeneity is about interchangeable policies.
+    why: >-
+      Weak homogeneity: permuting policies leaves outcomes unchanged. Strong
+      homogeneity: the optimal joint policy consists of identical policies, which
+      is what parameter sharing needs.
+
+  - id: agai-9w8wxz
+    type: multi
+    difficulty: hard
+    level: apply
+    topics: ["Many similar agents: sharing parameters or experience"]
+    section: "Many similar agents: sharing parameters or experience"
+    prompt: >-
+      In each setting the agents have the same actions and observations, and
+      swapping their policies leaves the return unchanged. In which are they
+      strongly homogeneous?
+    options:
+      - id: a
+        text: Three robots must each reach the same charging station
+        correct: true
+      - id: b
+        text: Two drones must cover two different landmarks
+        why: Their optimal policies differ, one drone per landmark, so they are only weakly homogeneous.
+      - id: c
+        text: Four guards must each watch a different door
+        why: Splitting across doors needs different policies, so the guards are weakly homogeneous.
+      - id: d
+        text: Five boats must sail to one shared harbour
+        correct: true
+      - id: e
+        text: Two agents must stand on two separate pressure plates
+        why: One agent per plate means different optimal policies, which is weak homogeneity.
+    why: >-
+      Strong homogeneity needs identical optimal policies. Heading for one shared
+      target fits that. Splitting across different targets needs different
+      policies, so those agents are only weakly homogeneous.
+
+  - id: agai-ssk566
+    type: single
+    difficulty: medium
+    level: understand
+    topics: [Parameter Sharing]
+    section: Parameter sharing (strongly homogeneous agents)
+    prompt: Which statement about parameter sharing is **NOT** true?
+    options:
+      - id: a
+        text: The parameter count stays constant as agents are added
+        why: This is true. Every agent uses the same network, however many agents there are.
+      - id: b
+        text: Every agent's experience updates the shared parameters
+        why: This is true. The shared network learns from every agent's experience, which improves sample efficiency.
+      - id: c
+        text: It suits agents whose optimal policies differ
+        correct: true
+      - id: d
+        text: Each agent runs its own copy on its own observations
+        why: This is true. Nothing has to be exchanged at execution.
+    why: >-
+      Parameter sharing constrains the agents to one policy, so it suits strongly
+      homogeneous agents with identical optimal policies. When optimal policies
+      differ, experience sharing or an agent index in the observations helps.
+
+  - id: agai-nkvhj9
+    type: single
+    difficulty: hard
+    level: apply
+    topics: [Parameter Sharing, "Experience sharing (weakly homogeneous agents)"]
+    section: Experience sharing (weakly homogeneous agents)
+    prompt: >-
+      Two warehouse robots with identical sensors and actions must load two
+      different trucks, and swapping their policies leaves the return unchanged.
+      How can learning still exploit their similarity?
+    options:
+      - id: a
+        text: Parameter sharing, with no agent index added
+        why: Identical policies act alike in symmetric situations, so they could not reliably send the robots to different trucks.
+      - id: b
+        text: Experience sharing, with a separate network each
+        correct: true
+      - id: c
+        text: Fully separate learners that keep their data apart
+        why: That works but ignores the similarity. Weak homogeneity makes the other robot's experience relevant.
+      - id: d
+        text: Centralised training and execution over joint actions
+        why: That centralises control, and its joint action space grows exponentially. It does not use the similarity.
+    why: >-
+      The robots are weakly homogeneous: swapping policies is harmless, but their
+      optimal policies differ. Experience sharing pools their data while separate
+      networks let the two policies differ.
+
+  - id: agai-3a4tfg
+    type: truefalse
+    difficulty: medium
+    level: understand
+    topics: ["Experience sharing (weakly homogeneous agents)", Parameter Sharing]
+    section: Experience sharing (weakly homogeneous agents)
+    statement: Experience sharing is cheaper to train than parameter sharing, since the agents pool their data in one buffer.
+    answer: false
+    why: >-
+      It is more expensive: each agent still trains its own network, so there are
+      n policies to learn. Its gain is that those policies can differ, so it
+      applies to less restrictive domains.
+
+  - id: agai-qc25hc
+    type: multi
+    difficulty: medium
+    level: remember
+    topics: ["Large zero-sum games: search and self-play"]
+    section: "Large zero-sum games: search and self-play"
+    prompt: Which features make two-player board games such as Go hard for reinforcement learning?
+    options:
+      - id: a
+        text: Reward comes as a win or loss at the end
+        correct: true
+      - id: b
+        text: Each position has many legal moves
+        correct: true
+      - id: c
+        text: A game lasts many moves
+        correct: true
+      - id: d
+        text: Each player sees part of the board
+        why: These games are fully observable. Both players see the whole board.
+      - id: e
+        text: Many agents share one team reward
+        why: There are two agents in direct opposition, in a zero-sum game.
+    why: >-
+      A sparse reward, a large branching factor and a long horizon make random
+      exploration nearly useless. Learning needs an efficient way to explore the
+      game tree, which Monte Carlo tree search provides.
+
+  - id: agai-3vew76
+    type: order
+    difficulty: easy
+    level: remember
+    topics: [Monte Carlo Tree Search (MCTS)]
+    section: Monte Carlo tree search
+    prompt: Put the steps of one Monte Carlo tree search simulation in order.
+    items:
+      - id: a
+        text: "Selection: walk down the tree from the root"
+      - id: b
+        text: "Expansion: add the first new state as a leaf"
+      - id: c
+        text: "Backpropagation: send the outcome back up the path"
+    why: >-
+      Selection walks down the tree to a state not yet in it, and expansion adds
+      it as a leaf. A rollout from there gives the outcome, which backpropagation
+      sends up the path, updating N and Q.
+
+  - id: agai-7h7qa4
+    type: single
+    difficulty: hard
+    level: apply
+    topics: [Self-Play]
+    section: "Self-play: AlphaZero"
+    prompt: >-
+      In a two-player chase game, one side is a cat that can pounce and the other
+      a mouse that can burrow. What stops training one policy by self-play to play
+      both sides?
+    options:
+      - id: a
+        text: The two roles have different actions
+        correct: true
+      - id: b
+        text: The game is zero-sum, so self-play would cycle
+        why: Zero-sum board games are where self-play is used, as in AlphaZero.
+      - id: c
+        text: The reward arrives only when the game ends
+        why: A sparse reward makes learning hard but does not rule out self-play. Board games have it too.
+      - id: d
+        text: Both players see the whole board at once
+        why: Full observability is fine. Self-play needs symmetric roles and egocentric observations.
+    why: >-
+      Self-play has one policy choose the actions for every agent, which needs
+      symmetric roles and egocentric observations. A cat and a mouse with
+      different actions are not interchangeable sides.
+
+  - id: agai-9uuw78
+    type: single
+    difficulty: medium
+    level: understand
+    topics: [Policy Space Response Oracles (PSRO)]
+    section: "Populations of policies: PSRO"
+    prompt: PSRO repeatedly solves a meta-game between the agents. In that meta-game, what does each agent choose among?
+    options:
+      - id: a
+        text: The policies in its current population
+        correct: true
+      - id: b
+        text: The actions of the underlying game
+        why: Those are the original game's actions. A meta-game action is a whole policy.
+      - id: c
+        text: The nodes of a Monte Carlo search tree
+        why: That is MCTS. PSRO's meta-game is a normal-form game over policies.
+      - id: d
+        text: The utilities from a value decomposition
+        why: Utilities belong to value decomposition in common-reward games, which PSRO does not use.
+    why: >-
+      The meta-game is a normal-form game whose actions are the policies in the
+      populations, with payoffs from simulated episodes. Its solution weights each
+      population, and a new best response is trained against it.

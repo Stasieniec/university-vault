@@ -1,0 +1,855 @@
+# Lecture 4: why tables fail, function approximation, DQN (target network and
+# replay buffer), policy gradients (REINFORCE, A2C, PPO), training and execution
+# modes, and independent deep learners (IDQN, independent policy gradients).
+# Source: the lecture note named below.
+course: AGAI
+lecture: AGAI-L04
+title: "L04 Deep RL and intro to deep MARL"
+sort: 7
+note: "AGAI-L04 - Deep RL and Intro to Deep MARL"
+questions:
+
+  - id: agai-yvq3ve
+    type: single
+    difficulty: easy
+    level: understand
+    topics: [Q-Learning, Function Approximation]
+    section: Why tables stop working
+    prompt: >-
+      A tabular Q-learner has accurate values for one maze cell. What has it
+      learned about a neighbouring cell, equally far from the goal, that it has
+      never visited?
+    options:
+      - id: a
+        text: Its values, copied over with each update
+        why: A table update changes exactly one entry. Values never spread to other rows.
+      - id: b
+        text: A share of each update, weighted by distance
+        why: Spreading updates to similar inputs is generalisation, which a table lacks.
+      - id: c
+        text: Nothing, since each entry is updated in isolation
+        correct: true
+      - id: d
+        text: Enough to act well there on its first visit
+        why: The unvisited row still holds its initial zeros, so the agent acts at random there.
+    why: >-
+      A table cannot generalise. Learning about one row teaches nothing about any
+      other, even a nearly identical one, so every state-action pair has to be
+      visited many times.
+
+  - id: agai-tdyfme
+    type: truefalse
+    difficulty: easy
+    level: remember
+    topics: ["Why tables stop working"]
+    section: Why tables stop working
+    statement: In the Coin Game, each random lamp added to the state doubles the rows of a Q-table, though the lamps never affect play.
+    answer: true
+    why: >-
+      Each lamp can be on or off, so every state now comes in two versions. A
+      table keeps them as separate rows that share nothing.
+
+  - id: agai-8h7qsf
+    type: single
+    difficulty: hard
+    level: apply
+    topics: ["Why tables stop working"]
+    section: Why tables stop working
+    prompt: >-
+      Tabular Q-learners play a coin-collecting game on a fixed training budget.
+      Adding eight random lamps that never affect play drops their score close to
+      that of random agents. What is the main cause?
+    options:
+      - id: a
+        text: Most rows get no visits, and those rows still hold zeros
+        correct: true
+      - id: b
+        text: The lamps change the optimal policy, so earlier values mislead
+        why: The lamps do not affect play, so the best policy ignores them. The table just cannot discover that.
+      - id: c
+        text: The larger table makes the learning rate effectively too high
+        why: Each update uses the same learning rate as before. The trouble is how few updates each row receives.
+      - id: d
+        text: Random lamp switches make the Q-learning update undefined
+        why: The update stays well defined. Each row still keeps a running average of its targets.
+    why: >-
+      Each lamp doubles the rows while the budget stays fixed, so experience per
+      row falls by 2^k. Unvisited rows hold zeros and the agent acts at random
+      there, and rows differing in one lamp share nothing.
+
+  - id: agai-tv6g97
+    type: multi
+    difficulty: medium
+    level: understand
+    topics: [Linear Function Approximation]
+    section: "Function approximation: learn a function instead of a table"
+    prompt: Which statements about linear value function approximation are true?
+    options:
+      - id: a
+        text: It computes the value as a weighted sum of state features
+        correct: true
+      - id: b
+        text: An update for one state also changes the values of similar states
+        correct: true
+      - id: c
+        text: It has high bias when the value function is complex
+        correct: true
+      - id: d
+        text: It learns its feature representation of states automatically
+        why: Learning features automatically is the strength of deep neural networks. A linear approximator uses a given feature vector.
+      - id: e
+        text: It overfits more easily than a deep neural network
+        why: Linear functions resist overfitting. Their weakness is that they are not expressive enough.
+    why: >-
+      A linear approximator computes θ⊤x(s) from a feature vector. It is simple,
+      generalises and resists overfitting, but its high bias means it cannot
+      represent complex value functions.
+
+  - id: agai-enggrs
+    type: cloze
+    difficulty: easy
+    level: remember
+    topics: [Recurrent Neural Network (RNN), Partial Observability]
+    section: "Function approximation: learn a function instead of a table"
+    prompt: ___ reads a sequence of observations one at a time and carries a hidden state, which suits partially observable tasks.
+    options:
+      - id: a
+        text: A convolutional network
+        why: It slides shared filters over an image to detect a pattern anywhere. It carries no hidden state over time.
+      - id: b
+        text: A target network
+        why: That is DQN's slowly refreshed copy for computing targets. It has nothing to do with sequences.
+      - id: c
+        text: A feedforward network
+        why: It maps one input to one output through stacked layers, with no memory of earlier inputs.
+      - id: d
+        text: A recurrent network
+        correct: true
+    why: >-
+      An RNN updates h^t = f(x^t, h^(t−1)), so its output can depend on the whole
+      history. That matters when one observation does not reveal the full state.
+
+  - id: agai-s29z4q
+    type: single
+    difficulty: easy
+    level: understand
+    topics: [Deep Q-Network (DQN)]
+    section: "Deep Q-learning: Q-learning with a network"
+    prompt: A standard DQN plays a game with four joystick actions. What does one forward pass of its network output for a state?
+    options:
+      - id: a
+        text: A probability for each of the four actions
+        why: Action probabilities are what a policy network outputs. DQN outputs values.
+      - id: b
+        text: Four Q-values, one per action
+        correct: true
+      - id: c
+        text: One value for the state as a whole
+        why: A single state value is what a critic V(s) outputs. DQN needs one value per action to pick the greedy one.
+      - id: d
+        text: A predicted next state for each action
+        why: DQN does not model transitions. It maps the state to action values.
+    why: >-
+      The state goes in and one Q-value per discrete action comes out. One pass
+      gives every action's value, and the greedy action is the largest output.
+
+  - id: agai-w37rzd
+    type: truefalse
+    difficulty: easy
+    level: remember
+    topics: [Semi-Gradient Methods, Deep Q-Network (DQN)]
+    section: "Deep Q-learning: Q-learning with a network"
+    statement: In deep Q-learning, the gradient step differentiates the target y as well as the estimate Q(s, a; θ).
+    answer: false
+    why: >-
+      The target is treated as a fixed number, so no gradient flows through it.
+      Only the estimate is differentiated, which pulls the network towards the
+      target: a semi-gradient update.
+
+  - id: agai-vg7why
+    type: multi
+    difficulty: medium
+    level: understand
+    topics: [Neural Network Function Approximation, "What breaks: moving targets and correlated data"]
+    section: "What breaks: moving targets and correlated data"
+    prompt: Swapping the Q-table for a neural network brings generalisation. Which new costs come with it?
+    options:
+      - id: a
+        text: Training loses its general convergence guarantee and can diverge
+        correct: true
+      - id: b
+        text: Each decision costs more computation
+        correct: true
+      - id: c
+        text: Every update moves the targets the network is trained towards
+        correct: true
+      - id: d
+        text: Exploration can no longer be ε-greedy
+        why: Deep Q-learning still picks actions ε-greedily. The table update is what gets replaced, by a gradient step.
+      - id: e
+        text: The agent now needs the environment's transition model
+        why: Deep Q-learning still learns from sampled transitions, with no model of the environment.
+      - id: f
+        text: Memory grows with the number of state-action pairs
+        why: That is the table's space problem, which the network is meant to fix.
+    why: >-
+      One update shifts many values at once, the targets included, so learning
+      can oscillate or diverge. The network loses the general convergence
+      guarantee and costs more computation per decision.
+
+  - id: agai-jgccnd
+    type: single
+    difficulty: hard
+    level: analyze
+    topics: [Experience Replay, "What breaks: moving targets and correlated data"]
+    section: "What breaks: moving targets and correlated data"
+    prompt: >-
+      A deep Q-learner for a warehouse robot trains on each transition right
+      after it happens. After a long stretch in one aisle it acts well there, but
+      has lost what it knew about the rest of the floor. What is the problem, and
+      which DQN component addresses it?
+    options:
+      - id: a
+        text: Moving targets, addressed by a target network
+        why: Moving targets make learning chase itself and oscillate. Forgetting other regions after a long stretch in one comes from correlated data.
+      - id: b
+        text: Correlated experience, addressed by a target network
+        why: The diagnosis is right, but a target network only holds the targets still. It does not mix in experience from other regions.
+      - id: c
+        text: Correlated experience, addressed by a replay buffer
+        correct: true
+      - id: d
+        text: Moving targets, addressed by a replay buffer
+        why: The buffer is the right fix, but for correlated data, which is the problem here. Moving targets need the target network.
+    why: >-
+      Consecutive transitions are far from i.i.d., so the network overfits to
+      recent experience and forgets earlier estimates. Uniform minibatches from a
+      replay buffer mix experience from many regions.
+
+  - id: agai-69jzr6
+    type: single
+    difficulty: hard
+    level: apply
+    topics: [Target Network]
+    section: "DQN: a target network and a replay buffer"
+    prompt: >-
+      A deep Q-learner already samples minibatches from a replay buffer, yet its
+      values still oscillate: each gradient step shifts the very values its
+      targets are built from. What should be added?
+    options:
+      - id: a
+        text: A larger replay buffer holding older transitions
+        why: The buffer fixes correlated data, which is already handled. More old data does not hold the targets still.
+      - id: b
+        text: A state baseline subtracted from each target
+        why: Baselines reduce variance in policy gradient methods. They do not stop targets from moving.
+      - id: c
+        text: Boltzmann exploration over the Q-values
+        why: Exploration changes which actions are tried. The targets still move with every update.
+      - id: d
+        text: A target network copied from the main one at intervals
+        correct: true
+    why: >-
+      Targets computed with the trained θ move after every step. A copy θ̄,
+      refreshed only every so often, keeps them fixed in between, so the network
+      regresses towards a stable goal.
+
+  - id: agai-pkany8
+    type: cloze
+    difficulty: easy
+    level: remember
+    topics: [Deep Q-Network (DQN)]
+    section: "DQN: a target network and a replay buffer"
+    prompt: DQN is Q-learning with a neural network, plus a replay buffer and ___.
+    options:
+      - id: a
+        text: a critic network
+        why: A critic belongs to actor-critic methods such as A2C, which also learn a policy.
+      - id: b
+        text: a target network
+        correct: true
+      - id: c
+        text: a state baseline
+        why: Baselines reduce variance in policy gradient methods such as REINFORCE.
+      - id: d
+        text: a softmax policy head
+        why: DQN's policy is ε-greedy over its Q-values. Softmax policy networks belong to policy gradient methods.
+    why: >-
+      The target network counters moving targets and the replay buffer counters
+      correlated data. The two fixes are complementary, so DQN uses both.
+
+  - id: agai-jckxtd
+    type: order
+    difficulty: medium
+    level: remember
+    topics: [Deep Q-Network (DQN), Target Network, Experience Replay]
+    section: "DQN: a target network and a replay buffer"
+    prompt: Put one step of DQN training in order, from choosing an action to the gradient update.
+    items:
+      - id: a
+        text: Choose an action ε-greedily from the main network
+      - id: b
+        text: Apply it and observe the reward and next state
+      - id: c
+        text: Store the transition in the replay buffer
+      - id: d
+        text: Sample a random minibatch from the buffer
+      - id: e
+        text: Compute the targets with the target network
+      - id: f
+        text: Take a gradient step on the squared error
+    why: >-
+      The new transition goes into the buffer first, then a uniform minibatch is
+      drawn from it. Targets use θ̄, and the loss is the mean squared error to
+      them. At set intervals θ̄ is copied from θ.
+
+  - id: agai-neqyed
+    type: single
+    difficulty: medium
+    level: understand
+    topics: [Off-Policy Learning, Experience Replay]
+    section: "DQN: a target network and a replay buffer"
+    prompt: DQN's replay buffer holds actions chosen by older ε-greedy versions of the agent. Why may it still learn from them?
+    options:
+      - id: a
+        text: The max in its target ignores which policy acted
+        correct: true
+      - id: b
+        text: The target network reweights the old actions
+        why: The target network only holds targets still. Reweighting old data by action probabilities is an IDQN remedy, using importance sampling.
+      - id: c
+        text: Uniform sampling cancels the old policies' bias
+        why: Uniform sampling decorrelates the data. Old actions are usable because of the max in the target.
+      - id: d
+        text: Old transitions are dropped once the policy changes
+        why: Dropping data after each update is what on-policy methods like REINFORCE do. DQN keeps and replays old transitions.
+    why: >-
+      Q-learning is off-policy. Its target r + γ max Q(s', a') estimates the
+      greedy policy's values whatever policy chose the stored actions, so data
+      from older versions of the agent stays usable.
+
+  - id: agai-natcbn
+    type: truefalse
+    difficulty: medium
+    level: understand
+    topics: [Target Network, Experience Replay]
+    section: "DQN: a target network and a replay buffer"
+    statement: In DQN, the target network is the component that decorrelates the samples in each minibatch.
+    answer: false
+    why: >-
+      Decorrelation comes from the replay buffer's uniform sampling. The target
+      network keeps the targets fixed between copies, a different problem.
+
+  - id: agai-2y3jgy
+    type: single
+    difficulty: hard
+    level: apply
+    topics: [Epsilon-Greedy Policy]
+    section: What a value-based agent cannot express
+    prompt: An agent derives an ε-greedy policy from its Q-values over three actions. Which distribution over the actions can it express, for some ε?
+    options:
+      - id: a
+        text: "(0.45, 0.45, 0.1)"
+        why: ε-greedy favours a single action. Two equally favoured actions need a general probabilistic policy.
+      - id: b
+        text: "(0.2, 0, 0.8)"
+        why: Every non-greedy action gets the same ε/3, so one at zero means ε = 0, and then the greedy action gets 1.
+      - id: c
+        text: "(0.6, 0.3, 0.1)"
+        why: The two non-greedy actions get unequal shares, but ε-greedy gives each the same ε/3.
+      - id: d
+        text: "(0.8, 0.1, 0.1)"
+        correct: true
+    why: >-
+      ε-greedy gives the greedy action 1 − ε + ε/3 and every other action ε/3:
+      one favourite plus equal leftovers. (0.8, 0.1, 0.1) is ε = 0.3.
+
+  - id: agai-nxrxpd
+    type: multi
+    difficulty: medium
+    level: understand
+    topics: [Policy Gradient Methods, Epsilon-Greedy Policy]
+    section: What a value-based agent cannot express
+    prompt: Which of these can a policy network express that an ε-greedy policy derived from Q-values cannot?
+    options:
+      - id: a
+        text: Favouring two of three actions about equally
+        correct: true
+      - id: b
+        text: Giving one action zero probability while mixing the other two
+        correct: true
+      - id: c
+        text: Choosing the highest-valued action with certainty
+        why: ε-greedy with ε = 0 already does this.
+      - id: d
+        text: Playing every action uniformly at random
+        why: ε-greedy with ε = 1 already does this.
+      - id: e
+        text: Outputting a continuous action, such as a steering angle
+        correct: true
+    why: >-
+      A policy network can represent any distribution over actions, and for
+      continuous actions it can output, say, the mean of a distribution.
+      ε-greedy gives one favourite action plus uniform noise over discrete
+      actions.
+
+  - id: agai-gzzeq6
+    type: single
+    difficulty: medium
+    level: understand
+    topics: [Policy Gradient Theorem]
+    section: "Policy gradients: learn the policy directly"
+    prompt: Why can the policy gradient theorem be estimated from sampled experience, without a model of the environment?
+    options:
+      - id: a
+        text: It replaces Q^π(s, a) with the immediate reward
+        why: Q^π still has to be estimated, by returns or by a critic. The theorem removes a different term.
+      - id: b
+        text: It differentiates the transitions analytically
+        why: That would need the transition model, which is exactly what the theorem avoids.
+      - id: c
+        text: It has no term for how state visits change
+        correct: true
+      - id: d
+        text: It drops the expectation over visited states
+        why: The expectation stays. It runs over states and actions met while following π, which is why samples can estimate it.
+    why: >-
+      Differentiating J directly needs the gradient of the visitation
+      probabilities, which compounds along trajectories and requires the
+      transition model. The theorem's expression has no such term.
+
+  - id: agai-4xpvx3
+    type: single
+    difficulty: easy
+    level: remember
+    topics: [REINFORCE, Monte Carlo Methods]
+    section: "REINFORCE: estimate Q with the return"
+    prompt: In its policy gradient, how does REINFORCE estimate Q^π(s, a), how good the action taken was?
+    options:
+      - id: a
+        text: A critic network's bootstrapped estimate
+        why: That is how actor-critic methods such as A2C estimate it.
+      - id: b
+        text: The discounted return to the episode's end
+        correct: true
+      - id: c
+        text: The best Q-value in the next state
+        why: That max belongs to Q-learning's target. REINFORCE has no Q-network.
+      - id: d
+        text: The reward of that single step
+        why: A single reward ignores everything that follows. REINFORCE sums the discounted rewards to the end.
+    why: >-
+      REINFORCE plays a whole episode, then uses the Monte Carlo return from each
+      step onwards as its estimate of Q^π. Its gradient estimate at step t is
+      G_t ∇log π(a^t | s^t).
+
+  - id: agai-h7y25f
+    type: single
+    difficulty: hard
+    level: analyze
+    topics: [REINFORCE]
+    section: "REINFORCE: estimate Q with the return"
+    prompt: >-
+      Two REINFORCE agents learn similar tasks with the same reward scale. One has
+      short episodes; the other has long episodes with random transitions. Which
+      has noisier gradient estimates, and why?
+    options:
+      - id: a
+        text: "The short one: each return sums fewer rewards"
+        why: Fewer random actions and transitions per return mean less spread. Long, random episodes make returns vary most.
+      - id: b
+        text: "The long one: its gradient estimate becomes biased"
+        why: With exact returns REINFORCE stays unbiased. The cost of long episodes is variance.
+      - id: c
+        text: "Equal: unbiased estimates carry no extra noise"
+        why: Unbiased means right on average. REINFORCE's estimates are unbiased and still high-variance.
+      - id: d
+        text: "The long one: returns from the same state vary more"
+        correct: true
+    why: >-
+      Returns from the same state differ through random actions, random
+      transitions and episode length. Long stochastic episodes give widely
+      varying returns, so the gradient estimates jump around.
+
+  - id: agai-9368vm
+    type: truefalse
+    difficulty: medium
+    level: understand
+    topics: [Baseline]
+    section: "REINFORCE: estimate Q with the return"
+    statement: Subtracting a state-dependent baseline b(s) from the return leaves REINFORCE's expected gradient unchanged.
+    answer: true
+    why: >-
+      The baseline term averages to zero, since Σ π ∇log π = ∇Σ π = ∇1 = 0. What
+      changes is the variance: better-than-usual actions go up and worse ones
+      down.
+
+  - id: agai-qxjt7v
+    type: single
+    difficulty: easy
+    level: remember
+    topics: [Actor-Critic]
+    section: Actor-critic methods and A2C
+    prompt: In an actor-critic method, what do the actor and the critic each learn?
+    options:
+      - id: a
+        text: "Actor: the policy. Critic: an estimate of state value."
+        correct: true
+      - id: b
+        text: "Actor: the Q-values. Critic: the policy."
+        why: The actor is the policy, which picks the actions. The critic estimates values.
+      - id: c
+        text: "Actor: the policy. Critic: a model of transitions."
+        why: The critic estimates state values by bootstrapping. Actor-critic methods learn no transition model.
+      - id: d
+        text: "Actor: an estimate of state value. Critic: the policy."
+        why: The roles are swapped. The actor acts, so it is the policy.
+    why: >-
+      The actor is the policy that picks actions. The critic is a bootstrapped
+      value estimate, used in place of REINFORCE's Monte Carlo return.
+
+  - id: agai-84kx4c
+    type: multi
+    difficulty: medium
+    level: understand
+    topics: [Advantage Actor-Critic (A2C), REINFORCE]
+    section: Actor-critic methods and A2C
+    prompt: Compared with REINFORCE, which statements about A2C are true?
+    options:
+      - id: a
+        text: Its gradient estimates have lower variance
+        correct: true
+      - id: b
+        text: It can update after a single step
+        correct: true
+      - id: c
+        text: Bootstrapping from the critic adds bias
+        correct: true
+      - id: d
+        text: It trains an extra network with more settings to tune
+        correct: true
+      - id: e
+        text: It replays old transitions from a buffer
+        why: A2C is on-policy, so it cannot decorrelate with a replay buffer. It runs parallel environments instead.
+      - id: f
+        text: Its gradient estimates are unbiased
+        why: That is REINFORCE's strength with exact returns. The critic's estimates may be wrong, which adds bias.
+    why: >-
+      A2C replaces the Monte Carlo return with a critic's one-step advantage. It
+      updates per step with lower variance, but the critic can be wrong (bias)
+      and is one more component with its own hyperparameters.
+
+  - id: agai-bn7w8k
+    type: single
+    difficulty: medium
+    level: apply
+    topics: [Advantage Function, Advantage Actor-Critic (A2C)]
+    section: Actor-critic methods and A2C
+    prompt: >-
+      An A2C agent takes action a in state s. The reward plus the discounted
+      value of the next state comes out lower than the critic's value of s. What
+      does the actor update do?
+    options:
+      - id: a
+        text: Makes action a more likely in s
+        why: That happens when the advantage is positive. Here the outcome fell short of the critic's expectation.
+      - id: b
+        text: Leaves the policy as it is and corrects the critic
+        why: Actor and critic are both updated every step. The critic's error is the advantage that drives the actor.
+      - id: c
+        text: Makes action a less likely in s
+        correct: true
+      - id: d
+        text: Sets the probability of action a in s to zero
+        why: A gradient step moves the probability a little. It does not remove the action.
+    why: >-
+      The advantage r + γV(s') − V(s) is negative, so the action did worse than
+      expected. Minimising −Adv · log π(a | s) then lowers π(a | s).
+
+  - id: agai-jhhchr
+    type: cloze
+    difficulty: easy
+    level: remember
+    topics: [PPO]
+    section: "PPO: limit how far one update moves the policy"
+    prompt: PPO clips the ratio of new to old action probability to the range ___.
+    options:
+      - id: a
+        text: "[0, 1]"
+        why: A ratio of two probabilities can exceed 1. PPO bounds it around 1, the value for an unchanged policy.
+      - id: b
+        text: "[1−ε, 1+ε]"
+        correct: true
+      - id: c
+        text: "[−ε, +ε]"
+        why: A ratio of 1 means no change, so the range is centred on 1. A ratio below zero is impossible.
+      - id: d
+        text: "[1−ε, 1]"
+        why: That range would block any increase in probability. PPO lets the ratio rise as far as 1 + ε.
+    why: >-
+      The ratio ρ equals 1 when the policy has not changed. Clipping it to
+      [1 − ε, 1 + ε] removes any gradient that would push it further out.
+
+  - id: agai-thgsrx
+    type: single
+    difficulty: hard
+    level: apply
+    topics: [PPO]
+    section: "PPO: limit how far one update moves the policy"
+    prompt: >-
+      PPO uses ε = 0.2. A good action, with positive advantage, already has ratio
+      ρ = 1.4 for the current batch. What does the clipped loss do to that
+      action?
+    options:
+      - id: a
+        text: Pushes its probability back down to a ratio of 1.2
+        why: The clip makes the term a constant, 1.2 × Adv. A constant has no gradient, so nothing pushes the ratio back.
+      - id: b
+        text: Keeps raising it, in proportion to 1.4 × Adv
+        why: The min picks the smaller term, the clipped 1.2 × Adv, which is constant. The unclipped push is switched off.
+      - id: c
+        text: Drops the transition from the batch
+        why: The transition stays in the loss. Its term just stops contributing a gradient.
+      - id: d
+        text: Gives no gradient to raise its probability further
+        correct: true
+    why: >-
+      The terms are 1.4 × Adv and 1.2 × Adv, and the min picks the clipped one.
+      It is a constant, so no gradient pushes ρ further up. That keeps the policy
+      near the one that collected the data.
+
+  - id: agai-7dfa8v
+    type: multi
+    difficulty: medium
+    level: understand
+    topics: [PPO, On-Policy Learning]
+    section: "PPO: limit how far one update moves the policy"
+    prompt: Which statements about PPO are true?
+    options:
+      - id: a
+        text: It can run several optimisation passes over one batch
+        correct: true
+      - id: b
+        text: It stays generally on-policy
+        correct: true
+      - id: c
+        text: Its clip strictly guarantees that no update is harmful
+        why: The clip limits the ratio but is no strict guarantee against large or harmful changes.
+      - id: d
+        text: Its ε sets the exploration rate, as in ε-greedy
+        why: PPO's ε bounds how far the ratio may move. It is unrelated to ε-greedy's ε.
+      - id: e
+        text: It can keep reusing a replay buffer's data indefinitely
+        why: Once the policy has moved on, the batch is thrown away. The clip allows a few passes over it.
+    why: >-
+      Because the clip keeps the policy close to the one that collected the
+      data, PPO can make several passes over each batch. The batch is still
+      discarded afterwards, and the clip is no strict guarantee.
+
+  - id: agai-wyd28b
+    type: match
+    difficulty: medium
+    level: understand
+    topics: ["Comparing the deep RL methods"]
+    section: Comparing the deep RL methods
+    prompt: Match each property to the deep RL method it describes.
+    targets: [DQN, REINFORCE, A2C, PPO]
+    pairs:
+      - id: a
+        text: Learns from a replay buffer of old transitions
+        target: DQN
+      - id: b
+        text: Needs one output per discrete action
+        target: DQN
+      - id: c
+        text: Weights log-probabilities by full Monte Carlo returns
+        target: REINFORCE
+      - id: d
+        text: Updates after every step with a bootstrapped advantage
+        target: A2C
+      - id: e
+        text: Limits each update by clipping a probability ratio
+        target: PPO
+    why: >-
+      DQN is off-policy with replay but needs discrete actions. REINFORCE uses
+      Monte Carlo returns, A2C a critic's bootstrapped advantage, and PPO clips
+      the new-to-old probability ratio for stable updates.
+
+  - id: agai-cc4d7p
+    type: single
+    difficulty: easy
+    level: remember
+    topics: [Centralised Training with Decentralised Execution]
+    section: "Deep MARL: who sees what, and when"
+    prompt: In deep MARL, when is an agent's training called decentralised?
+    options:
+      - id: a
+        text: When each agent trains on a separate machine
+        why: Hardware does not matter. The distinction is what information the agent uses.
+      - id: b
+        text: When it receives its own individual reward
+        why: Rewards can be individual in any mode. The definition is about which information the agent conditions on.
+      - id: c
+        text: When it conditions on its own observation history alone
+        correct: true
+      - id: d
+        text: When it acts without communicating with others
+        why: That describes decentralised execution. Training is decentralised when it uses the agent's own history alone.
+    why: >-
+      Centralised means using information about the other agents: their
+      observations, actions, policies, values or a global state. Decentralised
+      means conditioning on the agent's own history h_i^t alone.
+
+  - id: agai-4m3v6x
+    type: match
+    difficulty: medium
+    level: apply
+    topics: [Centralised Training with Decentralised Execution]
+    section: "Deep MARL: who sees what, and when"
+    prompt: Match each description to the training and execution mode it fits.
+    targets:
+      - Centralised training and execution
+      - Decentralised training and execution
+      - Centralised training, decentralised execution
+    pairs:
+      - id: a
+        text: One policy picks the joint action, as if one agent controlled all
+        target: Centralised training and execution
+      - id: b
+        text: One learner's action space grows exponentially with the number of agents
+        target: Centralised training and execution
+      - id: c
+        text: Robots from rival companies, each trained in-house
+        target: Decentralised training and execution
+      - id: d
+        text: Drones trained with a global map, each flying on its own camera
+        target: Centralised training, decentralised execution
+      - id: e
+        text: A critic sees everyone's data in training, but not while acting
+        target: Centralised training, decentralised execution
+    why: >-
+      CTCE learns over the joint action space, so it needs a joint reward and
+      does not scale. DTDE is independent learning, often forced when agents are
+      built separately. CTDE shares information in training and acts locally.
+
+  - id: agai-ntd8b5
+    type: multi
+    difficulty: medium
+    level: understand
+    topics: [Centralised Training with Decentralised Execution]
+    section: "Deep MARL: who sees what, and when"
+    prompt: A team trains its agents with CTDE. What may each agent use to choose its actions once deployed?
+    options:
+      - id: a
+        text: Its own observation history
+        correct: true
+      - id: b
+        text: The other agents' current observations
+        why: Using them while acting would be centralised execution. In CTDE they are available in training.
+      - id: c
+        text: A global state of the environment
+        why: The global state may inform training. At execution each agent acts on its local observations.
+      - id: d
+        text: A centralised critic's value of the joint action
+        why: The centralised critic is a training tool. Deployed agents act from their own policies and observations.
+    why: >-
+      In CTDE, shared information or a centralised critic is used during
+      training, and each agent then acts independently on its local
+      observations.
+
+  - id: agai-49bnne
+    type: single
+    difficulty: hard
+    level: analyze
+    topics: [Independent DQN]
+    section: Independent DQN and its stale replay buffer
+    prompt: >-
+      Two IDQN agents play a coin game. Agent 2 used to ignore coins and now
+      races for them. Agent 1 keeps replaying transitions where heading for a coin
+      reliably won it. What is wrong with those transitions?
+    options:
+      - id: a
+        text: They record an environment that agent 2's change made obsolete
+        correct: true
+      - id: b
+        text: Agent 1's own older ε-greedy actions make them unusable
+        why: Off-policy learning covers agent 1's own old behaviour. The trouble is agent 2's old behaviour, part of agent 1's environment.
+      - id: c
+        text: They were computed with an outdated target network
+        why: Targets are recomputed with the current target network when a transition is sampled. The stored outcome is what is out of date.
+      - id: d
+        text: Uniform sampling replays them in the wrong order
+        why: Replay is meant to break the order. The content of the transitions is out of date.
+    why: >-
+      Each stored transition reflects the other agents' policies at the time.
+      Once agent 2 changes, the same action in the same state leads elsewhere.
+      DQN's off-policy property does not cover the others' behaviour.
+
+  - id: agai-8xhfmm
+    type: truefalse
+    difficulty: medium
+    level: understand
+    topics: [Independent DQN, Experience Replay]
+    section: Independent DQN and its stale replay buffer
+    statement: In IDQN, a larger replay buffer reduces how much an agent trains on outdated experience of the other agents.
+    answer: false
+    why: >-
+      A smaller buffer does that, by holding recent transitions from policies
+      close to the others' current ones. A larger buffer keeps older experience
+      and makes it worse.
+
+  - id: agai-2sdy84
+    type: multi
+    difficulty: medium
+    level: understand
+    topics: [Independent Learning, Policy Gradient Methods]
+    section: Independent policy gradient methods
+    prompt: Which statements about independent policy gradient methods, such as independent REINFORCE, IA2C and IPPO, are true?
+    options:
+      - id: a
+        text: Each update uses experience from the other agents' current policies
+        correct: true
+      - id: b
+        text: The others' changing policies add variance to each agent's gradient estimates
+        correct: true
+      - id: c
+        text: Each IPPO agent's clip ensures the joint policy changes safely
+        why: Each clip bounds that agent's own change. Nothing bounds the joint change, and the others keep updating.
+      - id: d
+        text: They read the other agents' policy parameters during training
+        why: Independent learners use their own history. Reading the others' parameters would be centralised training.
+      - id: e
+        text: They adapt by replaying the other agents' older experience
+        why: They are on-policy and discard data after each update. Replaying old experience is IDQN's weakness.
+    why: >-
+      On-policy updates use fresh experience, so nothing goes stale and they
+      adapt faster than IDQN. But independent learning exacerbates instability:
+      returns and advantages also vary as the others keep changing.
+
+  - id: agai-8en89k
+    type: single
+    difficulty: hard
+    level: analyze
+    topics: [Multi-Agent Credit Assignment, Independent Learning]
+    section: Independent policy gradient methods
+    prompt: >-
+      Two IA2C agents share one team reward. Agent 1 idles while agent 2 does the
+      work, yet agent 1's advantage for idling is positive whenever the team
+      scores. Why does agent 1's critic not correct this?
+    options:
+      - id: a
+        text: It is centralised over both agents' actions
+        why: IA2C critics are per agent, over the agent's own observations. A critic on the joint action would belong to CTDE.
+      - id: b
+        text: It cannot tell whose action earned the team reward
+        correct: true
+      - id: c
+        text: Its bootstrapped targets have too little variance
+        why: Lower variance is the critic's benefit. The problem is that a shared reward carries no individual signal.
+      - id: d
+        text: Its replay buffer holds outdated team rewards
+        why: IA2C is on-policy and has no replay buffer. The issue is credit assignment under a shared reward.
+    why: >-
+      With a shared reward, agent 1's critic estimates the team's value from its
+      own observations. That says nothing about which agent earned the reward, so
+      IA2C does not solve credit assignment.
