@@ -9,6 +9,7 @@ note: "AGAI-Book Ch2 - Intelligent Agents"
 questions:
 
   - id: agai-6tbzz9
+    status: retired
     type: single
     difficulty: easy
     level: remember
@@ -34,6 +35,7 @@ questions:
       implements.
 
   - id: agai-9rhzh5
+    status: retired
     type: single
     difficulty: medium
     level: understand
@@ -59,6 +61,7 @@ questions:
       no agent learn it.
 
   - id: agai-g37h8n
+    status: retired
     type: multi
     difficulty: medium
     level: remember
@@ -89,6 +92,7 @@ questions:
       prior knowledge, the actions available and the percept sequence so far.
 
   - id: agai-56cg4c
+    status: retired
     type: single
     difficulty: hard
     level: analyze
@@ -117,6 +121,7 @@ questions:
       the other square is clean.
 
   - id: agai-8rghgb
+    status: retired
     type: truefalse
     difficulty: medium
     level: understand
@@ -130,6 +135,7 @@ questions:
       gathering.
 
   - id: agai-sms42n
+    status: retired
     type: single
     difficulty: medium
     level: apply
@@ -158,6 +164,7 @@ questions:
       partial or wrong prior knowledge.
 
   - id: agai-dma2ec
+    status: retired
     type: cloze
     difficulty: easy
     level: remember
@@ -182,6 +189,7 @@ questions:
       agent starts by specifying it as fully as possible.
 
   - id: agai-z3ygbs
+    status: retired
     type: single
     difficulty: hard
     level: apply
@@ -209,6 +217,7 @@ questions:
       cards make it partially observable.
 
   - id: agai-5jzdzk
+    status: retired
     type: truefalse
     difficulty: medium
     level: understand
@@ -222,6 +231,7 @@ questions:
       while the agent deliberates.
 
   - id: agai-kxxzec
+    status: retired
     type: single
     difficulty: medium
     level: understand
@@ -247,6 +257,7 @@ questions:
       Other drivers pass that test; a falling branch does not.
 
   - id: agai-zb9eys
+    status: retired
     type: multi
     difficulty: hard
     level: apply
@@ -275,6 +286,7 @@ questions:
       case.
 
   - id: agai-vewcnq
+    status: retired
     type: cloze
     difficulty: medium
     level: understand
@@ -300,6 +312,7 @@ questions:
       probabilities.
 
   - id: agai-2vj9z9
+    status: retired
     type: single
     difficulty: hard
     level: analyze
@@ -327,6 +340,7 @@ questions:
       randomising between Left and Right escapes them.
 
   - id: agai-txcwd6
+    status: retired
     type: single
     difficulty: medium
     level: apply
@@ -353,6 +367,7 @@ questions:
       cannot see now, updated with a transition model and a sensor model.
 
   - id: agai-9btn6g
+    status: retired
     type: single
     difficulty: hard
     level: apply
@@ -381,6 +396,7 @@ questions:
       its behaviour directly.
 
   - id: agai-uvx45z
+    status: retired
     type: multi
     difficulty: medium
     level: understand
@@ -409,6 +425,7 @@ questions:
       goal's importance.
 
   - id: agai-tzkgz4
+    status: retired
     type: single
     difficulty: medium
     level: understand
@@ -434,6 +451,7 @@ questions:
       improving.
 
   - id: agai-qsvgn2
+    status: retired
     type: single
     difficulty: easy
     level: apply
@@ -461,6 +479,7 @@ questions:
       dropped rocks at Pisa.
 
   - id: agai-bc9t79
+    status: retired
     type: truefalse
     difficulty: easy
     level: remember
@@ -474,6 +493,7 @@ questions:
       Q-learning does.
 
   - id: agai-utf4e9
+    status: retired
     type: cloze
     difficulty: medium
     level: apply
@@ -498,6 +518,7 @@ questions:
       factored states can share some values and differ in others.
 
   - id: agai-xrjghv
+    status: retired
     type: truefalse
     difficulty: easy
     level: understand

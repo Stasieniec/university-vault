@@ -36,6 +36,7 @@ questions:
       outside information.
 
   - id: agai-8mbsac
+    status: retired
     type: truefalse
     difficulty: easy
     level: understand
@@ -47,6 +48,7 @@ questions:
       plan, but they produce no observation. Only actions affect the environment.
 
   - id: agai-27scs6
+    status: retired
     type: cloze
     difficulty: easy
     level: understand
@@ -68,6 +70,7 @@ questions:
       back into the conversation.
 
   - id: agai-upydan
+    status: retired
     type: single
     difficulty: easy
     level: remember
@@ -89,6 +92,7 @@ questions:
       human input and executes LLM-suggested code or function calls.
 
   - id: agai-syapny
+    status: retired
     type: single
     difficulty: medium
     level: understand
@@ -113,6 +117,7 @@ questions:
       results retrieved through actions.
 
   - id: agai-ja783p
+    status: retired
     type: multi
     difficulty: medium
     level: understand
@@ -140,6 +145,7 @@ questions:
       ReAct and self-consistency did best.
 
   - id: agai-qga678
+    status: retired
     type: multi
     difficulty: medium
     level: remember
@@ -167,6 +173,7 @@ questions:
       similarity to the query, and the normalised scores are added up.
 
   - id: agai-d9ngtc
+    status: retired
     type: single
     difficulty: medium
     level: apply
@@ -194,6 +201,7 @@ questions:
       refined and stored in the memory stream.
 
   - id: agai-5u2kcy
+    status: retired
     type: single
     difficulty: hard
     level: apply
@@ -221,6 +229,7 @@ questions:
       is a colleague, which supports a better answer.
 
   - id: agai-aq24jk
+    status: retired
     type: truefalse
     difficulty: medium
     level: understand
@@ -233,6 +242,7 @@ questions:
       or in natural language, such as replying TERMINATE.
 
   - id: agai-jkh7gg
+    status: retired
     type: multi
     difficulty: medium
     level: understand
@@ -257,6 +267,7 @@ questions:
       warn that code execution can change external environments in risky ways.
 
   - id: agai-9r9d3t
+    status: retired
     type: truefalse
     difficulty: medium
     level: understand
@@ -269,6 +280,7 @@ questions:
       independence that collective intelligence depends on.
 
   - id: agai-kuksnb
+    status: retired
     type: single
     difficulty: hard
     level: apply
@@ -296,6 +308,7 @@ questions:
       Schroeder et al. cite the Pravda network as a case.
 
   - id: agai-v4qk3b
+    status: retired
     type: single
     difficulty: hard
     level: apply

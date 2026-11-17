@@ -9,6 +9,7 @@ sort: 91
 questions:
 
   - id: agai-rydub5
+    status: retired
     type: single
     difficulty: easy
     level: remember
@@ -33,6 +34,7 @@ questions:
       return.
 
   - id: agai-fcmdv7
+    status: retired
     type: truefalse
     difficulty: medium
     level: understand
@@ -45,6 +47,7 @@ questions:
       optimal policy can condition on the current state.
 
   - id: agai-p2xzkm
+    status: retired
     type: cloze
     difficulty: easy
     level: remember
@@ -69,6 +72,7 @@ questions:
       its observation history.
 
   - id: agai-qdcg6c
+    status: retired
     type: multi
     difficulty: medium
     level: understand
@@ -96,6 +100,7 @@ questions:
       lottery the same way; other monotone maps can reorder lotteries.
 
   - id: agai-e7c4sj
+    status: retired
     type: single
     difficulty: medium
     level: understand
@@ -120,6 +125,7 @@ questions:
       are exploitable.
 
   - id: agai-5y8bt9
+    status: retired
     type: multi
     difficulty: medium
     level: understand
@@ -145,6 +151,7 @@ questions:
       on what everyone does.
 
   - id: agai-gypqud
+    status: retired
     type: truefalse
     difficulty: easy
     level: understand
@@ -156,6 +163,7 @@ questions:
       rewards keep most of their weight, so the agent is far-sighted.
 
   - id: agai-exxwy5
+    status: retired
     type: single
     difficulty: medium
     level: apply
@@ -183,6 +191,7 @@ questions:
       explicit belief state or through a recurrent network over its history.
 
   - id: agai-q8dnxs
+    status: retired
     type: single
     difficulty: hard
     level: analyze
@@ -211,6 +220,7 @@ questions:
       prisoner's dilemma include longer and longer runs of cooperation.
 
   - id: agai-6cdybc
+    status: retired
     type: single
     difficulty: hard
     level: analyze

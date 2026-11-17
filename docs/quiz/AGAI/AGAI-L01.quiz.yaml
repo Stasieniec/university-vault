@@ -8,6 +8,7 @@ note: "AGAI-L01 - Agents, Multiagent Systems and Agentic AI"
 questions:
 
   - id: agai-ykgq9m
+    status: retired
     type: single
     difficulty: easy
     level: remember
@@ -33,6 +34,7 @@ questions:
       perceiving through sensors and acting through actuators.
 
   - id: agai-29vjbn
+    status: retired
     type: single
     difficulty: medium
     level: understand
@@ -58,6 +60,7 @@ questions:
       as a vacuum robot or an LLM agent.
 
   - id: agai-sfwp8q
+    status: retired
     type: single
     difficulty: medium
     level: apply
@@ -86,6 +89,7 @@ questions:
       last week may be wrong today.
 
   - id: agai-puhr9x
+    status: retired
     type: truefalse
     difficulty: easy
     level: understand
@@ -98,6 +102,7 @@ questions:
       from feedback, so learning can be added to every design.
 
   - id: agai-5tekz3
+    status: retired
     type: cloze
     difficulty: medium
     level: remember
@@ -123,6 +128,7 @@ questions:
       performance.
 
   - id: agai-zyagkb
+    status: retired
     type: cloze
     difficulty: easy
     level: remember
@@ -148,6 +154,7 @@ questions:
       cooperate, conflict and deceive.
 
   - id: agai-cah3fc
+    status: retired
     type: single
     difficulty: easy
     level: remember
@@ -172,6 +179,7 @@ questions:
       planning, run in a loop with an environment, make it an agent.
 
   - id: agai-rp4bgh
+    status: retired
     type: single
     difficulty: medium
     level: understand
@@ -197,6 +205,7 @@ questions:
       "2 + 2 = ..." are the same task for it.
 
   - id: agai-n4cb6q
+    status: retired
     type: cloze
     difficulty: easy
     level: remember
@@ -221,6 +230,7 @@ questions:
       tool's output back into the model's context before the next Thought.
 
   - id: agai-anz647
+    status: retired
     type: single
     difficulty: easy
     level: remember
@@ -245,6 +255,7 @@ questions:
       memory. Thought brings in reasoning and Action brings in tools.
 
   - id: agai-3579zw
+    status: retired
     type: truefalse
     difficulty: medium
     level: understand
@@ -258,6 +269,7 @@ questions:
       runs the ReAct cycle.
 
   - id: agai-gdf6g5
+    status: retired
     type: single
     difficulty: medium
     level: understand
@@ -283,6 +295,7 @@ questions:
       better model through more training.
 
   - id: agai-m7mexc
+    status: retired
     type: multi
     difficulty: medium
     level: understand
@@ -311,6 +324,7 @@ questions:
       for example with RL as in DeepSeek-R1, improves the model's own reasoning.
 
   - id: agai-5t6eys
+    status: retired
     type: multi
     difficulty: medium
     level: understand
@@ -339,6 +353,7 @@ questions:
       The context window is short-term memory.
 
   - id: agai-sukgd2
+    status: retired
     type: single
     difficulty: hard
     level: apply
@@ -367,6 +382,7 @@ questions:
       context window, holds only the current interaction.
 
   - id: agai-zjpyjr
+    status: retired
     type: single
     difficulty: medium
     level: understand
@@ -392,6 +408,7 @@ questions:
       most relevant agents, querying them and synthesising their responses.
 
   - id: agai-v7txka
+    status: retired
     type: single
     difficulty: hard
     level: analyze
@@ -420,6 +437,7 @@ questions:
       context, so the agent cannot use it.
 
   - id: agai-dp7tab
+    status: retired
     type: single
     difficulty: hard
     level: analyze
@@ -448,6 +466,7 @@ questions:
       itself is built.
 
   - id: agai-25ekvn
+    status: retired
     type: cloze
     difficulty: easy
     level: remember
@@ -472,6 +491,7 @@ questions:
       a tool written once works with any model that speaks the protocol.
 
   - id: agai-s7kwvh
+    status: retired
     type: truefalse
     difficulty: easy
     level: remember
@@ -484,6 +504,7 @@ questions:
       to use tools, one of the answers to how an agent learns tool use.
 
   - id: agai-dqpj2k
+    status: retired
     type: single
     difficulty: medium
     level: apply
@@ -512,6 +533,7 @@ questions:
       Least-to-Most, Plan-and-Solve) or improved by fine-tuning.
 
   - id: agai-a83km6
+    status: retired
     type: multi
     difficulty: medium
     level: understand
@@ -541,6 +563,7 @@ questions:
       prompt.
 
   - id: agai-gsmg53
+    status: retired
     type: truefalse
     difficulty: easy
     level: remember
@@ -553,6 +576,7 @@ questions:
       LLM-as-judge grading another model's outputs.
 
   - id: agai-hxc8mu
+    status: retired
     type: truefalse
     difficulty: medium
     level: understand
@@ -565,6 +589,7 @@ questions:
       between multiple agents. A2A is the example of a communication protocol.
 
   - id: agai-v458hz
+    status: retired
     type: multi
     difficulty: medium
     level: remember
@@ -596,6 +621,7 @@ questions:
       conflict and collusion.
 
   - id: agai-mzfzee
+    status: retired
     type: multi
     difficulty: medium
     level: understand
@@ -625,6 +651,7 @@ questions:
       so openly in their chain-of-thought.
 
   - id: agai-x68kjr
+    status: retired
     type: truefalse
     difficulty: medium
     level: understand
@@ -638,6 +665,7 @@ questions:
       individual rationality and the group's interest come apart.
 
   - id: agai-pp4kpf
+    status: retired
     type: single
     difficulty: hard
     level: apply
@@ -666,6 +694,7 @@ questions:
       choice.
 
   - id: agai-tdcxc4
+    status: retired
     type: multi
     difficulty: hard
     level: analyze
@@ -694,6 +723,7 @@ questions:
       lone cooperator gets 0.
 
   - id: agai-utd3uu
+    status: retired
     type: single
     difficulty: hard
     level: analyze
@@ -723,6 +753,7 @@ questions:
       Cooperation pays only once more than two thirds already cooperate.
 
   - id: agai-mgnuyz
+    status: retired
     rev: 2
     type: truefalse
     difficulty: medium
@@ -739,6 +770,7 @@ questions:
       dirt-sucked reward dump and re-suck forever.
 
   - id: agai-7bh95z
+    status: retired
     type: single
     difficulty: hard
     level: apply

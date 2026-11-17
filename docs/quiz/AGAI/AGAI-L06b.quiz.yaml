@@ -14,6 +14,7 @@ note: "AGAI-L06b - What Would Make a Chatbot an Agent"
 questions:
 
   - id: agai-gbczaw
+    status: retired
     type: cloze
     difficulty: easy
     level: remember
@@ -35,6 +36,7 @@ questions:
       involve objects, because they produce changes on them.
 
   - id: agai-u2t9kv
+    status: retired
     type: single
     difficulty: easy
     level: apply
@@ -59,6 +61,7 @@ questions:
       read the time off a clock the same way, without knowing its mechanism.
 
   - id: agai-b9mrrp
+    status: retired
     type: single
     difficulty: medium
     level: apply
@@ -83,6 +86,7 @@ questions:
       stance explains what it does, as with a broken clock.
 
   - id: agai-ptvsz9
+    status: retired
     type: multi
     difficulty: easy
     level: apply
@@ -114,6 +118,7 @@ questions:
       countries alike.
 
   - id: agai-sae7qv
+    status: retired
     type: single
     difficulty: medium
     level: apply
@@ -141,6 +146,7 @@ questions:
       agent.
 
   - id: agai-pd42dq
+    status: retired
     type: multi
     difficulty: medium
     level: remember
@@ -169,6 +175,7 @@ questions:
       to realise.
 
   - id: agai-d3ramz
+    status: retired
     type: cloze
     difficulty: easy
     level: remember
@@ -196,6 +203,7 @@ questions:
       answers.
 
   - id: agai-qqpz4a
+    status: retired
     type: single
     difficulty: hard
     level: apply
@@ -221,6 +229,7 @@ questions:
       and needs no verbalisation.
 
   - id: agai-jyr4mt
+    status: retired
     type: single
     difficulty: medium
     level: understand
@@ -245,6 +254,7 @@ questions:
       simple input-output mapping from what happens to what it does.
 
   - id: agai-b6j3dd
+    status: retired
     type: match
     difficulty: medium
     level: understand
@@ -276,6 +286,7 @@ questions:
       whose strategies spread by copying.
 
   - id: agai-nfapxf
+    status: retired
     type: truefalse
     difficulty: medium
     level: understand
@@ -291,6 +302,7 @@ questions:
       intentions.
 
   - id: agai-seht4u
+    status: retired
     type: order
     difficulty: easy
     level: remember
@@ -312,6 +324,7 @@ questions:
       director, actor.
 
   - id: agai-y4zzqe
+    status: retired
     type: single
     difficulty: easy
     level: apply
@@ -335,6 +348,7 @@ questions:
       Playing it is EXEC; composing or rearranging it is MODIFY.
 
   - id: agai-7bpvbf
+    status: retired
     type: single
     difficulty: medium
     level: apply
@@ -361,6 +375,7 @@ questions:
       never happens here.
 
   - id: agai-6d5spe
+    status: retired
     type: single
     difficulty: hard
     level: apply
@@ -389,6 +404,7 @@ questions:
       and earlier plans can override it.
 
   - id: agai-vj2q78
+    status: retired
     type: truefalse
     difficulty: medium
     level: understand
@@ -401,6 +417,7 @@ questions:
       is a distinct state: being settled on a course of action.
 
   - id: agai-p57yxr
+    status: retired
     type: match
     difficulty: medium
     level: apply
@@ -433,6 +450,7 @@ questions:
       to the dentist for a toothache.
 
   - id: agai-gu487k
+    status: retired
     type: single
     difficulty: medium
     level: apply
@@ -458,6 +476,7 @@ questions:
       deliberation never weighs its possible choices.
 
   - id: agai-c6padq
+    status: retired
     type: multi
     difficulty: hard
     level: apply
@@ -486,6 +505,7 @@ questions:
       intent to commit to.
 
   - id: agai-v4rc3h
+    status: retired
     type: single
     difficulty: medium
     level: understand
@@ -507,6 +527,7 @@ questions:
       action. One fix is to read the goal as achieving that situation.
 
   - id: agai-cy8nwc
+    status: retired
     type: single
     difficulty: easy
     level: apply
@@ -534,6 +555,7 @@ questions:
       expectations.
 
   - id: agai-guwsqg
+    status: retired
     type: multi
     difficulty: medium
     level: understand
@@ -562,6 +584,7 @@ questions:
       to, are new.
 
   - id: agai-3fuvvt
+    status: retired
     type: single
     difficulty: easy
     level: remember
@@ -586,6 +609,7 @@ questions:
       in the world and how it responds to it.
 
   - id: agai-cm93gw
+    status: retired
     type: match
     difficulty: medium
     level: apply
@@ -619,6 +643,7 @@ questions:
       and interrupts and escalation susceptibilities.
 
   - id: agai-fz5xjc
+    status: retired
     type: order
     difficulty: medium
     level: remember
@@ -640,6 +665,7 @@ questions:
       selection then picks an ability for that intent.
 
   - id: agai-3uaafh
+    status: retired
     type: truefalse
     difficulty: medium
     level: understand
@@ -655,6 +681,7 @@ questions:
       them.
 
   - id: agai-rrcb5v
+    status: retired
     type: single
     difficulty: easy
     level: apply
@@ -680,6 +707,7 @@ questions:
       workflow.
 
   - id: agai-j7a6kp
+    status: retired
     type: truefalse
     difficulty: easy
     level: remember
@@ -692,6 +720,7 @@ questions:
       around it form the harness, or scaffolding.
 
   - id: agai-8mz4f6
+    status: retired
     type: multi
     difficulty: medium
     level: understand
