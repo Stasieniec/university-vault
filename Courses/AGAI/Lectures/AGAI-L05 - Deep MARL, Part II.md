@@ -113,7 +113,9 @@ IGM does not need linearity. **Monotonicity is enough**: if raising any agent's 
 
 [[QMIX]] is VDN with the sum replaced by a learned mix, in the target and in the estimate. The mixing weights $\theta_{\text{mix}}$ come from a **hypernetwork** (a network that outputs another network's weights) whose input is the centralised information $z$, typically the global state. So the mix can change from state to state while staying monotonic. VDN is the special case where $f_{\text{mix}}$ is the sum, so QMIX can represent everything VDN can, and more (it can combine utilities nonlinearly).
 
-**Limitation (MARL book):** a monotonic mix still cannot represent a game where one agent's best action **flips depending on the other agent's action**, such as the matching task. Both VDN and QMIX keep each agent's preference over its own actions independent of what the others pick.
+So QMIX is the answer to VDN's restrictive additivity: a monotonic mix captures interactions between the agents that a plain sum cannot.
+
+**Limitation (MARL book, not in the lecture):** monotonicity still cannot represent a game where one agent's best action **flips depending on the other agent's action**, such as a strict matching task. Both VDN and QMIX keep each agent's preference over its own actions independent of what the others pick.
 
 ## Modelling the other agents
 
@@ -157,7 +159,7 @@ All agents use **the same set of parameter values** in their networks: one netwo
 
 Each agent **keeps its own network**, but all train on a **centralised buffer of experiences** collected by every agent. Weak homogeneity is what makes this valid: since swapping policies does not change outcomes, agent $j$'s experience is relevant experience for agent $i$.
 
-- **Benefit:** applies to less restrictive domains, because the learned policies can differ (environment B).
+- **Benefits:** each agent learns from every agent's experience, which improves sample efficiency; applies to less restrictive domains, because the learned policies can differ (environment B).
 - **Limitation:** more expensive, since there are still $n$ networks to train. On-policy algorithms need a correction when learning from another agent's trajectories, because a different policy generated them (MARL book: importance sampling weights).
 
 ## Large zero-sum games: search and self-play
@@ -228,8 +230,8 @@ $N(s,a)$ counts how often $a$ was tried in $s$, and the update keeps $Q(s,a)$ eq
 >
 > (d) CTCE would need all robots' information while acting, which the unreliable radio cannot provide, and its joint action space grows exponentially with the number of robots.
 
-> [!exam]- Two agents share a common reward. (a) Which problem remains for a centralised action-value function in common-reward games? (b) Define the IGM property and give its two implications. (c) Give VDN's decomposition and check IGM for $Q_1(A) = 0.88$, $Q_1(B) = 4.88$, $Q_2(A) = 0.12$, $Q_2(B) = 4.12$ on the game (A, A) = 1, (A, B) = (B, A) = 5, (B, B) = 9. (d) Give a task VDN cannot represent, say what QMIX changes, and what QMIX still cannot represent.
-> **Key points:** credit assignment (and decentralised action selection is still needed); IGM: argmax of the joint value = tuple of individual argmaxes; implications: greedy decentralised execution, cheap greedy joint action; VDN: $Q = \sum_i Q_i$, sums reproduce 1, 5, 5, 9 and both choose B = optimal; matching actions; QMIX uses a monotonic mixing network with weights from a hypernetwork on $z$; it still cannot represent best actions that flip with the other agent's action.
+> [!exam]- Two agents share a common reward. (a) Which problem remains for a centralised action-value function in common-reward games? (b) Define the IGM property and give its two implications. (c) Give VDN's decomposition and check IGM for $Q_1(A) = 0.88$, $Q_1(B) = 4.88$, $Q_2(A) = 0.12$, $Q_2(B) = 4.12$ on the game (A, A) = 1, (A, B) = (B, A) = 5, (B, B) = 9. (d) Give a task VDN cannot represent, and say what QMIX changes.
+> **Key points:** credit assignment (and decentralised action selection is still needed); IGM: argmax of the joint value = tuple of individual argmaxes; implications: greedy decentralised execution, cheap greedy joint action; VDN: $Q = \sum_i Q_i$, sums reproduce 1, 5, 5, 9 and both choose B = optimal; matching actions; QMIX uses a monotonic mixing network with weights from a hypernetwork on $z$.
 >
 > (a) Credit assignment: one shared reward does not say which agent's action made the difference. Also, agents still have to choose actions on their own at execution.
 >
@@ -237,7 +239,7 @@ $N(s,a)$ counts how often $a$ was tried in $s$, and the update keeps $Q(s,a)$ eq
 >
 > (c) VDN: $Q(h, z, a) = \sum_i Q(h_i, a_i)$. Sums: $0.88 + 0.12 = 1$, $0.88 + 4.12 = 5$, $4.88 + 0.12 = 5$, $4.88 + 4.12 = 9$. Both agents prefer B, and (B, B) = 9 is the best joint action, so IGM holds.
 >
-> (d) Two agents that must choose matching actions: the value of an action depends on the partner's action, which no sum captures. QMIX replaces the sum by a mixing network that only has to be monotonic in each utility ($\partial Q / \partial Q_i > 0$), with weights produced by a hypernetwork from the global state. It still cannot represent a game where one agent's best action flips depending on the other's action.
+> (d) Two agents that must choose matching actions: the value of an action depends on the partner's action, which no sum captures. QMIX replaces the sum by a mixing network that only has to be monotonic in each utility ($\partial Q / \partial Q_i > 0$), with weights produced by a hypernetwork from the global state, so it can capture interactions a sum cannot while keeping IGM.
 
 > [!exam]- (a) In a centralised actor-critic, which network receives the centralised information, and why not the other? (b) Why is a CTDE version of REINFORCE uncommon? (c) What does a deep agent model of agent $i$ learn: input, output and training signal? (d) What does LOLA add to a naive policy gradient learner?
 > **Key points:** critic $V(h_i, z)$ gets $z$ because it is used only in training; the actor $\pi(a_i \mid h_i)$ must run at execution on local information; REINFORCE has no critic, only a policy that must stay decentralised; agent model: input agent $i$'s observation history, output a distribution over agent $j$'s actions, trained on $j$'s observed actions (negative log-likelihood); LOLA anticipates the opponent's next learning step and shapes it.

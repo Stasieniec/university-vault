@@ -56,7 +56,7 @@ questions:
         text: Scores a leaf the search has just added
         target: Value network
       - id: c
-        text: Removes the need to play each simulation to the end
+        text: Is trained to predict the winners of self-play games
         target: Value network
       - id: d
         text: Narrows the search to a few of the many legal moves
@@ -67,7 +67,7 @@ questions:
     why: >-
       The policy network answers "which moves are promising?" and guides
       selection, so it narrows the search. The value network answers "who wins
-      from here?" for new leaves, so it shortens the search.
+      from here?" and scores the newly expanded nodes.
 
   - id: agai-mq7c8c
     type: order
@@ -181,13 +181,13 @@ questions:
         why: Visit counts N(s,a) are statistics the tree keeps during search. No network learns them.
       - id: c
         text: The average result of random rollouts from s
-        why: Its targets are self-play outcomes between strong policies, and it replaces random rollouts in the search.
+        why: Its targets are the outcomes of self-play games between learned policies. Random rollouts are what it improves on.
       - id: d
         text: The final outcome of the game from position s
         correct: true
     why: >-
       Squared error to the outcome z makes V_φ(s) predict who wins from s. The
-      search can then score a new leaf without playing to the end of the game.
+      search uses that estimate to evaluate newly expanded nodes.
 
   - id: agai-ectg4q
     type: single
@@ -224,7 +224,7 @@ questions:
     level: understand
     topics: ["AlphaGo: search guided by two networks", Monte Carlo Tree Search (MCTS)]
     section: "AlphaGo: search guided by two networks"
-    statement: In AlphaGo's search, the policy network scores each newly added leaf in place of a random rollout.
+    statement: In AlphaGo's search, the policy network evaluates each newly expanded node.
     answer: false
     why: >-
       The value network scores new leaves. The policy network guides selection,

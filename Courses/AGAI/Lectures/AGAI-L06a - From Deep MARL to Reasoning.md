@@ -40,7 +40,7 @@ The fix: learn the two things MCTS needs, **which moves are worth exploring** (a
 AlphaGo is "guided MCTS" with two networks:
 
 - **Policy network** $\pi(a \mid s;\theta)$: which moves are promising? It **guides node selection**, so the search explores few of the many legal moves.
-- **Value network** $V_\phi(s)$: what are the chances of winning from this position? It **evaluates newly expanded nodes**, so the search does not have to play to the end.
+- **Value network** $V_\phi(s)$: what are the chances of winning from this position? It **evaluates newly expanded nodes**, so the search gets a learned estimate of a new position instead of relying on random rollouts alone.
 
 How they are trained:
 
@@ -132,14 +132,14 @@ The course then moves from RL to agentic AI, and the lecture links the two in th
 >
 > (a) MCTS has to judge the positions it reaches. Hand-made heuristics need manual annotation, and random rollouts give a weak signal about which lines are promising; they also assume a random opponent, while the agent must beat strong ones.
 >
-> (b) The policy network says which moves are promising and guides node selection, so only a few of the many legal moves are explored. The value network estimates the chance of winning and evaluates newly expanded nodes, so no rollout to the end is needed.
+> (b) The policy network says which moves are promising and guides node selection, so only a few of the many legal moves are explored. The value network estimates the chance of winning and evaluates newly expanded nodes, a learned estimate instead of random rollouts alone.
 >
 > (c) The policy network first copies expert moves (supervised, cross-entropy), then improves by self-play with REINFORCE: every move of a won game becomes more likely, every move of a lost game less likely. The value network regresses the self-play outcome $z$ with a squared error.
 >
 > (d) AlphaGo Zero uses no human games: it starts from a random policy and learns only from self-play. This works because the same policy can be used from the perspective of both agents (symmetric roles, board shown from the mover's side).
 
-> [!exam]- (a) What does self-play assume about the agents? Give a game where the assumption fails. (b) How does population-based training work? (c) Define the PSRO meta-game. (d) Give the steps of PSRO and explain why its new policies do not just chase the latest opponent.
-> **Key points:** one policy plays both sides, so roles must be symmetric (fails e.g. attacker against defender with different actions); one population per agent, evaluate against the other populations, modify by random changes or copying the best; meta-game = normal-form game, actions = policies in the populations, payoffs = average returns between them; start random, build meta-game, meta-solver (e.g. Nash), sample from the meta-solution, train a best response with RL and add it; the new policy must beat a mixture of earlier ones, so no cycling.
+> [!exam]- (a) What does self-play assume about the agents? Give a game where the assumption fails. (b) How does population-based training work? (c) Define the PSRO meta-game. (d) Give the steps of PSRO.
+> **Key points:** one policy plays both sides, so roles must be symmetric (fails e.g. attacker against defender with different actions); one population per agent, evaluate against the other populations, modify by random changes or copying the best; meta-game = normal-form game, actions = policies in the populations, payoffs = average returns between them; start random, build meta-game, meta-solver (e.g. Nash), sample from the meta-solution, train a best response with single-agent RL and add it to the population.
 >
 > (a) Self-play uses the same policy for both agents, so it assumes symmetric roles with egocentric observations. It fails when the players differ, for example an attacker who moves units against a defender who builds walls, or StarCraft races with different units.
 >
@@ -147,7 +147,7 @@ The course then moves from RL to agentic AI, and the lecture links the two in th
 >
 > (c) A simplified normal-form game: each action is a policy in the current populations, and the payoffs are the average returns when those policies play each other, estimated by simulation.
 >
-> (d) Start with random policies; construct the meta-game; solve it with a meta-solver such as a Nash equilibrium to get a distribution over each population; sample the other agents' policies from that meta-solution; train a new policy for each agent against them with single-agent RL and add it to its population. Because the new policy has to do well against a mixture of the earlier policies, the populations keep the ability to beat old strategies, where self-play against its latest self can cycle (rock, paper, scissors, rock...).
+> (d) Start with random policies; construct the meta-game; solve it with a meta-solver such as a Nash equilibrium to get a distribution over each population; sample the other agents' policies from that meta-solution; train a new policy for each agent against them with single-agent RL and add it to its population. Repeat with the grown populations.
 
 ## Flashcards
 
@@ -161,7 +161,7 @@ The course then moves from RL to agentic AI, and the lecture links the two in th
 > Node selection: which moves to explore.
 
 > [!card]- What does AlphaGo's value network do in the search?
-> Estimates the chance of winning at newly expanded nodes, in place of a rollout.
+> Estimates the chance of winning at newly expanded nodes.
 
 > [!card]- How is AlphaGo's policy network first trained?
 > Supervised, to reproduce expert moves (cross-entropy loss).
@@ -198,9 +198,6 @@ The course then moves from RL to agentic AI, and the lecture links the two in th
 
 > [!card]- How does PSRO train a new policy?
 > Single-agent RL against the others' policies sampled from the meta-solution.
-
-> [!card]- Why does PSRO avoid the cycling of plain self-play?
-> Each new policy must beat a mixture of earlier policies.
 
 > [!card]- What kind of training is AlphaStar's league?
 > Population-based training with heterogeneous populations, PSRO-like.

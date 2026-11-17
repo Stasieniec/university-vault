@@ -136,7 +136,7 @@ Likely sibling: the same four parts for the Stag Hunt. Two pure equilibria (C, C
 
 - **Value decomposition**: learn one utility per agent from its own observations, so that each agent's greedy action together gives the greedy joint action (the IGM property: individual-global-max).
 - **VDN**: team value = sum of the utilities.
-- **QMIX**: team value = a monotonic mix of the utilities (more utility never lowers the team value), weights produced from the global state. More expressive than VDN, but neither can represent a game where an agent's best action depends non-monotonically on the others' (the climbing game).
+- **QMIX**: team value = a monotonic mix of the utilities (more utility never lowers the team value), weights produced from the global state. It fixes VDN's restrictive sum and captures interactions a sum cannot. (MARL book, not in the lecture: a monotonic mix still cannot represent a game where an agent's best action flips with the others'.)
 
 **Agent modelling.** A deep agent model of agent $i$ predicts agent $j$'s actions from agent $i$'s own observation history; agent $i$ uses that prediction in its policy or value. **LOLA** goes further: it accounts for how its own update changes the other agent's next learning step.
 
@@ -144,12 +144,12 @@ Likely sibling: the same four parts for the Stag Hunt. Two pure equilibria (C, C
 
 - **Weakly homogeneous**: swapping the agents' policies does not change the returns. **Strongly homogeneous**: the optimal joint policy consists of identical policies.
 - **Parameter sharing**: one network for all agents, so all follow the same policy. The parameter count stays constant as agents are added, and the shared parameters learn from all agents' experience (sample efficiency). Needs strong homogeneity (or an agent index as input). It does not need agents to exchange observations at execution, and it works badly when the optimal policies differ.
-- **Experience sharing**: each agent keeps its own network but also learns from the others' trajectories, so policies can differ. Suits weakly homogeneous agents; on-policy methods need a correction (importance sampling).
+- **Experience sharing**: each agent keeps its own network but also learns from all agents' trajectories (better sample efficiency), so policies can differ. Suits weakly homogeneous agents; on-policy methods need a correction (importance sampling).
 
 **Search, self-play, populations.**
 
 - **MCTS**: selection, expansion, simulation, backpropagation.
-- **Self-play**: train against copies of yourself; needs symmetric roles. AlphaGo: a policy network (from expert moves, then RL) and a value network guide MCTS. AlphaGo Zero drops the human games and learns from scratch; AlphaZero runs the same method on chess, shogi and Go.
+- **Self-play**: train against copies of yourself; needs symmetric roles. AlphaGo: a policy network (from expert moves, then RL) proposes moves and a value network evaluates new positions, both guiding MCTS. AlphaGo Zero drops the human games and learns from scratch; AlphaZero runs the same method on chess, shogi and Go.
 - Plain self-play can cycle (rock-paper-scissors), hence **populations of policies**.
 - **PSRO**: keep a population of policies per agent. The **meta-game is a normal-form game whose actions are the policies in the current populations**, with payoffs from simulated matches. A meta-solver (for example Nash) gives a mix over the population; an oracle trains a best response to that mix and adds it; repeat. AlphaStar's league is PSRO-like.
 - RL and LLMs: AlphaGo has a fast System 1 (policy network, intuition) and a slow System 2 (search over rollouts); an LLM generating tokens is still System 1. LLM generation as RL: state = prompt and tokens so far, action = next token, policy = the LLM, reward when the full response is good.
