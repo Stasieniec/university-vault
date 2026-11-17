@@ -181,7 +181,7 @@ questions:
     difficulty: easy
     level: remember
     topics: [Actor-Critic, Centralised Training with Decentralised Execution]
-    section: The centralised actor-critic
+    section: "Centralised critics: CTDE for policy gradient"
     prompt: In a centralised actor-critic, the centralised information z is an input to ___.
     options:
       - id: a
@@ -203,7 +203,7 @@ questions:
     difficulty: medium
     level: understand
     topics: [REINFORCE, Centralised Training with Decentralised Execution]
-    section: The centralised actor-critic
+    section: "Centralised critics: CTDE for policy gradient"
     prompt: >-
       Someone tries to build a CTDE version of REINFORCE and finds nowhere to put
       the centralised information. Why?
@@ -229,8 +229,8 @@ questions:
     type: cloze
     difficulty: easy
     level: remember
-    topics: ["Value critics and action-value critics"]
-    section: Value critics and action-value critics
+    topics: ["Centralised critics: CTDE for policy gradient"]
+    section: "Centralised critics: CTDE for policy gradient"
     prompt: >-
       A critic that also takes the other agents' actions as input can say what would
       have happened had agent i acted differently. This supports ___ reasoning.
@@ -257,7 +257,7 @@ questions:
     difficulty: medium
     level: understand
     topics: [Multi-Agent Credit Assignment]
-    section: What a centralised value function still cannot do
+    section: Splitting the team value into utilities
     prompt: >-
       A cooperative team with one shared reward trains a centralised action-value
       function over the joint action. Which challenge does it leave open?
@@ -333,6 +333,7 @@ questions:
       10^5 joint actions, which every training target needs.
 
   - id: agai-36x2a6
+    status: retired
     type: single
     difficulty: medium
     level: apply
@@ -825,11 +826,12 @@ questions:
       pieces" mean the same whichever colour it plays.
 
   - id: agai-9uuw78
+    status: retired
     type: single
     difficulty: medium
     level: understand
     topics: [Policy Space Response Oracles (PSRO)]
-    section: "Populations of policies: PSRO"
+    section: "Large zero-sum games: search and self-play"
     prompt: >-
       In games like rock-paper-scissors, self-play can cycle and forget how to
       beat old strategies. How does PSRO avoid that?
@@ -850,3 +852,84 @@ questions:
       PSRO solves a meta-game over the populations and trains each new policy as
       a best response to the others' meta-game mixtures. Having to beat a mixture
       of earlier policies stops it chasing only the latest one.
+
+  - id: agai-495ypp
+    type: multi
+    difficulty: medium
+    level: understand
+    topics: [Parameter Sharing]
+    section: Parameter sharing (strongly homogeneous agents)
+    prompt: Which statements about parameter sharing are correct?
+    options:
+      - id: a
+        text: It requires agents to exchange their observations during execution.
+        why: Each agent runs its own copy of the shared network on its own observations, so nothing is exchanged.
+      - id: b
+        text: It works best when the optimal policies of the agents differ.
+        why: It suits strongly homogeneous agents, whose optimal policies are identical.
+      - id: c
+        text: It constrains every agent to the same policy.
+        correct: true
+      - id: d
+        text: The number of parameters stays constant as the number of agents grows.
+        correct: true
+      - id: e
+        text: The shared parameters are updated with every agent's experience.
+        correct: true
+    why: >-
+      All agents use one set of parameter values, so there is one policy and one
+      network however many agents there are. Every agent's experience trains it,
+      which improves sample efficiency.
+
+  - id: agai-s6c2mp
+    type: single
+    difficulty: medium
+    level: understand
+    topics: ["Experience sharing (weakly homogeneous agents)", Parameter Sharing]
+    section: Experience sharing (weakly homogeneous agents)
+    prompt: Why can experience sharing be preferred over parameter sharing?
+    options:
+      - id: a
+        text: It needs less computation per step, as batches become smaller.
+        why: It is the more expensive option, since every agent still trains its own network.
+      - id: b
+        text: Agents keep their own networks, so their learned policies can differ.
+        correct: true
+      - id: c
+        text: It needs fewer network parameters as the number of agents grows.
+        why: It keeps one network per agent, so the parameter count grows with the agents. Parameter sharing keeps it constant.
+      - id: d
+        text: It needs no correction when applied to on-policy algorithms.
+        why: Another agent's trajectories come from a different policy, so on-policy learning needs a correction such as importance sampling.
+    why: >-
+      Experience sharing pools the data but keeps separate networks. That suits
+      weakly homogeneous agents whose optimal policies differ, such as two agents
+      that must reach two different landmarks.
+
+  - id: agai-zae9g5
+    type: multi
+    difficulty: medium
+    level: understand
+    topics: ["Who sees what, and when: training and execution modes", Centralised Training with Decentralised Execution]
+    section: "Who sees what, and when: training and execution modes"
+    prompt: Which are advantages of centralised training with decentralised execution?
+    options:
+      - id: a
+        text: No central controller is needed when the agents act
+        correct: true
+      - id: b
+        text: It suits distributed settings with limited communication at run time
+        correct: true
+      - id: c
+        text: Training can account for the interactions between agents
+        correct: true
+      - id: d
+        text: Training is never a bottleneck, as each agent learns alone
+        why: Centralised training can still be a bottleneck. That is one of CTDE's disadvantages.
+      - id: e
+        text: Agents coordinate well even when local information is insufficient
+        why: When local information falls short at execution, coordination is hard. That is CTDE's other disadvantage.
+    why: >-
+      CTDE uses shared information only in training, so it improves coordination
+      while each agent still acts on its own history. Its costs are a possible
+      training bottleneck and weak coordination when local information is not enough.

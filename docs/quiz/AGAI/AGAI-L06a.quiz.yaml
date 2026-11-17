@@ -278,6 +278,7 @@ questions:
       only game-specific part.
 
   - id: agai-emrg9f
+    rev: 2
     type: multi
     difficulty: medium
     level: understand
@@ -297,12 +298,9 @@ questions:
       - id: d
         text: AlphaGo
         why: AlphaGo's first stage fits its policy network to expert human moves.
-      - id: e
-        text: AlphaStar
-        why: AlphaStar's agents started by imitating human games before league training.
     why: >-
       AlphaGo Zero and AlphaZero start from a random policy, and PSRO from random
-      policies. AlphaGo starts from expert moves and AlphaStar from human games.
+      policies. AlphaGo's first stage copies expert human moves.
 
   - id: agai-dce848
     type: single
@@ -602,6 +600,7 @@ questions:
       far, and the reward is high when the completed response is good.
 
   - id: agai-fca8rg
+    status: retired
     type: multi
     difficulty: medium
     level: understand
@@ -633,6 +632,7 @@ questions:
       policy then means better reasoning.
 
   - id: agai-fgemaz
+    status: retired
     type: single
     difficulty: medium
     level: understand
@@ -658,6 +658,7 @@ questions:
       the actions of good responses more likely.
 
   - id: agai-gpdck2
+    status: retired
     type: single
     difficulty: medium
     level: apply
@@ -681,3 +682,56 @@ questions:
       Each planner's selfish incentive, cheap rush-hour trips, diverges from the
       collective good of fast deliveries for all. That is a social dilemma, a
       mixed-motive conflict that AI agents can make easier to pursue.
+
+  - id: agai-g8g399
+    type: single
+    difficulty: easy
+    level: remember
+    topics: [Policy Space Response Oracles (PSRO)]
+    section: "PSRO: populations plus a meta-game"
+    prompt: In Policy Space Response Oracles (PSRO), what is the meta-game?
+    options:
+      - id: a
+        text: A stochastic game whose states are the observation histories of the agents
+        why: The meta-game has no states. Each agent picks one policy, as in a one-shot normal-form game.
+      - id: b
+        text: A normal-form game whose actions are the policies in the current populations
+        correct: true
+      - id: c
+        text: A common-reward game whose value function is decomposed into utilities
+        why: That describes value decomposition, such as VDN or QMIX.
+      - id: d
+        text: A search tree whose nodes are expanded by Monte Carlo tree search
+        why: That describes MCTS, which AlphaZero uses for board games.
+    why: >-
+      Each action of the meta-game is a whole policy, and the payoffs are the
+      average returns when those policies play each other. A meta-solver such as
+      a Nash equilibrium then weights the populations.
+
+  - id: agai-eha5zj
+    type: multi
+    difficulty: medium
+    level: understand
+    topics: ["When self-play is not enough: populations of policies", Population-Based Training]
+    section: "When self-play is not enough: populations of policies"
+    prompt: Why train against populations of policies instead of with plain self-play?
+    options:
+      - id: a
+        text: Self-play assumes the two agents have symmetric roles
+        correct: true
+      - id: b
+        text: Populations can hold agents with different actions and observations
+        correct: true
+      - id: c
+        text: Self-play against its latest self can cycle in games like rock-paper-scissors
+        correct: true
+      - id: d
+        text: Populations remove the need to simulate games between policies
+        why: Populations need more simulation, since every policy is evaluated against the other populations.
+      - id: e
+        text: Self-play cannot be combined with Monte Carlo tree search
+        why: AlphaZero combines exactly these two.
+    why: >-
+      One self-play policy plays both sides, which needs symmetric roles, and it
+      only faces its latest self. Populations allow different roles and keep old
+      strategies around to train against.

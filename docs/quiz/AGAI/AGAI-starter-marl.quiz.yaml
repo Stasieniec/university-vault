@@ -8,6 +8,7 @@ sort: 94
 questions:
 
   - id: agai-d5cwps
+    status: retired
     type: cloze
     difficulty: easy
     level: remember
@@ -82,6 +83,7 @@ questions:
       change too, so value targets keep moving.
 
   - id: agai-kr42pn
+    status: retired
     type: truefalse
     difficulty: easy
     level: remember
@@ -236,6 +238,7 @@ questions:
       other, a feedback loop into the risk-dominant equilibrium.
 
   - id: agai-nd3auq
+    status: retired
     type: single
     difficulty: hard
     level: analyze
@@ -277,7 +280,7 @@ questions:
         correct: true
       - id: c
         text: A pursuit game between a predator and a prey with different action sets
-        why: The two roles have different actions, so one policy cannot act for both. Algorithm self-play would still work.
+        why: The two roles have different actions, so one policy cannot act for both.
       - id: d
         text: A negotiation between a buyer and a seller with different payoffs
         why: Buyer and seller have different roles and rewards, so one shared policy does not fit both.
@@ -285,6 +288,6 @@ questions:
         text: A team of a scouting drone and a delivery truck
         why: Different bodies, actions and observations rule out one shared policy.
     why: >-
-      Policy self-play needs symmetric roles and egocentric observations, so the
-      same policy can act from each agent's perspective. Algorithm self-play, where
-      all agents use the same learning algorithm, has no such restriction.
+      Self-play needs symmetric roles and egocentric observations, so the same
+      policy can act from each agent's perspective. Different actions, payoffs or
+      bodies rule it out.
