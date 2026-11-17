@@ -13,7 +13,7 @@ questions:
     difficulty: easy
     level: understand
     topics: [Reinforcement Learning]
-    section: Learning from your own actions
+    section: "Reinforcement learning in one page"
     prompt: Which of these tasks is sequential decision making, the kind of problem reinforcement learning addresses?
     options:
       - id: a
@@ -38,7 +38,7 @@ questions:
     difficulty: easy
     level: remember
     topics: [Reinforcement Learning]
-    section: Learning from your own actions
+    section: "Reinforcement learning in one page"
     statement: Reinforcement learning data is i.i.d., like supervised data, but carries rewards in place of labels.
     answer: false
     why: >-
@@ -50,7 +50,7 @@ questions:
     difficulty: medium
     level: apply
     topics: [Markov Decision Process]
-    section: The pieces of an RL problem
+    section: "Reinforcement learning in one page"
     prompt: >-
       A robot dog's state is its grid cell, but it also has a battery the state
       leaves out. The same cell now leads to different futures depending on how
@@ -78,7 +78,7 @@ questions:
     difficulty: easy
     level: remember
     topics: [Value Iteration]
-    section: Values and the Bellman equations
+    section: "Values and value iteration"
     prompt: Value iteration makes the evaluated policy greedy, so the Bellman equation's average over actions becomes ___.
     options:
       - id: a
@@ -103,7 +103,7 @@ questions:
     difficulty: medium
     level: understand
     topics: [Q-Learning]
-    section: "Learning without a model: Q-learning"
+    section: "Q-learning: replace the model with samples"
     prompt: Value iteration needs the transition and reward model. How does Q-learning do without it?
     options:
       - id: a
@@ -128,7 +128,7 @@ questions:
     difficulty: easy
     level: remember
     topics: [Q-Learning, TD Error]
-    section: "Learning without a model: Q-learning"
+    section: "Q-learning: replace the model with samples"
     statement: When the next state is terminal, the Q-learning target is just the reward r.
     answer: true
     why: >-
@@ -140,7 +140,7 @@ questions:
     difficulty: hard
     level: apply
     topics: [Q-Learning]
-    section: Discount, learning rate and exploration
+    section: "Discount, learning rate and exploration"
     prompt: >-
       A Q-learner on a slippery ice grid, where moves sometimes slide, uses a high
       constant learning rate. Its estimates jump with every outcome and do not
@@ -168,7 +168,7 @@ questions:
     difficulty: medium
     level: understand
     topics: [Epsilon-Greedy Policy]
-    section: Discount, learning rate and exploration
+    section: "Discount, learning rate and exploration"
     prompt: Why is the exploration of ε-greedy called blind?
     options:
       - id: a
@@ -193,7 +193,7 @@ questions:
     difficulty: medium
     level: understand
     topics: [Softmax Policy, Exploration vs Exploitation]
-    section: Discount, learning rate and exploration
+    section: "Discount, learning rate and exploration"
     prompt: Which statements about Boltzmann (softmax) exploration are true?
     options:
       - id: a
@@ -221,7 +221,7 @@ questions:
     difficulty: easy
     level: remember
     topics: ["Payoff structure decides what a good solution is"]
-    section: Payoff structure decides what a good solution is
+    section: "Many learners: stochastic games"
     prompt: A two-agent game in which R1 = −R2 in every outcome is called ___.
     options:
       - id: a
@@ -246,7 +246,7 @@ questions:
     difficulty: medium
     level: understand
     topics: [Pareto Optimality]
-    section: Payoff structure decides what a good solution is
+    section: "Many learners: stochastic games"
     statement: Pareto inefficiency, an outcome where everyone could be better off, is the typical struggle of learners in zero-sum games.
     answer: false
     why: >-
@@ -260,7 +260,7 @@ questions:
     difficulty: easy
     level: remember
     topics: [Stochastic Game]
-    section: "Stochastic games: the MDP with many agents"
+    section: "Many learners: stochastic games"
     statement: A stochastic game with only one state plays the same normal-form game at every step.
     answer: true
     why: >-
@@ -272,7 +272,7 @@ questions:
     difficulty: easy
     level: remember
     topics: [Stochastic Game, Prisoner's Dilemma]
-    section: "Stochastic games: the MDP with many agents"
+    section: "Many learners: stochastic games"
     prompt: The iterated Prisoner's Dilemma can be written as a stochastic game. What is its state?
     options:
       - id: a
@@ -297,7 +297,7 @@ questions:
     difficulty: medium
     level: understand
     topics: [Stochastic Game, Nash Equilibrium]
-    section: "Stochastic games: the MDP with many agents"
+    section: "Many learners: stochastic games"
     prompt: Why does "maximise your return" stop being an adequate solution concept in a stochastic game?
     options:
       - id: a
@@ -322,7 +322,7 @@ questions:
     difficulty: medium
     level: remember
     topics: [Nash Equilibrium, Stochastic Game]
-    section: "Stochastic games: the MDP with many agents"
+    section: "Many learners: stochastic games"
     prompt: In place of "maximise your return", which criteria does multi-agent RL optimise for?
     options:
       - id: a
@@ -350,7 +350,7 @@ questions:
     difficulty: medium
     level: understand
     topics: ["What convergence means when everyone learns"]
-    section: What convergence means when everyone learns
+    section: "Many learners: stochastic games"
     prompt: In matching pennies, why do two learners' policies orbit the equilibrium without settling?
     options:
       - id: a
@@ -375,7 +375,7 @@ questions:
     difficulty: hard
     level: analyze
     topics: ["What convergence means when everyone learns"]
-    section: What convergence means when everyone learns
+    section: "Many learners: stochastic games"
     prompt: >-
       Two learners in matching pennies keep cycling. Averaged over many episodes,
       each plays heads half the time and earns 0, the equilibrium's reward. Under
@@ -403,7 +403,7 @@ questions:
     difficulty: hard
     level: analyze
     topics: ["Non-stationarity: experience has a shelf life"]
-    section: "Non-stationarity: experience has a shelf life"
+    section: "Why multi-agent learning is hard"
     prompt: >-
       To agent i, the transitions it experiences are the game's true transitions
       averaged over what the other agents play. What makes these vary over
@@ -431,7 +431,7 @@ questions:
     difficulty: medium
     level: understand
     topics: ["Non-stationarity: experience has a shelf life"]
-    section: "Non-stationarity: experience has a shelf life"
+    section: "Why multi-agent learning is hard"
     prompt: Which of these are consequences of non-stationarity in multi-agent RL?
     options:
       - id: a
@@ -456,7 +456,7 @@ questions:
     difficulty: medium
     level: remember
     topics: [Multi-Agent Credit Assignment]
-    section: "Credit assignment: whose action earned the reward"
+    section: "Why multi-agent learning is hard"
     prompt: Multi-agent credit assignment is hardest in ___ games, though it also appears in general-sum ones.
     options:
       - id: a
@@ -481,7 +481,7 @@ questions:
     difficulty: hard
     level: apply
     topics: [Multi-Agent Credit Assignment, Social Dilemma]
-    section: "Credit assignment: whose action earned the reward"
+    section: "Why multi-agent learning is hard"
     prompt: >-
       Agents fish from a shared lake that can be depleted. I fish aggressively
       while the others hold back, catch lots, and learn that aggression pays.
@@ -509,7 +509,7 @@ questions:
     difficulty: medium
     level: understand
     topics: ["Why multi-agent learning is hard"]
-    section: Why multi-agent learning is hard
+    section: "Why multi-agent learning is hard"
     prompt: Which challenge of multi-agent learning decides where learners end up, as opposed to how well they learn?
     options:
       - id: a
@@ -534,7 +534,7 @@ questions:
     difficulty: hard
     level: analyze
     topics: [Stag Hunt, "Equilibrium selection: settling in the wrong equilibrium"]
-    section: "Equilibrium selection: settling in the wrong equilibrium"
+    section: "Why multi-agent learning is hard"
     prompt: >-
       In a gridworld stag hunt, a plant alone gives +1, the stag gives +5 if hunted
       together, and trying for the stag alone gives nothing. Learners mostly settle
@@ -562,7 +562,7 @@ questions:
     difficulty: medium
     level: understand
     topics: ["Equilibrium selection: settling in the wrong equilibrium"]
-    section: "Equilibrium selection: settling in the wrong equilibrium"
+    section: "Why multi-agent learning is hard"
     statement: A country that drives on the left keeps doing so because driving on the right would not be an equilibrium there.
     answer: false
     why: >-
@@ -575,7 +575,7 @@ questions:
     difficulty: easy
     level: remember
     topics: ["Scalability: the curse of dimensionality"]
-    section: "Scalability: the curse of dimensionality"
+    section: "Why multi-agent learning is hard"
     prompt: With 5 actions per agent, a game with N agents has ___ joint actions.
     options:
       - id: a
@@ -598,8 +598,8 @@ questions:
     type: single
     difficulty: hard
     level: analyze
-    topics: [Independent Learning, "IQL in the climbing game"]
-    section: IQL in the climbing game
+    topics: [Independent Learning]
+    section: "The climbing game: miscoordination"
     prompt: >-
       In the climbing game (shared reward), (a, a) pays 11, but playing a against a
       partner's b pays −30, while action c risks nothing that bad. With partners
@@ -627,7 +627,7 @@ questions:
     difficulty: medium
     level: understand
     topics: [Independent Learning]
-    section: "Independent learning: treat everyone else as environment"
+    section: "Central learning and independent learning"
     prompt: Which statements about independent Q-learning (IQL) are true?
     options:
       - id: a
@@ -658,7 +658,7 @@ questions:
     difficulty: medium
     level: understand
     topics: [Independent Learning]
-    section: IQL in the stag hunt and in level-based foraging
+    section: "When independent learning wins"
     prompt: Which statements compare centralized and independent Q-learning correctly?
     options:
       - id: a
@@ -685,8 +685,8 @@ questions:
     type: truefalse
     difficulty: hard
     level: analyze
-    topics: [Independent Learning, "IQL in the climbing game"]
-    section: IQL in the climbing game
+    topics: [Independent Learning]
+    section: "The climbing game: miscoordination"
     statement: In the climbing game, more random exploration by both independent learners helps them find the optimum (a, a) = 11.
     answer: false
     why: >-
@@ -699,7 +699,7 @@ questions:
     difficulty: easy
     level: remember
     topics: [Independent Learning]
-    section: "Independent learning: treat everyone else as environment"
+    section: "Central learning and independent learning"
     prompt: In independent Q-learning, how does each agent handle the other agents?
     options:
       - id: a

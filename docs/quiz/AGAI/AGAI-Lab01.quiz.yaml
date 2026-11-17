@@ -13,7 +13,7 @@ questions:
     difficulty: medium
     level: understand
     topics: [Stag Hunt, Prisoner's Dilemma]
-    section: "Q3: two games, two motives"
+    section: "Greed and fear (Q3)"
     prompt: The Prisoner's Dilemma has both greed and fear, while the Stag Hunt has only ___.
     options:
       - id: a
@@ -38,7 +38,7 @@ questions:
     difficulty: medium
     level: understand
     topics: [Prisoner's Dilemma]
-    section: "Q3: two games, two motives"
+    section: "Greed and fear (Q3)"
     statement: Making Prisoner's Dilemma agents certain that their partner will cooperate makes mutual cooperation the outcome.
     answer: false
     why: >-
@@ -51,7 +51,7 @@ questions:
     difficulty: hard
     level: analyze
     topics: [Stag Hunt]
-    section: "Q4: which Stag Hunt equilibrium? (prediction)"
+    section: "Beliefs decide the Stag Hunt (Q4, Q5)"
     prompt: >-
       Agents meet once in the Stag Hunt (R=4, S=0, T=3, P=2), each with a belief
       about its partner drawn uniformly from 0 to 1, and best-respond. Why is
@@ -79,7 +79,7 @@ questions:
     difficulty: medium
     level: understand
     topics: [Stag Hunt]
-    section: "Q5: a rule for which equilibrium wins"
+    section: "Beliefs decide the Stag Hunt (Q4, Q5)"
     prompt: >-
       In a Stag Hunt with payoffs R (C,C), S (sucker), T (temptation) and P
       (D,D), agents with uniform beliefs play (C,C) more often than (D,D)
@@ -107,7 +107,7 @@ questions:
     difficulty: medium
     level: understand
     topics: [Repeated Game]
-    section: "Q6: one-shot against repeated tournament"
+    section: "Repeated games: memory lets cooperation pay (Q6, Q7)"
     prompt: In the 50-round tournament, which strategies cooperate at different rates depending on who they play?
     options:
       - id: a
@@ -135,7 +135,7 @@ questions:
     difficulty: hard
     level: analyze
     topics: [Repeated Game]
-    section: "Q6: one-shot against repeated tournament"
+    section: "Repeated games: memory lets cooperation pay (Q6, Q7)"
     prompt: >-
       AllD wins the lab's 50-round tournament of five strategies. Where does
       most of its score come from?
@@ -162,7 +162,7 @@ questions:
     difficulty: medium
     level: understand
     topics: [Repeated Game]
-    section: "Q7: when does AllD stop being best?"
+    section: "Repeated games: memory lets cooperation pay (Q6, Q7)"
     statement: In a 50-round tournament with only AllD, TFT and WSLS, TFT outscores AllD.
     answer: true
     why: >-
@@ -174,7 +174,7 @@ questions:
     difficulty: easy
     level: understand
     topics: [Repeated Game]
-    section: "Q6: one-shot against repeated tournament"
+    section: "Repeated games: memory lets cooperation pay (Q6, Q7)"
     prompt: Why does AllD exploit WSLS every other round?
     options:
       - id: a
@@ -199,7 +199,7 @@ questions:
     difficulty: easy
     level: apply
     topics: [Replicator Dynamics, Prisoner's Dilemma]
-    section: "Q8: predictions before the analysis"
+    section: "The Prisoner's Dilemma population (Q9)"
     prompt: >-
       A population playing the Prisoner's Dilemma starts with 90% cooperators.
       Strategies earning more than average spread. What happens to the
@@ -227,7 +227,7 @@ questions:
     difficulty: easy
     level: remember
     topics: [Replicator Dynamics, Stag Hunt]
-    section: "Q10: the Stag Hunt under replicator dynamics"
+    section: "The Stag Hunt population (Q10)"
     prompt: Under replicator dynamics, the Stag Hunt's interior rest point at x = 2/3 is ___.
     options:
       - id: a
@@ -252,7 +252,7 @@ questions:
     difficulty: medium
     level: understand
     topics: [Replicator Dynamics, Stag Hunt]
-    section: "Q10: the Stag Hunt under replicator dynamics"
+    section: "The Stag Hunt population (Q10)"
     statement: The Stag Hunt's interior replicator rest point equals the threshold belief p* at which a rational agent is indifferent.
     answer: true
     why: >-
@@ -262,11 +262,12 @@ questions:
 
   - id: agai-2k5tan
     rev: 2
+    status: retired
     type: multi
     difficulty: hard
     level: analyze
-    topics: ["Deception: the signalling game"]
-    section: "Q12: the uniform fee"
+    topics: [Replicator Dynamics]
+    section: "Part II: replicator dynamics"
     prompt: In the signalling game, which conditions must hold for an honest signal to survive in the long run?
     options:
       - id: a
@@ -290,11 +291,12 @@ questions:
       difference between the types.
 
   - id: agai-jy9m78
+    status: retired
     type: single
     difficulty: medium
     level: apply
-    topics: ["Deception: the signalling game"]
-    section: "Q12: the uniform fee"
+    topics: [Replicator Dynamics]
+    section: "Part II: replicator dynamics"
     prompt: >-
       Low-quality sellers fake a platform's premium label. The platform charges
       every seller the same fee, so the label costs more than being trusted is
@@ -318,11 +320,12 @@ questions:
       sellers lose what they earned.
 
   - id: agai-dmbjhy
+    status: retired
     type: single
     difficulty: hard
     level: analyze
     topics: [Reward Hacking, Value Iteration]
-    section: "Q14: Bob's robot"
+    section: "Part I: one-shot and repeated games"
     prompt: >-
       Bob's robot gets +1 per clean square per step. Once the floor is clean and
       no new dirt comes, it wanders, moving on about two steps in three. Is it
@@ -344,3 +347,57 @@ questions:
       With a clean floor, Left, Right and Suck all keep earning 2 per step, so
       they tie and random tie-breaking makes it wander. The robot maximises its
       reward; the reward just ignores what moving costs.
+
+  - id: agai-hrhdtv
+    type: single
+    difficulty: medium
+    level: understand
+    topics: [Prisoner's Dilemma, Nash Equilibrium]
+    section: "Nash, Pareto and social optimum in the PD (Q2)"
+    prompt: >-
+      In the one-shot Prisoner's Dilemma, why do two self-interested agents end
+      at (D, D), although both prefer (C, C)?
+    options:
+      - id: a
+        text: Each agent expects its partner to defect, so it defects too
+        why: Expectations do not matter here. D also pays more against a partner who surely cooperates.
+      - id: b
+        text: D is the best response whatever the partner plays
+        correct: true
+      - id: c
+        text: (D, D) is the only Pareto-optimal outcome of the game
+        why: It is the opposite. (D, D) is the only outcome that is not Pareto optimal, since (C, C) gives both more.
+      - id: d
+        text: The agents cannot talk, so they cannot agree on (C, C)
+        why: An agreement would not hold. At (C, C) each agent still gains by switching to D alone.
+    why: >-
+      Against C, D earns T > R; against D, D earns P > S. The best response does
+      not depend on the partner, so (D, D) is the only cell where both
+      best-respond.
+
+  - id: agai-cj82bd
+    type: single
+    difficulty: medium
+    level: understand
+    topics: [Pareto Optimality]
+    section: "Nash, Pareto and social optimum in the PD (Q2)"
+    prompt: >-
+      In the Prisoner's Dilemma (R = 3, S = 0, T = 5, P = 1), (C, D) is Pareto
+      optimal. What does that show?
+    options:
+      - id: a
+        text: An outcome can pass this test and still be unfair
+        correct: true
+      - id: b
+        text: (C, D) is also the social optimum
+        why: Its total is 5, below the 6 of (C, C). Every social optimum is Pareto optimal, but not the reverse.
+      - id: c
+        text: (C, D) is a Nash equilibrium
+        why: At (C, D) the cooperator gains by switching to D (1 against 0). The only equilibrium is (D, D).
+      - id: d
+        text: Both players prefer (C, D) to mutual defection
+        why: The cooperator gets 0 at (C, D), less than the 1 it gets at (D, D).
+    why: >-
+      Any move away from (C, D) hurts the defector, so it is Pareto optimal,
+      although the cooperator gets its lowest payoff. Pareto optimality only
+      rules out gains that cost nobody anything.

@@ -14,7 +14,7 @@ questions:
     difficulty: easy
     level: remember
     topics: [Q-Learning]
-    section: "Q4: exploration as noise in the other's rewards"
+    section: "Exploration knocks learners out of (C,C), almost never out of (D,D)"
     prompt: With a constant learning rate, a stateless Q-learner's Q(C) is an exponentially weighted average of the ___ payoffs of C.
     options:
       - id: a
@@ -39,7 +39,7 @@ questions:
     difficulty: medium
     level: understand
     topics: [Prisoner's Dilemma, Social Dilemma]
-    section: "Q2: the baseline run"
+    section: "Learners starting at zero lock into (D,D)"
     prompt: Independent Q-learners in the Prisoner's Dilemma always end at (D,D). Why is that no coordination failure?
     options:
       - id: a
@@ -64,7 +64,7 @@ questions:
     difficulty: medium
     level: understand
     topics: [Stag Hunt, Independent Learning]
-    section: "Q2: the baseline run"
+    section: "Learners starting at zero lock into (D,D)"
     prompt: Q-learners start the Stag Hunt with all values at 0. Which help explain why most runs lock into (D,D)?
     options:
       - id: a
@@ -92,7 +92,7 @@ questions:
     difficulty: medium
     level: understand
     topics: [Stag Hunt, Q-Learning]
-    section: "Q3: initial values as beliefs"
+    section: "Initial values as beliefs"
     prompt: >-
       With little exploration, an optimist (belief 0.9 that the partner hunts
       stag) meets a sceptic (belief 0.5). What happens?
@@ -115,11 +115,12 @@ questions:
       keeps its preference for D.
 
   - id: agai-kv8d5s
+    status: retired
     type: single
     difficulty: hard
     level: analyze
     topics: [Q-Learning]
-    section: "Q3: initial values as beliefs"
+    section: "Initial values as beliefs"
     prompt: >-
       With exploration off, the optimist facing a sceptic switches to hare in
       round 4, then hunts stag again in rounds 8, 14 and 25. What causes these
@@ -147,7 +148,7 @@ questions:
     difficulty: hard
     level: analyze
     topics: [Exploration vs Exploitation, Q-Learning]
-    section: "Q4: exploration as noise in the other's rewards"
+    section: "Exploration knocks learners out of (C,C), almost never out of (D,D)"
     prompt: >-
       Two Q-learners start at (C,C). Against a partner who explores 10% of the
       time, C still pays 3.8 and D 2.95, yet most pairs leave (C,C). Why?
@@ -174,7 +175,7 @@ questions:
     difficulty: medium
     level: understand
     topics: [Stag Hunt, Exploration vs Exploitation]
-    section: "Q4: exploration as noise in the other's rewards"
+    section: "Exploration knocks learners out of (C,C), almost never out of (D,D)"
     statement: In the Stag Hunt, exploration moves independent Q-learners from (D,D) to (C,C) about as often as from (C,C) to (D,D).
     answer: false
     why: >-
@@ -187,7 +188,7 @@ questions:
     difficulty: easy
     level: remember
     topics: [Social Dilemma]
-    section: "Part II: the Coin Game with tabular Q-learning"
+    section: "The game"
     prompt: In the Coin Game, what happens when an agent picks up the other player's coin?
     options:
       - id: a
@@ -211,7 +212,7 @@ questions:
     difficulty: easy
     level: understand
     topics: [Social Dilemma]
-    section: "Q6: what the Q-learners learn"
+    section: "Why the learners take the other's coins"
     prompt: When both Coin Game agents take every coin they can reach, the expected total reward per pickup is ___.
     options:
       - id: a
@@ -232,11 +233,12 @@ questions:
       however many coins they collect.
 
   - id: agai-7s6wgb
+    status: retired
     type: single
     difficulty: medium
     level: understand
     topics: [Social Dilemma, Tabular RL]
-    section: "Q6: what the Q-learners learn"
+    section: "Why the learners take the other's coins"
     prompt: Over 1000 updates, tabular Q-learners come to pick up 4.6 times as many coins as random agents. Where does their welfare end?
     options:
       - id: a
@@ -261,7 +263,7 @@ questions:
     difficulty: hard
     level: analyze
     topics: [Independent Learning, Social Dilemma]
-    section: "Q6: what the Q-learners learn"
+    section: "Why the learners take the other's coins"
     prompt: Why can independent Q-learners in the Coin Game not learn to leave each other's coins alone?
     options:
       - id: a
@@ -289,7 +291,7 @@ questions:
     difficulty: medium
     level: understand
     topics: [Tabular RL]
-    section: "Q8: why the table breaks"
+    section: "Irrelevant lamps break the table"
     prompt: Lamps switch on and off at random and do not affect the Coin Game. Why do they hurt tabular Q-learners?
     options:
       - id: a
@@ -310,11 +312,12 @@ questions:
       twice, so play is close to random.
 
   - id: agai-y9fesh
+    status: retired
     type: multi
     difficulty: medium
     level: understand
     topics: [Actor-Critic, REINFORCE, Baseline]
-    section: "Q9: the pieces of PPO"
+    section: "Part III: PPO in the Coin Game"
     prompt: What does PPO's critic add over REINFORCE, which uses the whole episode's return?
     options:
       - id: a
@@ -342,7 +345,7 @@ questions:
     difficulty: easy
     level: remember
     topics: [PPO, Exploration vs Exploitation]
-    section: "Q9: the pieces of PPO"
+    section: "Part III: PPO in the Coin Game"
     prompt: Where does a PPO agent's exploration come from?
     options:
       - id: a
@@ -367,7 +370,7 @@ questions:
     difficulty: easy
     level: remember
     topics: [PPO, Function Approximation]
-    section: "Q10: PPO against the table"
+    section: "Part III: PPO in the Coin Game"
     statement: Adding 8 irrelevant lamps leaves PPO's coin pickups in the Coin Game about where they are without lamps.
     answer: true
     why: >-
@@ -380,7 +383,7 @@ questions:
     difficulty: hard
     level: analyze
     topics: [Stag Hunt, PPO]
-    section: "Q11: wrap-up"
+    section: "Part III: PPO in the Coin Game"
     statement: If the Part I Stag Hunt learners used PPO, equilibrium selection would stop being a problem, since a network generalises.
     answer: false
     why: >-

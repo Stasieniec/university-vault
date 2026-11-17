@@ -33,6 +33,7 @@ questions:
       mentions a flock or a leader. The flock emerges from local interactions.
 
   - id: agai-2spybs
+    status: retired
     type: cloze
     difficulty: easy
     level: remember
@@ -325,6 +326,7 @@ questions:
       would be no best response.
 
   - id: agai-gjfu5n
+    status: retired
     type: multi
     difficulty: medium
     level: remember
@@ -554,11 +556,11 @@ questions:
         why: The economics reading is imitation. The replicator equation needs no rational computation.
       - id: e
         text: "Computer science: planning by searching a game tree"
-        why: The computer science reading is reinforcement learning, after Börgers and Sarin.
+        why: The computer science reading is reinforcement learning dynamics. No search or planning is involved.
     why: >-
-      The same equation describes natural selection, imitation and reinforcement
-      learning dynamics. Börgers and Sarin linked simple reinforcement learning to
-      the replicator equation.
+      The same equation describes natural selection in biology, imitation of those
+      who do better in economics, and reinforcement learning dynamics in computer
+      science.
 
   - id: agai-z69du2
     type: truefalse
@@ -578,7 +580,7 @@ questions:
     difficulty: hard
     level: analyze
     topics: [Replicator Dynamics, Stag Hunt]
-    section: "Reading the dynamics: rest points and stability"
+    section: "The Stag Hunt population: a tipping point"
     prompt: >-
       A large Stag Hunt population (R = 4, S = 0, T = 3, P = 2) is half C and half
       D, paired at random. Under the replicator dynamics, what happens?
@@ -604,7 +606,7 @@ questions:
     difficulty: hard
     level: analyze
     topics: [Replicator Dynamics]
-    section: "Reading the dynamics: rest points and stability"
+    section: The replicator equation
     prompt: Under the replicator dynamics, all-D is a stable rest point when P > S. What does that condition say?
     options:
       - id: a
@@ -714,3 +716,198 @@ questions:
       Both interior rest points are the mixed equilibria, 2/3 C and 4/9 C. They
       differ in stability: the Stag Hunt's is an unstable tipping point, and
       Hawk-Dove's is where the population ends.
+
+  - id: agai-g64sxa
+    type: multi
+    difficulty: easy
+    level: remember
+    topics: [Stochastic Game]
+    section: "Adding states: stochastic games"
+    prompt: Which of the following are part of the formal definition of a stochastic game with n agents?
+    options:
+      - id: a
+        text: An observation function Oi for each agent i
+        why: Observation functions are what a partially observable stochastic game adds. In a stochastic game every agent sees the state.
+      - id: b
+        text: A set of actions Ai for each agent i
+        correct: true
+      - id: c
+        text: A reward function Ri(s, a, s′) for each agent i
+        correct: true
+      - id: d
+        text: A joint policy π for all agents
+        why: Agents choose their policies. A policy is not part of the game's definition.
+      - id: e
+        text: A transition function T(s′ | s, a), where a is the joint action
+        correct: true
+      - id: f
+        text: A set of states S
+        correct: true
+    why: >-
+      A stochastic game is the 6-tuple of agents, states, action sets, reward
+      functions, a transition function over joint actions and an initial state
+      distribution. Observations belong to a POSG, and policies to the agents.
+
+  - id: agai-a8vjz5
+    type: single
+    difficulty: easy
+    level: apply
+    topics: [Normal-Form Game]
+    section: Games as models of multi-agent interaction
+    prompt: >-
+      Two agents choose an action simultaneously, one time only. Their payoffs
+      depend only on the pair of actions. Which formal model fits this situation
+      best?
+    options:
+      - id: a
+        text: Normal-form game
+        correct: true
+      - id: b
+        text: Repeated normal-form game
+        why: The agents play once, so there is no repetition and no history to condition on.
+      - id: c
+        text: Stochastic game
+        why: A stochastic game adds states that change with the joint action. Here payoffs depend on the actions alone.
+      - id: d
+        text: Partially observable stochastic game
+        why: A POSG adds states and private observations. A single simultaneous choice needs neither.
+    why: >-
+      A one-shot normal-form game has agents, actions and rewards on joint
+      actions, with no time and no state. That is exactly one simultaneous
+      choice with payoffs set by the action pair.
+
+  - id: agai-vp2bkq
+    type: single
+    difficulty: medium
+    level: apply
+    topics: [Repeated Game]
+    section: Games as models of multi-agent interaction
+    prompt: >-
+      Two pricing bots set their prices every day in the same market. Nothing
+      else changes from day to day, and each bot sees the other's past prices.
+      Which model fits best?
+    options:
+      - id: a
+        text: One-shot normal-form game
+        why: The bots meet every day, and each day's choice can depend on what happened before.
+      - id: b
+        text: Repeated normal-form game
+        correct: true
+      - id: c
+        text: Stochastic game
+        why: Nothing changes from day to day, so there is a single state. A stochastic game with one state is a repeated game.
+      - id: d
+        text: Partially observable stochastic game
+        why: There is no hidden state, and each bot sees the other's past prices.
+    why: >-
+      The same game is played over and over with one state, and policies can
+      condition on the history of joint actions. That is a repeated normal-form
+      game.
+
+  - id: agai-g25csm
+    type: multi
+    difficulty: medium
+    level: understand
+    topics: [Nash Equilibrium]
+    section: What a Nash equilibrium does not tell you
+    prompt: Which of these are limitations of the Nash equilibrium as a solution concept?
+    options:
+      - id: a
+        text: Some finite games have no equilibrium, even when mixed strategies are allowed.
+        why: Nash proved that every finite game has an equilibrium once mixed strategies are allowed.
+      - id: b
+        text: An equilibrium can be worse for all players than another outcome.
+        correct: true
+      - id: c
+        text: The concept applies only to games with exactly two players.
+        why: The Nash equilibrium applies to general-sum games with two or more agents.
+      - id: d
+        text: Computing an equilibrium can be hard in general games.
+        correct: true
+      - id: e
+        text: A game can have several equilibria, and the concept does not say which one will be played.
+        correct: true
+    why: >-
+      Equilibria can be sub-optimal, as (D, D) in the Prisoner's Dilemma, and
+      non-unique, as in the Stag Hunt. Computing one can also be hard. Existence
+      is guaranteed, and any number of players is allowed.
+
+  - id: agai-tyaxd7
+    type: single
+    difficulty: easy
+    level: remember
+    topics: [Replicator Dynamics]
+    section: The replicator equation
+    prompt: >-
+      With only two strategies, C and D, and x the fraction playing C, which
+      expression defines the replicator equation dx/dt?
+    options:
+      - id: a
+        text: x (1 − x) (fC − fD)
+        correct: true
+      - id: b
+        text: x (1 − x) (fC + fD)
+        why: The sum of the fitnesses does not say which strategy does better. The direction comes from their difference.
+      - id: c
+        text: x (fC − fD)
+        why: This drops the factor 1 − x, which comes from comparing C with the population average.
+      - id: d
+        text: (1 − x) (fC − fD)
+        why: This drops the factor x. Without it, a strategy nobody plays could still grow.
+    why: >-
+      x (fC − average fitness) becomes x (1 − x) (fC − fD) once the average is
+      written out. The factor x (1 − x) is positive inside the interval, so the
+      sign of fC − fD decides the direction.
+
+  - id: agai-vzhvhw
+    type: single
+    difficulty: easy
+    level: understand
+    topics: [Replicator Dynamics]
+    section: The replicator equation
+    prompt: What does the replicator equation assume?
+    options:
+      - id: a
+        text: Agents compute a best response to x and switch to it at the same time.
+        why: No agent computes anything. Strategies that earn more simply become more common, gradually.
+      - id: b
+        text: C becomes more common when most of the population already plays it.
+        why: Being common does not make C grow. A Stag Hunt population at 60% C still loses its cooperators.
+      - id: c
+        text: C becomes more common when it earns more than the population average.
+        correct: true
+      - id: d
+        text: C becomes more common when (C, C) is a Pareto-optimal outcome.
+        why: Pareto optimality plays no part. In the Prisoner's Dilemma (C, C) is Pareto optimal and C still dies out.
+    why: >-
+      The replicator equation grows C's share in proportion to how much more than
+      the population average C earns. It needs no rationality, which is why it
+      fits imitation and reinforcement learning.
+
+  - id: agai-hhux2d
+    type: single
+    difficulty: medium
+    level: apply
+    topics: [Pareto Optimality, Prisoner's Dilemma]
+    section: "Desirable outcomes: Pareto optimality, welfare and fairness"
+    prompt: >-
+      A symmetric Prisoner's Dilemma has payoffs R (C against C), S (C against
+      D), T (D against C) and P (D against D), with T > R > P > S. When is
+      (C, C) the social optimum?
+    options:
+      - id: a
+        text: When R > T
+        why: That never holds in a Prisoner's Dilemma. The social optimum compares totals, 2R against T + S.
+      - id: b
+        text: When R > P
+        why: That always holds, so (C, C) beats (D, D). It must also beat the mixed outcomes, which total T + S.
+      - id: c
+        text: When 2R ≥ T + S
+        correct: true
+      - id: d
+        text: When T + S ≥ 2P
+        why: That compares the mixed outcomes with (D, D) and says nothing about (C, C).
+    why: >-
+      The social optimum has the largest sum of payoffs. (C, C) totals 2R and
+      always beats (D, D) at 2P, so it is the social optimum when 2R is at least
+      the T + S of (C, D) and (D, C).
