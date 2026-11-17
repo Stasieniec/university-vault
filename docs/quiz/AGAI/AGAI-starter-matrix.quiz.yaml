@@ -1,6 +1,6 @@
 # Starter questions: spotting pure Nash equilibria in 2x2 payoff matrices.
-# PENDING Stas's decision on whether reading a small matrix counts as computing.
-# Delete this file if he says no; nothing else depends on it.
+# The mock midterm's open question (Q6) asks for best responses and pure
+# equilibria of a 2x2 game, so reading a small matrix is exam material.
 # Payoffs are (row player, column player).
 course: AGAI
 lecture: AGAI-starter-matrix

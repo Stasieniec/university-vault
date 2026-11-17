@@ -1,4 +1,6 @@
-# Starter questions: repeated games, tit-for-tat, the folk theorem, stochastic games.
+# Starter questions: repeated games, tit-for-tat, stochastic games.
+# Folk theorem, backward induction, discounting and Markov strategies are not
+# midterm material; those items are retired.
 # Sources: Shoham and Leyton-Brown, Multiagent Systems (2009), sections 6.1
 # and 6.2; Albrecht, Christianos and Schafer, Multi-Agent Reinforcement
 # Learning (2024), sections 3.2, 3.3 and 4.4.
@@ -29,9 +31,8 @@ questions:
         why: Alternating ignores the opponent entirely. Tit-for-tat mirrors what the opponent just did.
     why: >-
       Tit-for-tat starts by cooperating and then plays whatever the other player
-      played in the previous round. It is simple and did strikingly well in
-      Axelrod's tournament of computer programs for the repeated prisoner's
-      dilemma.
+      played in the previous round. So it cooperates with cooperators and is
+      exploited by a defector only once.
 
   - id: agai-rw8buh
     type: single
@@ -58,6 +59,7 @@ questions:
       richer strategy space than its stage game.
 
   - id: agai-wjxb9g
+    status: retired
     type: truefalse
     difficulty: easy
     level: understand
@@ -70,6 +72,7 @@ questions:
       The analysis is the same either way.
 
   - id: agai-ah99wb
+    status: retired
     type: single
     difficulty: medium
     level: understand
@@ -94,6 +97,7 @@ questions:
       always defecting is the only equilibrium.
 
   - id: agai-2k3zjg
+    status: retired
     type: multi
     difficulty: medium
     level: understand
@@ -118,6 +122,7 @@ questions:
       equilibrium. So a large set of payoffs is reachable in equilibrium.
 
   - id: agai-3t5d5h
+    status: retired
     type: single
     difficulty: hard
     level: analyze
@@ -169,6 +174,7 @@ questions:
       MDPs (one player) and repeated games (one state).
 
   - id: agai-br8v5h
+    status: retired
     type: truefalse
     difficulty: medium
     level: understand
@@ -181,6 +187,7 @@ questions:
       stationary strategy also drops the time dependence.
 
   - id: agai-g836tn
+    status: retired
     type: single
     difficulty: hard
     level: analyze
@@ -205,6 +212,7 @@ questions:
       strategy that never retaliates invites exploitation.
 
   - id: agai-mkkch3
+    status: retired
     type: single
     difficulty: medium
     level: apply

@@ -126,15 +126,9 @@ So policy gradient methods use a network to represent the policy directly.
 
 In a [[Policy Gradient Methods|policy gradient method]] a network with parameters $\phi$ outputs a preference per action, and a softmax turns them into probabilities $\pi(a \mid s;\phi)$. Any distribution is reachable, and the agent explores by sampling. For continuous actions the network can output, say, the mean of a distribution.
 
-The aim: change $\phi$ so that actions leading to better outcomes become more likely. Differentiating the expected return directly needs the change in which states are visited, which compounds along trajectories and requires the transition model. The [[Policy Gradient Theorem|policy gradient theorem]] avoids that term:
+The aim: change $\phi$ so that actions leading to better outcomes become more likely. Differentiating the expected return directly would need to know how changing $\phi$ changes which states are visited, which requires the transition model. The [[Policy Gradient Theorem|policy gradient theorem]] removes that term: the gradient is an average, over the current policy's own experience, of $Q^\pi(s,a)\,\nabla_\phi\log\pi(a \mid s;\phi)$. Here $\nabla_\phi\log\pi$ is the direction that makes $a$ more likely in $s$, and $Q^\pi(s,a)$, how good $a$ is, weights it. So samples can estimate the gradient without a model.
 
-> [!formula] Policy gradient theorem
-> $$\nabla_\phi J(\phi) \propto \mathbb{E}_{\pi}\big[Q^\pi(s,a)\,\nabla_\phi\log\pi(a \mid s;\phi)\big]$$
-> - $\nabla_\phi\log\pi(a \mid s;\phi)$: the direction that makes $a$ more likely in $s$
-> - $Q^\pi(s,a)$: how good $a$ is, the weight on that direction
-> - $\mathbb{E}_\pi$: over experience from the current policy, so samples can estimate it without a model
-
-$Q^\pi$ still has to be estimated: by Monte Carlo returns (REINFORCE) or by another network (actor-critic: A2C, PPO). Because the expectation is over the current policy's own experience, these methods are **on-policy** ([[On-Policy Learning]]): data is used to update the policy that generated it, then thrown away.
+$Q^\pi$ still has to be estimated: by Monte Carlo returns (REINFORCE) or by another network (actor-critic: A2C, PPO). Because the average is over the current policy's own experience, these methods are **on-policy** ([[On-Policy Learning]]): data is used to update the policy that generated it, then thrown away.
 
 ## REINFORCE: estimate Q with the return
 
@@ -188,8 +182,6 @@ Pros: often stable updates, and it can reuse a batch for several optimisation pa
 | Data | off-policy, replay | on-policy, full episodes | on-policy, single steps | on-policy, few passes |
 | Strength | re-uses data | simple, unbiased | lower variance | stable updates |
 | Weakness | discrete actions, ε-greedy | high variance | critic bias | more complex |
-
-Value-based (DQN) re-uses data off-policy but needs discrete actions and only expresses ε-greedy policies. Policy-based methods represent stochastic policies and continuous actions directly, but are on-policy.
 
 ## Deep MARL: who sees what, and when
 

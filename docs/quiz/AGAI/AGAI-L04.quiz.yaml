@@ -440,7 +440,7 @@ questions:
     why: >-
       REINFORCE plays a whole episode, then uses the Monte Carlo return from each
       step onwards as its estimate of Q^π. Its gradient estimate at step t is
-      G_t ∇log π(a^t | s^t).
+      G_t ∇log π(a_t | s_t).
 
   - id: agai-h7y25f
     type: single
@@ -1155,3 +1155,54 @@ questions:
       REINFORCE is on-policy: each update uses the latest episodes and then
       discards them. IDQN's buffer keeps replaying experience from the others'
       old policies.
+
+  - id: agai-4rh26v
+    type: single
+    difficulty: easy
+    level: understand
+    topics: [Advantage Function, Advantage Actor-Critic (A2C)]
+    section: Actor-critic methods and A2C
+    prompt: "In A2C, the estimate Adv(s, a) = r + γ V(s') − V(s) is positive. What does the actor update do?"
+    options:
+      - id: a
+        text: It makes action a more likely, because a did better than expected
+        correct: true
+      - id: b
+        text: It makes action a less likely, because the critic was too pessimistic
+        why: A positive advantage raises the action's probability. A negative one would lower it.
+      - id: c
+        text: It sets the probability of action a to 1 for this state
+        why: A gradient step only nudges the probability up. It does not make the policy deterministic.
+      - id: d
+        text: It leaves the policy unchanged, and only the critic is updated
+        why: In A2C the actor and the critic both update on every step. The advantage is what drives the actor's update.
+    why: >-
+      The outcome r + γV(s') beat the critic's expectation V(s), so a did better
+      than expected. Minimising −Adv · log π(a | s) with a positive advantage
+      raises π(a | s).
+
+  - id: agai-95mcxz
+    type: single
+    difficulty: easy
+    level: apply
+    topics: [Centralised Training with Decentralised Execution]
+    section: "Deep MARL: who sees what, and when"
+    prompt: >-
+      Autonomous cars cannot exchange all sensor data while driving, but a
+      simulator can provide all data during training. Which mode fits best?
+    options:
+      - id: a
+        text: Centralised training and execution
+        why: Centralised execution would need all sensor data exchanged on the road, which is impossible.
+      - id: b
+        text: Decentralised training and execution
+        why: It would ignore the extra information the simulator provides during training.
+      - id: c
+        text: Centralised training with decentralised execution
+        correct: true
+      - id: d
+        text: Decentralised training with centralised execution
+        why: Execution is where the information is missing, so it has to be decentralised, and training is where it is available.
+    why: >-
+      Training can use everything the simulator offers, and each car then acts
+      on its own sensors. That is CTDE.

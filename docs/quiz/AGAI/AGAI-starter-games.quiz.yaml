@@ -95,6 +95,7 @@ questions:
       all.
 
   - id: agai-wv7zut
+    status: retired
     type: single
     difficulty: medium
     level: understand
@@ -119,6 +120,7 @@ questions:
       rescaling because it compares each player's utility separately.
 
   - id: agai-kn9nep
+    status: retired
     type: multi
     difficulty: medium
     level: understand
@@ -171,6 +173,7 @@ questions:
       payoff, and each player's mix leaves the other indifferent.
 
   - id: agai-g7nqv9
+    status: retired
     type: single
     difficulty: hard
     level: analyze
@@ -198,6 +201,7 @@ questions:
       shrink the game further, at the price of order-dependence.
 
   - id: agai-mrnbrr
+    status: retired
     type: truefalse
     difficulty: medium
     level: understand
@@ -222,6 +226,7 @@ questions:
       neither player can exploit the other.
 
   - id: agai-t653fd
+    status: retired
     type: multi
     difficulty: medium
     level: understand

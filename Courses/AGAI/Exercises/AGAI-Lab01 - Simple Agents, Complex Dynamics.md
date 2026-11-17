@@ -177,9 +177,6 @@ Greed makes $R - T$ negative and fear makes $S - P$ negative, so for every $x$ t
 > [!card]- Why is the Prisoner's Dilemma an incentive problem and the Stag Hunt a trust problem?
 > In the PD, D is best even against a sure cooperator; in the SH only doubt about the partner pushes to D.
 
-> [!card]- Why is (C, D) in the Prisoner's Dilemma Pareto optimal but not the social optimum?
-> Moving away hurts the defector, yet its total (5) is below the 6 of (C, C).
-
 > [!card]- What is the threshold belief $p^*$ for playing C in a symmetric 2x2 game?
 > $p^* = (P - S) / ((R - T) + (P - S))$.
 

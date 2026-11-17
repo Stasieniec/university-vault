@@ -340,7 +340,7 @@ The mock's open question on this part (12, the Stag Hunt with independent Q-lear
 > **B and C.** A: the others' learning makes it non-stationary. D: there are no such guarantees.
 
 > [!card]- Multiple selection: which are part of a stochastic game? (A) A reward function for each agent. (B) A joint policy. (C) A transition function over the joint action. (D) An action set for each agent.
-> **A, C and D.** B: policies are what the agents choose, not part of the game.
+> **A, C and D.** B: policies are what the agents choose; the game does not include them.
 
 ## Links
 

@@ -220,7 +220,7 @@ questions:
     type: cloze
     difficulty: easy
     level: remember
-    topics: ["Payoff structure decides what a good solution is"]
+    topics: ["Many learners: stochastic games"]
     section: "Many learners: stochastic games"
     prompt: A two-agent game in which R1 = −R2 in every outcome is called ___.
     options:
@@ -349,7 +349,7 @@ questions:
     type: single
     difficulty: medium
     level: understand
-    topics: ["What convergence means when everyone learns"]
+    topics: ["Many learners: stochastic games"]
     section: "Many learners: stochastic games"
     prompt: In matching pennies, why do two learners' policies orbit the equilibrium without settling?
     options:
@@ -374,7 +374,7 @@ questions:
     type: multi
     difficulty: hard
     level: analyze
-    topics: ["What convergence means when everyone learns"]
+    topics: ["Many learners: stochastic games"]
     section: "Many learners: stochastic games"
     prompt: >-
       Two learners in matching pennies keep cycling. Averaged over many episodes,
@@ -402,7 +402,7 @@ questions:
     type: single
     difficulty: hard
     level: analyze
-    topics: ["Non-stationarity: experience has a shelf life"]
+    topics: ["Why multi-agent learning is hard"]
     section: "Why multi-agent learning is hard"
     prompt: >-
       To agent i, the transitions it experiences are the game's true transitions
@@ -430,7 +430,7 @@ questions:
     type: multi
     difficulty: medium
     level: understand
-    topics: ["Non-stationarity: experience has a shelf life"]
+    topics: ["Why multi-agent learning is hard"]
     section: "Why multi-agent learning is hard"
     prompt: Which of these are consequences of non-stationarity in multi-agent RL?
     options:
@@ -533,7 +533,7 @@ questions:
     type: single
     difficulty: hard
     level: analyze
-    topics: [Stag Hunt, "Equilibrium selection: settling in the wrong equilibrium"]
+    topics: [Stag Hunt, "Why multi-agent learning is hard"]
     section: "Why multi-agent learning is hard"
     prompt: >-
       In a gridworld stag hunt, a plant alone gives +1, the stag gives +5 if hunted
@@ -561,7 +561,7 @@ questions:
     type: truefalse
     difficulty: medium
     level: understand
-    topics: ["Equilibrium selection: settling in the wrong equilibrium"]
+    topics: ["Why multi-agent learning is hard"]
     section: "Why multi-agent learning is hard"
     statement: A country that drives on the left keeps doing so because driving on the right would not be an equilibrium there.
     answer: false
@@ -574,7 +574,7 @@ questions:
     type: cloze
     difficulty: easy
     level: remember
-    topics: ["Scalability: the curse of dimensionality"]
+    topics: ["Why multi-agent learning is hard"]
     section: "Why multi-agent learning is hard"
     prompt: With 5 actions per agent, a game with N agents has ___ joint actions.
     options:
@@ -718,3 +718,157 @@ questions:
       Each agent runs ordinary Q-learning on its own actions and rewards. The
       others' changing behaviour is absorbed into the transitions and rewards it
       experiences, so its MDP is not fixed.
+
+  - id: agai-cygx8v
+    type: multi
+    difficulty: medium
+    level: understand
+    topics: [Tabular RL, Q-Learning]
+    section: "What a Q-table cannot do"
+    prompt: Which of these are limitations of tabular Q-learning?
+    options:
+      - id: a
+        text: It works only with deterministic rewards.
+        why: The learning rate averages noisy rewards over visits, so stochastic rewards are fine.
+      - id: b
+        text: It needs the transition function in advance.
+        why: That is value iteration. Q-learning learns from sampled transitions.
+      - id: c
+        text: Experience in one state does not carry over to similar states.
+        correct: true
+      - id: d
+        text: The table grows with the number of state-action pairs.
+        correct: true
+    why: >-
+      Each value is updated in isolation, so a table cannot generalise. It also
+      needs one entry per state-action pair, too many for complex environments.
+
+  - id: agai-3xgrja
+    type: single
+    difficulty: easy
+    level: remember
+    topics: [Value Iteration, Q-Learning]
+    section: "Values and value iteration"
+    prompt: What is the main limitation of value iteration compared with Q-learning?
+    options:
+      - id: a
+        text: It requires an ε-greedy policy to visit every state.
+        why: Value iteration sweeps over every state with the model. Exploration is a problem of sampling methods like Q-learning.
+      - id: b
+        text: It works only when the discount factor γ equals 0.
+        why: It works for any γ below 1; γ = 0 would ignore the future entirely.
+      - id: c
+        text: It requires the transition and reward functions of the MDP.
+        correct: true
+      - id: d
+        text: It cannot find an optimal policy when rewards are stochastic.
+        why: It averages over outcomes with the model's probabilities, so stochastic rewards are no problem.
+    why: >-
+      Value iteration needs a model, P(s' | s, a) and R. That model is often
+      unavailable or intractable, while Q-learning needs only sampled transitions.
+
+  - id: agai-ufwad2
+    type: multi
+    difficulty: medium
+    level: understand
+    topics: [Independent Learning]
+    section: "Central learning and independent learning"
+    prompt: Which of these are advantages of independent learning?
+    options:
+      - id: a
+        text: The environment of each agent stays stationary.
+        why: The others keep learning, so each agent's environment changes. That is its main weakness.
+      - id: b
+        text: All agents are guaranteed to reach the social optimum.
+        why: Nothing guarantees this; in the climbing game independent learners get stuck at a poor outcome.
+      - id: c
+        text: Convergence to a Nash equilibrium is guaranteed.
+        why: Non-stationarity breaks the convergence guarantees of Q-learning.
+      - id: d
+        text: Each Q-table covers only the agent's own actions, so it scales better with the number of agents.
+        correct: true
+      - id: e
+        text: Agents do not need to observe the actions of the other agents.
+        correct: true
+    why: >-
+      Independent learners track |A| × N values instead of |A|^N joint actions,
+      and each learns from its own actions and rewards. The price is a
+      non-stationary environment and no guarantees.
+
+  - id: agai-kvbk5a
+    type: single
+    difficulty: easy
+    level: remember
+    topics: [Independent Learning]
+    section: "Central learning and independent learning"
+    prompt: What does central Q-learning learn?
+    options:
+      - id: a
+        text: One Q-function shared by all agents, over the state and an individual action
+        why: That describes a shared table over individual actions. Central learning works over the joint action.
+      - id: b
+        text: One Q-function over the state and the joint action, which controls all agents
+        correct: true
+      - id: c
+        text: One Q-function per agent, over the state and that agent's own action
+        why: That is independent learning.
+      - id: d
+        text: One Q-function per agent, over the state and only the other agents' actions
+        why: Neither central nor independent learning uses values over only the others' actions.
+    why: >-
+      A central learner treats all agents as one. It keeps a value per joint
+      action and chooses the joint action for everyone.
+
+  - id: agai-ppqwgb
+    type: multi
+    difficulty: medium
+    level: understand
+    topics: [Independent Learning]
+    section: "Central learning and independent learning"
+    prompt: Which of these are limitations of central Q-learning?
+    options:
+      - id: a
+        text: The number of joint actions grows exponentially with the agents.
+        correct: true
+      - id: b
+        text: It needs a controller that sees and commands every agent.
+        correct: true
+      - id: c
+        text: Its value for an action averages over the partners' behaviour.
+        why: That is the independent learner. A central learner values each joint action directly.
+      - id: d
+        text: It cannot represent the value of coordinated joint actions.
+        why: It can. That is why it finds (a, a) = 11 in the climbing game.
+      - id: e
+        text: Its environment changes as the other learners update.
+        why: There are no other learners. One learner chooses for everyone.
+    why: >-
+      A central learner must explore |A|^N joint actions, which blows up with
+      the number of agents, and it needs central control of everyone.
+
+  - id: agai-gftyan
+    type: single
+    difficulty: easy
+    level: apply
+    topics: [Multi-Agent Credit Assignment]
+    section: "Why multi-agent learning is hard"
+    prompt: >-
+      Three agents share a team reward for each apple collected. A and B collect
+      apples while C wanders in a corner, and C's wandering is reinforced. Which
+      challenge is this?
+    options:
+      - id: a
+        text: Non-stationarity
+        why: Non-stationarity is about the others' policies changing. Here the problem is whose action earned the reward.
+      - id: b
+        text: Credit assignment
+        correct: true
+      - id: c
+        text: Equilibrium selection
+        why: Equilibrium selection is about which of several equilibria learners reach.
+      - id: d
+        text: Scalability
+        why: Three agents is no scaling problem. The shared reward hides who did the work.
+    why: >-
+      This is the lazy agent. A shared reward gives no individual signal, so C
+      is credited for its teammates' success.

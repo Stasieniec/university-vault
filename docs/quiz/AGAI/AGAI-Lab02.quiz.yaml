@@ -277,7 +277,7 @@ questions:
         correct: true
       - id: d
         text: The Q-table is too large for the budget to reach the restrained policy
-        why: Without lamps every reachable state is visited about 444 times, and PPO, which handles size, defects too.
+        why: Without lamps the table is small and well visited, and PPO, which handles size, takes the other's coins too.
       - id: e
         text: A discount factor of 0.95 makes the agents ignore future coins
         why: Discounting is not the issue. With no memory of the partner, restraint never changes the other's later play.
@@ -390,3 +390,179 @@ questions:
       With a single state there is nothing to generalise over. The gradient
       pushes towards C only when the partner plays C with probability above 2/3,
       as in the replicator dynamics, so fresh networks that play C about half the time drift to (D,D).
+
+  - id: agai-zpurmt
+    type: single
+    difficulty: medium
+    level: understand
+    topics: [Social Dilemma, Independent Learning]
+    section: "Why the learners take the other's coins"
+    prompt: >-
+      In the Coin Game, an agent gets +1 for any coin, and the coin's owner gets
+      −2 if the other agent takes it. Independent Q-learners collect many coins,
+      but only about 56% have their own colour. Why?
+    options:
+      - id: a
+        text: The agents cannot tell the colours of coins apart in their observations.
+        why: The observation has separate grids for own-colour and other-colour coins, and the state records whose coin it is.
+      - id: b
+        text: The exploration rate makes agents pick up most coins at random.
+        why: With ε = 0.1 most moves are greedy, and the learners collect far more coins than random agents.
+      - id: c
+        text: The −2 falls on the other agent, so an agent's own reward ignores this cost.
+        correct: true
+      - id: d
+        text: The Q-table is too small to store a policy that avoids coins.
+        why: The table has a row for every state, including whose coin it is, so it could store restraint.
+    why: >-
+      The −2 lands in the other's reward, never in the taker's. Taking any coin
+      pays +1, so taking every reachable coin is best for an agent's own reward.
+
+  - id: agai-w83qzu
+    type: cloze
+    difficulty: easy
+    level: apply
+    topics: [Stag Hunt, Q-Learning]
+    section: "Initial values as beliefs"
+    prompt: >-
+      In the Stag Hunt (R = 4, S = 0, T = 3, P = 2), an agent with belief b
+      starts with Q(C) = 4b and Q(D) = 3b + 2(1 − b). It starts by hunting stag
+      when b is above ___.
+    options:
+      - id: a
+        text: 1/2
+        why: At b = 1/2, Q(C) = 2 and Q(D) = 2.5, so it starts with hare.
+      - id: b
+        text: 2/3
+        correct: true
+      - id: c
+        text: 1/3
+        why: That is the hare threshold seen from the other side. At b = 1/3, Q(C) = 1.33 is below Q(D) = 2.33.
+      - id: d
+        text: 3/4
+        why: Stag already wins below 3/4. At b = 0.7, Q(C) = 2.8 beats Q(D) = 2.7.
+    why: >-
+      Q(D) = b + 2, and 4b > b + 2 gives b > 2/3. That is exactly the
+      best-response threshold of Lab 1.
+
+  - id: agai-ststa3
+    type: single
+    difficulty: easy
+    level: apply
+    topics: [Stag Hunt]
+    section: "Learners starting at zero lock into (D,D)"
+    prompt: >-
+      In the Stag Hunt with R = 4, S = 0, T = 3, P = 2, what do C and D earn on
+      average against a partner who plays each action half the time?
+    options:
+      - id: a
+        text: C earns 2, D earns 2
+        why: D earns 3 against C and 2 against D, which averages to 2.5.
+      - id: b
+        text: C earns 2.5, D earns 2
+        why: C earns 4 against C and 0 against D, which averages to 2.
+      - id: c
+        text: C earns 4, D earns 3
+        why: Those are the payoffs against a partner who surely plays C.
+      - id: d
+        text: C earns 2, D earns 2.5
+        correct: true
+    why: >-
+      C: 0.5 · 4 + 0.5 · 0 = 2. D: 0.5 · 3 + 0.5 · 2 = 2.5. Early learners face
+      such a partner, so D looks better.
+
+  - id: agai-hzc962
+    type: single
+    difficulty: easy
+    level: apply
+    topics: [Tabular RL]
+    section: "Irrelevant lamps break the table"
+    prompt: >-
+      The Coin Game Q-table has 1,458 rows. Each of 8 random lamps can be on or
+      off. How many rows does the table have with the lamps?
+    options:
+      - id: a
+        text: 1,458 · 8
+        why: Each lamp doubles the rows, so 8 lamps multiply them by 2^8.
+      - id: b
+        text: 1,458 + 2^8
+        why: Every lamp pattern combines with every position state, so the counts multiply.
+      - id: c
+        text: 1,458 · 2^8
+        correct: true
+      - id: d
+        text: 1,458
+        why: A table treats observations that differ in one lamp as different rows.
+    why: >-
+      There are 2^8 = 256 lamp patterns, and each one is a separate copy of every
+      position state: 1,458 · 2^8 = 373,248 rows.
+
+  - id: agai-f8scd7
+    type: single
+    difficulty: easy
+    level: apply
+    topics: [Tabular RL]
+    section: "Irrelevant lamps break the table"
+    prompt: >-
+      Training plays 300 updates, each with 32 parallel games of 16 steps, and
+      every step gives one decision per agent. What is the budget of decisions
+      per agent?
+    options:
+      - id: a
+        text: 300 × 32 = 9,600
+        why: That counts episodes. Each episode has 16 decisions per agent.
+      - id: b
+        text: 300 × 32 × 16 = 153,600
+        correct: true
+      - id: c
+        text: 300 × 16 = 4,800
+        why: That leaves out the 32 games played in parallel.
+      - id: d
+        text: 300 × 32 × 16 × 2 = 307,200
+        why: That counts both agents' decisions. The budget is per agent.
+    why: >-
+      Each update plays one 16-step episode in each of 32 games. That gives
+      about 105 decisions per row without lamps and 0.4 with 8 lamps.
+
+  - id: agai-64284u
+    type: multi
+    difficulty: medium
+    level: understand
+    topics: [Function Approximation, Tabular RL]
+    section: "Irrelevant lamps break the table"
+    prompt: Replacing the Coin Game's Q-table with a neural network brings which new challenges?
+    options:
+      - id: a
+        text: Instability from moving targets and correlated data
+        correct: true
+      - id: b
+        text: Possible divergence during training
+        correct: true
+      - id: f
+        text: No general guarantee of convergence
+        correct: true
+      - id: c
+        text: More computation for each update
+        correct: true
+      - id: d
+        text: A separate set of weights for every lamp pattern
+        why: The weights are shared across all observations. That is how the network ignores the lamps.
+      - id: e
+        text: No generalisation to observations never seen in training
+        why: Generalisation is what the network adds. A table is the learner that cannot generalise.
+    why: >-
+      Shared weights solve the lamp problem, but they bring new trouble. Training
+      on moving targets can be unstable or diverge, and each update costs more
+      than changing one table entry.
+
+  - id: agai-2g62eg
+    type: truefalse
+    difficulty: medium
+    level: understand
+    topics: [Stag Hunt]
+    section: "The game and the learners"
+    statement: In the Stag Hunt with R = 4, S = 0, T = 3, P = 2, (D,D) is the risk-dominant equilibrium.
+    answer: true
+    why: >-
+      P − S = 2 is larger than R − T = 1, so misjudging the partner costs more
+      when hunting stag. (C,C) pays more, but (D,D) is the safer equilibrium.
