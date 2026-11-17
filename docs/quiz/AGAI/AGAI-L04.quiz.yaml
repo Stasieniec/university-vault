@@ -106,6 +106,7 @@ questions:
       represent complex value functions.
 
   - id: agai-enggrs
+    status: retired
     type: cloze
     difficulty: easy
     level: remember
@@ -161,7 +162,7 @@ questions:
     why: >-
       The target is treated as a fixed number, so no gradient flows through it.
       Only the estimate is differentiated, which pulls the network towards the
-      target: a semi-gradient update.
+      target.
 
   - id: agai-vg7why
     type: multi
@@ -196,7 +197,7 @@ questions:
 
   - id: agai-jgccnd
     type: single
-    difficulty: medium
+    difficulty: hard
     level: analyze
     topics: [Experience Replay, "What breaks: moving targets and correlated data"]
     section: "What breaks: moving targets and correlated data"
@@ -225,7 +226,7 @@ questions:
 
   - id: agai-69jzr6
     type: single
-    difficulty: medium
+    difficulty: hard
     level: apply
     topics: [Target Network]
     section: "DQN: a target network and a replay buffer"
@@ -443,7 +444,7 @@ questions:
 
   - id: agai-h7y25f
     type: single
-    difficulty: medium
+    difficulty: hard
     level: apply
     topics: [REINFORCE]
     section: "REINFORCE: estimate Q with the return"
@@ -478,9 +479,9 @@ questions:
     statement: Subtracting a state-dependent baseline b(s) from the return leaves REINFORCE's expected gradient unchanged.
     answer: true
     why: >-
-      The baseline term averages to zero, since Σ π ∇log π = ∇Σ π = ∇1 = 0. What
-      changes is the variance: better-than-usual actions go up and worse ones
-      down.
+      The baseline term averages out to zero over the actions, so the expected
+      gradient stays the same. What changes is the variance: better-than-usual
+      actions go up and worse ones down.
 
   - id: agai-qxjt7v
     type: single
@@ -528,7 +529,7 @@ questions:
         correct: true
       - id: e
         text: It replays old transitions from a buffer
-        why: A2C is on-policy, so it cannot decorrelate with a replay buffer. It runs parallel environments instead.
+        why: A2C is on-policy, so it uses no replay buffer. Replay belongs to off-policy DQN.
       - id: f
         text: Its gradient estimates are unbiased
         why: That is REINFORCE's strength with exact returns. The critic's estimates may be wrong, which adds bias.
@@ -539,7 +540,7 @@ questions:
 
   - id: agai-bn7w8k
     type: single
-    difficulty: medium
+    difficulty: hard
     level: apply
     topics: [Advantage Function, Advantage Actor-Critic (A2C)]
     section: Actor-critic methods and A2C
@@ -587,8 +588,8 @@ questions:
 
   - id: agai-thgsrx
     type: single
-    difficulty: medium
-    level: understand
+    difficulty: hard
+    level: apply
     topics: [PPO]
     section: "PPO: limit how far one update moves the policy"
     prompt: >-
@@ -696,7 +697,7 @@ questions:
 
   - id: agai-4m3v6x
     type: match
-    difficulty: medium
+    difficulty: hard
     level: apply
     topics: [Centralised Training with Decentralised Execution]
     section: "Deep MARL: who sees what, and when"
@@ -844,3 +845,313 @@ questions:
       With a shared reward, agent 1's critic estimates the team's value from its
       own observations. That says nothing about which agent earned the reward, so
       IA2C does not solve credit assignment.
+
+  - id: agai-6qusw6
+    type: multi
+    difficulty: easy
+    level: understand
+    topics: [Q-Learning, Function Approximation]
+    section: Why tables stop working
+    prompt: Why does tabular Q-learning fail in complex environments?
+    options:
+      - id: a
+        text: A table cannot store values for discrete actions
+        why: A table stores exactly one value per discrete action in each state.
+      - id: b
+        text: Many states get few or zero visits during training
+        correct: true
+      - id: c
+        text: What is learned in one row is not used in other rows
+        correct: true
+      - id: d
+        text: The memory needed grows with the number of state-action pairs
+        correct: true
+      - id: e
+        text: The update rule is undefined when rewards are stochastic
+        why: With stochastic rewards the update is a running average, which stays well defined.
+    why: >-
+      Each value is updated in isolation, so nothing carries over between
+      similar states. The table grows with the state-action pairs, and with a
+      fixed budget many rows are rarely or never visited.
+
+  - id: agai-tsz9em
+    type: single
+    difficulty: easy
+    level: understand
+    topics: [Q-Learning, "Why tables stop working"]
+    section: Why tables stop working
+    prompt: You add a random binary input that does not affect the game to the state of a Q-table. What is the effect?
+    options:
+      - id: a
+        text: The rows double, and values are not shared between rows that differ in this input
+        correct: true
+      - id: b
+        text: The rows stay the same, because the table learns to ignore the input
+        why: A table cannot ignore an input. Every distinct input value is its own row.
+      - id: c
+        text: The rows double, but each update also copies the value to the matching row
+        why: A table update changes exactly one entry. Nothing is copied to other rows.
+      - id: d
+        text: The rows stay the same, but the optimal policy of the game changes
+        why: The input does not affect the game, so the optimal policy is unchanged, and the table does grow.
+    why: >-
+      Each state now comes in two versions, and a table has no way to share
+      values between rows. Each lesson must be learned again for both values of
+      the input.
+
+  - id: agai-9jw2f2
+    type: single
+    difficulty: easy
+    level: remember
+    topics: [Deep Q-Network (DQN)]
+    section: "Deep Q-learning: Q-learning with a network"
+    prompt: What are the input and output of a standard DQN?
+    options:
+      - id: a
+        text: "Input: the state. Output: a probability for each discrete action."
+        why: A probability per action is the output of a policy network, used by policy gradient methods.
+      - id: b
+        text: "Input: the state. Output: one Q-value for each discrete action."
+        correct: true
+      - id: c
+        text: "Input: the state and an action. Output: a probability for that action."
+        why: DQN outputs values and takes only the state as input.
+      - id: d
+        text: "Input: an action. Output: the value of each possible next state."
+        why: DQN does not predict next states. It maps a state to the value of each action.
+    why: >-
+      The state goes in and one Q-value per discrete action comes out. One
+      forward pass gives every action's value, and the greedy action is the
+      largest output.
+
+  - id: agai-cua6c4
+    type: single
+    difficulty: easy
+    level: remember
+    topics: [Deep Q-Network (DQN)]
+    section: "Deep Q-learning: Q-learning with a network"
+    prompt: In DQN, what is the target y when the next state s' is terminal?
+    options:
+      - id: a
+        text: "y = 0"
+        why: That drops the reward that was actually received on the last step.
+      - id: b
+        text: "y = r + γ max_a' Q(s', a'; θ⁻)"
+        why: That is the target for a non-terminal s'. It adds future value that can never be collected.
+      - id: c
+        text: "y = r"
+        correct: true
+      - id: d
+        text: "y = max_a' Q(s', a'; θ⁻)"
+        why: It ignores the reward and still bootstraps from a state with no future.
+    why: >-
+      After a terminal state no further reward follows, so the target is just
+      the last reward.
+
+  - id: agai-7bp4qc
+    type: multi
+    difficulty: medium
+    level: understand
+    topics: [Experience Replay]
+    section: "DQN: a target network and a replay buffer"
+    prompt: What does the replay buffer of DQN contribute?
+    options:
+      - id: a
+        text: It stores earlier copies of the network weights
+        why: That is the target network. The buffer stores transitions (s, a, r, s').
+      - id: b
+        text: It turns DQN into an on-policy method
+        why: Replaying old transitions is only possible because DQN is off-policy.
+      - id: c
+        text: It reduces the correlation between the samples in a minibatch
+        correct: true
+      - id: d
+        text: It removes the need for a target network
+        why: The buffer handles correlated data and the target network handles moving targets. DQN needs both.
+      - id: e
+        text: It allows each transition to be used for several updates
+        correct: true
+    why: >-
+      Uniform minibatches mix transitions from many episodes, which breaks the
+      correlation of consecutive steps. A stored transition can be sampled many
+      times, so experience is re-used.
+
+  - id: agai-2gkrme
+    type: multi
+    difficulty: medium
+    level: understand
+    topics: [Deep Q-Network (DQN), Off-Policy Learning]
+    section: "DQN: a target network and a replay buffer"
+    prompt: Which statements about DQN are correct?
+    options:
+      - id: a
+        text: It directly learns a network that outputs action probabilities
+        why: That describes policy gradient methods. DQN learns Q-values and acts ε-greedily on them.
+      - id: b
+        text: No gradient flows through the target y during an update
+        correct: true
+      - id: c
+        text: It usually collects data with an ε-greedy policy
+        correct: true
+      - id: d
+        text: It is an off-policy method
+        correct: true
+      - id: e
+        text: It handles continuous actions without any changes
+        why: It needs one output per discrete action and a max over all actions.
+    why: >-
+      The target is treated as a constant and only the estimate is
+      differentiated. Actions are chosen ε-greedily, and the max in the target
+      lets DQN learn from data collected by older policies.
+
+  - id: agai-fpuh2h
+    type: single
+    difficulty: medium
+    level: remember
+    topics: [REINFORCE, Policy Gradient Theorem]
+    section: "REINFORCE: estimate Q with the return"
+    prompt: Which quantity does REINFORCE use to estimate the policy gradient at time t? G_t is the Monte Carlo return.
+    options:
+      - id: a
+        text: "G_t ∇_φ max_a Q(s_t, a; φ)"
+        why: REINFORCE has no Q-network. It weights the log-probability of the action taken.
+      - id: b
+        text: "π(a_t | s_t; φ) ∇_φ G_t"
+        why: The return is a sampled number and has no gradient with respect to φ.
+      - id: c
+        text: "∇_φ (G_t − π(a_t | s_t; φ))²"
+        why: That regresses a probability onto a return, which means nothing.
+      - id: d
+        text: "G_t ∇_φ log π(a_t | s_t; φ)"
+        correct: true
+    why: >-
+      The policy gradient theorem weights ∇ log π by Q^π(s, a). REINFORCE
+      replaces Q^π by the Monte Carlo return G_t.
+
+  - id: agai-b5msm7
+    type: cloze
+    difficulty: medium
+    level: understand
+    topics: [Advantage Function, Advantage Actor-Critic (A2C)]
+    section: Actor-critic methods and A2C
+    prompt: For a transition (s, a, r, s'), A2C estimates the advantage of a as ___.
+    options:
+      - id: a
+        text: "r + γ max_a' Q(s', a')"
+        why: That is the Q-learning target. A2C's critic learns V, and the advantage subtracts V(s).
+      - id: b
+        text: "r + γ V(s') − V(s)"
+        correct: true
+      - id: c
+        text: "the Monte Carlo return G_t"
+        why: That is what REINFORCE uses, with no critic and no baseline.
+      - id: d
+        text: "V(s) − r − γ V(s')"
+        why: The sign is flipped, which would make better-than-expected actions less likely.
+    why: >-
+      The advantage Q(s, a) − V(s) says how much better a did than expected.
+      r + γV(s') estimates Q(s, a) and V(s) is the baseline, so only the critic
+      is needed.
+
+  - id: agai-4wjex5
+    type: single
+    difficulty: medium
+    level: understand
+    topics: [PPO]
+    section: "PPO: limit how far one update moves the policy"
+    prompt: What problem does PPO's clipped objective address?
+    options:
+      - id: a
+        text: The bias that bootstrapping adds to the critic's estimates
+        why: Clipping limits how far the policy moves. The critic's bias is still there.
+      - id: b
+        text: One update can shift the policy a lot, which destabilises training
+        correct: true
+      - id: c
+        text: Transitions in a replay buffer go stale as the policy changes
+        why: PPO is on-policy and has no replay buffer. Stale replay is a DQN and IDQN issue.
+      - id: d
+        text: The policy cannot output continuous actions without it
+        why: Any policy network can output continuous actions. The clip is about the size of updates.
+    why: >-
+      A single policy gradient step can move the policy far, and a bad step
+      changes the data collected next. Clipping the new-to-old probability ratio
+      to [1 − ε, 1 + ε] limits each update.
+
+  - id: agai-bk3czb
+    type: multi
+    difficulty: easy
+    level: understand
+    topics: [On-Policy Learning, Off-Policy Learning]
+    section: Comparing the deep RL methods
+    prompt: Which of these deep RL methods are on-policy?
+    options:
+      - id: a
+        text: DQN
+        why: DQN is off-policy. The max in its target lets it learn from replayed transitions chosen by older policies.
+      - id: b
+        text: REINFORCE
+        correct: true
+      - id: c
+        text: A2C
+        correct: true
+      - id: d
+        text: PPO
+        correct: true
+    why: >-
+      Policy gradient methods estimate an expectation over the current policy's
+      own experience, so the data is used once and discarded. PPO allows a few
+      passes over a batch but stays generally on-policy.
+
+  - id: agai-3mtfu3
+    type: multi
+    difficulty: hard
+    level: analyze
+    topics: [Independent DQN, Experience Replay]
+    section: Independent DQN and its stale replay buffer
+    prompt: Which of these can reduce the problem of outdated experience in IDQN?
+    options:
+      - id: a
+        text: Removing the target network
+        why: The target network handles moving targets. Removing it destabilises learning and leaves the old data in place.
+      - id: b
+        text: Storing the agents' action probabilities to compute importance sampling weights
+        correct: true
+      - id: c
+        text: Using a larger replay buffer
+        why: A larger buffer keeps experience from the others' older policies, which makes it worse.
+      - id: d
+        text: Using a higher discount factor
+        why: The discount factor sets how far ahead the agent looks. It has nothing to do with the age of the data.
+      - id: e
+        text: Using a smaller replay buffer
+        correct: true
+    why: >-
+      A smaller buffer holds only recent transitions, from policies close to the
+      others' current ones. Stored action probabilities let a replayed
+      transition be reweighted by how likely the others are to act that way now.
+
+  - id: agai-2fzmqm
+    type: single
+    difficulty: medium
+    level: understand
+    topics: [Independent Learning, REINFORCE, Independent DQN]
+    section: Independent policy gradient methods
+    prompt: Why can independent REINFORCE adapt faster to other learning agents than IDQN?
+    options:
+      - id: a
+        text: It updates on recent experience, generated by the current policies of the other agents
+        correct: true
+      - id: b
+        text: It reads the current policy parameters of the other agents during training
+        why: Independent learners have no access to the other agents' parameters.
+      - id: c
+        text: It reuses old experience, which covers more policies of the other agents
+        why: Reusing old experience is IDQN's replay, the source of the problem.
+      - id: d
+        text: It uses a centralised critic that is conditioned on the joint action of all agents
+        why: A centralised critic belongs to CTDE. Independent REINFORCE has no critic at all.
+    why: >-
+      REINFORCE is on-policy: each update uses the latest episodes and then
+      discards them. IDQN's buffer keeps replaying experience from the others'
+      old policies.
