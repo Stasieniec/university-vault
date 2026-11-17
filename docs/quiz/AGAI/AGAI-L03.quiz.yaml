@@ -366,9 +366,8 @@ questions:
         text: Each player's change gives the other a reason to counter it
         correct: true
     why: >-
-      If the goalkeeper leans to heads, the kicker should lean to tails, so the
-      goalkeeper should switch to tails, and so on. Best responses chase each other
-      around the 0.5 equilibrium.
+      If I lean to heads, you should lean to tails, so I should switch to tails,
+      and so on. Best responses chase each other around the 0.5 equilibrium.
 
   - id: agai-wfez43
     type: multi

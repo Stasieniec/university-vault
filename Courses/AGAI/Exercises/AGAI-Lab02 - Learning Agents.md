@@ -84,7 +84,7 @@ Each agent runs regular [[Q-Learning]] with a table, $Q(s,a) \leftarrow Q(s,a) +
 
 ### Why the learners take the other's coins
 
-The learners get good at the individual task (several times more pickups than random agents), but their restraint stays near one half (about 56% own colour) and their welfare stays close to that of random agents.
+The learners get good at the individual task (several times more pickups than random agents), but their restraint stays near one half (about 56% own colour), so their welfare stays low, not far above that of random agents (about 0).
 
 **Why:** an agent's own reward ignores the cost it causes. Taking a coin pays +1 whatever its colour. Leaving the other's coin pays 0, and if the other then takes it, still 0. The −2 from taking the other's coin falls on the other agent and never enters the taker's Q-values. So for its own reward taking every reachable coin is always at least as good as leaving it, the role D plays in the Prisoner's Dilemma. When both agents do this, half the pickups add +1 to the total and half add $+1 - 2 = -1$:
 
@@ -104,7 +104,7 @@ The **training budget** is fixed, counted in decisions per agent (each decision 
 
 $$B = \text{updates} \times \text{parallel games} \times \text{steps per episode} = 300 \times 32 \times 16 = 153{,}600.$$
 
-That is about 105 decisions per row without lamps and about 0.4 with 8 lamps. (The code's default is 1,000 updates, which gives 512,000; the conclusion is the same.)
+That is about 105 decisions per row without lamps and about 0.4 with 8 lamps.
 
 With 8 lamps performance drops to near random. The number of rows grows by $2^k$ while the budget stays, so most rows are never visited and the rest only a few times. An unvisited row still holds zeros, so the agent acts at random there. And a table cannot discover that the lamps do not matter, because **rows share nothing**: what is learned under one lamp pattern is never used under another, so the same lesson has to be learned 256 times over, from 1/256 of the data each time.
 
@@ -115,8 +115,8 @@ A learner needs **generalisation** to be unaffected: a [[Function Approximation|
 Each agent runs its own [[PPO]] learner (independent PPO): an actor network that outputs action probabilities and is sampled (which is where its exploration comes from, kept alive by an entropy bonus), and a critic network that estimates the state value. [[AGAI-L04 - Deep RL and Intro to Deep MARL|Lecture 4]] covers the method.
 
 - **With 8 lamps PPO is hardly affected**, while the table collapses: the shared weights generalise across lamp patterns.
-- **Without lamps the table does fine** with far less computation: a small state space visited often is a table's best case.
-- **PPO does not solve the social dilemma**: restraint stays near 0.5 and welfare near 0, because each agent still optimises its own reward with the other as environment. **Deep RL solved generalisation, but not the social dilemma**, which comes from the incentives.
+- **Without lamps the table does fine**, and each update costs it less computation than a network update: a small state space visited often is a table's best case.
+- **PPO does not solve the social dilemma**: each agent still optimises its own reward with the other as environment, so taking every coin stays its best response. **Deep RL solved generalisation, but not the social dilemma**, which comes from the incentives.
 - PPO learners in the Stag Hunt would still face equilibrium selection: with one state there is nothing to generalise, and stag still pays only when the partner hunts stag more than 2/3 of the time.
 
 ## What to be able to answer

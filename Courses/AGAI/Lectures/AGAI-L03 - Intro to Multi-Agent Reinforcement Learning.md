@@ -154,7 +154,7 @@ The naive approaches reuse single-agent RL in one of two ways (multi-agent-aware
 > [!definition] Central Q-learning
 > **One Q-function over the state and the joint action**, $Q(s, a^1, \dots, a^N)$, learned by a single learner that **chooses the joint action for all agents**, as if they were one agent.
 
-It sees the value of every joint action, so it can find coordinated optima. Its limits: it has to track and explore $|A|^N$ joint actions, which blows up with the number of agents; it needs a central controller that sees and commands everyone; and (MARL book) it needs the agents' rewards turned into one scalar, which is natural only in fully cooperative games.
+It sees the value of every joint action, so it can find coordinated optima. Its limits: it has to track and explore $|A|^N$ joint actions, which blows up with the number of agents; it needs a central controller that sees and commands everyone; and (from the MARL book, Chapter 5) it needs the agents' rewards turned into one scalar, which is straightforward with a shared reward and unclear in general-sum games.
 
 > [!definition] Independent learning
 > **Each agent runs regular Q-learning on its own actions and its own reward and treats the other agents as part of the environment.** Agent $i$ keeps $Q^i(s, a^i)$; the others' changing behaviour is absorbed into the rewards and transitions it experiences, so its MDP changes over time ($\text{MDP}^i_t \neq \text{MDP}^i_{t+k}$). See [[Independent Learning]].

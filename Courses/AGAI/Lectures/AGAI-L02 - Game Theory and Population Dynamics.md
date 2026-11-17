@@ -99,7 +99,7 @@ A **POSG** models limited sensing: agents receive observations that give incompl
 > - $O_i$: a finite set of observations
 > - $\mathcal{O}_i(o_i \mid a, s)$: the observation function, the probability that agent $i$ observes $o_i$ when joint action $a$ led to state $s$
 
-Since the agent never sees the state, its policy conditions on its own observation history, $h_i^t = (o_i^0, \dots, o_i^{t-1})$.
+Since the agent does not see the full state, its policy conditions on its own observation history, $h_i^t = (o_i^0, \dots, o_i^{t-1})$.
 
 ## Solution concepts: what will agents do, and what is good?
 
@@ -214,7 +214,7 @@ C = conventional, D = dangerous:
 | **C** | 3, 3 | 2, 8 |
 | **D** | 8, 2 | $-2$, $-2$ |
 
-The best response is the opposite action: D against C (8 > 3), C against D (2 > $-2$). The symmetric Nash equilibrium is **mixed**: C earns $2 + q$ and D earns $10q - 2$, equal at $q = 4/9$. (The asymmetric pure outcomes (C, D) and (D, C) are also equilibria.) In a population, $\dot x = x(1-x)(4 - 9x)$, and it converges to a stable **coexistence of C and D** at 4/9, because each strategy earns more when it is rare.
+The best response is the opposite action: D against C (8 > 3), C against D (2 > $-2$). The symmetric Nash equilibrium is **mixed**: C earns $2 + q$ and D earns $10q - 2$, equal at $q = 4/9$. (Outside the course material, which names only the mixed equilibrium: the asymmetric pure outcomes (C, D) and (D, C), where one agent yields, are also equilibria.) In a population, $\dot x = x(1-x)(4 - 9x)$, and it converges to a stable **coexistence of C and D** at 4/9, because each strategy earns more when it is rare.
 
 ### Equilibria against population outcomes
 
@@ -222,7 +222,7 @@ The best response is the opposite action: D against C (8 > 3), C against D (2 > 
 |---|---|---|---|
 | Prisoner's Dilemma | (D, D) | (C, C) | all D, from any start |
 | Stag Hunt | (C, C), (D, D), mixed at 2/3 | (C, C) | all C above 2/3, all D below |
-| Hawk-Dove | mixed at 4/9 (and (C, D), (D, C)) | (C, D) or (D, C) | stable mix at 4/9 C |
+| Hawk-Dove | mixed at 4/9 (also (C, D), (D, C), outside the course material) | (C, D) or (D, C) | stable mix at 4/9 C |
 
 ## What to be able to answer
 
@@ -256,9 +256,9 @@ The best response is the opposite action: D against C (8 > 3), C against D (2 > 
 > **(d)** $f_C - f_D = 4x - (2 + x) = 3x - 2$, negative below 2/3 and positive above. From 50%, D earns more, so C shrinks to 0 (all D). From 80%, C earns more ($3.2$ against $2.8$), so C grows to 1 (all C). The interior point 2/3, the mixed equilibrium, is unstable.
 
 > [!exam]- Hawk-Dove has (C, C) = 3, 3; (C, D) = 2, 8; (D, C) = 8, 2; (D, D) = $-2$, $-2$. (a) Give the best responses and the pure Nash equilibria. (b) Which outcomes are Pareto optimal, and which is the social optimum? (c) Find the symmetric mixed equilibrium. (d) What does the replicator dynamics predict for a large population, and why?
-> **Key points:** best response is the opposite action; pure NE (C, D) and (D, C); Pareto optimal (C, C), (C, D), (D, C), social optimum (C, D) and (D, C) with total 10; mixed NE C with probability 4/9; stable coexistence at 4/9 C because each strategy earns more when rare.
+> **Key points:** best response is the opposite action; pure NE (C, D) and (D, C) (outside the course material); Pareto optimal (C, C), (C, D), (D, C), social optimum (C, D) and (D, C) with total 10; mixed NE C with probability 4/9; stable coexistence at 4/9 C because each strategy earns more when rare.
 >
-> **(a)** Against C, D is better (8 > 3); against D, C is better (2 > $-2$). So the pure equilibria are (C, D) and (D, C), where one agent yields.
+> **(a)** Against C, D is better (8 > 3); against D, C is better (2 > $-2$). So the pure equilibria are (C, D) and (D, C), where one agent yields. (The course names only the mixed equilibrium of part (c); the pure ones follow from the best responses but are outside the course material.)
 >
 > **(b)** (D, D) = ($-2$, $-2$) is dominated by every other cell. (C, C), (C, D) and (D, C) cannot be improved for one agent without hurting the other, so they are Pareto optimal. Totals: 6, 10, 10, $-4$, so the social optima are (C, D) and (D, C).
 >
@@ -281,7 +281,7 @@ The best response is the opposite action: D against C (8 > 3), C against D (2 > 
 > For each agent, a set of observations and an observation function.
 
 > [!card]- Why does a POSG policy condition on the observation history?
-> The agent never sees the state, only incomplete observations of it.
+> The agent does not see the full state, only incomplete observations of it.
 
 > [!card]- Two agents choose once, at the same time, and payoffs depend only on the action pair. Which model fits best?
 > A normal-form game.
@@ -370,8 +370,8 @@ The best response is the opposite action: D against C (8 > 3), C against D (2 > 
 > [!card]- Multiple selection: which are part of a stochastic game? (A) A set of states. (B) A joint policy. (C) A transition function over joint actions. (D) An observation function per agent. (E) A reward function per agent.
 > **A, C and E.** B: policies are chosen by agents. D: that is a POSG.
 
-> [!card]- Multiple selection: which replicator expressions with two strategies are correct? (A) $x(1-x)(f_C - f_D)$ (B) $x(1-x)(f_C + f_D)$ (C) $x(f_C - \bar f)$ (D) $(1-x)(f_C - f_D)$
-> **A and C.** B adds the fitnesses; D drops the factor $x$.
+> [!card]- Multiple selection: which replicator expressions with two strategies are correct? (A) $x(1-x)(f_C - f_D)$ (B) $x(1-x)(f_C + f_D)$ (C) $x(f_C - \bar f)$ (D) $(1-x)(f_C - f_D)$ (E) $x(f_C - f_D)$
+> **A and C.** B adds the fitnesses; D drops the factor $x$; E drops the factor $1 - x$.
 
 ## Links
 

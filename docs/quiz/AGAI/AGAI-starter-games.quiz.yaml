@@ -302,7 +302,6 @@ questions:
       says nothing about efficiency.
 
   - id: agai-v8zdtu
-    status: retired
     type: single
     difficulty: medium
     level: apply

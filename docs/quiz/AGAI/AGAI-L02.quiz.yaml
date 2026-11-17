@@ -900,7 +900,7 @@ questions:
         why: That never holds in a Prisoner's Dilemma. The social optimum compares totals, 2R against T + S.
       - id: b
         text: When R > P
-        why: That always holds, so (C, C) beats (D, D). It must also beat the mixed outcomes, which total T + S.
+        why: That always holds, so (C, C) beats (D, D). It must also beat (C, D) and (D, C), which total T + S.
       - id: c
         text: When 2R ≥ T + S
         correct: true

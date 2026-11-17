@@ -168,7 +168,7 @@ questions:
     why: >-
       Q(C) tracks recent payoffs, and each exploratory D by the partner pays 0
       and cuts Q(C) by 10%. Three zeros in a short stretch take it from 3.8 to
-      2.77, below Q(D), and the partner follows within about three rounds.
+      2.77, below Q(D), and the partner follows within a few rounds.
 
   - id: agai-s3h3ez
     type: truefalse
@@ -179,9 +179,10 @@ questions:
     statement: In the Stag Hunt, exploration moves independent Q-learners from (D,D) to (C,C) about as often as from (C,C) to (D,D).
     answer: false
     why: >-
-      Leaving (D,D) needs about seven rounds in which both explore C at once,
-      with no failure in between, and then a joint switch. One run in 500 made
-      it, and it fell back. Noisy learners drift to (D,D) and stay.
+      Leaving (C,C) takes only a few of the partner's exploratory D moves, which
+      pay 0 and push Q(C) below Q(D). Leaving (D,D) needs both agents to explore
+      C in the same rounds, several times, and then switch together. Noisy
+      learners drift to (D,D) and stay.
 
   - id: agai-wv78k5
     type: single
@@ -308,8 +309,8 @@ questions:
         correct: true
     why: >-
       With k lamps the table has 2^k times as many rows, and nothing learned in one
-      row carries over to another. With 8 lamps the average state is seen under
-      twice, so play is close to random.
+      row carries over to another. With 8 lamps the budget gives about 0.4
+      decisions per row, so most rows are never visited and play there is random.
 
   - id: agai-y9fesh
     status: retired
@@ -375,8 +376,8 @@ questions:
     answer: true
     why: >-
       PPO's network shares one set of weights across all observations, so
-      experience under one lamp pattern is used under every other. The table
-      drops from 16.9 to 6.6 pickups.
+      experience under one lamp pattern is used under every other. The table,
+      by contrast, falls towards random play.
 
   - id: agai-9pfak7
     type: truefalse

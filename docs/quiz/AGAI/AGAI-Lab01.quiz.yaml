@@ -191,8 +191,8 @@ questions:
         why: WSLS has no forgiveness timer. It reacts only to whether the last round was a win.
     why: >-
       WSLS stays after a win (3 or 5) and switches after a loss (0 or 1). Against
-      AllD, mutual defection pays 1, a loss, so it switches to C and is suckered,
-      round after round.
+      AllD, mutual defection pays 1, a loss, so it switches to C and is suckered
+      every other round.
 
   - id: agai-2xznrc
     type: single
